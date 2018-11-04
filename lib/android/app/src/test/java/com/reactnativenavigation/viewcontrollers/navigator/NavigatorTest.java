@@ -2,6 +2,8 @@ package com.reactnativenavigation.viewcontrollers.navigator;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.view.ViewCompat;
+import android.support.v4.view.WindowInsetsCompat;
 import android.view.View;
 import android.widget.FrameLayout;
 
@@ -16,8 +18,8 @@ import com.reactnativenavigation.parse.params.Bool;
 import com.reactnativenavigation.parse.params.Text;
 import com.reactnativenavigation.presentation.BottomTabPresenter;
 import com.reactnativenavigation.presentation.BottomTabsPresenter;
-import com.reactnativenavigation.presentation.Presenter;
 import com.reactnativenavigation.presentation.OverlayManager;
+import com.reactnativenavigation.presentation.Presenter;
 import com.reactnativenavigation.react.EventEmitter;
 import com.reactnativenavigation.utils.CommandListener;
 import com.reactnativenavigation.utils.CommandListenerAdapter;
@@ -42,6 +44,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -104,6 +107,26 @@ public class NavigatorTest extends BaseTest {
 
         activityController.visible();
         activityController.postCreate(Bundle.EMPTY);
+    }
+
+    @Test
+    public void createView_registersWindowInsetsListenerOnDecorView() {
+        Navigator spy = spy(uut);
+        ViewCompat.requestApplyInsets(spy.getView());
+        verify(spy).onApplyWindowInsets(eq(spy.getView()), any(WindowInsetsCompat.class));
+    }
+
+    @Test
+    public void onApplyWindowInsets_delegatesToRoot() {
+
+        SimpleViewController root = spy(child1);
+        uut.setRoot(root, new CommandListenerAdapter());
+
+        View view = Mockito.mock(View.class);
+        WindowInsetsCompat insets = Mockito.mock(WindowInsetsCompat.class);
+        uut.onApplyWindowInsets(view, insets);
+
+        verify(root).onApplyWindowInsets(view, insets);
     }
 
     @Test

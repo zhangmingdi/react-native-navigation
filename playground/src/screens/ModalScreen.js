@@ -18,7 +18,7 @@ class ModalScreen extends Component {
       },
       layout: {
         orientation: ['portrait'],
-        backgroundColor: '#f5fcff'
+        _backgroundColor: '#f5fcff'
       },
       _animations: {
         showModal: {
@@ -138,6 +138,12 @@ class ModalScreen extends Component {
   onShowModalWithDeepStack() {
     Navigation.showModal({
       stack: {
+        options: {
+          statusBar: {
+            visible: true,
+            drawBehind: false
+          }
+        },
         children: [
           {
             component: {
@@ -174,7 +180,7 @@ const styles = {
     flexGrow: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#f5fcff'
+    backgroundColor: '#8fff99'
   },
   h1: {
     fontSize: 24,

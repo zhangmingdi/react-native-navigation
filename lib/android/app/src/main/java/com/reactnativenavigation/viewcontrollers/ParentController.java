@@ -101,6 +101,7 @@ public abstract class ParentController<T extends ViewGroup> extends ChildControl
         if (isRoot()) {
             presenter.applyRootOptions(getView(), options);
         }
+        if (isFirstAppear()) presenter.applyStatusBarVisible(resolveCurrentOptions(presenter.getDefaultOptions()).statusBar);
     }
 
     @CallSuper
@@ -108,7 +109,7 @@ public abstract class ParentController<T extends ViewGroup> extends ChildControl
 
     }
 
-	@Override
+    @Override
 	public void destroy() {
 		super.destroy();
 		for (ViewController child : getChildControllers()) {

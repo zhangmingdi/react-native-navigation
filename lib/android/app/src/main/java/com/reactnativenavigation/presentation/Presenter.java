@@ -3,6 +3,7 @@ package com.reactnativenavigation.presentation;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Build;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup.MarginLayoutParams;
 
@@ -18,6 +19,10 @@ public class Presenter {
 
     private Activity activity;
     private Options defaultOptions;
+
+    public Options getDefaultOptions() {
+        return defaultOptions;
+    }
 
     public Presenter(Activity activity, Options defaultOptions) {
         this.activity = activity;
@@ -36,7 +41,7 @@ public class Presenter {
         Options withDefaultOptions = options.copy().withDefaultOptions(defaultOptions);
         applyOrientation(withDefaultOptions.layout.orientation);
         applyViewOptions(view, withDefaultOptions);
-        applyStatusBarOptions(view, withDefaultOptions.statusBar);
+        applyStatusBarOptions(withDefaultOptions.statusBar);
     }
 
     public void applyRootOptions(View view, Options options) {
@@ -44,9 +49,9 @@ public class Presenter {
         setDrawBehindStatusBar(view, withDefaultOptions.statusBar);
     }
 
-    public void onViewBroughtToFront(View view, Options options) {
+    public void onViewBroughtToFront(Options options) {
         Options withDefaultOptions = options.copy().withDefaultOptions(defaultOptions);
-        applyStatusBarOptions(view, withDefaultOptions.statusBar);
+        applyStatusBarOptions(withDefaultOptions.statusBar);
     }
 
     private void applyOrientation(OrientationOptions options) {
@@ -66,17 +71,25 @@ public class Presenter {
         }
     }
 
-    private void applyStatusBarOptions(View view, StatusBarOptions statusBar) {
+    private void applyStatusBarOptions(StatusBarOptions statusBar) {
         setStatusBarBackgroundColor(statusBar);
         setTextColorScheme(statusBar.textColorScheme);
-        setStatusBarVisible(view, statusBar.visible, statusBar.drawBehind);
+//        setStatusBarVisible(statusBar);
     }
 
-    private void setStatusBarVisible(View view, Bool visible, Bool drawBehind) {
-        if (visible.isFalse()) {
-            view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_FULLSCREEN);
-        } else if (drawBehind.isTrue()) {
-            view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+    public void applyStatusBarVisible(StatusBarOptions statusBar) {
+        Log.i("Presenter", "setStatusBarVisible ");
+        View _view = activity.getWindow().getDecorView();
+        int visibility = _view.getSystemUiVisibility();
+        if (statusBar.visible.isFalse()) {
+             visibility |= View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_FULLSCREEN;
+            _view.setSystemUiVisibility(visibility);
+        } else if (statusBar.drawBehind.isTrue()) {
+            visibility |= View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
+            _view.setSystemUiVisibility(visibility);
+        } else if (statusBar.visible.isTrueOrUndefined()) {
+            visibility &= ~View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN  & ~View.SYSTEM_UI_FLAG_FULLSCREEN;
+            _view.setSystemUiVisibility(visibility);
         }
     }
 
@@ -154,5 +167,4 @@ public class Presenter {
             }
         }
     }
-
 }

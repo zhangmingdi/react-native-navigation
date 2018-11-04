@@ -4,12 +4,15 @@ import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RestrictTo;
+import android.support.v4.view.ViewCompat;
+import android.support.v4.view.WindowInsetsCompat;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.reactnativenavigation.parse.Options;
-import com.reactnativenavigation.presentation.Presenter;
 import com.reactnativenavigation.presentation.OverlayManager;
+import com.reactnativenavigation.presentation.Presenter;
 import com.reactnativenavigation.react.EventEmitter;
 import com.reactnativenavigation.utils.CommandListener;
 import com.reactnativenavigation.utils.CompatUtils;
@@ -28,7 +31,7 @@ public class Navigator extends ParentController {
     private final ModalStack modalStack;
     private final OverlayManager overlayManager;
     private final RootPresenter rootPresenter;
-    private ViewController root;
+    private @Nullable ViewController root;
     private final FrameLayout rootLayout;
     private final FrameLayout modalsLayout;
     private final FrameLayout overlaysLayout;
@@ -46,6 +49,7 @@ public class Navigator extends ParentController {
         return defaultOptions;
     }
 
+    @SuppressWarnings("WeakerAccess")
     public FrameLayout getRootLayout() {
         return rootLayout;
     }
@@ -55,8 +59,8 @@ public class Navigator extends ParentController {
     }
 
     public void setContentLayout(ViewGroup contentLayout) {
-        this.contentLayout = contentLayout;
-        contentLayout.addView(rootLayout);
+        this.contentLayout = contentLayout; contentLayout.setContentDescription("contentLayout");
+        contentLayout.addView(rootLayout); rootLayout.setContentDescription("rootLayout");
         contentLayout.addView(modalsLayout);
         contentLayout.addView(overlaysLayout);
     }
@@ -69,6 +73,7 @@ public class Navigator extends ParentController {
         rootLayout = new FrameLayout(getActivity());
         modalsLayout = new FrameLayout(getActivity());
         overlaysLayout = new FrameLayout(getActivity());
+        getActivity().getWindow().getDecorView().setContentDescription("DecorView");
     }
 
     public void bindViews() {
@@ -80,7 +85,19 @@ public class Navigator extends ParentController {
     @NonNull
     @Override
     protected ViewGroup createView() {
+        ViewCompat.setOnApplyWindowInsetsListener(getActivity().getWindow().getDecorView(), this);
         return rootLayout;
+    }
+
+    @Override
+    public WindowInsetsCompat onApplyWindowInsets(@Nullable View v, @Nullable WindowInsetsCompat insets) {
+        if (v == null || insets == null) return insets;
+        WindowInsetsCompat defaultInsets = ViewCompat.onApplyWindowInsets(v, insets);
+
+        if (root != null) {
+
+        }
+        return insets;
     }
 
     @NonNull
@@ -91,9 +108,9 @@ public class Navigator extends ParentController {
 
     @Override
     public boolean handleBack(CommandListener listener) {
-        if (modalStack.isEmpty() && root == null) return false;
-        if (modalStack.isEmpty()) return root.handleBack(listener);
-        return modalStack.handleBack(listener, root);
+        if (!modalStack.isEmpty()) return modalStack.handleBack(listener, root);
+        if (root != null) return root.handleBack(listener);
+        return false;
     }
 
     @Override
@@ -108,13 +125,17 @@ public class Navigator extends ParentController {
     }
 
     public void destroyViews() {
+        ViewCompat.setOnApplyWindowInsetsListener(rootLayout, null);
         modalStack.destroy();
         overlayManager.destroy();
         destroyRoot();
     }
 
     private void destroyRoot() {
-        if (root != null) root.destroy();
+        if (root != null) {
+            ViewCompat.setOnApplyWindowInsetsListener(view, null);
+            root.destroy();
+        }
         root = null;
     }
 

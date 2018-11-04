@@ -6,6 +6,9 @@ import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
+import android.support.v4.view.OnApplyWindowInsetsListener;
+import android.support.v4.view.ViewCompat;
+import android.support.v4.view.WindowInsetsCompat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewManager;
@@ -27,11 +30,12 @@ import com.reactnativenavigation.views.element.Element;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class ViewController<T extends ViewGroup> implements ViewTreeObserver.OnGlobalLayoutListener, ViewGroup.OnHierarchyChangeListener {
+public abstract class ViewController<T extends ViewGroup> implements ViewTreeObserver.OnGlobalLayoutListener, ViewGroup.OnHierarchyChangeListener, OnApplyWindowInsetsListener {
 
     private Runnable onAppearedListener;
     private boolean appearEventPosted;
     private boolean isFirstLayout = true;
+    private boolean isFirstAppear = true;
     private Bool waitForRender = new NullBool();
 
     public interface ViewVisibilityListener {
@@ -122,6 +126,11 @@ public abstract class ViewController<T extends ViewGroup> implements ViewTreeObs
         
     }
 
+    @Override
+    public WindowInsetsCompat onApplyWindowInsets(View view, WindowInsetsCompat insets) {
+        return insets;
+    }
+
     public Activity getActivity() {
         return activity;
     }
@@ -198,6 +207,7 @@ public abstract class ViewController<T extends ViewGroup> implements ViewTreeObs
             parentController.clearOptions();
             if (getView() instanceof Component) parentController.applyChildOptions(options, (Component) getView());
         });
+        isFirstAppear = false;
         if (onAppearedListener != null && !appearEventPosted) {
             appearEventPosted = true;
             UiThread.post(() -> {
@@ -205,6 +215,14 @@ public abstract class ViewController<T extends ViewGroup> implements ViewTreeObs
                 onAppearedListener = null;
             });
         }
+    }
+
+    public void onViewReappeared() {
+
+    }
+
+    boolean isFirstAppear() {
+        return isFirstAppear;
     }
 
     public void onViewWillDisappear() {
@@ -229,6 +247,7 @@ public abstract class ViewController<T extends ViewGroup> implements ViewTreeObs
         if (view != null) {
             view.getViewTreeObserver().removeOnGlobalLayoutListener(this);
             view.setOnHierarchyChangeListener(null);
+            ViewCompat.setOnApplyWindowInsetsListener(view, null);
             if (view.getParent() instanceof ViewGroup) {
                 ((ViewManager) view.getParent()).removeView(view);
             }

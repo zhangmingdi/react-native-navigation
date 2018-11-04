@@ -63,6 +63,7 @@ public class ModalStack {
                 @Override
                 public void onSuccess(String childId) {
                     eventEmitter.emitModalDismissed(toDismiss.getId(), 1);
+                    toAdd.onViewReappeared();
                     super.onSuccess(childId);
                 }
             };
