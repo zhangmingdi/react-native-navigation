@@ -1,13 +1,11 @@
 package com.reactnativenavigation.viewcontrollers.navigator;
 
 import android.app.Activity;
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RestrictTo;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.WindowInsetsCompat;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -21,13 +19,11 @@ import com.reactnativenavigation.utils.CommandListener;
 import com.reactnativenavigation.utils.CompatUtils;
 import com.reactnativenavigation.utils.StatusBarHelper;
 import com.reactnativenavigation.utils.Task;
-import com.reactnativenavigation.utils.ViewUtils;
 import com.reactnativenavigation.viewcontrollers.ChildControllersRegistry;
 import com.reactnativenavigation.viewcontrollers.ParentController;
 import com.reactnativenavigation.viewcontrollers.ViewController;
 import com.reactnativenavigation.viewcontrollers.modal.ModalStack;
 import com.reactnativenavigation.viewcontrollers.stack.StackController;
-import com.reactnativenavigation.views.RootFrameLayout;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -69,11 +65,6 @@ public class Navigator extends ParentController {
         contentLayout.addView(rootLayout); rootLayout.setContentDescription("rootLayout");
         contentLayout.addView(modalsLayout);
         contentLayout.addView(overlaysLayout);
-
-        rootLayout.setBackgroundColor(Color.GRAY);
-        contentLayout.setBackgroundColor(Color.YELLOW);
-        getActivity().getWindow().getDecorView().setBackgroundColor(Color.MAGENTA);
-        getActivity().getWindow().getDecorView().setContentDescription("DecorView");
     }
 
     public Navigator(final Activity activity, ChildControllersRegistry childRegistry, ModalStack modalStack, OverlayManager overlayManager, RootPresenter rootPresenter) {
@@ -81,7 +72,7 @@ public class Navigator extends ParentController {
         this.modalStack = modalStack;
         this.overlayManager = overlayManager;
         this.rootPresenter = rootPresenter;
-        rootLayout = new RootFrameLayout(getActivity());
+        rootLayout = new FrameLayout(getActivity());
         modalsLayout = new FrameLayout(getActivity());
         overlaysLayout = new FrameLayout(getActivity());
     }
@@ -104,23 +95,13 @@ public class Navigator extends ParentController {
         WindowInsetsCompat defaultInsets = ViewCompat.onApplyWindowInsets(v, insets);
         if (v == null || insets == null) return defaultInsets;
         if (root != null) {
-            FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) rootLayout.getLayoutParams();
-            int top = insets.getSystemWindowInsetTop();
-            int stableTop = insets.getStableInsetTop();
-
             StatusBarOptions rootSBO = root.resolveCurrentOptions(defaultOptions).statusBar;
             if (rootSBO.drawBehind.isFalseOrUndefined()) {
-                int y = ViewUtils.getLocationOnScreen(rootLayout).y;
-                int height = rootLayout.getHeight();
-
-                Log.d("Navigator", "y: " + y + " topMargin: " + lp.topMargin + " [top: " + top + " height: " + height + " , stableTop: " + stableTop + "] isStatusBarVisible: " + StatusBarHelper.isShown(getActivity()));
-                if (y == top && lp.topMargin == 0 && !StatusBarHelper.isShown(getActivity())) {
-                    lp.topMargin = stableTop;
-                    return defaultInsets;
-                }
-                else if (y == top && lp.topMargin == stableTop) {
+                FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) rootLayout.getLayoutParams();
+                if (StatusBarHelper.isShown(getActivity())) {
                     lp.topMargin = 0;
-                    return defaultInsets;
+                } else {
+                    lp.topMargin = insets.getStableInsetTop();
                 }
             }
         }

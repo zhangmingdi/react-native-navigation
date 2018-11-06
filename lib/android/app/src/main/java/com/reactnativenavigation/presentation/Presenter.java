@@ -3,7 +3,6 @@ package com.reactnativenavigation.presentation;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Build;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup.MarginLayoutParams;
 
@@ -74,21 +73,22 @@ public class Presenter {
     private void applyStatusBarOptions(StatusBarOptions statusBar) {
         setStatusBarBackgroundColor(statusBar);
         setTextColorScheme(statusBar.textColorScheme);
-//        setStatusBarVisible(statusBar);
     }
 
     public void applyStatusBarVisible(StatusBarOptions statusBar) {
-        Log.i("Presenter", "setStatusBarVisible ");
         View view = activity.getWindow().getDecorView();
         int visibility = view.getSystemUiVisibility();
         if (statusBar.visible.isFalse()) {
-             visibility |= View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_FULLSCREEN;
+             visibility |= View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
             view.setSystemUiVisibility(visibility);
         } else if (statusBar.drawBehind.isTrue()) {
             visibility |= View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
             view.setSystemUiVisibility(visibility);
         } else if (statusBar.visible.isTrueOrUndefined()) {
-            visibility &= ~View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN  & ~View.SYSTEM_UI_FLAG_FULLSCREEN;
+            visibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                          | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
             view.setSystemUiVisibility(visibility);
         }
     }
