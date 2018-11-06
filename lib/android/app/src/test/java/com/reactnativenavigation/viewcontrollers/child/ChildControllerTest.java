@@ -48,6 +48,14 @@ public class ChildControllerTest extends BaseTest {
         uut.onViewDisappear();
         verify(childRegistry, times(1)).onViewDisappear(uut);
     }
+//
+//    @Test
+//    public void onApplyWindowInsets() {
+//        assertThat(uut.isRoot()).isFalse();
+//        View view = Mockito.mock(View.class);
+//        WindowInsetsCompat insets = Mockito.mock(WindowInsetsCompat.class);
+//        assertThat(uut.onApplyWindowInsets(view, insets)).isEqualTo(insets);
+//    }
 
     @Test
     public void applyOptions_applyRootOptionsIfRoot() {

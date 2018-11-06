@@ -2,8 +2,6 @@ package com.reactnativenavigation.viewcontrollers;
 
 import android.app.Activity;
 import android.support.annotation.CallSuper;
-import android.support.v4.view.WindowInsetsCompat;
-import android.view.View;
 import android.view.ViewGroup;
 
 import com.reactnativenavigation.parse.Options;
@@ -29,34 +27,6 @@ public abstract class ChildController<T extends ViewGroup> extends ViewControlle
     @CallSuper
     public void setDefaultOptions(Options defaultOptions) {
         presenter.setDefaultOptions(defaultOptions);
-    }
-
-    @Override
-    public WindowInsetsCompat onApplyWindowInsets(View view, WindowInsetsCompat insets) {
-        return super.onApplyWindowInsets(view, insets);
-//        ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) rootLayout.getLayoutParams();
-//        int top = insets.getSystemWindowInsetTop();
-//        int stableTop = insets.getStableInsetTop();
-//        int y = ViewUtils.getLocationOnScreen(rootLayout).y;
-//        StatusBarOptions sbo = root.resolveCurrentOptions(defaultOptions).statusBar;
-//        if (sbo.drawBehind.isFalseOrUndefined()) {
-//            Log.d("Navigator", "y: " + y + " topMargin: " + lp.topMargin + " [top: " + top + ", stableTop: " + stableTop + "] isStatusBarVisible: " + StatusBarHelper
-//                    .isShown(getActivity()));
-//            if (y == top && lp.topMargin == 0 && !StatusBarHelper.isShown(getActivity())) {
-//                lp.topMargin = stableTop;
-//                rootLayout.requestLayout();
-//            }
-//            else if (y == top && lp.topMargin == stableTop) {
-//                lp.topMargin = 0;
-//            }
-//        }
-//        Log.v("Navigator", "y: " + y + " topMargin: " + lp.topMargin + " [top: " + top + ", stableTop: " + stableTop + "]");
-//        return defaultInsets.replaceSystemWindowInsets(
-//                defaultInsets.getSystemWindowInsetLeft(),
-//                stableTop,
-//                defaultInsets.getSystemWindowInsetRight(),
-//                defaultInsets.getSystemWindowInsetBottom()
-//        );
     }
 
     @Override
@@ -107,7 +77,7 @@ public abstract class ChildController<T extends ViewGroup> extends ViewControlle
         super.destroy();
     }
 
-    protected boolean isRoot() {
+    public boolean isRoot() {
         return getParentController() == null &&
                 !(this instanceof Navigator) &&
                 getView().getParent() != null;

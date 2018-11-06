@@ -43,6 +43,8 @@ public class ModalPresenter {
         toAdd.setWaitForRender(options.animations.showModal.waitForRender);
         modalsLayout.addView(toAdd.getView());
         if (options.animations.showModal.enabled.isTrueOrUndefined()) {
+//            toAdd.getView().setVisibility(View.INVISIBLE);
+//            toAdd.getView().setAlpha(0);
             if (options.animations.showModal.waitForRender.isTrue()) {
                 toAdd.setOnAppearedListener(() -> animateShow(toAdd, toRemove, listener, options));
             } else {
@@ -59,6 +61,11 @@ public class ModalPresenter {
 
     private void animateShow(ViewController toAdd, ViewController toRemove, CommandListener listener, Options options) {
         animator.show(toAdd.getView(), options.animations.showModal, new AnimatorListenerAdapter() {
+//            @Override
+//            public void onAnimationStart(Animator animation) {
+//                toAdd.getView().setVisibility(View.VISIBLE);
+//            }
+
             @Override
             public void onAnimationEnd(Animator animation) {
                 onShowModalEnd(toAdd, toRemove, listener);

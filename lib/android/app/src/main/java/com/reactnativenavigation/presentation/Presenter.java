@@ -79,17 +79,17 @@ public class Presenter {
 
     public void applyStatusBarVisible(StatusBarOptions statusBar) {
         Log.i("Presenter", "setStatusBarVisible ");
-        View _view = activity.getWindow().getDecorView();
-        int visibility = _view.getSystemUiVisibility();
+        View view = activity.getWindow().getDecorView();
+        int visibility = view.getSystemUiVisibility();
         if (statusBar.visible.isFalse()) {
              visibility |= View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_FULLSCREEN;
-            _view.setSystemUiVisibility(visibility);
+            view.setSystemUiVisibility(visibility);
         } else if (statusBar.drawBehind.isTrue()) {
             visibility |= View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
-            _view.setSystemUiVisibility(visibility);
+            view.setSystemUiVisibility(visibility);
         } else if (statusBar.visible.isTrueOrUndefined()) {
             visibility &= ~View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN  & ~View.SYSTEM_UI_FLAG_FULLSCREEN;
-            _view.setSystemUiVisibility(visibility);
+            view.setSystemUiVisibility(visibility);
         }
     }
 

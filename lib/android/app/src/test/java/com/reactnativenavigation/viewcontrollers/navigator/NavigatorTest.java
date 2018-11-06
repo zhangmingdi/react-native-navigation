@@ -118,7 +118,6 @@ public class NavigatorTest extends BaseTest {
 
     @Test
     public void onApplyWindowInsets_delegatesToRoot() {
-
         SimpleViewController root = spy(child1);
         uut.setRoot(root, new CommandListenerAdapter());
 
@@ -128,6 +127,13 @@ public class NavigatorTest extends BaseTest {
 
         verify(root).onApplyWindowInsets(view, insets);
     }
+
+//    @Test
+//    public void onApplyWindowInsets_handlesNullRoot() {
+//        View view = Mockito.mock(View.class);
+//        WindowInsetsCompat insets = Mockito.mock(WindowInsetsCompat.class);
+//        assertThat(uut.onApplyWindowInsets(view, insets)).isEqualTo(insets);
+//    }
 
     @Test
     public void bindViews() {
