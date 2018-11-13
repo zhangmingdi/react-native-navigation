@@ -4,20 +4,21 @@ import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RestrictTo;
+import android.support.v4.view.OnApplyWindowInsetsListener;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.WindowInsetsCompat;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import com.reactnativenavigation.adapters.WindowInsetsAdapter;
 import com.reactnativenavigation.parse.Options;
-import com.reactnativenavigation.parse.StatusBarOptions;
 import com.reactnativenavigation.presentation.OverlayManager;
 import com.reactnativenavigation.presentation.Presenter;
 import com.reactnativenavigation.react.EventEmitter;
 import com.reactnativenavigation.utils.CommandListener;
 import com.reactnativenavigation.utils.CompatUtils;
-import com.reactnativenavigation.utils.StatusBarHelper;
 import com.reactnativenavigation.utils.Task;
 import com.reactnativenavigation.viewcontrollers.ChildControllersRegistry;
 import com.reactnativenavigation.viewcontrollers.ParentController;
@@ -28,7 +29,7 @@ import com.reactnativenavigation.viewcontrollers.stack.StackController;
 import java.util.Collection;
 import java.util.Collections;
 
-public class Navigator extends ParentController {
+public class Navigator extends ParentController implements OnApplyWindowInsetsListener {
 
     private final ModalStack modalStack;
     private final OverlayManager overlayManager;
@@ -39,6 +40,7 @@ public class Navigator extends ParentController {
     private final FrameLayout overlaysLayout;
     private ViewGroup contentLayout;
     private Options defaultOptions = new Options();
+    private WindowInsetsAdapter windowInsetsAdapter = new WindowInsetsAdapter();
 
     @Override
     public void setDefaultOptions(Options defaultOptions) {
@@ -86,25 +88,20 @@ public class Navigator extends ParentController {
     @NonNull
     @Override
     protected ViewGroup createView() {
-        ViewCompat.setOnApplyWindowInsetsListener(getActivity().getWindow().getDecorView(), this);
+        windowInsetsAdapter.setOnApplyWindowInsetsListener(getActivity().getWindow().getDecorView(), this);
         return rootLayout;
     }
 
     @Override
     public WindowInsetsCompat onApplyWindowInsets(@Nullable View v, @Nullable WindowInsetsCompat insets) {
-        WindowInsetsCompat defaultInsets = ViewCompat.onApplyWindowInsets(v, insets);
+        int st = insets.getStableInsetTop();
+        int sb = insets.getStableInsetBottom();
+        int syst = insets.getSystemWindowInsetTop();
+        int sysb = insets.getSystemWindowInsetBottom();
+        Log.i("Navigator", "st: " + st + " sb: " + sb + " sysb: " + sysb + " syst: " + syst);
+        WindowInsetsCompat defaultInsets = windowInsetsAdapter.onApplyWindowInsets(v, insets);
         if (v == null || insets == null) return defaultInsets;
-        if (root != null) {
-            StatusBarOptions rootSBO = root.resolveCurrentOptions(defaultOptions).statusBar;
-            if (rootSBO.drawBehind.isFalseOrUndefined()) {
-                FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) rootLayout.getLayoutParams();
-                if (StatusBarHelper.isShown(getActivity())) {
-                    lp.topMargin = 0;
-                } else {
-                    lp.topMargin = insets.getStableInsetTop();
-                }
-            }
-        }
+        if (root != null) root.onApplyWindowInsets(insets);
         return defaultInsets;
     }
 
@@ -152,7 +149,7 @@ public class Navigator extends ParentController {
 
     }
 
-    public void setRoot(final ViewController viewController, CommandListener commandListener) {
+    public void setRoot(@NonNull final ViewController viewController, CommandListener commandListener) {
         destroyRoot();
         if (isRootNotCreated()) {
             removePreviousContentView();
@@ -160,6 +157,7 @@ public class Navigator extends ParentController {
         }
         root = viewController;
         rootPresenter.setRoot(root, defaultOptions, commandListener);
+        windowInsetsAdapter.requestApplyInsets(root.getView());
     }
 
     private void removePreviousContentView() {
@@ -255,5 +253,10 @@ public class Navigator extends ParentController {
     @RestrictTo(RestrictTo.Scope.TESTS)
     FrameLayout getModalsLayout() {
         return modalsLayout;
+    }
+
+    @RestrictTo(RestrictTo.Scope.TESTS)
+    void setWindowInsetsAdapter(WindowInsetsAdapter adapter) {
+        this.windowInsetsAdapter = adapter;
     }
 }

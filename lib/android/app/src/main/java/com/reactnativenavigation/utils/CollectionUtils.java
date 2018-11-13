@@ -83,6 +83,26 @@ public class CollectionUtils {
         return null;
     }
 
+    public interface Reducer<S, T> {
+        S reduce(T item, S currentValue);
+    }
+
+    public static <S, T> S reduce(Collection<T> items, S initialValue, Reducer<S, T> reducer) {
+        S currentValue = initialValue;
+        for (T item : items) {
+            currentValue = reducer.reduce(item, currentValue);
+        }
+        return currentValue;
+    }
+
+    public static <S, T> Collection<T> cast(Collection<S> items, Class<T> clazz) {
+        List<T> result = new ArrayList<>();
+        for (S item : items) {
+            result.add((T) item);
+        }
+        return result;
+    }
+
     private static @NonNull <T> Collection<T> get(@Nullable Collection<T> t) {
         return t == null ? Collections.EMPTY_LIST : t;
     }

@@ -53,7 +53,7 @@ public class TopTabsController extends ParentController<TopTabsViewPager> {
 
     @NonNull
     @Override
-    public Collection<? extends ViewController> getChildControllers() {
+    public Collection<ViewController> getChildControllers() {
         return tabs;
     }
 

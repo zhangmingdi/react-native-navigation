@@ -55,6 +55,13 @@ public abstract class ParentController<T extends ViewGroup> extends ChildControl
         return resolveCurrentOptions().withDefaultOptions(defaultOptions);
     }
 
+//    public boolean isDrawnBehind() {
+//        return reduce(getChildControllers(),
+//                resolveCurrentOptions(presenter.getDefaultOptions()).statusBar.drawBehind.get(false),
+//                (child, currentValue) -> currentValue | ((ChildController) child).isDrawnBehind()
+//        );
+//    }
+
     protected abstract ViewController getCurrentChild();
 
     @NonNull

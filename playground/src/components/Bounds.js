@@ -4,7 +4,7 @@ const { View } = require('react-native');
 module.exports = (props) => {
   return (
     <View style={{
-      borderWidth: 0.5,
+      borderWidth: 1,
       borderColor: 'red',
       flex: 1
     }}>

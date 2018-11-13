@@ -6,7 +6,6 @@ import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
-import android.support.v4.view.OnApplyWindowInsetsListener;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.WindowInsetsCompat;
 import android.view.View;
@@ -30,7 +29,9 @@ import com.reactnativenavigation.views.element.Element;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class ViewController<T extends ViewGroup> implements ViewTreeObserver.OnGlobalLayoutListener, ViewGroup.OnHierarchyChangeListener, OnApplyWindowInsetsListener {
+import static android.view.ViewGroup.*;
+
+public abstract class ViewController<T extends ViewGroup> implements ViewTreeObserver.OnGlobalLayoutListener, OnHierarchyChangeListener {
 
     private Runnable onAppearedListener;
     private boolean appearEventPosted;
@@ -126,9 +127,8 @@ public abstract class ViewController<T extends ViewGroup> implements ViewTreeObs
         
     }
 
-    @Override
-    public WindowInsetsCompat onApplyWindowInsets(View view, WindowInsetsCompat insets) {
-        return insets;
+    public void onApplyWindowInsets(WindowInsetsCompat insets) {
+
     }
 
     public Activity getActivity() {

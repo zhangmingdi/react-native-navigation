@@ -77,6 +77,11 @@ class WelcomeScreen extends Component {
                         myFunction: () => 'Hello from a function!'
                       },
                       options: {
+                        statusBar: {
+                          drawBehind: false,
+                          backgroundColor: 'transparent',
+                          style: 'dark'
+                        },
                         topBar: {
                           visible: true,
                           animate: false,
@@ -109,6 +114,20 @@ class WelcomeScreen extends Component {
                       name: 'navigation.playground.TextScreen',
                       passProps: {
                         text: 'This is tab 2'
+                      },
+                      options: {
+                        _statusBar: {
+                          drawBehind: true,
+                          backgroundColor: 'transparent',
+                          style: 'dark'
+                        },
+                        topBar: {
+                          drawBehind: true,
+                          visible: false
+                        },
+                        bottomTabs: {
+                          drawBehind: false
+                        }
                       }
                     }
                   }
@@ -123,27 +142,37 @@ class WelcomeScreen extends Component {
               }
             },
             {
-              component: {
-                name: 'navigation.playground.TextScreen',
-                passProps: {
-                  text: 'This is tab 3',
-                  myFunction: () => 'Hello from a function!'
-                },
-                options: {
-                  topBar: {
-                    visible: true,
-                    animate: false
-                  },
-                  bottomTab: {
-                    text: 'Tab 3',
-                    icon: require('../images/one.png'),
-                    selectedIcon: require('../images/one.png')
+              stack: {
+                children: [
+                  {
+                    component: {
+                      name: 'navigation.playground.TextScreen',
+                      passProps: {
+                        text: 'This is tab 3',
+                        myFunction: () => 'Hello from a function!'
+                      },
+                      options: {
+                        topBar: {
+                          visible: false,
+                          animate: false,
+                          drawBehind: true
+                        },
+                        bottomTab: {
+                          text: 'Tab 3',
+                          icon: require('../images/one.png'),
+                          selectedIcon: require('../images/one.png')
+                        }
+                      }
+                    }
                   }
-                }
+                ]
               }
             }
           ],
           options: {
+            statusBar: {
+              drawBehind: true
+            },
             bottomTabs: {
               titleDisplayMode: 'alwaysShow',
               testID: testIDs.BOTTOM_TABS_ELEMENT
@@ -341,6 +370,15 @@ class WelcomeScreen extends Component {
           {
             component: {
               name: 'navigation.playground.ModalScreen'
+            },
+            _externalComponent: {
+              name: 'RNNCustomComponent',
+              options: {
+                statusBar: {
+                  visible: false,
+                  drawBehind: true
+                }                
+              }
             }
           }
         ]

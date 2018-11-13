@@ -2,7 +2,9 @@ package com.reactnativenavigation.viewcontrollers;
 
 import android.app.Activity;
 import android.support.annotation.CallSuper;
+import android.support.v4.view.WindowInsetsCompat;
 import android.view.ViewGroup;
+import android.view.ViewGroup.MarginLayoutParams;
 
 import com.reactnativenavigation.parse.Options;
 import com.reactnativenavigation.presentation.Presenter;
@@ -27,6 +29,22 @@ public abstract class ChildController<T extends ViewGroup> extends ViewControlle
     @CallSuper
     public void setDefaultOptions(Options defaultOptions) {
         presenter.setDefaultOptions(defaultOptions);
+    }
+
+    public void applyInsets(WindowInsetsCompat insets) {
+        MarginLayoutParams lp = (MarginLayoutParams) getView().getLayoutParams();
+        if (isDrawnBehind()) {
+            lp.topMargin = 0;
+        } else {
+            lp.topMargin = insets.getStableInsetTop();
+        }
+//        lp.bottomMargin = insets.getStableInsetBottom();
+    }
+
+    public boolean isDrawnBehind() {
+//        return StatusBarHelper.isDrawnBehind(getActivity());
+        return resolveCurrentOptions(presenter.getDefaultOptions()).statusBar.drawBehind.get(false);
+//        return initialOptions.copy().withDefaultOptions(presenter.getDefaultOptions()).statusBar.drawBehind.get(false);
     }
 
     @Override

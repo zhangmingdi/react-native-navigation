@@ -8,4 +8,9 @@ public class StatusBarHelper {
         View decorView = activity.getWindow().getDecorView();
         return (decorView.getSystemUiVisibility() & View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN) == 0;
     }
+
+    public static boolean isDrawnBehind(Activity activity) {
+        View decorView = activity.getWindow().getDecorView();
+        return (decorView.getSystemUiVisibility() & View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN) == View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
+    }
 }

@@ -5,8 +5,10 @@ import android.support.annotation.NonNull;
 import android.support.annotation.RestrictTo;
 import android.support.annotation.VisibleForTesting;
 import android.support.v4.view.ViewPager;
+import android.support.v4.view.WindowInsetsCompat;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 import com.reactnativenavigation.anim.NavigationAnimator;
@@ -16,6 +18,7 @@ import com.reactnativenavigation.presentation.StackPresenter;
 import com.reactnativenavigation.react.Constants;
 import com.reactnativenavigation.utils.CommandListener;
 import com.reactnativenavigation.utils.CommandListenerAdapter;
+import com.reactnativenavigation.utils.StatusBarHelper;
 import com.reactnativenavigation.viewcontrollers.ChildControllersRegistry;
 import com.reactnativenavigation.viewcontrollers.IdStack;
 import com.reactnativenavigation.viewcontrollers.ParentController;
@@ -54,6 +57,16 @@ public class StackController extends ParentController<StackLayout> {
             stack.push(child.getId(), child);
             child.setParentController(this);
             if (size() > 1) backButtonHelper.addToPushedChild(child);
+        }
+    }
+
+    @Override
+    public void onApplyWindowInsets(WindowInsetsCompat insets) {
+        FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) getView().getLayoutParams();
+        if (StatusBarHelper.isShown(getActivity())) {
+            lp.topMargin = 0;
+        } else {
+            lp.topMargin = insets.getStableInsetTop();
         }
     }
 

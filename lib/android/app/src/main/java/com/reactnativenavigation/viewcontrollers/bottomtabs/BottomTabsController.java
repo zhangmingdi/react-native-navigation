@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.RestrictTo;
+import android.support.v4.view.WindowInsetsCompat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
@@ -19,6 +20,7 @@ import com.reactnativenavigation.react.EventEmitter;
 import com.reactnativenavigation.utils.CommandListener;
 import com.reactnativenavigation.utils.ImageLoader;
 import com.reactnativenavigation.utils.ImageLoadingListenerAdapter;
+import com.reactnativenavigation.viewcontrollers.ChildController;
 import com.reactnativenavigation.viewcontrollers.ChildControllersRegistry;
 import com.reactnativenavigation.viewcontrollers.ParentController;
 import com.reactnativenavigation.viewcontrollers.ViewController;
@@ -32,6 +34,7 @@ import java.util.List;
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 import static android.widget.RelativeLayout.ALIGN_PARENT_BOTTOM;
+import static com.reactnativenavigation.utils.CollectionUtils.cast;
 
 public class BottomTabsController extends ParentController implements AHBottomNavigation.OnTabSelectedListener, TabSelector {
 
@@ -49,6 +52,14 @@ public class BottomTabsController extends ParentController implements AHBottomNa
         this.imageLoader = imageLoader;
         this.presenter = bottomTabsPresenter;
         this.tabPresenter = bottomTabPresenter;
+    }
+
+    @Override
+    public void onApplyWindowInsets(WindowInsetsCompat insets) {
+        applyInsets(insets);
+        for (ChildController child : cast(getChildControllers(), ChildController.class)) {
+            child.applyInsets(insets);
+        }
     }
 
     @Override
@@ -201,6 +212,7 @@ public class BottomTabsController extends ParentController implements AHBottomNa
         getCurrentView().setVisibility(View.INVISIBLE);
         bottomTabs.setCurrentItem(newIndex, false);
         getCurrentView().setVisibility(View.VISIBLE);
+        if (isRoot()) getCurrentChild().onViewReappeared();
     }
 
     @NonNull

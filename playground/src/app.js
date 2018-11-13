@@ -42,14 +42,14 @@ function start() {
           alpha: {
             from: 0,
             to: 1,
-            duration: 500
+            duration: 300
           }
         },
         dismissModal: {
           alpha: {
             from: 1,
             to: 0,
-            duration: 500
+            duration: 300
           }
         },
         setRoot: {

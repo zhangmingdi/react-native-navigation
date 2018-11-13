@@ -2,7 +2,6 @@ package com.reactnativenavigation.viewcontrollers.navigator;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.view.ViewCompat;
 import android.support.v4.view.WindowInsetsCompat;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -10,6 +9,7 @@ import android.widget.FrameLayout;
 import com.reactnativenavigation.BaseTest;
 import com.reactnativenavigation.TestActivity;
 import com.reactnativenavigation.TestUtils;
+import com.reactnativenavigation.adapters.WindowInsetsAdapter;
 import com.reactnativenavigation.mocks.ImageLoaderMock;
 import com.reactnativenavigation.mocks.SimpleComponentViewController;
 import com.reactnativenavigation.mocks.SimpleViewController;
@@ -36,6 +36,7 @@ import com.reactnativenavigation.viewcontrollers.stack.StackController;
 
 import org.junit.Test;
 import org.mockito.Mockito;
+import org.mockito.stubbing.Answer;
 import org.robolectric.android.controller.ActivityController;
 import org.robolectric.annotation.Config;
 
@@ -44,7 +45,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -69,6 +70,7 @@ public class NavigatorTest extends BaseTest {
     private EventEmitter eventEmitter;
     private ViewController.ViewVisibilityListener parentVisibilityListener;
     private ModalStack modalStack;
+    private WindowInsetsAdapter windowInsetsAdapter;
 
     @Override
     public void beforeEach() {
@@ -81,7 +83,9 @@ public class NavigatorTest extends BaseTest {
         modalStack = spy(new ModalStack(activity));
         rootPresenter = spy(new RootPresenter(activity));
         modalStack.setEventEmitter(Mockito.mock(EventEmitter.class));
+        windowInsetsAdapter = mock(WindowInsetsAdapter.class);
         uut = new Navigator(activity, childRegistry, modalStack, overlayManager, rootPresenter);
+        uut.setWindowInsetsAdapter(windowInsetsAdapter);
         activity.setNavigator(uut);
 
         parentController = newStack();
@@ -111,9 +115,8 @@ public class NavigatorTest extends BaseTest {
 
     @Test
     public void createView_registersWindowInsetsListenerOnDecorView() {
-        Navigator spy = spy(uut);
-        ViewCompat.requestApplyInsets(spy.getView());
-        verify(spy).onApplyWindowInsets(eq(spy.getView()), any(WindowInsetsCompat.class));
+        uut.createView();
+        verify(windowInsetsAdapter).setOnApplyWindowInsetsListener(activity.getWindow().getDecorView(), uut);
     }
 
     @Test
@@ -125,15 +128,18 @@ public class NavigatorTest extends BaseTest {
         WindowInsetsCompat insets = Mockito.mock(WindowInsetsCompat.class);
         uut.onApplyWindowInsets(view, insets);
 
-        verify(root).onApplyWindowInsets(view, insets);
+        verify(root).onApplyWindowInsets(insets);
     }
 
-//    @Test
-//    public void onApplyWindowInsets_handlesNullRoot() {
-//        View view = Mockito.mock(View.class);
-//        WindowInsetsCompat insets = Mockito.mock(WindowInsetsCompat.class);
-//        assertThat(uut.onApplyWindowInsets(view, insets)).isEqualTo(insets);
-//    }
+    @Test
+    public void onApplyWindowInsets_handlesNullRoot() {
+        View view = Mockito.mock(View.class);
+        WindowInsetsCompat insets = Mockito.mock(WindowInsetsCompat.class);
+        WindowInsetsCompat result = Mockito.mock(WindowInsetsCompat.class);
+        when(windowInsetsAdapter.onApplyWindowInsets(view, insets)).then((Answer<WindowInsetsCompat>) invocation -> result);
+
+        assertThat(uut.onApplyWindowInsets(view, insets)).isEqualTo(result);
+    }
 
     @Test
     public void bindViews() {
@@ -184,6 +190,12 @@ public class NavigatorTest extends BaseTest {
         uut.setRoot(child1, new CommandListenerAdapter());
         uut.setRoot(child2, new CommandListenerAdapter());
         assertIsChild(uut.getRootLayout(), child2.getView());
+    }
+
+    @Test
+    public void setRoot_requestsApplyWindowInsets() {
+        uut.setRoot(child1, new CommandListenerAdapter());
+        verify(windowInsetsAdapter).requestApplyInsets(child1.getView());
     }
 
     @Test
@@ -545,11 +557,11 @@ public class NavigatorTest extends BaseTest {
         disableModalAnimations(child1);
 
         uut.setRoot(parentController, new CommandListenerAdapter());
-        assertThat(ViewUtils.isChildOf(uut.getRootLayout(), parentController.getView()));
+        assertThat(ViewUtils.isChildOf(uut.getRootLayout(), parentController.getView())).isTrue();
         uut.showModal(child1, new CommandListenerAdapter());
 
         uut.dismissModal(child1.getId(), new CommandListenerAdapter());
-        assertThat(ViewUtils.isChildOf(uut.getRootLayout(), parentController.getView()));
+        assertThat(ViewUtils.isChildOf(uut.getRootLayout(), parentController.getView())).isTrue();
     }
 
     @Test
