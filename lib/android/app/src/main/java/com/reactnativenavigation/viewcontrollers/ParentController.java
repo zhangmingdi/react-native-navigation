@@ -6,6 +6,7 @@ import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
+import android.support.v4.view.WindowInsetsCompat;
 import android.view.ViewGroup;
 
 import com.reactnativenavigation.parse.Options;
@@ -15,6 +16,8 @@ import com.reactnativenavigation.utils.CollectionUtils;
 import com.reactnativenavigation.views.Component;
 
 import java.util.Collection;
+
+import static com.reactnativenavigation.utils.CollectionUtils.cast;
 
 public abstract class ParentController<T extends ViewGroup> extends ChildController {
 
@@ -55,12 +58,14 @@ public abstract class ParentController<T extends ViewGroup> extends ChildControl
         return resolveCurrentOptions().withDefaultOptions(defaultOptions);
     }
 
-//    public boolean isDrawnBehind() {
-//        return reduce(getChildControllers(),
-//                resolveCurrentOptions(presenter.getDefaultOptions()).statusBar.drawBehind.get(false),
-//                (child, currentValue) -> currentValue | ((ChildController) child).isDrawnBehind()
-//        );
-//    }
+    @Override
+    public void onApplyWindowInsets(WindowInsetsCompat insets) {
+        applyInsets(insets);
+        for (ChildController child : cast(getChildControllers(), ChildController.class)) {
+            child.applyInsets(insets);
+            child.applyBottomInsets(insets);
+        }
+    }
 
     protected abstract ViewController getCurrentChild();
 

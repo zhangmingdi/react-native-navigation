@@ -77,10 +77,8 @@ class WelcomeScreen extends Component {
                         myFunction: () => 'Hello from a function!'
                       },
                       options: {
-                        statusBar: {
-                          drawBehind: false,
-                          backgroundColor: 'transparent',
-                          style: 'dark'
+                        _statusBar: {
+                          drawBehind: false
                         },
                         topBar: {
                           visible: true,
@@ -152,6 +150,11 @@ class WelcomeScreen extends Component {
                         myFunction: () => 'Hello from a function!'
                       },
                       options: {
+                        statusBar: {
+                          drawBehind: true,
+                          backgroundColor: 'transparent',
+                          style: 'dark'
+                        },
                         topBar: {
                           visible: false,
                           animate: false,

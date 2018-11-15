@@ -22,7 +22,6 @@ class TextScreen extends Component {
   render() {
     return (
       <Bounds>
-        <ScrollView>
         <View style={styles.root}>
           <Text style={styles.h1} testID={testIDs.CENTERED_TEXT_HEADER}>{this.props.text || 'Text Screen'}</Text>
           {this.renderTextFromFunctionInProps()}
@@ -42,7 +41,6 @@ class TextScreen extends Component {
           <Button title='Pop' testID={testIDs.POP_BUTTON} onPress={this.onClickPop} />
           <Button title='Dismiss modal' testID={testIDs.DISMISS_MODAL_BUTTON} onPress={this.onClickDismissModal} />
         </View>
-        </ScrollView>
       </Bounds>
     );
   }

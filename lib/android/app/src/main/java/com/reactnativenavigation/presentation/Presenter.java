@@ -2,16 +2,20 @@ package com.reactnativenavigation.presentation;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.os.Build;
+import android.support.v4.view.WindowInsetsCompat;
 import android.view.View;
 import android.view.ViewGroup.MarginLayoutParams;
 
+import com.reactnativenavigation.parse.NavigationBarOptions;
 import com.reactnativenavigation.parse.Options;
 import com.reactnativenavigation.parse.OrientationOptions;
 import com.reactnativenavigation.parse.StatusBarOptions;
 import com.reactnativenavigation.parse.StatusBarOptions.TextColorScheme;
 import com.reactnativenavigation.parse.params.Bool;
 import com.reactnativenavigation.utils.UiUtils;
+import com.reactnativenavigation.utils.ViewUtils;
 
 @SuppressWarnings("FieldCanBeLocal")
 public class Presenter {
@@ -70,6 +74,17 @@ public class Presenter {
         }
     }
 
+    public void applyNavigationBarOptions(NavigationBarOptions navigationBar) {
+        View view = activity.getWindow().getDecorView();
+        int visibility = view.getSystemUiVisibility();
+        if (navigationBar.drawBehind.isTrueOrUndefined()) {
+            visibility |= View.SYSTEM_UI_FLAG_IMMERSIVE;
+        } else {
+            visibility &= ~View.SYSTEM_UI_FLAG_IMMERSIVE;
+        }
+        view.setSystemUiVisibility(visibility);
+    }
+
     private void applyStatusBarOptions(StatusBarOptions statusBar) {
         setStatusBarBackgroundColor(statusBar);
         setTextColorScheme(statusBar.textColorScheme);
@@ -87,8 +102,9 @@ public class Presenter {
             visibility |= View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
             view.setSystemUiVisibility(visibility);
         } else if (statusBar.visible.isTrueOrUndefined()) {
-            visibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                          | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+//            visibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+//                          | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+            visibility &= ~View.SYSTEM_UI_FLAG_FULLSCREEN;
             view.setSystemUiVisibility(visibility);
         }
     }
@@ -166,5 +182,27 @@ public class Presenter {
                 view.setSystemUiVisibility(~View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
             }
         }
+    }
+
+    public void applyBottomInsets(WindowInsetsCompat insets, Options options, View view) {
+        MarginLayoutParams lp = (MarginLayoutParams) view.getLayoutParams();
+//        lp.bottomMargin = insets.getSystemWindowInsetBottom();
+    }
+
+    public void applyInsets(WindowInsetsCompat insets, Options options, View view) {
+        MarginLayoutParams lp = (MarginLayoutParams) view.getLayoutParams();
+        Point loc = ViewUtils.getLocationOnScreen(view);
+        if (isDrawnBehind(options)) {
+            lp.topMargin = 0;
+        } else {
+            lp.topMargin = insets.getStableInsetTop();
+        }
+    }
+
+    private boolean isDrawnBehind(Options options) {
+        return options
+                .statusBar
+                .drawBehind
+                .get(false);
     }
 }

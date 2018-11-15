@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.support.annotation.CallSuper;
 import android.support.v4.view.WindowInsetsCompat;
 import android.view.ViewGroup;
-import android.view.ViewGroup.MarginLayoutParams;
 
 import com.reactnativenavigation.parse.Options;
 import com.reactnativenavigation.presentation.Presenter;
@@ -31,20 +30,29 @@ public abstract class ChildController<T extends ViewGroup> extends ViewControlle
         presenter.setDefaultOptions(defaultOptions);
     }
 
-    public void applyInsets(WindowInsetsCompat insets) {
-        MarginLayoutParams lp = (MarginLayoutParams) getView().getLayoutParams();
-        if (isDrawnBehind()) {
-            lp.topMargin = 0;
-        } else {
-            lp.topMargin = insets.getStableInsetTop();
-        }
-//        lp.bottomMargin = insets.getStableInsetBottom();
+    void applyInsets(WindowInsetsCompat insets) {
+        presenter.applyInsets(insets,
+                resolveCurrentOptions(presenter.getDefaultOptions()),
+//                initialOptions.copy().withDefaultOptions(presenter.getDefaultOptions())
+                getView()
+        );
+        presenter.applyBottomInsets(insets,
+                resolveCurrentOptions(presenter.getDefaultOptions()),
+                getView()
+        );
     }
 
-    public boolean isDrawnBehind() {
-//        return StatusBarHelper.isDrawnBehind(getActivity());
-        return resolveCurrentOptions(presenter.getDefaultOptions()).statusBar.drawBehind.get(false);
-//        return initialOptions.copy().withDefaultOptions(presenter.getDefaultOptions()).statusBar.drawBehind.get(false);
+    void applyBottomInsets(WindowInsetsCompat insets) {
+        presenter.applyBottomInsets(
+                insets,
+                resolveCurrentOptions(presenter.getDefaultOptions()),
+                getView()
+        );
+    }
+
+    @Override
+    public void onApplyWindowInsets(WindowInsetsCompat insets) {
+        applyInsets(insets);
     }
 
     @Override
@@ -77,7 +85,10 @@ public abstract class ChildController<T extends ViewGroup> extends ViewControlle
         if (isRoot()) {
             presenter.applyRootOptions(getView(), resolvedOptions);
         }
-        if (isFirstAppear()) presenter.applyStatusBarVisible(resolvedOptions.statusBar);
+        if (isFirstAppear()) {
+            presenter.applyStatusBarVisible(resolvedOptions.statusBar);
+            presenter.applyNavigationBarOptions(resolvedOptions.navigationBarOptions);
+        }
     }
 
     @Override
