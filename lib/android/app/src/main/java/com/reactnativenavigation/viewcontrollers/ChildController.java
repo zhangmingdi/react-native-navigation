@@ -30,24 +30,27 @@ public abstract class ChildController<T extends ViewGroup> extends ViewControlle
         presenter.setDefaultOptions(defaultOptions);
     }
 
-    void applyInsets(WindowInsetsCompat insets) {
-        presenter.applyInsets(insets,
-                resolveCurrentOptions(presenter.getDefaultOptions()),
-//                initialOptions.copy().withDefaultOptions(presenter.getDefaultOptions())
-                getView()
-        );
-        presenter.applyBottomInsets(insets,
+    protected void applyInsets(WindowInsetsCompat insets) {
+        presenter.applyTopInsets(insets,
                 resolveCurrentOptions(presenter.getDefaultOptions()),
                 getView()
         );
+        if (isRoot()) {
+            presenter.applyBottomInsets(insets,
+                    resolveCurrentOptions(presenter.getDefaultOptions()),
+                    getView()
+            );
+        }
     }
 
     void applyBottomInsets(WindowInsetsCompat insets) {
-        presenter.applyBottomInsets(
-                insets,
-                resolveCurrentOptions(presenter.getDefaultOptions()),
-                getView()
-        );
+        if (isRoot()) {
+            presenter.applyBottomInsets(
+                    insets,
+                    resolveCurrentOptions(presenter.getDefaultOptions()),
+                    getView()
+            );
+        }
     }
 
     @Override
@@ -87,7 +90,6 @@ public abstract class ChildController<T extends ViewGroup> extends ViewControlle
         }
         if (isFirstAppear()) {
             presenter.applyStatusBarVisible(resolvedOptions.statusBar);
-            presenter.applyNavigationBarOptions(resolvedOptions.navigationBarOptions);
         }
     }
 

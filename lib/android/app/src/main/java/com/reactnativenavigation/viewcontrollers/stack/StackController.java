@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.RestrictTo;
 import android.support.annotation.VisibleForTesting;
 import android.support.v4.view.ViewPager;
+import android.support.v4.view.WindowInsetsCompat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
@@ -61,6 +62,11 @@ public class StackController extends ParentController<StackLayout> {
     public void setDefaultOptions(Options defaultOptions) {
         super.setDefaultOptions(defaultOptions);
         presenter.setDefaultOptions(defaultOptions);
+    }
+
+    @Override
+    public void onApplyWindowInsets(WindowInsetsCompat insets) {
+        applyInsets(insets);
     }
 
     @Override

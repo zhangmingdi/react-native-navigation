@@ -36,7 +36,7 @@ public class NavigationActivity extends AppCompatActivity implements DefaultHard
         navigator = new Navigator(this, new ChildControllersRegistry(), new ModalStack(this), new OverlayManager(), new RootPresenter(this));
         navigator.bindViews();
         getReactGateway().onActivityCreated(this);
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_IMMERSIVE);
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
     }
 
     @Override
