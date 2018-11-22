@@ -2,6 +2,7 @@ package com.reactnativenavigation.viewcontrollers.modal;
 
 import android.app.Activity;
 import android.support.annotation.RestrictTo;
+import android.support.v4.view.WindowInsetsCompat;
 import android.view.ViewGroup;
 
 import com.reactnativenavigation.anim.ModalAnimator;
@@ -164,5 +165,11 @@ public class ModalStack {
             modal.destroy();
         }
         modals.clear();
+    }
+
+    public void onApplyWindowInsets(WindowInsetsCompat insets) {
+        for (ViewController modal : modals) {
+            modal.onApplyWindowInsets(insets);
+        }
     }
 }

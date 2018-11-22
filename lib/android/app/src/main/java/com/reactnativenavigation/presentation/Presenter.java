@@ -206,7 +206,11 @@ public class Presenter {
     public void applyBottomInsets(WindowInsetsCompat insets, Options options, View view) {
         MarginLayoutParams lp = (MarginLayoutParams) view.getLayoutParams();
         if (options.navigationBarOptions.drawBehind.isTrue()) {
-            lp.bottomMargin = options.topBar.topMargin.get(0) + options.layout.topMargin.get(0);
+            if (insets.getSystemWindowInsetBottom() == insets.getStableInsetBottom()) {
+                lp.bottomMargin = 0;
+            } else {
+                lp.bottomMargin = insets.getSystemWindowInsetBottom() + options.topBar.topMargin.get(0) + options.layout.topMargin.get(0);
+            }
         } else {
             WindowManager.LayoutParams attributes = activity.getWindow().getAttributes();
             if ((attributes.flags & WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION) == WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION) {

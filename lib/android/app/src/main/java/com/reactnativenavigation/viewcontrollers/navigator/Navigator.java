@@ -102,6 +102,7 @@ public class Navigator extends ParentController implements OnApplyWindowInsetsLi
         WindowInsetsCompat defaultInsets = windowInsetsAdapter.onApplyWindowInsets(v, insets);
         if (v == null || insets == null) return defaultInsets;
         if (root != null) root.onApplyWindowInsets(insets);
+        modalStack.onApplyWindowInsets(insets);
         return defaultInsets;
     }
 
