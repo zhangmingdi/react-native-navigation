@@ -508,6 +508,10 @@ export interface OptionsBottomTab {
    * #### (Android specific)
    */
   selectedFontSize?: number;
+  /**
+   * Set the id of the clickHandler used in Navigation.Events().registerBottomTabClickHandler(...)
+   */
+  clickHandler?: string;
 }
 
 export interface SideMenuSide {

@@ -34,6 +34,7 @@ public class BottomTabOptions {
         options.fontFamily = typefaceManager.getTypeFace(json.optString("fontFamily", ""));
         options.fontSize = NumberParser.parse(json, "fontSize");
         options.selectedFontSize = NumberParser.parse(json, "selectedFontSize");
+        options.clickHandler = TextParser.parse(json, "clickHandler");
         return options;
     }
 
@@ -48,6 +49,7 @@ public class BottomTabOptions {
     public Colour badgeColor = new NullColor();
     public Number fontSize = new NullNumber();
     public Number selectedFontSize = new NullNumber();
+    public Text clickHandler = new NullText();
     @Nullable public Typeface fontFamily;
 
 

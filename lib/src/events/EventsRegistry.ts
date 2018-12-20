@@ -36,6 +36,10 @@ export class EventsRegistry {
     return this.nativeEventsReceiver.registerBottomTabSelectedListener(callback);
   }
 
+  public registerBottomClickHandler(eventId: string, handler: () => void): EventSubscription {
+    return this.nativeEventsReceiver.registerBottomClickHandler(eventId, handler);
+  }
+
   public registerNavigationButtonPressedListener(callback: (event: NavigationButtonPressedEvent) => void): EventSubscription {
     return this.nativeEventsReceiver.registerNavigationButtonPressedListener(callback);
   }

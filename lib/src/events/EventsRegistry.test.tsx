@@ -53,6 +53,14 @@ describe('EventsRegistry', () => {
     expect(mockNativeEventsReceiver.registerBottomTabSelectedListener).toHaveBeenCalledWith(cb);
   });
 
+  it('delegated BottomTabClickHandler to nativeEventsReceiver', () => {
+    const eventId = 'tab1Click';
+    const handler = jest.fn();
+    uut.registerBottomClickHandler(eventId, handler);
+    expect(mockNativeEventsReceiver.registerBottomClickHandler).toHaveBeenCalledTimes(1);
+    expect(mockNativeEventsReceiver.registerBottomClickHandler).toHaveBeenCalledWith(eventId, handler);
+  });
+
   it('delegates navigationButtonPressed to nativeEventsReceiver', () => {
     const cb = jest.fn();
     uut.registerNavigationButtonPressedListener(cb);
