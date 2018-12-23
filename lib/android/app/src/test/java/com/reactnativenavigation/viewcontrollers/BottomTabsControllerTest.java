@@ -166,6 +166,14 @@ public class BottomTabsControllerTest extends BaseTest {
     }
 
     @Test
+    public void onTabSelected_clickHandlerSupersedesOtherFlows() {
+        uut.ensureViewIsCreated();
+        child1.options.bottomTabOptions.clickHandler = new Text("tab1click");
+        uut.onTabSelected(0, false);
+        verify(eventEmitter, times(0)).emitBottomTabSelected(any(), any());
+    }
+
+    @Test
     public void handleBack_DelegatesToSelectedChild() {
         uut.ensureViewIsCreated();
         assertThat(uut.handleBack(new CommandListenerAdapter())).isFalse();

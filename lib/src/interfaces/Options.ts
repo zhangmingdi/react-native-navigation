@@ -511,7 +511,7 @@ export interface OptionsBottomTab {
   /**
    * Set the id of the clickHandler used in Navigation.Events().registerBottomTabClickHandler(...)
    */
-  clickHandler?: string;
+  clickEventId?: string;
 }
 
 export interface SideMenuSide {

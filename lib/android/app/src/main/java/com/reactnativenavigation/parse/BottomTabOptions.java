@@ -66,6 +66,7 @@ public class BottomTabOptions {
         if (other.fontSize.hasValue()) fontSize = other.fontSize;
         if (other.selectedFontSize.hasValue()) selectedFontSize = other.selectedFontSize;
         if (other.fontFamily != null) fontFamily = other.fontFamily;
+        if (other.clickHandler != null) clickHandler = other.clickHandler;
     }
 
     void mergeWithDefault(final BottomTabOptions defaultOptions) {
@@ -81,5 +82,6 @@ public class BottomTabOptions {
         if (!selectedFontSize.hasValue()) selectedFontSize = defaultOptions.selectedFontSize;
         if (fontFamily == null) fontFamily = defaultOptions.fontFamily;
         if (!testId.hasValue()) testId = defaultOptions.testId;
+        if (!clickHandler.hasValue()) clickHandler = defaultOptions.clickHandler;
     }
 }

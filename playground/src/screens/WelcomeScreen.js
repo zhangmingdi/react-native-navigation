@@ -180,14 +180,15 @@ class WelcomeScreen extends Component {
                           passProps: {
                             text: 'This is a side menu center screen tab 1'
                           },
-                          // options: {
-                          //   bottomTab: {
+                          options: {
+                            bottomTab: {
+                              clickHandler: 'Tab1Click'
                           //     iconColor: 'red',
                           //     textColor: 'red',
                           //     selectedIconColor: 'purple',
                           //     selectedTextColor: 'purple',
-                          //   }
-                          // }
+                            }
+                          }
                         }
                       }
                     ],
