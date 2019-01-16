@@ -29,17 +29,29 @@ public class TitleBar extends Toolbar {
 
     private TitleBarButtonController leftButtonController;
     private View component;
+    private Alignment subtitleAlignment;
+    private Alignment titleAlignment;
+    private TextView titleView;
 
     public TitleBar(Context context) {
         super(context);
         getMenu();
-        setContentDescription("titleBar");
     }
 
     @Override
-    public void setTitle(CharSequence title) {
+    public void setTitle(@Nullable CharSequence title) {
         clearComponent();
-        super.setTitle(title);
+//        super.setTitle(title);
+//        post(() ->  super.setTitle(title));
+
+        final TextView view = findTitleTextView();
+        if (view != null && title != null) {
+            float newWidth = view.getPaint().measureText(title.toString());
+            view.setWidth((int) newWidth);
+            UiUtils.runOnNextMeasure(view, newWidth, () ->  super.setTitle(title));
+        } else {
+            super.setTitle(title);
+        }
     }
 
     public String getTitle() {
@@ -72,9 +84,7 @@ public class TitleBar extends Toolbar {
     }
 
     public void setTitleAlignment(Alignment alignment) {
-        TextView title = findTitleTextView();
-        if (title == null) return;
-        alignTextView(alignment, title);
+        titleAlignment = alignment;
     }
 
     public void setSubtitleTypeface(Typeface typeface) {
@@ -88,27 +98,35 @@ public class TitleBar extends Toolbar {
     }
 
     public void setSubtitleAlignment(Alignment alignment) {
-        TextView subtitle = findSubtitleTextView();
-        if (subtitle == null) return;
-        alignTextView(alignment, subtitle);
+        subtitleAlignment = alignment;
     }
 
-    private void alignTextView(Alignment alignment, TextView view) {
-        view.post(() -> {
+    @Override
+    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        super.onLayout(changed, l, t, r, b);
+        if (titleAlignment != null) alignView(findTitleTextView(), titleAlignment);
+        if (subtitleAlignment != null) alignView(findSubtitleTextView(), subtitleAlignment);
+    }
+
+    @SuppressWarnings("MagicNumber")
+    private void alignView(View view, Alignment alignment) {
+        if (view != null) {
             if (alignment == Alignment.Center) {
-                view.setX((getWidth() - view.getWidth()) / 2);
+                view.setX((getWidth() - view.getWidth()) / 2f);
             } else if (leftButtonController != null) {
                 view.setX(getContentInsetStartWithNavigation());
             } else {
                 view.setX(UiUtils.dpToPx(getContext(), DEFAULT_LEFT_MARGIN));
             }
-        });
+        }
     }
 
     @Nullable
     public TextView findTitleTextView() {
+        if (titleView != null) return titleView;
         List<TextView> children = ViewUtils.findChildrenByClass(this, TextView.class, textView -> textView.getText().equals(getTitle()));
-        return children.isEmpty() ? null : children.get(0);
+        titleView = children.isEmpty() ? null : children.get(0);
+        return titleView;
     }
 
     @Nullable
@@ -118,11 +136,13 @@ public class TitleBar extends Toolbar {
     }
 
     public void clear() {
-        clearTitle();
-        clearSubtitle();
-        clearRightButtons();
-        clearLeftButton();
-        clearComponent();
+        titleAlignment = null;
+        subtitleAlignment = null;
+//        clearTitle();
+//        clearSubtitle();
+//        clearRightButtons();
+//        clearLeftButton();
+//        clearComponent();
     }
 
     private void clearTitle() {

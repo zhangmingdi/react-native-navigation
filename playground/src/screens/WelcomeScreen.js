@@ -282,7 +282,7 @@ class WelcomeScreen extends Component {
           },
           topBar: {
             title: {
-              text: 'pushed',
+              text: 'Hello',
               color: '#0000ff',
               fontSize: 14
             },

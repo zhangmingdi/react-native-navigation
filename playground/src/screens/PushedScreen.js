@@ -132,7 +132,13 @@ class PushedScreen extends Component {
     if (this.state.disabled) {
       return;
     }
-
+    const padding = (pos) => {
+      switch(pos % 3) {
+        case 0: return 10;
+        case 1: return 100;
+        default: return 1000;
+      }
+    }
     await Navigation.push(this.props.componentId, {
       component: {
         name: 'navigation.playground.PushedScreen',
@@ -143,7 +149,8 @@ class PushedScreen extends Component {
         options: {
           topBar: {
             title: {
-              text: `Pushed ${this.getStackPosition() + 1}`
+              text: `Pushed ${this.getStackPosition() + padding(this.getStackPosition()) }`,
+              alignment: 'center'
             }
           }
         }

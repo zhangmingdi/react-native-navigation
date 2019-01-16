@@ -46,6 +46,20 @@ public class UiUtils {
         }
     }
 
+    public static void runOnNextMeasure(View view, float minWidth, Runnable task) {
+        int curWidth = view.getWidth();
+        int curHeight = view.getHeight();
+        view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                if (view.getHeight() != curHeight || view.getWidth() >= minWidth) {
+                    view.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    task.run();
+                }
+            }
+        });
+    }
+
 	public static void runOnMainThread(Runnable runnable) {
 		new Handler(Looper.getMainLooper()).post(runnable);
 	}

@@ -11,7 +11,6 @@ import android.support.annotation.RestrictTo;
 import android.support.annotation.VisibleForTesting;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -224,7 +223,7 @@ public class TopBar extends AppBarLayout implements ScrollEventListener.ScrollAw
         if (elevation == this.elevation) super.setElevation(elevation);
     }
 
-    public Toolbar getTitleBar() {
+    public TitleBar getTitleBar() {
         return titleBar;
     }
 

@@ -173,7 +173,7 @@ public class StackPresenter {
         }
 
         topBar.setTitleHeight(options.title.height.get(UiUtils.getTopBarHeightDp(activity)));
-        topBar.setTitle(options.title.text.get(""));
+//        topBar.setTitle(options.title.text.get(""));
 
         if (options.title.component.hasValue()) {
             if (titleControllers.containsKey(component)) {
@@ -192,6 +192,7 @@ public class StackPresenter {
         topBar.setTitleTextColor(options.title.color.get(DEFAULT_TITLE_COLOR));
         topBar.setTitleTypeface(options.title.fontFamily);
         topBar.setTitleAlignment(options.title.alignment);
+        topBar.setTitle(options.title.text.get(""));
 
         topBar.setSubtitle(options.subtitle.text.get(""));
         topBar.setSubtitleFontSize(options.subtitle.fontSize.get(defaultSubtitleFontSize));
