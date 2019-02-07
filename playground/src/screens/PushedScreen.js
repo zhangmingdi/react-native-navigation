@@ -45,6 +45,10 @@ class PushedScreen extends Component {
     this.state = {disabled: false};
   }
 
+  componentDidAppear() {
+    setTimeout(() => Navigation.pop(this.props.componentId), 300)
+  }
+
   simulateLongRunningTask() {
     // tslint:disable-next-line
     for (let i = 0; i < Math.pow(2, 25); i++);
