@@ -5,36 +5,27 @@
 #import "RNNReactView.h"
 #import "RNNCustomTitleView.h"
 #import "RNNTitleViewHelper.h"
+#import "UIViewController+LayoutProtocol.h"
 
 @interface RNNViewControllerPresenter() {
 	RNNReactView* _customTitleView;
 	RNNTitleViewHelper* _titleViewHelper;
-	RNNReactComponentManager* _componentManager;
+	RNNReactComponentRegistry* _componentRegistry;
 }
 
 @end
 
 @implementation RNNViewControllerPresenter
 
-- (instancetype)init {
-	self = [super init];
-	[[NSNotificationCenter defaultCenter] addObserver:self
-											 selector:@selector(cleanReactLeftovers)
-												 name:RCTJavaScriptWillStartLoadingNotification
-											   object:nil];
-	
-	return self;
-}
-
-- (instancetype)initWithComponentManager:(RNNReactComponentManager *)componentManager {
+- (instancetype)initWithComponentRegistry:(RNNReactComponentRegistry *)componentRegistry {
 	self = [self init];
-	_componentManager = componentManager;
+	_componentRegistry = componentRegistry;
 	return self;
 }
 
-- (void)bindViewController:(UIViewController *)bindedViewController {
-	self.bindedViewController = bindedViewController;
-	_navigationButtons = [[RNNNavigationButtons alloc] initWithViewController:self.bindedViewController componentManager:_componentManager];
+- (void)bindViewController:(UIViewController<RNNLayoutProtocol> *)bindedViewController {
+	[super bindViewController:bindedViewController];
+	_navigationButtons = [[RNNNavigationButtons alloc] initWithViewController:self.bindedViewController componentRegistry:_componentRegistry];
 }
 
 - (void)applyOptions:(RNNNavigationOptions *)options {
@@ -154,7 +145,7 @@
 		rootView.passThroughTouches = !newOptions.overlay.interceptTouchOutside.get;
 	}
 	
-	[self setTitleViewWithSubtitle:newOptions];
+	[self setTitleViewWithSubtitle:(RNNNavigationOptions *)[[currentOptions overrideOptions:newOptions] mergeOptions:defaultOptions]];
 	
 	if (newOptions.topBar.title.component.name.hasValue) {
 		[self setCustomNavigationTitleView:newOptions perform:nil];
@@ -173,22 +164,12 @@
 	}
 	
 	if (options.topBar.title.component.name.hasValue) {
-		_customTitleView = (RNNReactView*)[_componentManager createComponentIfNotExists:options.topBar.title.component parentComponentId:viewController.layoutInfo.componentId reactViewReadyBlock:readyBlock];
+		_customTitleView = (RNNReactView*)[_componentRegistry createComponentIfNotExists:options.topBar.title.component parentComponentId:viewController.layoutInfo.componentId reactViewReadyBlock:readyBlock];
 		_customTitleView.backgroundColor = UIColor.clearColor;
 		NSString* alignment = [options.topBar.title.component.alignment getWithDefaultValue:@""];
-		[_customTitleView setAlignment:alignment];
-		BOOL isCenter = [alignment isEqualToString:@"center"];
-		__weak RNNReactView *weakTitleView = _customTitleView;
-		CGRect frame = viewController.navigationController.navigationBar.bounds;
-		[_customTitleView setFrame:frame];
-		[_customTitleView setRootViewDidChangeIntrinsicSize:^(CGSize intrinsicContentSize) {
-			if (isCenter) {
-				[weakTitleView setFrame:CGRectMake(0, 0, intrinsicContentSize.width, intrinsicContentSize.height)];
-			} else {
-				[weakTitleView setFrame:frame];
-			}
-		}];
-		
+		[_customTitleView setAlignment:alignment inFrame:viewController.navigationController.navigationBar.frame];
+
+		viewController.navigationItem.titleView = nil;
 		viewController.navigationItem.titleView = _customTitleView;
 	} else {
 		[_customTitleView removeFromSuperview];
@@ -214,8 +195,9 @@
 	}
 }
 
-- (void)cleanReactLeftovers {
-	_customTitleView = nil;
+- (void)dealloc {
+	[_componentRegistry clearComponentsForParentId:self.bindedComponentId];
 }
+
 
 @end

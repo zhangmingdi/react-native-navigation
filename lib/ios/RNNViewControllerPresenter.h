@@ -1,10 +1,10 @@
 #import "RNNBasePresenter.h"
 #import "RNNNavigationButtons.h"
-#import "RNNReactComponentManager.h"
+#import "RNNReactComponentRegistry.h"
 
 @interface RNNViewControllerPresenter : RNNBasePresenter
 
-- (instancetype)initWithComponentManager:(RNNReactComponentManager *)componentManager;
+- (instancetype)initWithComponentRegistry:(RNNReactComponentRegistry *)componentRegistry;
 
 - (void)renderComponents:(RNNNavigationOptions *)options perform:(RNNReactViewReadyCompletionBlock)readyBlock;
 

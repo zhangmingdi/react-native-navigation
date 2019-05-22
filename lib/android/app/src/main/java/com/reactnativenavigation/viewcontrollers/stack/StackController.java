@@ -133,18 +133,6 @@ public class StackController extends ParentController<StackLayout> {
     }
 
     @Override
-    public void destroy() {
-        topBarController.clear();
-        super.destroy();
-    }
-
-    @Override
-    public void clearOptions() {
-        super.clearOptions();
-        topBarController.clear();
-    }
-
-    @Override
     public void onChildDestroyed(Component child) {
         super.onChildDestroyed(child);
         presenter.onChildDestroyed(child);
@@ -192,6 +180,7 @@ public class StackController extends ParentController<StackLayout> {
     }
 
     public void setRoot(List<ViewController> children, CommandListener listener) {
+        animator.cancelPushAnimations();
         if (children.size() == 1) {
             backButtonHelper.clear(CollectionUtils.last(children));
             push(CollectionUtils.last(children), new CommandListenerAdapter() {
@@ -275,7 +264,7 @@ public class StackController extends ParentController<StackLayout> {
             return;
         }
 
-
+        animator.cancelPushAnimations();
         String currentControlId;
         for (int i = stack.size() - 2; i >= 0; i--) {
             currentControlId = stack.get(i).getId();
@@ -297,6 +286,7 @@ public class StackController extends ParentController<StackLayout> {
             return;
         }
 
+        animator.cancelPushAnimations();
         Iterator<String> iterator = stack.iterator();
         iterator.next();
         while (stack.size() > 2) {

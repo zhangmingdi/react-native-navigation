@@ -13,7 +13,7 @@
 
 @property (nonatomic, strong) id<RNNRootViewCreator> creator;
 @property (nonatomic, strong) RNNControllerFactory *factory;
-@property (nonatomic, strong) RNNStore *store;
+@property (nonatomic, strong) RNNExternalComponentStore *store;
 
 @end
 
@@ -22,8 +22,8 @@
 - (void)setUp {
 	[super setUp];
 	self.creator = nil;
-	self.store = [RNNStore new];
-	self.factory = [[RNNControllerFactory alloc] initWithRootViewCreator:self.creator eventEmitter:nil store:self.store componentManager:nil andBridge:nil];
+	self.store = [RNNExternalComponentStore new];
+	self.factory = [[RNNControllerFactory alloc] initWithRootViewCreator:self.creator eventEmitter:nil store:self.store componentRegistry:nil andBridge:nil];
 }
 
 - (void)tearDown {
@@ -187,18 +187,5 @@
 	XCTAssertTrue(right.type == RNNSideMenuChildTypeRight);
 	XCTAssertTrue([right.child isMemberOfClass:[RNNRootViewController class]]);
 }
-
-- (void)testCreateLayout_addComponentToStore {
-	NSString *componentId = @"cntId";
-	NSDictionary* layout = @{@"id": componentId,
-							 @"type": @"Component",
-							 @"data": @{},
-							 @"children": @[]};
-	UIViewController *ans = [self.factory createLayout:layout];
-	
-	UIViewController *storeAns = [self.store findComponentForId:componentId];
-	XCTAssertEqualObjects(ans, storeAns);
-}
-
 
 @end

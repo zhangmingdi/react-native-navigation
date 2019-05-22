@@ -2,22 +2,22 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "RNNRootViewCreator.h"
-#import "RNNStore.h"
+#import "RNNExternalComponentStore.h"
 #import "RNNEventEmitter.h"
-#import "RNNParentProtocol.h"
-#import "RNNReactComponentManager.h"
+#import "RNNReactComponentRegistry.h"
+#import "RNNNavigationOptions.h"
 
 @interface RNNControllerFactory : NSObject
 
 -(instancetype)initWithRootViewCreator:(id <RNNRootViewCreator>)creator
 						  eventEmitter:(RNNEventEmitter*)eventEmitter
-								 store:(RNNStore *)store
-					  componentManager:(RNNReactComponentManager *)componentManager
+								 store:(RNNExternalComponentStore *)store
+					  componentRegistry:(RNNReactComponentRegistry *)componentRegistry
 							 andBridge:(RCTBridge*)bridge;
 
-- (UIViewController<RNNParentProtocol> *)createLayout:(NSDictionary*)layout;
+- (UIViewController *)createLayout:(NSDictionary*)layout;
 
-- (NSArray<RNNLayoutProtocol> *)createChildrenLayout:(NSArray*)children;
+- (NSArray *)createChildrenLayout:(NSArray*)children;
 
 @property (nonatomic, strong) RNNEventEmitter *eventEmitter;
 

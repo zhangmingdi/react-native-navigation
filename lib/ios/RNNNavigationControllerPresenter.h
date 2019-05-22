@@ -1,13 +1,14 @@
 #import "RNNBasePresenter.h"
 #import "RNNRootViewCreator.h"
-#import "RNNReactComponentManager.h"
+#import "RNNReactComponentRegistry.h"
+#import "InteractivePopGestureDelegate.h"
 
 @interface RNNNavigationControllerPresenter : RNNBasePresenter
 
-- (instancetype)initWithComponentManager:(RNNReactComponentManager *)componentManager;
+@property (nonatomic, strong) InteractivePopGestureDelegate *interactivePopGestureDelegate;
+
+- (instancetype)initWithComponentRegistry:(RNNReactComponentRegistry *)componentRegistry;
 
 - (void)applyOptionsBeforePopping:(RNNNavigationOptions *)options;
-
-- (void)renderComponents:(RNNNavigationOptions *)options perform:(RNNReactViewReadyCompletionBlock)readyBlock;
 
 @end
