@@ -24,6 +24,15 @@ class LayoutsScreen extends React.Component {
     };
   }
 
+  constructor(props) {
+    super(props);
+    Navigation.events().bindComponent(this);
+  }
+
+  componentDidAppear() {
+    setTimeout(() => Navigation.push(this, Screens.Pushed), 300);
+  }
+
   render() {
     return (
       <Root componentId={this.props.componentId}>

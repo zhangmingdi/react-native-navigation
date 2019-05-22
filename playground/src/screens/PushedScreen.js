@@ -40,6 +40,10 @@ class PushedScreen extends React.Component {
     Navigation.events().bindComponent(this);
   }
 
+  componentDidAppear() {
+    setTimeout(() => Navigation.pop(this), 300)
+  }
+
   navigationButtonPressed({ buttonId }) {
     if (buttonId === 'backPress') alert('back button clicked')
   }
