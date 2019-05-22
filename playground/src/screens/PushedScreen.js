@@ -41,13 +41,6 @@ class PushedScreen extends React.Component {
     if (this.props.simulateLongRunningTask) {
       this.simulateLongRunningTask();
     }
-    this.onClickPush = this.onClickPush.bind(this);
-    this.onClickPushBottomTabs = this.onClickPushBottomTabs.bind(this);
-    this.onClickPop = this.onClickPop.bind(this);
-    this.onClickPopPrevious = this.onClickPopPrevious.bind(this);
-    this.onClickPopToFirstPosition = this.onClickPopToFirstPosition.bind(this);
-    this.onClickPopToRoot = this.onClickPopToRoot.bind(this);
-    this.onClickSetStackRoot = this.onClickSetStackRoot.bind(this);
     this.state = {disabled: false};
   }
 
