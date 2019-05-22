@@ -30,7 +30,8 @@ class PushedScreen extends React.Component {
           id: 'singleBtn',
           text: 'single',
           testID: TOP_BAR_BTN
-        }
+        },
+          rightButtonColor: 'red'
       }
     };
   }
