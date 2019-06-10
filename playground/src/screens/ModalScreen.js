@@ -45,7 +45,7 @@ class ModalScreen extends React.Component {
         {this.props.previousModalIds && (<Button label='Dismiss All Previous Modals' testID={DISMISS_ALL_PREVIOUS_MODAL_BTN} onPress={this.dismissAllPreviousModals} />)}
         <Button label='Dismiss All Modals' testID={DISMISS_ALL_MODALS_BTN} onPress={this.dismissAllModals} />
         {this.props.previousModalIds && (<Button label='Dismiss First Modal' testID={DISMISS_FIRST_MODAL_BTN} onPress={this.dismissFirstModal} />)}
-        <Button label='Push screen' testID={PUSH_BTN} onPress={this.pushScreen} />
+        <Button label='Push' testID={PUSH_BTN} onPress={this.push} />
       </Root>
     );
   }
@@ -81,7 +81,7 @@ class ModalScreen extends React.Component {
     }
   });
 
-  pushScreen = () => Navigation.push(this, Screens.Pushed);
+  push = () => Navigation.push(this, Screens.Pushed);
 
   getModalPosition = () => this.props.modalPosition || 1;
 
