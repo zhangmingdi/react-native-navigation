@@ -26,6 +26,7 @@ import com.reactnativenavigation.utils.ButtonPresenter;
 import com.reactnativenavigation.utils.CollectionUtils;
 import com.reactnativenavigation.utils.ImageLoader;
 import com.reactnativenavigation.utils.ObjectUtils;
+import com.reactnativenavigation.utils.StatusBarUtils;
 import com.reactnativenavigation.utils.UiUtils;
 import com.reactnativenavigation.viewcontrollers.IReactView;
 import com.reactnativenavigation.viewcontrollers.ReactViewCreator;
@@ -501,12 +502,12 @@ public class StackPresenter {
     }
 
     public void applyTopInsets(Options options, ViewController child) {
-        applyStatusBarInsets(options);
+        applyStatusBarInsets(options, child);
         child.applyTopInset();
     }
 
-    private void applyStatusBarInsets(Options options) {
+    private void applyStatusBarInsets(Options options, ViewController child) {
         Options withDefault = options.copy().withDefaultOptions(defaultOptions);
-        topBar.setY(withDefault.statusBar.visible.isFalse() ? 0 : 63);
+        topBar.setY(withDefault.statusBar.visible.isFalse() ? 0 : StatusBarUtils.getStatusBarHeight(child.getActivity()));
     }
 }
