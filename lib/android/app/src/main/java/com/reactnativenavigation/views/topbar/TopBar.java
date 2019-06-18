@@ -7,7 +7,6 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
-import android.support.annotation.RestrictTo;
 import android.support.annotation.VisibleForTesting;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.view.ViewPager;
@@ -18,7 +17,6 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.reactnativenavigation.R;
 import com.reactnativenavigation.anim.TopBarAnimator;
@@ -304,11 +302,6 @@ public class TopBar extends AppBarLayout implements ScrollEventListener.ScrollAw
         this.animator = animator;
     }
 
-    @RestrictTo(RestrictTo.Scope.TESTS)
-    public TextView getTitleTextView() {
-        return titleBar.findTitleTextView();
-    }
-
     public void resetAnimationOptions() {
         setTranslationY(0);
         setTranslationX(0);
@@ -330,5 +323,9 @@ public class TopBar extends AppBarLayout implements ScrollEventListener.ScrollAw
 
     public void setOverflowButtonColor(int color) {
         titleBar.setOverflowButtonColor(color);
+    }
+
+    public boolean isAnimating() {
+        return animator.isAnimating();
     }
 }
