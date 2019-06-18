@@ -12,7 +12,6 @@ import com.reactnativenavigation.utils.ImageLoadingListenerAdapter;
 import com.reactnativenavigation.viewcontrollers.ViewController;
 import com.reactnativenavigation.viewcontrollers.bottomtabs.BottomTabFinder;
 import com.reactnativenavigation.views.BottomTabs;
-import com.reactnativenavigation.views.Component;
 
 import java.util.List;
 
@@ -56,8 +55,8 @@ public class BottomTabPresenter {
         }
     }
 
-    public void mergeChildOptions(Options options, Component child) {
-        int index = bottomTabFinder.findByComponent(child);
+    public void mergeChildOptions(Options options, ViewController child) {
+        int index = bottomTabFinder.findByControllerId(child.getId());
         if (index >= 0) {
             BottomTabOptions bto = options.bottomTabOptions;
             if (bto.badge.hasValue()) bottomTabs.setBadge(index, bto.badge.get());
