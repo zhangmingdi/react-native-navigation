@@ -1,6 +1,7 @@
 package com.reactnativenavigation.viewcontrollers.navigator;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.ViewGroup;
 
 import com.facebook.react.ReactInstanceManager;
@@ -25,6 +26,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.annotation.RestrictTo;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.view.ViewCompat;
 
 public class Navigator extends ParentController {
 
@@ -75,6 +77,12 @@ public class Navigator extends ParentController {
         rootLayout = new CoordinatorLayout(getActivity());
         modalsLayout = new CoordinatorLayout(getActivity());
         overlaysLayout = new CoordinatorLayout(getActivity());
+
+        modalsLayout.setFitsSystemWindows(true);
+        ViewCompat.setOnApplyWindowInsetsListener(modalsLayout, (v, i) -> {
+            Log.i("Navigator", "modalsLayout " + i.getSystemWindowInsetBottom());
+            return i;
+        });
     }
 
     public void bindViews() {

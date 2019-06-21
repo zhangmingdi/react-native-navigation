@@ -1,10 +1,10 @@
 package com.reactnativenavigation.viewcontrollers.bottomtabs;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
@@ -15,7 +15,6 @@ import com.reactnativenavigation.presentation.BottomTabsPresenter;
 import com.reactnativenavigation.presentation.Presenter;
 import com.reactnativenavigation.react.EventEmitter;
 import com.reactnativenavigation.utils.CommandListener;
-import com.reactnativenavigation.utils.CoordinatorLayoutUtils;
 import com.reactnativenavigation.utils.ImageLoader;
 import com.reactnativenavigation.viewcontrollers.ChildControllersRegistry;
 import com.reactnativenavigation.viewcontrollers.ParentController;
@@ -29,14 +28,12 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.annotation.RestrictTo;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.view.WindowInsetsCompat;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
-import static android.widget.RelativeLayout.ALIGN_PARENT_BOTTOM;
-import static com.reactnativenavigation.react.Constants.BOTTOM_TABS_HEIGHT;
 import static com.reactnativenavigation.utils.CollectionUtils.*;
 import static com.reactnativenavigation.utils.ObjectUtils.perform;
-import static com.reactnativenavigation.utils.UiUtils.dpToPx;
 
 public class BottomTabsController extends ParentController<BottomTabsLayout> implements AHBottomNavigation.OnTabSelectedListener, TabSelector {
 
@@ -70,7 +67,7 @@ public class BottomTabsController extends ParentController<BottomTabsLayout> imp
 	@Override
 	protected BottomTabsLayout createView() {
         BottomTabsLayout root = new BottomTabsLayout(getActivity());
-        root.setLayoutParams(CoordinatorLayoutUtils.matchParentLP());
+//        root.setLayoutParams(CoordinatorLayoutUtils.matchParentLP());
 
         bottomTabs = createBottomTabs();
         tabsAttacher.init(root, resolveCurrentOptions());
@@ -183,6 +180,19 @@ public class BottomTabsController extends ParentController<BottomTabsLayout> imp
     public int getBottomInset(ViewController child) {
         int bottomTabsInset = resolveChildOptions(child).bottomTabsOptions.drawBehind.isTrue() ? 0 : bottomTabs.getHeight();
         return bottomTabsInset + perform(getParentController(), 0, p -> p.getBottomInset(this));
+    }
+
+    @Override
+    protected WindowInsetsCompat applyWindowInsets(ViewController view, WindowInsetsCompat insets) {
+        Log.i("BottomTabsController", "applyWindowInsets " + insets.getSystemWindowInsetBottom());
+        return super.applyWindowInsets(view, insets);
+//        return super.applyWindowInsets(view, insets)
+//                .replaceSystemWindowInsets(
+//                        insets.getSystemWindowInsetLeft(),
+//                        insets.getSystemWindowInsetTop(),
+//                        insets.getSystemWindowInsetRight(),
+//                        0
+//                );
     }
 
     @NonNull
