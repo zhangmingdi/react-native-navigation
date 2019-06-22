@@ -1,7 +1,7 @@
 package com.reactnativenavigation.viewcontrollers.bottomtabs;
 
 import android.app.Activity;
-import android.util.Log;
+
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,7 +67,6 @@ public class BottomTabsController extends ParentController<BottomTabsLayout> imp
 	@Override
 	protected BottomTabsLayout createView() {
         BottomTabsLayout root = new BottomTabsLayout(getActivity());
-//        root.setLayoutParams(CoordinatorLayoutUtils.matchParentLP());
 
         bottomTabs = createBottomTabs();
         tabsAttacher.init(root, resolveCurrentOptions());
@@ -180,19 +179,6 @@ public class BottomTabsController extends ParentController<BottomTabsLayout> imp
     public int getBottomInset(ViewController child) {
         int bottomTabsInset = resolveChildOptions(child).bottomTabsOptions.drawBehind.isTrue() ? 0 : bottomTabs.getHeight();
         return bottomTabsInset + perform(getParentController(), 0, p -> p.getBottomInset(this));
-    }
-
-    @Override
-    protected WindowInsetsCompat applyWindowInsets(ViewController view, WindowInsetsCompat insets) {
-        Log.i("BottomTabsController", "applyWindowInsets " + insets.getSystemWindowInsetBottom());
-        return super.applyWindowInsets(view, insets);
-//        return super.applyWindowInsets(view, insets)
-//                .replaceSystemWindowInsets(
-//                        insets.getSystemWindowInsetLeft(),
-//                        insets.getSystemWindowInsetTop(),
-//                        insets.getSystemWindowInsetRight(),
-//                        0
-//                );
     }
 
     @NonNull
