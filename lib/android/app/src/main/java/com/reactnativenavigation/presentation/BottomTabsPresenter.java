@@ -1,8 +1,6 @@
 package com.reactnativenavigation.presentation;
 
 import android.graphics.Color;
-import android.support.annotation.IntRange;
-import android.view.ViewGroup;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation.TitleState;
 import com.reactnativenavigation.anim.BottomTabsAnimator;
@@ -16,7 +14,7 @@ import com.reactnativenavigation.views.BottomTabs;
 
 import java.util.List;
 
-import static com.reactnativenavigation.utils.ViewUtils.getHeight;
+import androidx.annotation.IntRange;
 
 public class BottomTabsPresenter {
     private final BottomTabFinder bottomTabFinder;
