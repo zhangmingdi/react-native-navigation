@@ -2,9 +2,6 @@ package com.reactnativenavigation.presentation;
 
 import android.app.Activity;
 import android.graphics.Color;
-import androidx.annotation.Nullable;
-import androidx.annotation.RestrictTo;
-import androidx.appcompat.widget.Toolbar;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
@@ -47,6 +44,10 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+
+import androidx.annotation.Nullable;
+import androidx.annotation.RestrictTo;
+import androidx.appcompat.widget.Toolbar;
 
 import static com.reactnativenavigation.utils.CollectionUtils.*;
 import static com.reactnativenavigation.utils.ObjectUtils.perform;
@@ -501,7 +502,7 @@ public class StackPresenter {
     }
 
     public void applyTopInsets(StackController stack, ViewController child) {
-        applyStatusBarInsets(stack, child);
+        if (stack.isCurrentChild(child)) applyStatusBarInsets(stack, child);
         child.applyTopInset();
     }
 
@@ -514,7 +515,6 @@ public class StackPresenter {
     }
 
     private void applyStatusBarInsets(StackController stack, ViewController child) {
-        if (topBarController.isAnimating()) return;
         MarginLayoutParams lp = (MarginLayoutParams) topBar.getLayoutParams();
         lp.topMargin = getTopBarTopMargin(stack, child);
         topBar.requestLayout();
