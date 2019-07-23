@@ -148,10 +148,6 @@ public class Navigator extends ParentController {
                 super.onSuccess(childId);
                 destroyPreviousRoot();
             }
-
-            private void removePreviousContentView() {
-                contentLayout.removeViewAt(0);
-            }
         }, reactInstanceManager);
     }
 
