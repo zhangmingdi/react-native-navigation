@@ -25,6 +25,7 @@ public class LayoutFactoryTest extends BaseTest {
         assertThat(uut.create(component())).isNotNull();
     }
 
+
     @Test
     public void defaultOptionsAreNotNull() {
         assertThat(uut.getDefaultOptions()).isNotNull();
