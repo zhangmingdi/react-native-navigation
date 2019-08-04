@@ -142,6 +142,10 @@ public abstract class ViewController<T extends ViewGroup> implements ViewTreeObs
         return activity;
     }
 
+    public void performOnView(Func1<View> task) {
+        if (view != null) task.run(view);
+    }
+
     protected void performOnParentController(Func1<ParentController> task) {
         if (parentController != null) task.run(parentController);
     }

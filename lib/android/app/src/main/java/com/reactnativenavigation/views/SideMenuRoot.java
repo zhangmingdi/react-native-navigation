@@ -2,10 +2,6 @@ package com.reactnativenavigation.views;
 
 import android.content.Context;
 import android.content.res.Resources;
-import androidx.annotation.RestrictTo;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.core.view.ViewCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -13,6 +9,11 @@ import android.view.View;
 import com.reactnativenavigation.parse.Options;
 import com.reactnativenavigation.parse.SideMenuOptions;
 import com.reactnativenavigation.viewcontrollers.ViewController;
+
+import androidx.annotation.RestrictTo;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.view.ViewCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static com.reactnativenavigation.utils.CoordinatorLayoutUtils.matchParentWithBehaviour;

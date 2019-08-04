@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 
@@ -32,6 +33,7 @@ import static com.reactnativenavigation.utils.CollectionUtils.*;
 import static org.assertj.core.api.Java6Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -68,7 +70,7 @@ public class SideMenuControllerTest extends BaseTest {
             }
         };
         uut.setCenterController(center);
-        parent = Mockito.mock(ParentController.class);
+        parent = mock(ParentController.class);
         uut.setParentController(parent);
     }
 
@@ -96,6 +98,23 @@ public class SideMenuControllerTest extends BaseTest {
         assertThat(uut.getCurrentChild()).isEqualTo(center);
         uut.destroy();
         assertThat(uut.getCurrentChild()).isEqualTo(center);
+    }
+
+    @Test
+    public void onViewAppeared() {
+        ViewController left = spy(this.left);
+        ViewGroup leftView = spy(left.getView());
+        Mockito.doReturn(leftView).when(left).getView();
+
+        ViewController right = spy(this.right);
+        ViewGroup rightView = spy(right.getView());
+        Mockito.doReturn(rightView).when(right).getView();
+
+        setLeftRight(left, right);
+
+        uut.onViewAppeared();
+        verify(leftView).requestLayout();
+        verify(rightView).requestLayout();
     }
 
     @Test
@@ -353,8 +372,8 @@ public class SideMenuControllerTest extends BaseTest {
 
     private Activity createActivity() {
         Activity activity = spy(newActivity());
-        Window window = Mockito.mock(Window.class);
-        when(window.getDecorView()).thenReturn(Mockito.mock(View.class));
+        Window window = mock(Window.class);
+        when(window.getDecorView()).thenReturn(mock(View.class));
         when(activity.getWindow()).thenReturn(window);
         return activity;
     }

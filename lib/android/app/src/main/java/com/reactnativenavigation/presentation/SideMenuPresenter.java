@@ -1,12 +1,13 @@
 package com.reactnativenavigation.presentation;
 
-import androidx.annotation.RestrictTo;
-import androidx.drawerlayout.widget.DrawerLayout;
 import android.view.Gravity;
 
 import com.reactnativenavigation.parse.Options;
 import com.reactnativenavigation.parse.SideMenuRootOptions;
 import com.reactnativenavigation.views.SideMenu;
+
+import androidx.annotation.RestrictTo;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 public class SideMenuPresenter {
 

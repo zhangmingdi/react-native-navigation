@@ -1,11 +1,6 @@
 package com.reactnativenavigation.viewcontrollers.sidemenu;
 
 import android.app.Activity;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RestrictTo;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.drawerlayout.widget.DrawerLayout.LayoutParams;
 import android.view.Gravity;
 import android.view.View;
 
@@ -22,6 +17,12 @@ import com.reactnativenavigation.views.SideMenuRoot;
 
 import java.util.ArrayList;
 import java.util.Collection;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RestrictTo;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.drawerlayout.widget.DrawerLayout.LayoutParams;
 
 public class SideMenuController extends ParentController<SideMenuRoot> implements DrawerLayout.DrawerListener {
 
@@ -92,6 +93,13 @@ public class SideMenuController extends ParentController<SideMenuRoot> implement
         performOnParentController(parentController ->
                 ((ParentController) parentController).mergeChildOptions(options.copy().clearSideMenuOptions(), child)
         );
+    }
+
+    @Override
+    public void onViewAppeared() {
+        super.onViewAppeared();
+        left.performOnView(view -> ((View) view).requestLayout());
+        right.performOnView(view -> ((View) view).requestLayout());
     }
 
     @Override
