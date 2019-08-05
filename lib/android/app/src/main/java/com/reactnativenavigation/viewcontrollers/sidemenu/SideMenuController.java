@@ -98,8 +98,8 @@ public class SideMenuController extends ParentController<SideMenuRoot> implement
     @Override
     public void onViewAppeared() {
         super.onViewAppeared();
-        left.performOnView(view -> ((View) view).requestLayout());
-        right.performOnView(view -> ((View) view).requestLayout());
+        if (left != null) left.performOnView(view -> ((View) view).requestLayout());
+        if (right != null) right.performOnView(view -> ((View) view).requestLayout());
     }
 
     @Override
