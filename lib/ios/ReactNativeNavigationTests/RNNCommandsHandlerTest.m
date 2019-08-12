@@ -290,11 +290,10 @@
 }
 
 - (void)testSetStackRoot_callRenderTreeAndWaitOnce {
-	id vc1Mock = OCMPartialMock(_vc1);
-	id vc2Mock = OCMPartialMock(_vc2);
+	id vc1Mock = [OCMockObject partialMockForObject:_vc1];
+	id vc2Mock = [OCMockObject partialMockForObject:_vc2];
 	NSArray* newViewControllers = @[vc1Mock, vc2Mock];
-	id classMock = OCMClassMock([RNNLayoutManager class]);
-	OCMStub(ClassMethod([classMock findComponentForId:@"vc1"])).andReturn(_nvc);
+	
 	OCMStub([self.controllerFactory createChildrenLayout:[OCMArg any]]).andReturn(newViewControllers);
 	[self.uut setReadyToReceiveCommands:true];
 	[self.uut setStackRoot:@"vc1" commandId:@"" children:nil completion:^{
@@ -311,11 +310,11 @@
 	_vc2.options.animations.setStackRoot.waitForRender = [[Bool alloc] initWithBOOL:YES];
 	id vc1Mock = OCMPartialMock(_vc1);
 	id vc2Mock = OCMPartialMock(_vc2);
-	OCMStub([vc2Mock renderTreeAndWait:YES perform:[OCMArg any]]);
+	
 	NSArray* newViewControllers = @[vc1Mock, vc2Mock];
-	id classMock = OCMClassMock([RNNLayoutManager class]);
-	OCMStub(ClassMethod([classMock findComponentForId:@"vc1"])).andReturn(_nvc);
+	
 	OCMStub([self.controllerFactory createChildrenLayout:[OCMArg any]]).andReturn(newViewControllers);
+	
 	[self.uut setReadyToReceiveCommands:true];
 	[self.uut setStackRoot:@"vc1" commandId:@"" children:nil completion:^{
 		

@@ -8,8 +8,9 @@ const SHOW_DURATION = 230 * 8;
 
 const setDefaultOptions = () => Navigation.setDefaultOptions({
   layout: {
-    backgroundColor: Colors.background,
-    orientation: ['portrait']
+    componentBackgroundColor: Colors.background,
+    orientation: ['portrait'],
+    direction: 'locale'
   },
   bottomTabs: {
     titleDisplayMode: 'alwaysShow'

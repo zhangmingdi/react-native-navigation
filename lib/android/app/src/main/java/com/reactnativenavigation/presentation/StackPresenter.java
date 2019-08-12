@@ -136,7 +136,7 @@ public class StackPresenter {
         Options withDefault = options.copy().withDefaultOptions(defaultOptions);
         applyOrientation(withDefault.layout.orientation);
         applyButtons(withDefault.topBar, child);
-        applyTopBarOptions(withDefault.topBar, withDefault.animations, stack, child, options);
+        applyTopBarOptions(withDefault, stack, child, options);
         applyTopTabsOptions(withDefault.topTabs);
         applyTopTabOptions(withDefault.topTabOptions);
     }
@@ -159,53 +159,60 @@ public class StackPresenter {
         if (buttons != null) forEach(buttons.values(), ViewController::destroy);
     }
 
-    private void applyTopBarOptions(TopBarOptions options, AnimationsOptions animationOptions, StackController stack, ViewController child, Options componentOptions) {
+    private void applyTopBarOptions(Options options, StackController stack, ViewController child, Options componentOptions) {
         final View component = child.getView();
-        topBar.setHeight(options.height.get(UiUtils.getTopBarHeightDp(activity)));
-        topBar.setElevation(options.elevation.get(DEFAULT_ELEVATION));
+        TopBarOptions topBarOptions = options.topBar;
+        AnimationsOptions animationOptions = options.animations;
 
-        topBar.setTitleHeight(options.title.height.get(UiUtils.getTopBarHeightDp(activity)));
-        topBar.setTitle(options.title.text.get(""));
-        topBar.setTitleTopMargin(options.title.topMargin.get(0));
+        topBar.setLayoutDirection(options.layout.direction);
+        topBar.setHeight(topBarOptions.height.get(UiUtils.getTopBarHeightDp(activity)));
+        topBar.setElevation(topBarOptions.elevation.get(DEFAULT_ELEVATION));
+        if (topBar.getLayoutParams() instanceof MarginLayoutParams) {
+            ((MarginLayoutParams) topBar.getLayoutParams()).topMargin = UiUtils.dpToPx(activity, topBarOptions.topMargin.get(0));
+        }
 
-        if (options.title.component.hasValue()) {
+        topBar.setTitleHeight(topBarOptions.title.height.get(UiUtils.getTopBarHeightDp(activity)));
+        topBar.setTitle(topBarOptions.title.text.get(""));
+        topBar.setTitleTopMargin(topBarOptions.title.topMargin.get(0));
+
+        if (topBarOptions.title.component.hasValue()) {
             if (titleControllers.containsKey(component)) {
                 topBar.setTitleComponent(titleControllers.get(component).getView());
             } else {
                 TitleBarReactViewController controller = new TitleBarReactViewController(activity, titleViewCreator);
-                controller.setWaitForRender(options.title.component.waitForRender);
+                controller.setWaitForRender(topBarOptions.title.component.waitForRender);
                 titleControllers.put(component, controller);
-                controller.setComponent(options.title.component);
-                controller.getView().setLayoutParams(getComponentLayoutParams(options.title.component));
+                controller.setComponent(topBarOptions.title.component);
+                controller.getView().setLayoutParams(getComponentLayoutParams(topBarOptions.title.component));
                 topBar.setTitleComponent(controller.getView());
             }
         }
 
-        topBar.setTitleFontSize(options.title.fontSize.get(defaultTitleFontSize));
-        topBar.setTitleTextColor(options.title.color.get(DEFAULT_TITLE_COLOR));
-        topBar.setTitleTypeface(options.title.fontFamily);
-        topBar.setTitleAlignment(options.title.alignment);
+        topBar.setTitleFontSize(topBarOptions.title.fontSize.get(defaultTitleFontSize));
+        topBar.setTitleTextColor(topBarOptions.title.color.get(DEFAULT_TITLE_COLOR));
+        topBar.setTitleTypeface(topBarOptions.title.fontFamily);
+        topBar.setTitleAlignment(topBarOptions.title.alignment);
 
-        topBar.setSubtitle(options.subtitle.text.get(""));
-        topBar.setSubtitleFontSize(options.subtitle.fontSize.get(defaultSubtitleFontSize));
-        topBar.setSubtitleColor(options.subtitle.color.get(DEFAULT_SUBTITLE_COLOR));
-        topBar.setSubtitleFontFamily(options.subtitle.fontFamily);
-        topBar.setSubtitleAlignment(options.subtitle.alignment);
+        topBar.setSubtitle(topBarOptions.subtitle.text.get(""));
+        topBar.setSubtitleFontSize(topBarOptions.subtitle.fontSize.get(defaultSubtitleFontSize));
+        topBar.setSubtitleColor(topBarOptions.subtitle.color.get(DEFAULT_SUBTITLE_COLOR));
+        topBar.setSubtitleFontFamily(topBarOptions.subtitle.fontFamily);
+        topBar.setSubtitleAlignment(topBarOptions.subtitle.alignment);
 
-        topBar.setBorderHeight(options.borderHeight.get(0d));
-        topBar.setBorderColor(options.borderColor.get(DEFAULT_BORDER_COLOR));
+        topBar.setBorderHeight(topBarOptions.borderHeight.get(0d));
+        topBar.setBorderColor(topBarOptions.borderColor.get(DEFAULT_BORDER_COLOR));
 
-        topBar.setBackgroundColor(options.background.color.get(Color.WHITE));
+        topBar.setBackgroundColor(topBarOptions.background.color.get(Color.WHITE));
 
-        if (options.background.component.hasValue()) {
-            View createdComponent = findBackgroundComponent(options.background.component);
+        if (topBarOptions.background.component.hasValue()) {
+            View createdComponent = findBackgroundComponent(topBarOptions.background.component);
             if (createdComponent != null) {
                 topBar.setBackgroundComponent(createdComponent);
             } else {
                 TopBarBackgroundViewController controller = new TopBarBackgroundViewController(activity, topBarBackgroundViewCreator);
-                controller.setWaitForRender(options.background.waitForRender);
+                controller.setWaitForRender(topBarOptions.background.waitForRender);
                 backgroundControllers.put(component, controller);
-                controller.setComponent(options.background.component);
+                controller.setComponent(topBarOptions.background.component);
                 controller.getView().setLayoutParams(new RelativeLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
                 topBar.setBackgroundComponent(controller.getView());
             }
@@ -213,13 +220,12 @@ public class StackPresenter {
             topBar.clearBackgroundComponent();
         }
 
-        if (options.testId.hasValue()) topBar.setTestId(options.testId.get());
-        applyTopBarVisibility(options, animationOptions, componentOptions, stack, child);
-        if (options.hideOnScroll.isTrue()) {
+        applyTopBarVisibility(topBarOptions, animationOptions, componentOptions, stack, child);
+        if (topBarOptions.hideOnScroll.isTrue()) {
             if (component instanceof IReactView) {
                 topBar.enableCollapse(((IReactView) component).getScrollEventListener());
             }
-        } else if (options.hideOnScroll.isFalseOrUndefined()) {
+        } else if (topBarOptions.hideOnScroll.isFalseOrUndefined()) {
             topBar.disableCollapse();
         }
     }
@@ -396,6 +402,7 @@ public class StackPresenter {
         AnimationsOptions animationsOptions = options.copy().withDefaultOptions(defaultOptions).animations;
         TopBarOptions topBarOptions = options.topBar;
         final View component = child.getView();
+        if (options.layout.direction.hasValue()) topBar.setLayoutDirection(options.layout.direction);
         if (topBarOptions.height.hasValue()) topBar.setHeight(topBarOptions.height.get());
         if (topBarOptions.elevation.hasValue()) topBar.setElevation(topBarOptions.elevation.get());
         if (topBarOptions.topMargin.hasValue() && topBar.getLayoutParams() instanceof MarginLayoutParams) {

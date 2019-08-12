@@ -1,12 +1,8 @@
-package com.reactnativenavigation.viewcontrollers.navigator;
+package com.reactnativenavigation.presentation;
 
 import android.content.Context;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import android.view.View;
 
 import com.facebook.react.ReactInstanceManager;
-import com.facebook.react.bridge.ReactApplicationContext;
-import com.facebook.react.modules.i18nmanager.I18nUtil;
 import com.reactnativenavigation.anim.NavigationAnimator;
 import com.reactnativenavigation.parse.Options;
 import com.reactnativenavigation.utils.CommandListener;
@@ -14,26 +10,32 @@ import com.reactnativenavigation.viewcontrollers.ViewController;
 import com.reactnativenavigation.views.BehaviourDelegate;
 import com.reactnativenavigation.views.element.ElementTransitionManager;
 
+import androidx.annotation.VisibleForTesting;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+
 import static com.reactnativenavigation.utils.CoordinatorLayoutUtils.matchParentWithBehaviour;
 
 public class RootPresenter {
     private NavigationAnimator animator;
     private CoordinatorLayout rootLayout;
+    private LayoutDirectionApplier layoutDirectionApplier;
 
-    void setRootContainer(CoordinatorLayout rootLayout) {
+    public void setRootContainer(CoordinatorLayout rootLayout) {
         this.rootLayout = rootLayout;
     }
 
     public RootPresenter(Context context) {
-        animator = new NavigationAnimator(context, new ElementTransitionManager());
+        this(new NavigationAnimator(context, new ElementTransitionManager()), new LayoutDirectionApplier());
     }
 
-    RootPresenter(NavigationAnimator animator) {
+    @VisibleForTesting
+    public RootPresenter(NavigationAnimator animator, LayoutDirectionApplier layoutDirectionApplier) {
         this.animator = animator;
+        this.layoutDirectionApplier = layoutDirectionApplier;
     }
 
-    void setRoot(ViewController root, Options defaultOptions, CommandListener listener, ReactInstanceManager reactInstanceManager) {
-        setLayoutDirection(root, defaultOptions, (ReactApplicationContext) reactInstanceManager.getCurrentReactContext());
+    public void setRoot(ViewController root, Options defaultOptions, CommandListener listener, ReactInstanceManager reactInstanceManager) {
+        layoutDirectionApplier.apply(root, defaultOptions, reactInstanceManager);
         rootLayout.addView(root.getView(), matchParentWithBehaviour(new BehaviourDelegate(root)));
         Options options = root.resolveCurrentOptions(defaultOptions);
         root.setWaitForRender(options.animations.setRoot.waitForRender);
@@ -53,17 +55,6 @@ public class RootPresenter {
             animator.setRoot(root.getView(), options.animations.setRoot, () -> listener.onSuccess(root.getId()));
         } else {
             listener.onSuccess(root.getId());
-        }
-    }
-
-    private void setLayoutDirection(ViewController root, Options defaultOptions, ReactApplicationContext reactContext) {
-        if (defaultOptions.layout.direction.hasValue()) {
-            I18nUtil i18nUtil = I18nUtil.getInstance();
-            Boolean isRtl = defaultOptions.layout.direction.get().equals("rtl");
-
-            root.getActivity().getWindow().getDecorView().setLayoutDirection(isRtl ? View.LAYOUT_DIRECTION_RTL : View.LAYOUT_DIRECTION_LTR);
-            i18nUtil.allowRTL(reactContext, isRtl);
-            i18nUtil.forceRTL(reactContext, isRtl);
         }
     }
 }

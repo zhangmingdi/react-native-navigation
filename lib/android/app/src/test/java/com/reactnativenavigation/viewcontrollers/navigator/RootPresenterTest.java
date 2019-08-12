@@ -12,6 +12,8 @@ import com.reactnativenavigation.mocks.SimpleViewController;
 import com.reactnativenavigation.parse.AnimationOptions;
 import com.reactnativenavigation.parse.Options;
 import com.reactnativenavigation.parse.params.Bool;
+import com.reactnativenavigation.presentation.LayoutDirectionApplier;
+import com.reactnativenavigation.presentation.RootPresenter;
 import com.reactnativenavigation.utils.CommandListenerAdapter;
 import com.reactnativenavigation.viewcontrollers.ChildControllersRegistry;
 import com.reactnativenavigation.viewcontrollers.ViewController;
@@ -36,6 +38,7 @@ public class RootPresenterTest extends BaseTest {
     private CoordinatorLayout rootContainer;
     private ViewController root;
     private NavigationAnimator animator;
+    private LayoutDirectionApplier layoutDirectionApplier;
     private Options defaultOptions;
     private ReactInstanceManager reactInstanceManager;
 
@@ -47,7 +50,8 @@ public class RootPresenterTest extends BaseTest {
         rootContainer = new CoordinatorLayout(activity);
         root = new SimpleViewController(activity, new ChildControllersRegistry(), "child1", new Options());
         animator = spy(createAnimator(activity));
-        uut = new RootPresenter(animator);
+        layoutDirectionApplier = Mockito.mock(LayoutDirectionApplier.class);
+        uut = new RootPresenter(animator, layoutDirectionApplier);
         uut.setRootContainer(rootContainer);
         defaultOptions = new Options();
     }
@@ -119,6 +123,13 @@ public class RootPresenterTest extends BaseTest {
         spy.onViewAppeared();
         assertThat(spy.getView().getAlpha()).isOne();
         verify(listener).onSuccess(spy.getId());
+    }
+
+    @Test
+    public void setRoot_appliesLayoutDirection() {
+        CommandListenerAdapter listener = spy(new CommandListenerAdapter());
+        uut.setRoot(root, defaultOptions, listener, reactInstanceManager);
+        verify(layoutDirectionApplier).apply(root, defaultOptions, reactInstanceManager);
     }
 
     @NonNull
