@@ -164,6 +164,7 @@ public class StackPresenter {
         TopBarOptions topBarOptions = options.topBar;
         AnimationsOptions animationOptions = options.animations;
 
+        topBar.setTestId(topBarOptions.testId.get(""));
         topBar.setLayoutDirection(options.layout.direction);
         topBar.setHeight(topBarOptions.height.get(UiUtils.getTopBarHeightDp(activity)));
         topBar.setElevation(topBarOptions.elevation.get(DEFAULT_ELEVATION));
