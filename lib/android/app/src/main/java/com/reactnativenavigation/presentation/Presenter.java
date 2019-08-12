@@ -104,6 +104,8 @@ public class Presenter {
         int flags = decorView.getSystemUiVisibility();
         if (visible.isFalse()) {
             flags |= View.SYSTEM_UI_FLAG_FULLSCREEN;
+        } else {
+            flags &= ~View.SYSTEM_UI_FLAG_FULLSCREEN;
         }
         decorView.setSystemUiVisibility(flags);
     }
