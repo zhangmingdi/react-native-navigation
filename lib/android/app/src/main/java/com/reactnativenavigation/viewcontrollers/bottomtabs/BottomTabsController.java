@@ -99,6 +99,7 @@ public class BottomTabsController extends ParentController<BottomTabsLayout> imp
     @Override
     public void mergeOptions(Options options) {
         presenter.mergeOptions(options);
+        tabPresenter.mergeOptions(options);
         super.mergeOptions(options);
         this.options.bottomTabsOptions.clearOneTimeOptions();
         this.initialOptions.bottomTabsOptions.clearOneTimeOptions();

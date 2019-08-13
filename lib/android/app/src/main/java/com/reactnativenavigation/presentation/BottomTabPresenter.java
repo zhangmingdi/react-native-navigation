@@ -17,6 +17,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 
+import static com.reactnativenavigation.utils.CollectionUtils.*;
 import static com.reactnativenavigation.utils.UiUtils.dpToPx;
 
 public class BottomTabPresenter {
@@ -60,6 +61,12 @@ public class BottomTabPresenter {
         }
     }
 
+    public void mergeOptions(Options options) {
+        bottomTabs.disableItemsCreation();
+        forEach(tabs, tab -> mergeChildOptions(options, tab));
+        bottomTabs.enableItemsCreation();
+    }
+
     public void mergeChildOptions(Options options, ViewController child) {
         int index = bottomTabFinder.findByControllerId(child.getId());
         if (index >= 0) {
@@ -85,14 +92,16 @@ public class BottomTabPresenter {
         AHNotification.Builder builder = new AHNotification.Builder()
                 .setText("")
                 .setBackgroundColor(dotIndicator.color.get(null))
-                .setSize(dotIndicator.size.get(defaultDotIndicatorSize));
+                .setSize(dotIndicator.size.get(defaultDotIndicatorSize))
+                .animate(dotIndicator.animate.get(false));
         bottomTabs.setNotification(builder.build(), tabIndex);
     }
 
     private void applyBadge(int tabIndex, BottomTabOptions tab) {
         AHNotification.Builder builder = new AHNotification.Builder()
                 .setText(tab.badge.get(""))
-                .setBackgroundColor(tab.badgeColor.get(null));
+                .setBackgroundColor(tab.badgeColor.get(null))
+                .animate(tab.animateBadge.get(false));
         bottomTabs.setNotification(builder.build(), tabIndex);
     }
 
@@ -101,6 +110,8 @@ public class BottomTabPresenter {
         AHNotification.Builder builder = new AHNotification.Builder();
         if (tab.badge.hasValue()) builder.setText(tab.badge.get());
         if (tab.badgeColor.hasValue()) builder.setBackgroundColor(tab.badgeColor.get());
+        if (tab.badgeColor.hasValue()) builder.setBackgroundColor(tab.badgeColor.get());
+        if (tab.animateBadge.hasValue()) builder.animate(tab.animateBadge.get());
         bottomTabs.setNotification(builder.build(), index);
     }
 
@@ -108,6 +119,7 @@ public class BottomTabPresenter {
         AHNotification.Builder builder = new AHNotification.Builder();
         if (dotIndicator.color.hasValue()) builder.setBackgroundColor(dotIndicator.color.get());
         builder.setSize(dotIndicator.visible.isFalse() ? 0 : dotIndicator.size.get(defaultDotIndicatorSize));
+        if (dotIndicator.animate.hasValue()) builder.animate(dotIndicator.animate.get());
         AHNotification notification = builder.build();
         if (notification.hasValue()) bottomTabs.setNotification(notification, index);
     }

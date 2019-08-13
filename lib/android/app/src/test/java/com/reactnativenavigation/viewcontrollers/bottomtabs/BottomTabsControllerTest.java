@@ -2,8 +2,6 @@ package com.reactnativenavigation.viewcontrollers.bottomtabs;
 
 import android.app.Activity;
 import android.graphics.Color;
-import androidx.annotation.NonNull;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import android.view.Gravity;
 import android.view.View;
 
@@ -38,6 +36,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import edu.emory.mathcs.backport.java.util.Collections;
 
 import static com.reactnativenavigation.TestUtils.hideBackButton;
@@ -66,6 +66,7 @@ public class BottomTabsControllerTest extends BaseTest {
     private ChildControllersRegistry childRegistry;
     private List<ViewController> tabs;
     private BottomTabsPresenter presenter;
+    private BottomTabPresenter bottomTabPresenter;
     private BottomTabsAttacher tabsAttacher;
 
     @Override
@@ -88,6 +89,7 @@ public class BottomTabsControllerTest extends BaseTest {
         when(child5.handleBack(any())).thenReturn(true);
         tabs = createTabs();
         presenter = spy(new BottomTabsPresenter(tabs, new Options()));
+        bottomTabPresenter = spy(new BottomTabPresenter(activity, tabs, ImageLoaderMock.mock(), new Options()));
         tabsAttacher = spy(new BottomTabsAttacher(tabs, presenter));
         uut = createBottomTabs();
 
@@ -217,6 +219,13 @@ public class BottomTabsControllerTest extends BaseTest {
         o2.topBar.title.text = new Text("Some text");
         child1.mergeOptions(o1);
         assertThat(uut.getBottomInset()).isEqualTo(0);
+    }
+
+    @Test
+    public void mergeOptions_mergesBottomTabOptions() {
+        Options options = new Options();
+        uut.mergeOptions(options);
+        verify(bottomTabPresenter).mergeOptions(options);
     }
 
     @Test
@@ -385,7 +394,7 @@ public class BottomTabsControllerTest extends BaseTest {
                 new Presenter(activity, new Options()),
                 tabsAttacher,
                 presenter,
-                new BottomTabPresenter(activity, tabs, ImageLoaderMock.mock(), new Options())) {
+                bottomTabPresenter) {
             @Override
             public void ensureViewIsCreated() {
                 super.ensureViewIsCreated();

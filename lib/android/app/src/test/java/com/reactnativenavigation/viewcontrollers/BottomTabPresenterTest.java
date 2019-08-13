@@ -14,14 +14,17 @@ import com.reactnativenavigation.presentation.BottomTabPresenter;
 import com.reactnativenavigation.views.BottomTabs;
 
 import org.junit.Test;
+import org.mockito.InOrder;
 import org.mockito.Mockito;
 
 import java.util.Arrays;
 import java.util.List;
 
+import static com.reactnativenavigation.utils.CollectionUtils.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -33,6 +36,8 @@ public class BottomTabPresenterTest extends BaseTest {
     private BottomTabPresenter uut;
     private BottomTabs bottomTabs;
     private List<ViewController> tabs;
+    private ViewController child1;
+    private ViewController child2;
     private ViewController child3;
 
     @Override
@@ -40,8 +45,8 @@ public class BottomTabPresenterTest extends BaseTest {
         Activity activity = newActivity();
         ChildControllersRegistry childRegistry = new ChildControllersRegistry();
         bottomTabs = Mockito.mock(BottomTabs.class);
-        ViewController child1 = spy(new SimpleViewController(activity, childRegistry, "child1", tab1Options));
-        ViewController child2 = spy(new SimpleViewController(activity, childRegistry, "child2", tab2Options));
+        child1 = spy(new SimpleViewController(activity, childRegistry, "child1", tab1Options));
+        child2 = spy(new SimpleViewController(activity, childRegistry, "child2", tab2Options));
         child3 = spy(new SimpleViewController(activity, childRegistry, "child2", new Options()));
         tabs = Arrays.asList(child1, child2, child3);
         uut = new BottomTabPresenter(activity, tabs, ImageLoaderMock.mock(), new Options());
@@ -57,6 +62,21 @@ public class BottomTabPresenterTest extends BaseTest {
             verify(bottomTabs, times(1)).setTitleInactiveColor(i, tabs.get(i).options.bottomTabOptions.textColor.get(null));
             verify(bottomTabs, times(1)).setTitleActiveColor(i, tabs.get(i).options.bottomTabOptions.selectedTextColor.get(null));
         }
+    }
+
+    @Test
+    public void mergeOptions_createTabsOnce() {
+        Options options = new Options();
+        options.bottomTabOptions.iconColor = new Colour(1);
+        options.bottomTabOptions.selectedIconColor = new Colour(1);
+        BottomTabPresenter spy = spy(uut);
+
+        spy.mergeOptions(options);
+
+        InOrder inOrder = inOrder(spy, child1, child2, child3, bottomTabs);
+        inOrder.verify(bottomTabs).disableItemsCreation();
+        forEach(tabs, tab -> inOrder.verify(spy).mergeChildOptions(options, tab));
+        inOrder.verify(bottomTabs).enableItemsCreation();
     }
 
     @Test

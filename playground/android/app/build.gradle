@@ -28,7 +28,7 @@ android {
             abiFilters "armeabi-v7a", "x86"
         }
 
-        testBuildType System.getProperty('testBuildType', 'debug')  //this will later be used to control the test apk build type
+        testBuildType System.getProperty('testBuildType', 'debug')
         missingDimensionStrategy "RNN.reactNativeVersion", "reactNative60"
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }

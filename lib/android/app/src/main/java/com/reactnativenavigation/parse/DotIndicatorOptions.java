@@ -22,6 +22,7 @@ public class DotIndicatorOptions {
         options.color = ColorParser.parse(json, "color");
         options.size = NumberParser.parse(json, "size");
         options.visible = BoolParser.parse(json, "visible");
+        options.animate = BoolParser.parse(json, "animate");
 
         return options;
     }
@@ -29,6 +30,7 @@ public class DotIndicatorOptions {
     public Colour color = new NullColor();
     public Number size = new NullNumber();
     public Bool visible = new NullBool();
+    public Bool animate = new NullBool();
 
     public boolean hasValue() {
         return visible.hasValue();
