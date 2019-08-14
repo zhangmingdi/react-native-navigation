@@ -137,8 +137,9 @@ public abstract class ParentController<T extends ViewGroup> extends ChildControl
 		forEach(getChildControllers(), ViewController::destroy);
 	}
 
-	@CallSuper
-    void clearOptions() {
+	@SuppressWarnings("WeakerAccess")
+    @CallSuper
+    protected void clearOptions() {
 	    performOnParentController(parent -> ((ParentController) parent).clearOptions());
         options = initialOptions.copy().clearOneTimeOptions();
     }
