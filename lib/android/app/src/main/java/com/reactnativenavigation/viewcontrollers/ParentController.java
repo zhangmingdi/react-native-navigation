@@ -138,7 +138,7 @@ public abstract class ParentController<T extends ViewGroup> extends ChildControl
 	}
 
 	@CallSuper
-    protected void clearOptions() {
+    void clearOptions() {
 	    performOnParentController(parent -> ((ParentController) parent).clearOptions());
         options = initialOptions.copy().clearOneTimeOptions();
     }

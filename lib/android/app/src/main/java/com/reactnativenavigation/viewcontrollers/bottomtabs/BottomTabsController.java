@@ -180,6 +180,12 @@ public class BottomTabsController extends ParentController<BottomTabsLayout> imp
         return bottomTabsInset + perform(getParentController(), 0, p -> p.getBottomInset(this));
     }
 
+    @Override
+    public void applyBottomInset() {
+        presenter.applyBottomInset(getBottomInset());
+        super.applyBottomInset();
+    }
+
     @NonNull
 	@Override
 	public Collection<ViewController> getChildControllers() {

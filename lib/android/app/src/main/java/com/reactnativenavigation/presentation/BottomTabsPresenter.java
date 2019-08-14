@@ -1,6 +1,7 @@
 package com.reactnativenavigation.presentation;
 
 import android.graphics.Color;
+import android.view.ViewGroup;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation.TitleState;
 import com.reactnativenavigation.anim.BottomTabsAnimator;
@@ -141,5 +142,11 @@ public class BottomTabsPresenter {
         if (bottomTabsOptions.elevation.hasValue()) {
             bottomTabs.setUseElevation(true, bottomTabsOptions.elevation.get().floatValue());
         }
+    }
+
+    public void applyBottomInset(int bottomInset) {
+        ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) bottomTabs.getLayoutParams();
+        lp.bottomMargin = bottomInset;
+        bottomTabs.requestLayout();
     }
 }
