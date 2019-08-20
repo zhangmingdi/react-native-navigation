@@ -81,7 +81,7 @@ public class Presenter {
     }
 
     private void setStatusBarBackgroundColor(StatusBarOptions statusBar) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && statusBar.backgroundColor.canApplyValue()) {
             activity.getWindow().setStatusBarColor(statusBar.backgroundColor.get(Color.BLACK));
         }
     }
