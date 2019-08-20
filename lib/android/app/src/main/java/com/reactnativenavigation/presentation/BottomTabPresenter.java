@@ -60,10 +60,6 @@ public class BottomTabPresenter {
         }
     }
 
-    public void mergeOptions(Options options) {
-
-    }
-
     public void mergeChildOptions(Options options, Component child) {
         int index = bottomTabFinder.findByComponent(child);
         if (index >= 0) {
