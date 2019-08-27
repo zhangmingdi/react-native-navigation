@@ -28,13 +28,13 @@
 	return self;
 }
 
-- (RNNNavigationOptions *)resolveOptions {
-    return (RNNNavigationOptions *) [self.options mergeInOptions:self.getCurrentChild.resolveOptions.copy];
+- (void)mergeOptions:(RNNNavigationOptions *)options {
+	[self.presenter mergeOptions:options currentOptions:self.resolveOptions];
+	[self.parentViewController mergeOptions:options];
 }
 
-- (void)mergeOptions:(RNNNavigationOptions *)options {
-	[self.presenter mergeOptions:options currentOptions:self.options];
-	[self.parentViewController mergeOptions:options];
+- (RNNNavigationOptions *)resolveOptions {
+    return (RNNNavigationOptions *) [self.options mergeInOptions:self.getCurrentChild.resolveOptions.copy];
 }
 
 - (void)overrideOptions:(RNNNavigationOptions *)options {

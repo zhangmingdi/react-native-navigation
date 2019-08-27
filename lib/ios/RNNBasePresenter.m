@@ -164,4 +164,25 @@
 - (void)applyDotIndicator:(UIViewController *)child {
     [[self dotIndicatorPresenter] apply:child:[child resolveOptions].bottomTab.dotIndicator];
 }
+
+- (UIStatusBarStyle)getStatusBarStyle:(RNNNavigationOptions *)resolvedOptions {
+    RNNNavigationOptions *withDefault = [resolvedOptions withDefault:[self defaultOptions]];
+    if ([[withDefault.statusBar.style getWithDefaultValue:@"default"] isEqualToString:@"light"]) {
+        return UIStatusBarStyleLightContent;
+    } else {
+        return UIStatusBarStyleDefault;
+    }
+}
+
+- (BOOL)isStatusBarVisibility:(UINavigationController *)stack resolvedOptions:(RNNNavigationOptions *)resolvedOptions {
+    RNNNavigationOptions *withDefault = [resolvedOptions withDefault:[self defaultOptions]];
+    if (withDefault.statusBar.visible.hasValue) {
+        return ![withDefault.statusBar.visible get];
+    } else if ([withDefault.statusBar.hideWithTopBar getWithDefaultValue:NO]) {
+        return stack.isNavigationBarHidden;
+    }
+    return NO;
+}
+
+
 @end

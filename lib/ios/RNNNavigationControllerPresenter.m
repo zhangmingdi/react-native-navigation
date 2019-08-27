@@ -120,12 +120,15 @@
 	}
 	
 
-	RNNLargeTitleOptions *largteTitleOptions = newOptions.topBar.largeTitle;
-	if (largteTitleOptions.color.hasValue || largteTitleOptions.fontSize.hasValue || largteTitleOptions.fontFamily.hasValue) {
+	RNNLargeTitleOptions *largeTitleOptions = newOptions.topBar.largeTitle;
+	if (largeTitleOptions.color.hasValue || largeTitleOptions.fontSize.hasValue || largeTitleOptions.fontFamily.hasValue) {
 		[navigationController rnn_setNavigationBarLargeTitleFontFamily:[newOptions.topBar.largeTitle.fontFamily getWithDefaultValue:nil] fontSize:[newOptions.topBar.largeTitle.fontSize getWithDefaultValue:nil] color:[newOptions.topBar.largeTitle.color getWithDefaultValue:nil]];
 	}
-	
-	[navigationController rnn_setNavigationBarFontFamily:[newOptions.topBar.title.fontFamily getWithDefaultValue:nil] fontSize:[newOptions.topBar.title.fontSize getWithDefaultValue:nil] color:[newOptions.topBar.title.color getWithDefaultValue:nil]];
+
+	RNNNavigationOptions * withDefault = (RNNNavigationOptions *) [[newOptions mergeInOptions:currentOptions] withDefault:[self defaultOptions]];
+	[navigationController rnn_setNavigationBarFontFamily:[withDefault.topBar.title.fontFamily getWithDefaultValue:nil]
+												fontSize:[withDefault.topBar.title.fontSize getWithDefaultValue:nil]
+												   color:[withDefault.topBar.title.color getWithDefaultValue:nil]];
 	
 	if (newOptions.topBar.component.name.hasValue) {
 		[self setCustomNavigationBarView:newOptions perform:nil];

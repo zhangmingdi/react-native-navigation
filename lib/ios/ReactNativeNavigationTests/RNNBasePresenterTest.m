@@ -60,4 +60,34 @@
     [self.mockBoundViewController verify];
 }
 
+- (void)testGetPreferredStatusBarStyle_returnLightIfLight {
+    RNNNavigationOptions * lightOptions = [[RNNNavigationOptions alloc] initEmptyOptions];
+    lightOptions.statusBar.style = [[Text alloc] initWithValue:@"light"];
+
+    XCTAssertEqual([_uut getStatusBarStyle:lightOptions], UIStatusBarStyleLightContent);
+}
+
+- (void)testGetPreferredStatusBarStyle_returnDefaultIfDark {
+    RNNNavigationOptions * darkOptions = [[RNNNavigationOptions alloc] initEmptyOptions];
+    darkOptions.statusBar.style = [[Text alloc] initWithValue:@"dark"];
+
+    XCTAssertEqual([_uut getStatusBarStyle:darkOptions], UIStatusBarStyleDefault);
+}
+
+- (void)testGetPreferredStatusBarStyle_returnDefaultIfNil {
+    RNNNavigationOptions * options = [[RNNNavigationOptions alloc] initEmptyOptions];
+
+    XCTAssertEqual([_uut getStatusBarStyle:options], UIStatusBarStyleDefault);
+}
+
+- (void)testGetPreferredStatusBarStyle_considersDefaultOptions {
+    RNNNavigationOptions * options = [[RNNNavigationOptions alloc] initEmptyOptions];
+    RNNNavigationOptions * lightOptions = [[RNNNavigationOptions alloc] initEmptyOptions];
+    lightOptions.statusBar.style = [[Text alloc] initWithValue:@"light"];
+    [_uut setDefaultOptions:lightOptions];
+
+    XCTAssertEqual([_uut getStatusBarStyle:options], UIStatusBarStyleLightContent);
+}
+
+
 @end

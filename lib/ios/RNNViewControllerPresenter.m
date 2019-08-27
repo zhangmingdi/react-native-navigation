@@ -79,7 +79,8 @@
 
 - (void)mergeOptions:(RNNNavigationOptions *)newOptions currentOptions:(RNNNavigationOptions *)currentOptions {
 	[super mergeOptions:newOptions currentOptions:currentOptions];
-	
+	RNNNavigationOptions * withDefault	= (RNNNavigationOptions *) [[currentOptions overrideOptions:newOptions] withDefault:[self defaultOptions]];
+
 	UIViewController* viewController = self.boundViewController;
 	
 	if (newOptions.backgroundImage.hasValue) {
@@ -135,7 +136,7 @@
 	}
 	
 	if (newOptions.statusBar.style.hasValue) {
-		[viewController rnn_setStatusBarStyle:newOptions.statusBar.style.get animated:[newOptions.statusBar.animate getWithDefaultValue:YES]];
+		[viewController rnn_setStatusBarStyle:newOptions.statusBar.style.get animated:[withDefault.statusBar.animate getWithDefaultValue:YES]];
 	}
 	
 	if (newOptions.topBar.backButton.visible.hasValue) {
@@ -143,17 +144,17 @@
 	}
 	
 	if (newOptions.topBar.leftButtons || newOptions.topBar.rightButtons) {
-		RNNNavigationOptions* buttonsResolvedOptions = (RNNNavigationOptions *)[currentOptions overrideOptions:newOptions];
-		[_navigationButtons applyLeftButtons:newOptions.topBar.leftButtons rightButtons:newOptions.topBar.rightButtons defaultLeftButtonStyle:buttonsResolvedOptions.topBar.leftButtonStyle defaultRightButtonStyle:buttonsResolvedOptions.topBar.rightButtonStyle];
+		[_navigationButtons applyLeftButtons:newOptions.topBar.leftButtons rightButtons:newOptions.topBar.rightButtons defaultLeftButtonStyle:withDefault.topBar.leftButtonStyle defaultRightButtonStyle:withDefault.topBar.rightButtonStyle];
 	}
 	
+
 	if (newOptions.overlay.interceptTouchOutside.hasValue) {
 		RCTRootView* rootView = (RCTRootView*)viewController.view;
 		rootView.passThroughTouches = !newOptions.overlay.interceptTouchOutside.get;
 	}
-	
-	[self setTitleViewWithSubtitle:(RNNNavigationOptions *)[currentOptions overrideOptions:newOptions]];
-	
+
+	[self setTitleViewWithSubtitle:withDefault];
+
 	if (newOptions.topBar.title.component.name.hasValue) {
 		[self setCustomNavigationTitleView:newOptions perform:nil];
 	}

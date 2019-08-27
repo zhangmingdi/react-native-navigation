@@ -126,15 +126,9 @@
 }
 
 - (void)testPreferredStatusBarStyle_shouldInvokeSelectedViewControllerPreferredStatusBarStyle {
-    [[self.mockChildViewController expect] preferredStatusBarStyle];
+    [[self.mockTabBarPresenter expect] getStatusBarStyle:[OCMArg any]];
     [self.uut preferredStatusBarStyle];
-    [self.mockChildViewController verify];
-}
-
-- (void)testPreferredStatusBarStyle_shouldInvokeOnSelectedViewController {
-    [[self.mockChildViewController expect] preferredStatusBarStyle];
-    [self.uut preferredStatusBarStyle];
-    [self.mockChildViewController verify];
+    [self.mockTabBarPresenter verify];
 }
 
 - (void)testTabBarControllerDidSelectViewControllerDelegate_shouldInvokeSendBottomTabSelectedEvent {

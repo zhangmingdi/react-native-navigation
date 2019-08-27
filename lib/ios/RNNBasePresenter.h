@@ -31,4 +31,8 @@ typedef void (^RNNReactViewReadyCompletionBlock)(void);
 - (void)renderComponents:(RNNNavigationOptions *)options perform:(RNNReactViewReadyCompletionBlock)readyBlock;
 
 - (void)viewDidLayoutSubviews;
+
+- (UIStatusBarStyle)getStatusBarStyle:(RNNNavigationOptions *)resolvedOptions;
+
+- (BOOL)isStatusBarVisibility:(UINavigationController *)stack resolvedOptions:(RNNNavigationOptions *)resolvedOptions;
 @end

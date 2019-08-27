@@ -32,7 +32,7 @@ const NSInteger TOP_BAR_TRANSPARENT_TAG = 78264803;
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
-	return self.getCurrentChild.preferredStatusBarStyle;
+	return [_presenter getStatusBarStyle:self.resolveOptions];
 }
 
 - (UIModalPresentationStyle)modalPresentationStyle {
