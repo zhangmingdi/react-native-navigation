@@ -1,3 +1,9 @@
+- Installing iOS
+  - [Installation with CocoaPods](/docs/iosCocoaPods)
+  - [Manual installation](/docs/iosManual)
+
+---
+⚠️ **Old docs below !️** ️️⚠️️
 - [Home](/)
 - Getting Started
   - [Installing](/docs/Installing)
