@@ -1,6 +1,7 @@
 - Installing iOS
   - [Installation with CocoaPods](/docs/iosCocoaPods)
   - [Manual installation](/docs/iosManual)
+- [Installing Android](/docs/installingAndroid)
 
 ---
 ⚠️ **Old docs below !️** ️️⚠️️
