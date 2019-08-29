@@ -2,11 +2,14 @@
   - [Installation with CocoaPods](/docs/iosCocoaPods)
   - [Manual installation](/docs/iosManual)
 - [Installing Android](/docs/installingAndroid)
+- [Showing the application root](/docs/creatingYourFirstScreen)
+
+- Getting Started
+
 
 ---
 ⚠️ **Old docs below !️** ️️⚠️️
 - [Home](/)
-- Getting Started
   - [Installing](/docs/Installing)
   - [Working Locally](/docs/WorkingLocally)
   - [Usage](/docs/Usage)
