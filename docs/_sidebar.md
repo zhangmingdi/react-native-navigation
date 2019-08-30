@@ -2,9 +2,9 @@
   - [Installation with CocoaPods](/docs/iosCocoaPods)
   - [Manual installation](/docs/iosManual)
 - [Installing Android](/docs/installingAndroid)
-- [Showing the application root](/docs/creatingYourFirstScreen)
+- [Display the app root](/docs/displayTheAppRoot)
 
-- Getting Started
+- [Showcases](/docs/showcases.md)
 
 
 ---

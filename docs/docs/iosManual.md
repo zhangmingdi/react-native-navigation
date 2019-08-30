@@ -1,10 +1,12 @@
-# 1. Add react-native-navigation library
+# Manual Installation
+
+## 1. Add react-native-navigation library
 In Xcode, in Project Navigator (left pane), right-click on the `Libraries` > `Add files to [project name]`. Add `node_modules/react-native-navigation/lib/ios/ReactNativeNavigation.xcodeproj` ([screenshots](https://facebook.github.io/react-native/docs/linking-libraries-ios.html#manual-linking)).
 
-# 2. Add react-native-navigation build phase
+## 2. Add react-native-navigation build phase
 In Xcode, in Project Navigator (left pane), click on your project (top), then click on your *target* row (on the "project and targets list", which is on the left column of the right pane) and select the `Build Phases` tab (right pane). In the `Link Binary With Libraries` section add `libReactNativeNavigation.a` ([screenshots](https://facebook.github.io/react-native/docs/linking-libraries-ios.html#step-2)).
 
-## a. ReactNativeNavigation.h' file not found
+### a. ReactNativeNavigation.h' file not found
 	If you're seeing an error message in Xcode such as:
 	```
 	'ReactNativeNavigation/ReactNativeNavigation.h' file not found.
@@ -14,7 +16,7 @@ In Xcode, in Project Navigator (left pane), click on your project (top), then cl
 	$(SRCROOT)/../node_modules/react-native-navigation/lib/ios
 	```
 
-# 3. Edit AppDelegate.m
+## 3. Edit AppDelegate.m
 In Xcode, edit this file: `AppDelegate.m`. This function is the main entry point for your app:
 
 	```objectivec
@@ -43,7 +45,7 @@ In Xcode, edit this file: `AppDelegate.m`. This function is the main entry point
 	@end
 	```
 
-## a. RCTBundleURLProvider.h file not found
+### a. RCTBundleURLProvider.h file not found
 If, in Xcode, you see the following error message in `AppDelegate.m` next to `#import "RCTBundleURLProvider.h"`: 
 	```
 	! 'RCTBundleURLProvider.h' file not found
@@ -51,7 +53,7 @@ If, in Xcode, you see the following error message in `AppDelegate.m` next to `#i
 	This is because the `React` scheme is missing from your project. You can verify this by opening the `Product` menu and the `Scheme` submenu. 
 	To make the `React` scheme available to your project, run `npm install -g react-native-git-upgrade` followed by `react-native-git-upgrade`. Once this is done, you can click back to the menu in Xcode: `Product -> Scheme -> Manage Schemes`, then click '+' to add a new scheme. From the `Target` menu, select "React", and click the checkbox to make the scheme `shared`. This should make the error disappear.
 
-## b. Class 'AppDelegate' does not conform to protocol 'RCTBridgeDelegate'
+### b. Class 'AppDelegate' does not conform to protocol 'RCTBridgeDelegate'
 If, in Xcode, you see the following warning message in `AppDelegate.m` next to `#import "@implementation AppDelegate"`:
 	```
 	Class 'AppDelegate' does not conform to protocol 'RCTBridgeDelegate'

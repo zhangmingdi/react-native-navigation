@@ -1,4 +1,6 @@
-# 1. Update settings.gradle
+# Manual Installation
+
+## 1. Update settings.gradle
 Add the following to `android/settings.gradle`:
 
 ```groovy
@@ -8,7 +10,7 @@ project(':react-native-navigation').projectDir = new File(rootProject.projectDir
 
 > These settings declare a new project called `:react-native-navigation` and direct the build system to its location in node modules. If you'd like to use a local clone of RNN, you can simply change the path above to the path of your local clone.
 
-# 2. Upgrade gradle version
+## 2. Upgrade gradle version
 Make sure you're using the new gradle plugin, edit `android/gradle/wrapper/gradle-wrapper.properties`
 > You can use version 4.4 or higher
 
@@ -21,7 +23,7 @@ zipStorePath=wrapper/dists
 -distributionUrl=https\://services.gradle.org/distributions/gradle-2.14.1-all.zip
 ```
 
-# 3. Update android/build.gradle
+## 3. Update android/build.gradle
 
 ```diff
 buildscript {
@@ -67,7 +69,7 @@ ext {
 }
 ```
 
-# 4. Update project dependencies in android/app/build.gradle
+## 4. Update project dependencies in android/app/build.gradle
 
 ```diff
 android {
@@ -100,7 +102,7 @@ dependencies {
 }
 ```
 
-### 5. RNN and React Native version
+## 5. RNN and React Native version
 react-native-navigation supports multiple React Native versions. Target the React Native version required by your project by specifying the RNN build flavor in `android/app/build.gradle`.
 
 ```diff
@@ -129,7 +131,7 @@ android {
 
 Now we need to instruct gradle how to build that flavor. To do so here two solutions:
 
-# 6. Build app with gradle command
+## 6. Build app with gradle command
 
 **prefered solution** The RNN flavor you would like to build is specified in `app/build.gradle`. Therefore in order to compile only that flavor, instead of building your entire project using `./gradlew assembleDebug`, you should instruct gradle to build the app module: `./gradlew app:assembleDebug`. The easiest way is to add a package.json command to build and install your debug Android APK .
 
@@ -142,7 +144,7 @@ Now we need to instruct gradle how to build that flavor. To do so here two solut
 
 Now run `npm run android` to build your application
 
-## Ignore other RNN flavors
+### Ignore other RNN flavors
 
 If you don't want to run `npm run android` and want to keep the default `react-native run-android` command, you need to specify to graddle to ignore the other flavors RNN provides.
 
@@ -168,7 +170,7 @@ To do so edit `android/build.gradle` and add:
 **Note**: As more build variants come available in the future, you will need to adjust the list (`names.contains("reactNative51") || names.contains("reactNative55")`). This is why we recommend the first solution.
 
 
-# 7. Update MainActivity.java
+## 7. Update MainActivity.java
 
 `MainActivity.java` should extend `com.reactnativenavigation.NavigationActivity` instead of `ReactActivity`.
 
@@ -189,7 +191,7 @@ This file is located in `android/app/src/main/java/com/<yourproject>/MainActivit
 
 If you have any **react-native** related methods, you can safely delete them.
 
-# 8. Update MainApplication.java
+## 8. Update MainApplication.java
 
 This file is located in `android/app/src/main/java/com/<yourproject>/MainApplication.java`.
 
@@ -246,7 +248,7 @@ import java.util.List;
 
 ```
 
-# 9. Force the same support library version across all dependencies (optional)
+## 9. Force the same support library version across all dependencies (optional)
 
 Some of your dependencies might require a different version of one of Google's support library packages. This results in compilation errors similar to this:
 
