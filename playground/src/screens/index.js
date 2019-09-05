@@ -24,6 +24,12 @@ function registerScreens() {
   Navigation.registerComponent(Screens.Lifecycle, () => require('./LifecycleScreen'));
   Navigation.registerComponent(Screens.Overlay, () => require('./OverlayScreen'));
   Navigation.registerComponent(Screens.OverlayAlert, () => require('./OverlayAlert'));
+  Navigation.registerComponent(Screens.Pushed, () => require('./PushedScreen'));
+  Navigation.registerComponent(Screens.ScrollViewOverlay, () => require('./ScrollViewOverlay'));
+  Navigation.registerComponent(Screens.RoundButton, () => require('./RoundedButton'));
+  Navigation.registerComponent(Screens.LifecycleButton, () => require('./LifecycleButton'));
+  Navigation.registerComponent(Screens.ReactTitleView, () => require('./CustomTopBar'));
+  Navigation.registerComponent(Screens.RoundButton, () => require('./RoundedButton'));
   Navigation.registerComponent(Screens.ScrollViewOverlay, () => require('./ScrollViewOverlay'));
   Navigation.registerComponent(Screens.RoundButton, () => require('./RoundedButton'));
   Navigation.registerComponent(Screens.ReactTitleView, () => require('./CustomTopBar'));
