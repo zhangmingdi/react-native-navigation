@@ -7,7 +7,6 @@
 
 @property (nonatomic, strong) NSLayoutConstraint *widthConstraint;
 @property (nonatomic, strong) NSLayoutConstraint *heightConstraint;
-@property (nonatomic, weak) RNNReactComponentRegistry *componentRegistry;
 
 @end
 
@@ -29,10 +28,9 @@
 	return self;
 }
 
--(instancetype)init:(NSString*)buttonId withCustomView:(RCTRootView *)reactView componentRegistry:(RNNReactComponentRegistry *)componentRegistry {
+-(instancetype)init:(NSString*)buttonId withCustomView:(RCTRootView *)reactView {
 	self = [super initWithCustomView:reactView];
 	
-	self.componentRegistry = componentRegistry;
 	reactView.sizeFlexibility = RCTRootViewSizeFlexibilityWidthAndHeight;
 	reactView.delegate = self;
 	reactView.backgroundColor = [UIColor clearColor];
@@ -76,13 +74,6 @@
 	[self.target performSelector:self.action
 					  withObject:self
 					  afterDelay:0];
-}
-
-- (void)dealloc {
-	if ([self.customView isKindOfClass:[RNNReactView class]]) {
-		RNNReactView* customView = self.customView;
-		[self.componentRegistry removeChildComponent:customView.componentId];
-	}
 }
 
 @end

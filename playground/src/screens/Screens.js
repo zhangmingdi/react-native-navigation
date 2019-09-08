@@ -18,7 +18,6 @@ module.exports = {
   Navigation: 'Navigation',
   NativeScreen: 'RNNCustomComponent',
   RoundButton: 'CustomRoundedButton',
-  LifecycleButton: 'LifecycleButton',
   ReactTitleView: 'ReactTitleView',
   EventsScreen: 'EventsScreen',
   EventsOverlay: 'EventsOverlay',
