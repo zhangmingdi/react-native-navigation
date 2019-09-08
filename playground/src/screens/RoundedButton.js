@@ -14,6 +14,7 @@ class RoundedButton extends Component {
 
   constructor(props) {
     super(props);
+    // for (let i = 0; i < Math.pow(2, 23) ; i++);
     this.subscription = Navigation.events().bindComponent(this);
     this.state = {};
   }

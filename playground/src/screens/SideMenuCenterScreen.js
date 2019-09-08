@@ -39,9 +39,17 @@ class SideMenuCenterScreen extends React.Component {
       <Root componentId={this.props.componentId}>
         <Button label='Open Left' testID={OPEN_LEFT_SIDE_MENU_BTN} onPress={() => this.open('left')} />
         <Button label='Open Right' testID={OPEN_RIGHT_SIDE_MENU_BTN} onPress={() => this.open('right')} />
+        <Button label='bug' onPress={this.bug} />
       </Root>
     );
   }
+
+  bug = () => Navigation.mergeOptions("RootLayoutId", {
+      sideMenu: {
+        left: { enabled: true }, 
+        right: { enabled: false }  // ** Need to set this too to get the bug.
+      }
+    });
 
   open = (side) => Navigation.mergeOptions(this, {
     sideMenu: {

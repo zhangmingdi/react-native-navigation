@@ -32,6 +32,24 @@ function start() {
   Navigation.events().registerAppLaunchedListener(async () => {
     setDefaultOptions();
 
+    // Navigation.setRoot({
+    //   root: {
+    //     sideMenu: {
+    //       id: 'RootLayoutId',
+    //       options: {
+    //         // The options are optional, but makes the bug more obvious.
+    //         sideMenu: {
+    //           left: { enabled: true, animate: false },
+    //           right: { enabled: true },
+    //         },
+    //       },
+    //       left: { component: { name: Screens.SideMenuLeft } },
+    //       right: { component: { name: Screens.SideMenuRight } },
+    //       center: { component: { name: Screens.SideMenuCenter } },
+    //     },
+    //   },
+    // })
+
     Navigation.setRoot({
       root: {
         bottomTabs: {

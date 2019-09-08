@@ -4,7 +4,7 @@
 #import "RNNComponentViewCreator.h"
 #import "RNNReactComponentRegistry.h"
 
-@interface RNNNavigationButtons : NSObject
+@interface RNNTopBarButtons : NSObject
 
 -(instancetype)initWithViewController:(UIViewController*)viewController componentRegistry:(RNNReactComponentRegistry *)componentRegistry;
 

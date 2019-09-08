@@ -19,6 +19,16 @@ class LayoutsScreen extends React.Component {
         testID: WELCOME_SCREEN_HEADER,
         title: {
           text: 'React Native Navigation'
+        },
+        rightButtons: {
+          id: 'ROUND',
+          component: {
+            id: 'rightBtn',
+            name: Screens.RoundButton,
+            passProps: {
+              title: 'Two'
+            }
+          }
         }
       }
     };
@@ -30,9 +40,31 @@ class LayoutsScreen extends React.Component {
         <Button label='Stack' testID={STACK_BTN} onPress={this.stack} />
         <Button label='BottomTabs' testID={BOTTOM_TABS_BTN} onPress={this.bottomTabs} />
         <Button label='SideMenu' testID={SIDE_MENU_BTN} onPress={this.sideMenu} />
+        <Button label='Merge Buttons' onPress={this.mergeButtons} />
       </Root>
     );
   }
+
+  mergeButtons = () => Navigation.mergeOptions(this, {
+    topBar: {
+      rightButtons: [
+        {
+          id: 'ROUND',
+          component: {
+            id: 'rightBtn',
+            name: Screens.RoundButton,
+            passProps: {
+              title: 'Two'
+            }
+          }
+        },
+        {
+          id: 'initialBtn',
+          icon: require('../../img/clear.png')
+        }
+      ]
+    }
+  });
 
   stack = () => Navigation.showModal(Screens.Stack);
 

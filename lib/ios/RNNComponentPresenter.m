@@ -23,7 +23,7 @@
 
 - (void)bindViewController:(UIViewController<RNNLayoutProtocol> *)bindedViewController {
 	[super bindViewController:bindedViewController];
-	_navigationButtons = [[RNNNavigationButtons alloc] initWithViewController:self.boundViewController componentRegistry:_componentRegistry];
+	_navigationButtons = [[RNNTopBarButtons alloc] initWithViewController:self.boundViewController componentRegistry:_componentRegistry];
 }
 
 - (void)applyOptionsOnWillMoveToParentViewController:(RNNNavigationOptions *)options {

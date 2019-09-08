@@ -12,6 +12,9 @@ const setDefaultOptions = () => Navigation.setDefaultOptions({
     orientation: ['portrait'],
     direction: 'locale'
   },
+  topBar: {
+    rightButtonColor: Colors.primary
+  },
   bottomTabs: {
     titleDisplayMode: 'alwaysShow'
   },
