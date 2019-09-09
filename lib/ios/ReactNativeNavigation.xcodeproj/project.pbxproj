@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		214545251F4DC125006E8DA1 /* RNNUIBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 214545241F4DC125006E8DA1 /* RNNUIBarButtonItem.m */; };
 		2145452A1F4DC85F006E8DA1 /* RCTHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 214545291F4DC85F006E8DA1 /* RCTHelpers.m */; };
-		21B85E5D1F44480200B314B5 /* RNNTopBarButtons.m in Sources */ = {isa = PBXBuildFile; fileRef = 21B85E5C1F44480200B314B5 /* RNNTopBarButtons.m */; };
-		21B85E5F1F44482A00B314B5 /* RNNTopBarButtons.h in Headers */ = {isa = PBXBuildFile; fileRef = 21B85E5E1F44482A00B314B5 /* RNNTopBarButtons.h */; };
 		261F0E641E6EC94900989DE2 /* RNNModalManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 261F0E621E6EC94900989DE2 /* RNNModalManager.h */; };
 		261F0E651E6EC94900989DE2 /* RNNModalManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 261F0E631E6EC94900989DE2 /* RNNModalManager.m */; };
 		261F0E6A1E6F028A00989DE2 /* RNNNavigationStackManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 261F0E681E6F028A00989DE2 /* RNNNavigationStackManager.h */; };
@@ -36,7 +34,9 @@
 		2DCD9196200014A900EDC75D /* RNNBridgeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DCD9194200014A900EDC75D /* RNNBridgeManager.m */; };
 		3098702E6833E5CC16D91CE3 /* NoColor.h in Headers */ = {isa = PBXBuildFile; fileRef = 309874C5B132A51A03DAA3BF /* NoColor.h */; };
 		3098730BC3B4DE41104D9CC4 /* RNNDotIndicatorPresenter.h in Headers */ = {isa = PBXBuildFile; fileRef = 309878B02F15ECDD1A286722 /* RNNDotIndicatorPresenter.h */; };
+		309873EC6B9DCB1A393FB365 /* RNNTopBarButtonPresenter.h in Headers */ = {isa = PBXBuildFile; fileRef = 30987C3B91757D3F350D7356 /* RNNTopBarButtonPresenter.h */; };
 		309874B40D202C9718F15CBD /* UIView+Utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 309877F25920CFE113FADEE0 /* UIView+Utils.h */; };
+		30987646418C75CB584C0EAC /* RNNTopBarButtonPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 309871501901BD47ECCCCF54 /* RNNTopBarButtonPresenter.m */; };
 		30987680135A8C78E62D5B8E /* DotIndicatorOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = 30987122507D8CBF16624F93 /* DotIndicatorOptions.h */; };
 		309877B0B5AAA7788F56F3D9 /* UIViewController+Utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 30987CF6993B89E85C0BCEE4 /* UIViewController+Utils.h */; };
 		309877F473AECC05FB3B9362 /* UITabBarController+RNNUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 30987FED6F982D322416CAF2 /* UITabBarController+RNNUtils.h */; };
@@ -352,8 +352,6 @@
 		214545261F4DC164006E8DA1 /* RNNUIBarButtonItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNNUIBarButtonItem.h; sourceTree = "<group>"; };
 		214545281F4DC81F006E8DA1 /* RCTHelpers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTHelpers.h; sourceTree = "<group>"; };
 		214545291F4DC85F006E8DA1 /* RCTHelpers.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTHelpers.m; sourceTree = "<group>"; };
-		21B85E5C1F44480200B314B5 /* RNNTopBarButtons.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNNTopBarButtons.m; sourceTree = "<group>"; };
-		21B85E5E1F44482A00B314B5 /* RNNTopBarButtons.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNNTopBarButtons.h; sourceTree = "<group>"; };
 		261F0E621E6EC94900989DE2 /* RNNModalManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNNModalManager.h; sourceTree = "<group>"; };
 		261F0E631E6EC94900989DE2 /* RNNModalManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNNModalManager.m; sourceTree = "<group>"; };
 		261F0E681E6F028A00989DE2 /* RNNNavigationStackManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNNNavigationStackManager.h; sourceTree = "<group>"; };
@@ -380,6 +378,7 @@
 		2DCD9194200014A900EDC75D /* RNNBridgeManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNNBridgeManager.m; sourceTree = "<group>"; };
 		30987122507D8CBF16624F93 /* DotIndicatorOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DotIndicatorOptions.h; sourceTree = "<group>"; };
 		309871A6C468B5DC1D0CA495 /* RNNTestNoColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNNTestNoColor.m; sourceTree = "<group>"; };
+		309871501901BD47ECCCCF54 /* RNNTopBarButtonPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNNTopBarButtonPresenter.m; sourceTree = "<group>"; };
 		309871FBA64AD937CEF3E191 /* DotIndicatorParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DotIndicatorParser.h; sourceTree = "<group>"; };
 		3098727A36771B4902A14FEA /* RNNTestBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNNTestBase.m; sourceTree = "<group>"; };
 		309874C5B132A51A03DAA3BF /* NoColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoColor.h; sourceTree = "<group>"; };
@@ -389,6 +388,7 @@
 		309877ADF638DF25FF0DA8A1 /* NoColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoColor.m; sourceTree = "<group>"; };
 		309877F25920CFE113FADEE0 /* UIView+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Utils.h"; sourceTree = "<group>"; };
 		309878B02F15ECDD1A286722 /* RNNDotIndicatorPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNNDotIndicatorPresenter.h; sourceTree = "<group>"; };
+		30987C3B91757D3F350D7356 /* RNNTopBarButtonPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNNTopBarButtonPresenter.h; sourceTree = "<group>"; };
 		30987CF6993B89E85C0BCEE4 /* UIViewController+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Utils.h"; sourceTree = "<group>"; };
 		30987D981545DCBBCCAB34F0 /* UIViewController+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Utils.m"; sourceTree = "<group>"; };
 		30987E66AA7AB38E7370F8C8 /* RNNDotIndicatorPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNNDotIndicatorPresenter.m; sourceTree = "<group>"; };
@@ -971,6 +971,8 @@
 				651E1F8C21FD642100DFEA19 /* RNNSplitViewControllerPresenter.m */,
 				30987E66AA7AB38E7370F8C8 /* RNNDotIndicatorPresenter.m */,
 				309878B02F15ECDD1A286722 /* RNNDotIndicatorPresenter.h */,
+				30987C3B91757D3F350D7356 /* RNNTopBarButtonPresenter.h */,
+				309871501901BD47ECCCCF54 /* RNNTopBarButtonPresenter.m */,
 			);
 			name = Presenters;
 			sourceTree = "<group>";
@@ -1029,8 +1031,6 @@
 				7BEF0D171E437684003E96B0 /* RNNComponentViewController.m */,
 				7BC9346C1E26886E00EFA125 /* RNNControllerFactory.h */,
 				7BC9346D1E26886E00EFA125 /* RNNControllerFactory.m */,
-				21B85E5E1F44482A00B314B5 /* RNNTopBarButtons.h */,
-				21B85E5C1F44480200B314B5 /* RNNTopBarButtons.m */,
 				214545261F4DC164006E8DA1 /* RNNUIBarButtonItem.h */,
 				214545241F4DC125006E8DA1 /* RNNUIBarButtonItem.m */,
 				507F43F61FF525B500D9425B /* RNNSegmentedControl.h */,
@@ -1300,7 +1300,6 @@
 				263905E61E4CAC950023D7D3 /* RNNSideMenuChildVC.h in Headers */,
 				50F5DFC51F407AA0001A00BC /* RNNStackController.h in Headers */,
 				5047E4F42267568800908DD3 /* RNNExternalComponentStore.h in Headers */,
-				21B85E5F1F44482A00B314B5 /* RNNTopBarButtons.h in Headers */,
 				7BEF0D181E437684003E96B0 /* RNNComponentViewController.h in Headers */,
 				7B1126A61E2D2B6C00F9B03B /* RNNBridgeModule.h in Headers */,
 				E8DA24401F97459B00CD552B /* RNNElementFinder.h in Headers */,
@@ -1372,6 +1371,7 @@
 				3098730BC3B4DE41104D9CC4 /* RNNDotIndicatorPresenter.h in Headers */,
 				309877F473AECC05FB3B9362 /* UITabBarController+RNNUtils.h in Headers */,
 				3098702E6833E5CC16D91CE3 /* NoColor.h in Headers */,
+				309873EC6B9DCB1A393FB365 /* RNNTopBarButtonPresenter.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1632,7 +1632,6 @@
 				50451D062042DAEB00695F00 /* RNNPushAnimation.m in Sources */,
 				5049593A216E5750006D2B81 /* Bool.m in Sources */,
 				50F5DFC61F407AA0001A00BC /* RNNStackController.m in Sources */,
-				21B85E5D1F44480200B314B5 /* RNNTopBarButtons.m in Sources */,
 				E8E518371F83B94A000467AC /* RNNViewLocation.m in Sources */,
 				E3458D3E20BD9CE40023149B /* RNNPreviewOptions.m in Sources */,
 				5012242B217372B3000F5F98 /* ImageParser.m in Sources */,
@@ -1640,6 +1639,7 @@
 				30987D71FB4FEEAC8D8978E8 /* DotIndicatorParser.m in Sources */,
 				30987B23F288EB3A78B7F27C /* RNNDotIndicatorPresenter.m in Sources */,
 				309878CC9D33CE1CF991EBD1 /* NoColor.m in Sources */,
+				30987646418C75CB584C0EAC /* RNNTopBarButtonPresenter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

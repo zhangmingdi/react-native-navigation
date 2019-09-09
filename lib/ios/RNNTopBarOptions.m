@@ -1,12 +1,12 @@
 #import "RNNTopBarOptions.h"
-#import "RNNTopBarButtons.h"
+#import "RNNTopBarButtonPresenter.h"
 #import "RNNCustomTitleView.h"
 #import "UIViewController+RNNOptions.h"
 #import "UINavigationController+RNNOptions.h"
 
 @interface RNNTopBarOptions ()
 
-@property (nonatomic, strong) RNNTopBarButtons* navigationButtons;
+@property (nonatomic, strong) RNNTopBarButtonPresenter* navigationButtons;
 
 @end
 

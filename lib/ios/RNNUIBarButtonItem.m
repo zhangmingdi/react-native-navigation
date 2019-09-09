@@ -36,7 +36,7 @@
 	reactView.sizeFlexibility = RCTRootViewSizeFlexibilityWidthAndHeight;
 	reactView.delegate = self;
 	reactView.backgroundColor = [UIColor clearColor];
-	reactView.hidden = YES;
+//	reactView.hidden = YES;
 	
 	self.widthConstraint = [NSLayoutConstraint constraintWithItem:reactView
 														attribute:NSLayoutAttributeWidth
@@ -68,6 +68,7 @@
 	rootView.hidden = NO;
 	self.widthConstraint.constant = rootView.intrinsicContentSize.width;
 	self.heightConstraint.constant = rootView.intrinsicContentSize.height;
+    [NSLayoutConstraint activateConstraints:@[self.widthConstraint, self.heightConstraint]];
 	[rootView setNeedsUpdateConstraints];
 	[rootView updateConstraintsIfNeeded];
 }
@@ -78,11 +79,11 @@
 					  afterDelay:0];
 }
 
-- (void)dealloc {
-	if ([self.customView isKindOfClass:[RNNReactView class]]) {
-		RNNReactView* customView = self.customView;
-		[self.componentRegistry removeChildComponent:customView.componentId];
-	}
-}
+//- (void)dealloc {
+//	if ([self.customView isKindOfClass:[RNNReactView class]]) {
+//		RNNReactView* customView = self.customView;
+//        [self.componentRegistry removeChildComponent:customView.componentId];
+//	}
+//}
 
 @end

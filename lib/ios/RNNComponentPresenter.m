@@ -23,7 +23,7 @@
 
 - (void)bindViewController:(UIViewController<RNNLayoutProtocol> *)bindedViewController {
 	[super bindViewController:bindedViewController];
-	_navigationButtons = [[RNNTopBarButtons alloc] initWithViewController:self.boundViewController componentRegistry:_componentRegistry];
+	_navigationButtons = [[RNNTopBarButtonPresenter alloc] initWithViewController:self.boundViewController componentRegistry:_componentRegistry];
 }
 
 - (void)applyOptionsOnWillMoveToParentViewController:(RNNNavigationOptions *)options {
@@ -72,8 +72,12 @@
 	[viewController setDrawBehindTopBar:[withDefault.topBar.drawBehind getWithDefaultValue:NO]];
 	[viewController setDrawBehindTabBar:[withDefault.bottomTabs.drawBehind getWithDefaultValue:NO] || ![withDefault.bottomTabs.visible getWithDefaultValue:YES]];
 	
-	if ((withDefault.topBar.leftButtons || withDefault.topBar.rightButtons)) {
-		[_navigationButtons applyLeftButtons:withDefault.topBar.leftButtons rightButtons:withDefault.topBar.rightButtons defaultLeftButtonStyle:withDefault.topBar.leftButtonStyle defaultRightButtonStyle:withDefault.topBar.rightButtonStyle];
+	if (withDefault.topBar.leftButtons) {
+        [_navigationButtons applyLeftButtons:withDefault.topBar.leftButtons defaultLeftButtonStyle:withDefault.topBar.leftButtonStyle];
+	}
+
+	if (withDefault.topBar.rightButtons) {
+        [_navigationButtons applyRightButtons:withDefault.topBar.rightButtons defaultRightButtonStyle:withDefault.topBar.rightButtonStyle];
 	}
 }
 
@@ -142,11 +146,14 @@
 	if (options.topBar.backButton.visible.hasValue) {
 		[viewController setBackButtonVisible:options.topBar.backButton.visible.get];
 	}
-	
-	if (options.topBar.leftButtons || options.topBar.rightButtons) {
-		[_navigationButtons applyLeftButtons:options.topBar.leftButtons rightButtons:options.topBar.rightButtons defaultLeftButtonStyle:withDefault.topBar.leftButtonStyle defaultRightButtonStyle:withDefault.topBar.rightButtonStyle];
-	}
-	
+
+    if (options.topBar.leftButtons) {
+        [_navigationButtons applyLeftButtons:options.topBar.leftButtons defaultLeftButtonStyle:withDefault.topBar.leftButtonStyle];
+    }
+
+    if (options.topBar.rightButtons) {
+        [_navigationButtons applyRightButtons:options.topBar.rightButtons defaultRightButtonStyle:withDefault.topBar.rightButtonStyle];
+    }
 
 	if (options.overlay.interceptTouchOutside.hasValue) {
 		RCTRootView* rootView = (RCTRootView*)viewController.view;

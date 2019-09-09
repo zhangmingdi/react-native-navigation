@@ -1,4 +1,4 @@
-#import "RNNTopBarButtons.h"
+#import "RNNTopBarButtonPresenter.h"
 #import "RNNUIBarButtonItem.h"
 #import <React/RCTConvert.h>
 #import "RCTHelpers.h"
@@ -8,15 +8,13 @@
 #import "UIViewController+LayoutProtocol.h"
 #import "RNNFontAttributesCreator.h"
 
-@interface RNNTopBarButtons()
+@interface RNNTopBarButtonPresenter()
 
 @property (weak, nonatomic) UIViewController<RNNLayoutProtocol>* viewController;
-@property (strong, nonatomic) RNNButtonOptions* defaultLeftButtonStyle;
-@property (strong, nonatomic) RNNButtonOptions* defaultRightButtonStyle;
 @property (strong, nonatomic) RNNReactComponentRegistry* componentRegistry;
 @end
 
-@implementation RNNTopBarButtons
+@implementation RNNTopBarButtonPresenter
 
 -(instancetype)initWithViewController:(UIViewController<RNNLayoutProtocol>*)viewController componentRegistry:(id)componentRegistry {
 	self = [super init];
@@ -25,59 +23,26 @@
 	return self;
 }
 
-- (void)applyLeftButtons:(NSArray *)leftButtons rightButtons:(NSArray *)rightButtons defaultLeftButtonStyle:(RNNButtonOptions *)defaultLeftButtonStyle defaultRightButtonStyle:(RNNButtonOptions *)defaultRightButtonStyle {
-	_defaultLeftButtonStyle = defaultLeftButtonStyle;
-	_defaultRightButtonStyle = defaultRightButtonStyle;
-	if (leftButtons) {
-		[self setButtons:leftButtons side:@"left" animated:NO defaultStyle:_defaultLeftButtonStyle insets:[self leftButtonInsets:_defaultLeftButtonStyle.iconInsets]];
-	}
-	
-	if (rightButtons) {
-		[self setButtons:rightButtons side:@"right" animated:NO defaultStyle:_defaultRightButtonStyle insets:[self rightButtonInsets:_defaultRightButtonStyle.iconInsets]];
-	}
+- (void)applyLeftButtons:(NSArray *)buttons defaultLeftButtonStyle:(RNNButtonOptions *)defaultButtonStyle {
+	NSArray * result = [self getButtons:buttons defaultStyle:defaultButtonStyle insets:[self leftButtonInsets:defaultButtonStyle.iconInsets]];
+	[self.viewController.navigationItem setLeftBarButtonItems:result animated:NO];
 }
 
--(void)setButtons:(NSArray*)buttons side:(NSString*)side animated:(BOOL)animated defaultStyle:(RNNButtonOptions *)defaultStyle insets:(UIEdgeInsets)insets {
+- (void)applyRightButtons:(NSArray *)buttons defaultRightButtonStyle:(RNNButtonOptions *)defaultButtonStyle {
+	NSArray *result = [self getButtons:buttons defaultStyle:defaultButtonStyle insets:[self rightButtonInsets:defaultButtonStyle.iconInsets]];
+	[self.viewController.navigationItem setRightBarButtonItems:result animated:NO];
+}
+
+-(NSArray *)getButtons:(NSArray*)buttons defaultStyle:(RNNButtonOptions *)defaultStyle insets:(UIEdgeInsets)insets {
 	NSMutableArray *barButtonItems = [NSMutableArray new];
-//    NSMutableArray<RNNUIBarButtonItem *> *currentButtons = ([side isEqualToString:@"left"] ? self.viewController.navigationItem.leftBarButtonItems : self.viewController.navigationItem.rightBarButtonItems).mutableCopy;
-	NSArray* resolvedButtons = [self resolveButtons:buttons];
-	for (NSDictionary *button in resolvedButtons) {
-		RNNUIBarButtonItem* barButtonItem = [self buildButton:button defaultStyle:defaultStyle insets:insets];
-//        [currentButtons enumerateObjectsUsingBlock:^(RNNUIBarButtonItem *button, NSUInteger idx, BOOL *stop) {
-//            if (button.buttonId == barButtonItem.buttonId) {
-//                [button.customView.superview.constraints enumerateObjectsUsingBlock:^(__kindof NSLayoutConstraint *constraint, NSUInteger idx, BOOL *stop) {
-//                    if (constraint.firstItem == button || constraint.secondItem == button) {
-//                        constraint.active = NO;
-//                    }
-//                }];
-//                [button.customView.constraints enumerateObjectsUsingBlock:^(__kindof NSLayoutConstraint *constraint, NSUInteger idx, BOOL *stop) {
-//					constraint.active = NO;
-//				}];
-//				[button.customView removeFromSuperview];
-//
-//
-//				[currentButtons removeObject:button];
-//                barButtonItem = button;
-//            }
-//        }];
-
-
-        if(barButtonItem) {
-			[barButtonItems addObject:barButtonItem];
-		}
+	for (NSDictionary *button in [self resolveButtons:buttons]) {
+        [barButtonItems addObject:[self buildButton:button defaultStyle:defaultStyle insets:insets]];
 		UIColor* color = [self color:[RCTConvert UIColor:button[@"color"]] defaultColor:[defaultStyle.color getWithDefaultValue:nil]];
 		if (color) {
 			self.viewController.navigationController.navigationBar.tintColor = color;
 		}
 	}
-	
-	if ([side isEqualToString:@"left"]) {
-		[self.viewController.navigationItem setLeftBarButtonItems:barButtonItems animated:animated];
-	}
-	
-	if ([side isEqualToString:@"right"]) {
-		[self.viewController.navigationItem setRightBarButtonItems:barButtonItems animated:animated];
-	}
+	return barButtonItems;
 }
 
 - (NSArray *)resolveButtons:(id)buttons {
@@ -114,7 +79,6 @@
 		}
 	}
 	
-	
 	RNNUIBarButtonItem *barButtonItem;
 	if (component) {
 		RNNComponentOptions* componentOptions = [RNNComponentOptions new];
@@ -122,10 +86,9 @@
 		componentOptions.name = [[Text alloc] initWithValue:component[@"name"]];
 		
 		RNNReactView *view = [_componentRegistry createComponentIfNotExists:componentOptions parentComponentId:self.viewController.layoutInfo.componentId reactViewReadyBlock:nil];
-		[view.constraints enumerateObjectsUsingBlock:^(__kindof NSLayoutConstraint *obj, NSUInteger idx, BOOL *stop) {
-                obj.active = NO;
-		}];
-        [view removeFromSuperview];
+		[view removeFromSuperview];
+		[NSLayoutConstraint deactivateConstraints:view.constraints];
+        [view invalidateIntrinsicContentSize];
 
         barButtonItem = [[RNNUIBarButtonItem alloc] init:buttonId withCustomView:view componentRegistry:_componentRegistry];
 	} else if (iconImage) {
