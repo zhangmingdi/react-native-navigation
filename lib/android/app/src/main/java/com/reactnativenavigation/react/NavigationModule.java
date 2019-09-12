@@ -3,6 +3,7 @@ package com.reactnativenavigation.react;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.reactnativenavigation.utils.LaunchArgsParser;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
@@ -69,6 +70,11 @@ public class NavigationModule extends ReactContextBaseJavaModule {
         return NAME;
     }
 
+    @ReactMethod
+    public void getLaunchArgs(String commandId, Promise promise) {
+        promise.resolve(LaunchArgsParser.parse(activity()));
+    }
+    
     @ReactMethod
     public void getConstants(Promise promise) {
         ReactApplicationContext ctx = getReactApplicationContext();
