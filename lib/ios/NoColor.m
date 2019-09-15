@@ -14,9 +14,8 @@
 }
 
 - (UIColor *)getWithDefaultValue:(id)defaultValue {
-    return UIColor.cyanColor;
-//    return nil;
+//    return UIColor.cyanColor;
+    return nil;
 }
-
 
 @end
