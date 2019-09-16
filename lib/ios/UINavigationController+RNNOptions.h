@@ -16,7 +16,7 @@
 
 - (void)rnn_setBarStyle:(UIBarStyle)barStyle;
 
-- (void)rnn_setNavigationBarFontFamily:(NSString *)fontFamily fontSize:(NSNumber *)fontSize color:(UIColor *)color;
+- (void)rnn_setNavigationBarFontFamily:(NSString *)fontFamily fontSize:(NSNumber *)fontSize fontWeight:(NSString *)fontWeight color:(UIColor *)color;
 
 - (void)rnn_setNavigationBarTranslucent:(BOOL)translucent;
 
@@ -26,7 +26,7 @@
 
 - (void)rnn_setNavigationBarLargeTitleVisible:(BOOL)visible;
 
-- (void)rnn_setNavigationBarLargeTitleFontFamily:(NSString *)fontFamily fontSize:(NSNumber *)fontSize color:(UIColor *)color;
+- (void)rnn_setNavigationBarLargeTitleFontFamily:(NSString *)fontFamily fontSize:(NSNumber *)fontSize fontWeight:(NSString *)fontWeight color:(UIColor *)color;
 
 - (void)rnn_setBackButtonColor:(UIColor *)color;
 

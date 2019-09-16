@@ -42,8 +42,8 @@
 	[navigationController rnn_setNavigationBarBlur:[withDefault.topBar.background.blur getWithDefaultValue:NO]];
 	[navigationController setTopBarBackgroundColor:[withDefault.topBar.background.color getWithDefaultValue:nil]];
 	[navigationController rnn_setNavigationBarLargeTitleVisible:[withDefault.topBar.largeTitle.visible getWithDefaultValue:NO]];
-	[navigationController rnn_setNavigationBarLargeTitleFontFamily:[withDefault.topBar.largeTitle.fontFamily getWithDefaultValue:nil] fontSize:[withDefault.topBar.largeTitle.fontSize getWithDefaultValue:nil] color:[withDefault.topBar.largeTitle.color getWithDefaultValue:nil]];
-	[navigationController rnn_setNavigationBarFontFamily:[withDefault.topBar.title.fontFamily getWithDefaultValue:nil] fontSize:[withDefault.topBar.title.fontSize getWithDefaultValue:nil] color:[withDefault.topBar.title.color getWithDefaultValue:nil]];
+	[navigationController rnn_setNavigationBarLargeTitleFontFamily:[withDefault.topBar.largeTitle.fontFamily getWithDefaultValue:nil] fontSize:[withDefault.topBar.largeTitle.fontSize getWithDefaultValue:nil] fontWeight:[withDefault.topBar.largeTitle.fontWeight getWithDefaultValue:nil] color:[withDefault.topBar.largeTitle.color getWithDefaultValue:nil]];
+	[navigationController rnn_setNavigationBarFontFamily:[withDefault.topBar.title.fontFamily getWithDefaultValue:nil] fontSize:[withDefault.topBar.title.fontSize getWithDefaultValue:nil] fontWeight:[withDefault.topBar.title.fontWeight getWithDefaultValue:nil] color:[withDefault.topBar.title.color getWithDefaultValue:nil]];
 	[navigationController rnn_setBackButtonColor:[withDefault.topBar.backButton.color getWithDefaultValue:nil]];
 }
 
@@ -58,7 +58,7 @@
 	RNNNavigationOptions *withDefault = [options withDefault:[self defaultOptions]];
 	RNNNavigationController* navigationController = self.boundViewController;
 	[navigationController setTopBarBackgroundColor:[withDefault.topBar.background.color getWithDefaultValue:nil]];
-	[navigationController rnn_setNavigationBarFontFamily:[withDefault.topBar.title.fontFamily getWithDefaultValue:nil] fontSize:[withDefault.topBar.title.fontSize getWithDefaultValue:nil] color:[withDefault.topBar.title.color getWithDefaultValue:[UIColor blackColor]]];
+	[navigationController rnn_setNavigationBarFontFamily:[withDefault.topBar.title.fontFamily getWithDefaultValue:nil] fontSize:[withDefault.topBar.title.fontSize getWithDefaultValue:nil] fontWeight:[withDefault.topBar.title.fontWeight getWithDefaultValue:nil] color:[withDefault.topBar.title.color getWithDefaultValue:[UIColor blackColor]]];
 	[navigationController rnn_setNavigationBarLargeTitleVisible:[withDefault.topBar.largeTitle.visible getWithDefaultValue:NO]];
 }
 
@@ -122,12 +122,13 @@
 
 	RNNLargeTitleOptions *largeTitleOptions = newOptions.topBar.largeTitle;
 	if (largeTitleOptions.color.hasValue || largeTitleOptions.fontSize.hasValue || largeTitleOptions.fontFamily.hasValue) {
-		[navigationController rnn_setNavigationBarLargeTitleFontFamily:[newOptions.topBar.largeTitle.fontFamily getWithDefaultValue:nil] fontSize:[newOptions.topBar.largeTitle.fontSize getWithDefaultValue:nil] color:[newOptions.topBar.largeTitle.color getWithDefaultValue:nil]];
+		[navigationController rnn_setNavigationBarLargeTitleFontFamily:[newOptions.topBar.largeTitle.fontFamily getWithDefaultValue:nil] fontSize:[newOptions.topBar.largeTitle.fontSize getWithDefaultValue:nil] fontWeight:[newOptions.topBar.largeTitle.fontWeight getWithDefaultValue:nil] color:[newOptions.topBar.largeTitle.color getWithDefaultValue:nil]];
 	}
 
 	RNNNavigationOptions * withDefault = (RNNNavigationOptions *) [[newOptions mergeInOptions:currentOptions] withDefault:[self defaultOptions]];
 	[navigationController rnn_setNavigationBarFontFamily:[withDefault.topBar.title.fontFamily getWithDefaultValue:nil]
 												fontSize:[withDefault.topBar.title.fontSize getWithDefaultValue:nil]
+											  fontWeight:[newOptions.topBar.title.fontWeight getWithDefaultValue:nil]
 												   color:[withDefault.topBar.title.color getWithDefaultValue:nil]];
 	
 	if (newOptions.topBar.component.name.hasValue) {
