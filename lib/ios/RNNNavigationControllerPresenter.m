@@ -128,7 +128,7 @@
 	RNNNavigationOptions * withDefault = (RNNNavigationOptions *) [[newOptions mergeInOptions:currentOptions] withDefault:[self defaultOptions]];
 	[navigationController rnn_setNavigationBarFontFamily:[withDefault.topBar.title.fontFamily getWithDefaultValue:nil]
 												fontSize:[withDefault.topBar.title.fontSize getWithDefaultValue:nil]
-											  fontWeight:[newOptions.topBar.title.fontWeight getWithDefaultValue:nil]
+											  fontWeight:[withDefault.topBar.title.fontWeight getWithDefaultValue:nil]
 												   color:[withDefault.topBar.title.color getWithDefaultValue:nil]];
 	
 	if (newOptions.topBar.component.name.hasValue) {
