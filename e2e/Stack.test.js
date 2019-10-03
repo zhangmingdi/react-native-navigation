@@ -94,7 +94,7 @@ describe('Stack', () => {
     await expect(elementByLabel('Stack Position: 2')).toBeVisible();
   });
 
-  xit(':ios: set searchBar and handle onSearchUpdated event', async () => { // Broken on iOS 13
+  it(':ios: set searchBar and handle onSearchUpdated event', async () => {
     await elementById(TestIDs.SEARCH_BTN).tap();
     await expect(elementByLabel('Start Typing')).toBeVisible();
     await elementByLabel('Start Typing').tap();
