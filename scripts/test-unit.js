@@ -44,7 +44,7 @@ function runIosUnitTests() {
             -project playground.xcodeproj
             -sdk iphonesimulator
             -configuration ${conf}
-            -destination 'platform=iOS Simulator,name=iPhone X'
+            -destination 'platform=iOS Simulator,name=iPhone X,OS=12.0'
             -derivedDataPath ./playground/ios/DerivedData/playground
             ONLY_ACTIVE_ARCH=YES`);
 }
