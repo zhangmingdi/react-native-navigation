@@ -42,6 +42,7 @@
 		309877F473AECC05FB3B9362 /* UITabBarController+RNNUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 30987FED6F982D322416CAF2 /* UITabBarController+RNNUtils.h */; };
 		309878CC9D33CE1CF991EBD1 /* NoColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 309877ADF638DF25FF0DA8A1 /* NoColor.m */; };
 		309879812219F6EDD2AECAC6 /* RNNTestNoColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 309871A6C468B5DC1D0CA495 /* RNNTestNoColor.m */; };
+		309878D339BBC6ABEE75F1AC /* NSArray+RNNUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 30987C4EC94A60EB12CDBA51 /* NSArray+RNNUtils.m */; };
 		30987AB5137F264FA06DA289 /* DotIndicatorOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 309876223177761614786DCC /* DotIndicatorOptions.m */; };
 		30987B23F288EB3A78B7F27C /* RNNDotIndicatorPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 30987E66AA7AB38E7370F8C8 /* RNNDotIndicatorPresenter.m */; };
 		30987CA5048A48D6CE76B06C /* DotIndicatorParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 309871FBA64AD937CEF3E191 /* DotIndicatorParser.h */; };
@@ -389,11 +390,13 @@
 		309877F25920CFE113FADEE0 /* UIView+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Utils.h"; sourceTree = "<group>"; };
 		309878B02F15ECDD1A286722 /* RNNDotIndicatorPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNNDotIndicatorPresenter.h; sourceTree = "<group>"; };
 		30987C3B91757D3F350D7356 /* RNNTopBarButtonPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNNTopBarButtonPresenter.h; sourceTree = "<group>"; };
+		30987C4EC94A60EB12CDBA51 /* NSArray+RNNUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+RNNUtils.m"; path = "Utils/NSArray+RNNUtils.m"; sourceTree = "<group>"; };
 		30987CF6993B89E85C0BCEE4 /* UIViewController+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Utils.h"; sourceTree = "<group>"; };
 		30987D981545DCBBCCAB34F0 /* UIViewController+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Utils.m"; sourceTree = "<group>"; };
 		30987E66AA7AB38E7370F8C8 /* RNNDotIndicatorPresenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNNDotIndicatorPresenter.m; sourceTree = "<group>"; };
 		30987F749DCD552D95979721 /* UITabBarController+RNNUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITabBarController+RNNUtils.m"; sourceTree = "<group>"; };
 		30987F787A14D232AB091E7E /* UIView+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Utils.m"; sourceTree = "<group>"; };
+		30987FCBDC9128951D69088A /* NSArray+RNNUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSArray+RNNUtils.h"; path = "Utils/NSArray+RNNUtils.h"; sourceTree = "<group>"; };
 		30987FED6F982D322416CAF2 /* UITabBarController+RNNUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITabBarController+RNNUtils.h"; sourceTree = "<group>"; };
 		390AD475200F499D00A8250D /* RNNSwizzles.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNNSwizzles.h; sourceTree = "<group>"; };
 		390AD476200F499D00A8250D /* RNNSwizzles.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNNSwizzles.m; sourceTree = "<group>"; };
@@ -1168,6 +1171,8 @@
 				E5F6C39F22DB4D0E0093C2CE /* UIView+Utils.m */,
 				E5F6C39D22DB4D0E0093C2CE /* UIViewController+Utils.h */,
 				E5F6C39E22DB4D0E0093C2CE /* UIViewController+Utils.m */,
+				30987C4EC94A60EB12CDBA51 /* NSArray+RNNUtils.m */,
+				30987FCBDC9128951D69088A /* NSArray+RNNUtils.h */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -1499,6 +1504,7 @@
 				E8DA243D1F973C1900CD552B /* RNNTransitionStateHolderTest.m in Sources */,
 				7B49FECC1E95098500DEB3EA /* RNNExternalComponentStoreTest.m in Sources */,
 				309879812219F6EDD2AECAC6 /* RNNTestNoColor.m in Sources */,
+				309878D339BBC6ABEE75F1AC /* NSArray+RNNUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

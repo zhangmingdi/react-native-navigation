@@ -1,12 +1,12 @@
 #import "RNNTopBarButtonPresenter.h"
 #import "RNNUIBarButtonItem.h"
-#import <React/RCTConvert.h>
 #import "RCTHelpers.h"
 #import "UIImage+tint.h"
 #import "RNNComponentViewController.h"
 #import "UIImage+insets.h"
 #import "UIViewController+LayoutProtocol.h"
 #import "RNNFontAttributesCreator.h"
+#import "NSArray+RNNUtils.h"
 
 @interface RNNTopBarButtonPresenter()
 
@@ -30,7 +30,11 @@
 
 - (void)applyRightButtons:(NSArray *)buttons defaultRightButtonStyle:(RNNButtonOptions *)defaultButtonStyle {
 	NSArray *result = [self getButtons:buttons defaultStyle:defaultButtonStyle insets:[self rightButtonInsets:defaultButtonStyle.iconInsets]];
+    NSArray<UIBarButtonItem *> *prevButtons = self.viewController.navigationItem.rightBarButtonItems.copy;
 	[self.viewController.navigationItem setRightBarButtonItems:result animated:NO];
+    NSArray<UIBarButtonItem *> *currentButtons = self.viewController.navigationItem.rightBarButtonItems;
+    self.viewController.navigationItem.rightBarButtonItems;
+//	NSArray *array = [currentButtons subtract:prevButtons];
 }
 
 -(NSArray *)getButtons:(NSArray*)buttons defaultStyle:(RNNButtonOptions *)defaultStyle insets:(UIEdgeInsets)insets {
