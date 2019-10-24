@@ -2,12 +2,14 @@ package com.reactnativenavigation.viewcontrollers;
 
 import android.app.Activity;
 import android.support.annotation.CallSuper;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.reactnativenavigation.parse.Options;
 import com.reactnativenavigation.presentation.Presenter;
 import com.reactnativenavigation.viewcontrollers.navigator.Navigator;
 import com.reactnativenavigation.views.Component;
+
 
 public abstract class ChildController<T extends ViewGroup> extends ViewController<T>  {
     final Presenter presenter;
@@ -59,6 +61,7 @@ public abstract class ChildController<T extends ViewGroup> extends ViewControlle
     public void mergeOptions(Options options) {
         if (options == Options.EMPTY) return;
         if (isViewShown()) presenter.mergeOptions(getView(), options);
+        performOnParentController(parentController -> parentController.mergeChildOptions(options, this));
         super.mergeOptions(options);
     }
 
