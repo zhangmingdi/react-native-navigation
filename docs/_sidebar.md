@@ -6,6 +6,11 @@
 
 - [Showcases](/docs/showcases.md)
 
+- Layouts
+  - [Stack](/docs/stack)
+  - [Bottom tabs](/docs/bottomTabs)
+  - [Side menu](/docs/sideMenu)
+
 
 ---
 ⚠️ **Old docs below !️** ️️⚠️️
