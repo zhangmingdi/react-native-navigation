@@ -6,17 +6,20 @@
   <title>React Native Navigation - truly native navigation for iOS and Android</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="description" content="React Native Navigation - truly native navigation for iOS and Android">
-  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <link rel="shortcut icon" href="_images/favicon.ico" type="image/x-icon">
   <link rel="icon" href="_images/favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple.css" title="Simple">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple.css"
+    title="Simple">
   <!-- <link rel="stylesheet" href="https://unpkg.com/docsify/themes/vue.css"> -->
 
 
   <style>
+    /* Right left panels */
     :root {
-      --docsify-example-panels-left-panel-width : 80%;
-      --docsify-example-panels-right-panel-width : 20%;
+      --docsify-example-panels-left-panel-width: 80%;
+      --docsify-example-panels-right-panel-width: 20%;
     }
     .right-panel {
       position: fixed;
@@ -27,17 +30,37 @@
     .right-panel:hover {
       overflow: auto;
     }
-    .options-container {
-      margin-left: 16px;
+
+    /* Options */
+    #optionsUl li {
+      list-style-type: none; /* Remove default bullets */
     }
-    details pre {
-      margin-top: 0px;
-      margin-bottom: 0px;
-      white-space: pre-wrap;
+    #optionsUl {
+      list-style-type: none; /* Remove default bullets */
+      margin: 0;
+      padding: 0;
     }
-    /* .optionDetails {
-      mar
-    } */
+    .caret {
+      cursor: pointer;
+      user-select: none; /* Prevent text selection */
+    }
+    .caret::before {
+      content: "⌃";
+      color: #4D4D4D;
+      display: inline-block;
+      margin-right: 8px;
+      transform: rotate(90deg);
+    }
+    .caret-down::before {
+      transform: rotate(180deg); /* Rotate the caret/arrow icon when clicked on */
+    }
+    .nested {
+      display: none;
+    }
+    .active {
+      display: block;     /* Show the nested list */
+    }
+
     /* diff syntax highlighting */
     .token.inserted {
       color: #42b983;
@@ -69,6 +92,20 @@
       },
       subMaxLevel: 3,
       auto2top: true,
+      plugins: [
+        function (hook, vm) {
+          hook.doneEach(function () {
+            var toggler = document.getElementsByClassName("caret");
+            var i;
+            for (i = 0; i < toggler.length; i++) {
+              toggler[i].addEventListener("click", function () {
+                this.parentElement.querySelector(".nested").classList.toggle("active");
+                this.classList.toggle("caret-down");
+              });
+            }
+          });
+        }
+      ]
     }
   </script>
   <script src="https://unpkg.com/docsify@latest/lib/docsify.min.js"></script>

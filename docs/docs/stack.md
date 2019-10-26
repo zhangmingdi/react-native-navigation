@@ -1,7 +1,6 @@
 <!-- panels:start -->
 <!-- div:left-panel -->
 # Stack
-
 A stack is a container layout promoting a hierarchical navigation. It is used for navigating between screens at consecutive levels of hierarchy, steps in a flow or across an app.
 
 The first child in the stack (represented by the `children` array) is the root and is displayed at the bottom of the stack. The last child in the children array is the child currently being displayed.
@@ -9,6 +8,26 @@ The first child in the stack (represented by the `children` array) is the root a
 In this layout, only a single child screen is visible at any given time and consecutive screen can be added to the top of the stack using the `Navigation.push` command. Tapping the back button will pop the stack and remove the top most screen.
 
 The stack manages the TopBar at the top of the stack. The TopBar displays the current screens' title and buttons. It can be hidden with the `topBar: { visible: false }` option. By default, screens are rendered below the TopBar. This behavior can be changed by setting `topBar: { drawBehind: true }` in the current screens' options.
+
+## Buttons
+Buttons can be added to the right and left areas of the TopBar. Buttons can have either an icon or a text. They are declared in the child's options object and, as with any other option, can be updated dynamically with the `Navigation.mergeOptions` command.
+
+* throttling is not supported
+
+### Three dots menu
+It's common practice to group less important actions in a menu or an action sheet.
+
+To do so on iOS, include a button with a menu icon and open an [ActionSheet](https://facebook.github.io/react-native/docs/actionsheetios) with the relevant actions when the button is clicked. On Android, use the `showAsAction` options to control when the button should appear in the menu.
+
+
+### Left button
+* single left button Android
+* Textual left button isn't supported on Android atm
+
+### Custom button
+
+
+* long press on a button android
 
 ## Examples
 ### Single child
@@ -47,77 +66,247 @@ const stack = {
 ```
 
 ## Options
+### TopBar
 #### height?: number
 The height of the TopBar in dp.
-
+___
 #### drawBehind?: boolean
 Controls if the child should be drawn behind the TopBar or below it.
+___
+#### visible?: boolean
+Determines whether the TopBar is visible or not.
+___
+#### animate?: boolean
+Determines if changing the TopBar visibility will be animated or not.
+___
+#### testID?: string
+Used to interact with the TopBar in e2e tests.
+___
+#### rightButtonColor?: Color
+Default color for right buttons.
+___
+#### leftButtonColor?: Color
+Default color for left buttons.
+___
+#### hideOnScroll?: boolean
+Hide the TopBar when a scrolling layout is scrolled.
+___
+#### rightButtons?: Array< Button >
+An array of buttons to be displayed at the right side of the TopBar. Buttons are layed out in order from right to left. See the [Buttons](#Buttons) section for more details.
+___
+#### leftButtons?: Array< Button >
+An array of buttons to be displayed at the right side of the TopBar. Buttons are layed out in order from left to right. See the [Buttons](#Buttons) section for more details.
+
+?> Android currently only supports a single left button and does not support custom left Buttons
+___
+### Title
+#### text: string
+Set the title for the TopBar.
+___
+#### fontSize?: number
+Set the title font size. On Android this value is treated in sp units.
+___
+#### color?: Color
+Set the title color.
+___
+#### fontFamily?: FontFamily
+Set the title font family.
+___
+#### alignment?: 'center' | 'fill'
+`fill` will make the title stretch and consume all available space in the TopBar while `center` will center the title in the middle of the TopBar.
+
+?> `center` is the default option on iOS while `fill` is the default for Android.
+___
+#### component?: Component
+Set a react [component](#component) as the title. If this option is specified then text is ignored.
+___
+#### background?: Background
+Set the [Background](#background) for the title.
+___
+### Subtitle
+#### text: string
+The subtitle text.
+___
+#### fontSize?: number
+The subtitle fontSize. On Android this value is treated in sp units.
+___
+#### color?: Color
+The subtitle color.
+___
+#### fontFamily?: FontFamily
+The subtitle FontFamily.
+___
+#### alignment?: 'center' | 'fill'
+`fill` will make the subtitle stretch and consume all available space in the TopBar while `center` will center the subtitle in the middle of the TopBar.
+___
+### Button
+#### id: string
+Buttons are identified by their id property. When a button is clicked, a buttonPress event is emitted to js with the button's id.
+___
+#### icon?: number
+Button icon. If the button is pushed to the overflow menu the button's [text](#text-string) is used instead.
+___
+#### text?: string
+Button text, ignored an an icon is specified unless the button is displayed in the overflow menu.
+___
+#### component?: Component
+Set a react [component](#component) as this button's view which will be displayed instead of the regular view.
+___
+#### iconInsets?: IconInsets (iOS specific)
+[IconInsets](#iconinsets) are applied to the icon to translate its original position on the screen.
+___
+#### systemItem?: string (iOS specific)
+System icon, it is ignored if an [icon](#icon-number) is specified. For more information see [apple's guidelines](https://developer.apple.com/design/human-interface-guidelines/ios/icons-and-images/system-icons/).
+
+##### Available icons
+* done
+* cancel
+* edit
+* save
+* add
+* flexibleSpace
+* fixedSpace
+* compose
+* reply
+* action
+* organize
+* bookmarks
+* search
+* refresh
+* stop
+* camera
+* trash
+* play
+* pause
+* rewind
+* fastForward
+* undo
+* redo
+___
+### Background
+#### color?: Color
+Background color, ignored if a component is defined.
+___
+#### component?: Component
+A react [component](#component) to be used as background.
+___
+### Component
+#### name: string
+The key used when registering the component with `Navigation.registerComponent`.
+___
+#### id?: string
+Unique id used when interacting with the view with the Navigation api, usually `Navigation.mergeOptions` which accepts the componentId as it's first argument.
+___
+#### alignment?: 'center' | 'fill'
+This option is relevant only to title components. `fill` will make the component stretch and consume all available space in the TopBar while `center` will center it in the middle of the TopBar.
+
+?> `center` is the default option on iOS while `fill` is the default for Android.
+___
+#### waitForRender?: boolean
+Wait for this component to fully render before showing the screen. This option is useful for ensuring that both a child screen pushed into the stack and all of the TopBar components (title, background and buttons) are displayed to the user at the same time.
+
+To enable this option, `waitForRender` in the relevant screen animation option needs to be enabled as well.
+
+!> While this option improves ux, it might introduce delays when pushing screens.
+___
+#### passProps?: object
+A JavaScript object with props accessible inside the component using `this.props`.
+___
+### IconInsets
+___
+### Background
 
 <!-- div:right-panel -->
-<div>
-  <pre>
-    Options
-      TopBar
-        <a href="http://localhost:3000/#/docs/stack?id=height-number">Height</a>
-        <a href="http://localhost:3000/#/docs/stack?id=drawbehind-boolean">drawBehind</a>
-        visible
-        animate
-        testID
-        leftButtonColor
-        rightButtonColor
-        hideOnScroll
-        title
-          text
-          fontSize
+<ul id="optionsUl">
+  <li><span class="caret">TopBar</span>
+    <ul class="nested active">
+      <li><a href="#/docs/stack?id=height-number">height</a></li>
+      <li><a href="#/docs/stack?id=drawbehind-boolean">drawBehind</a></li>
+      <li><a href="#/docs/stack?id=visible-boolean">visible</a></li>
+      <li><a href="#/docs/stack?id=animate-boolean">animate</a></li>
+      <li><a href="#/docs/stack?id=testid-boolean">testID</a></li>
+      <li><a href="#/docs/stack?id=leftbuttoncolor-color">leftButtonColor</a></li>
+      <li><a href="#/docs/stack?id=rightbuttoncolor-color">rightButtonColor</a></li>
+      <li><a href="#/docs/stack?id=hideonscroll-boolean">hideOnScroll</a></li>
+      <li><span class="caret">title</span>
+        <ul class="nested">
+          <li><a href="#/docs/stack?id=text-string">text</a></li>
+          <li><a href="#/docs/stack?id=fontsize-number">fontSize</a></li>
+          <li><a href="#/docs/stack?id=color-color">color</a></li>
+          <li><a href="#/docs/stack?id=fontfamily-fontfamily">fontFamily</a></li>
+          <li><a href="#/docs/stack?id=alignment-39center39-39fill39">alignment</a></li>
+          <li><span class="caret">component</span>
+            <ul class="nested">
+              <li><a href="#/docs/stack?id=name-string">name</a></li>
+              <li><a href="#/docs/stack?id=id-string-1">id</a></li>
+              <li><a href="#/docs/stack?id=alignment-39center39-39fill39-2">alignment</a></li>
+              <li><a href="#/docs/stack?id=passprops-object">passProps</a></li>
+            </ul>
+          </li>
+          <li><span class="caret">background</span>
+            <ul class="nested">
+              <li><a href="#/docs/stack?id=color-color-2">color</a></li>
+              <li><span class="caret">component</span>
+                <ul class="nested">
+                  <li><a href="#/docs/stack?id=name-string">name</a></li>
+                  <li><a href="#/docs/stack?id=id-string-1">id</a></li>
+                  <li><a href="#/docs/stack?id=alignment-39center39-39fill39-1">alignment</a></li>
+                  <li><a href="#/docs/stack?id=passprops-object">passProps</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><span class="caret">subtitle</span>
+        <ul class="nested">
+          <li><a href="#/docs/stack?id=text-string-1">text</a></li>
+          <li><a href="#/docs/stack?id=fontsize-number-1">fontSize</a></li>
+          <li><a href="#/docs/stack?id=color-color-1">color</a></li>
+          <li><a href="#/docs/stack?id=fontfamily-fontfamily-1">fontFamily</a></li>
+          <li><a href="#/docs/stack?id=alignment-39center39-39fill39-1">alignment</a></li>
+        </ul>
+      </li>
+      <li><span class="caret">largeTitle</span>
+        <ul class="nested">
+          <li><a href="">visible</a></li>
+          <li><a href="">fontSize</a></li>
+          <li><a href="">color</a></li>
+          <li><a href="">fontFamily</a></li>
+          <li><a href="">fontWeight</a></li>
+        </ul>
+      </li>
+      <li><a href="">rightButtons</a></li>
+      <li><a href="">leftButtons</a></li>
+      <li><span class="caret">backButton</span>
+        <ul class="nested">
+          <li><a href="">icon</a></li>
+          <li><a href="">visible</a></li>
+          <li><a href="">title</a></li>
+          <li><a href="">showTitle</a></li>
+          <li><a href="">color</a></li>
+        </ul>
+      </li>
+      <li><span class="caret">background</span>
+        <ul class="nested">
           color
-          fontFamily
-          alignment
-          component
-            id
-            name
-            alignment
-            passProps
-        background
-          color
-          component
-            name
-        subtitle
-          text
-          fontSize
-          color
-          fontFamily
-          alignment
-      backButton
-        icon
-        visible
-        title
-        showTitle
-        color
-      background
-        color
-        translucent
-        blur
-        component
-          id
-          name
-          passProps
-      barStyle
-      noBorder
-      searchBar
-      searchBarHiddenWhenScrolling
-      searchBarPlaceholder
-      largeTitle
-        visible
-        fontSize
-        color
-        fontFamily
-        fontWeight
-      height
-      borderColor
-      borderHeight
-      elevation
-      topMargin
-  </pre>
-</div>
-
+          <li><span class="caret">component</span>
+            <ul class="nested">
+              name
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><a href="">barStyle</a></li>
+      <li><a href="">noBorder</a></li>
+      <li><a href="">searchBar</a></li>
+      <li><a href="">searchBarHiddenWhenScrolling</a></li>
+      <li><a href="">searchBarPlaceholder</a></li>
+      <li><a href="">height</a></li>
+      <li><a href="">borderColor</a></li>
+      <li><a href="">borderHeight</a></li>
+      <li><a href="">elevation</a></li>
+      <li><a href="">topMargin</a></li>
+  </li>
+</ul>
 <!-- panels:end -->
