@@ -91,14 +91,6 @@ ___
 #### hideOnScroll?: boolean
 Hide the TopBar when a scrolling layout is scrolled.
 ___
-#### rightButtons?: Array< Button >
-An array of buttons to be displayed at the right side of the TopBar. Buttons are layed out in order from right to left. See the [Buttons](#Buttons) section for more details.
-___
-#### leftButtons?: Array< Button >
-An array of buttons to be displayed at the right side of the TopBar. Buttons are layed out in order from left to right. See the [Buttons](#Buttons) section for more details.
-
-?> Android currently only supports a single left button and does not support custom left Buttons
-___
 ### Title
 #### text: string
 Set the title for the TopBar.
@@ -138,6 +130,48 @@ The subtitle FontFamily.
 ___
 #### alignment?: 'center' | 'fill'
 `fill` will make the subtitle stretch and consume all available space in the TopBar while `center` will center the subtitle in the middle of the TopBar.
+___
+### LargeTitle (iOS specific)
+Available on iOS 11 and above.
+
+#### visible?: boolean
+Controls whether the large title is visible or not.
+___
+#### fontSize?: number
+Set the title font size. On Android this value is treated in sp units.
+___
+#### color?: Color
+Large title text color.
+___
+#### fontFamily?: FontFamily
+Set the large title's [FontFamily]().
+___
+#### fontWeight?: number
+Set the large title's font weight.
+___
+#### rightButtons?: Array< Button >
+An array of buttons to be displayed at the right side of the TopBar. Buttons are layed out in order from right to left. See the [Buttons](#Buttons) section for more details.
+___
+#### leftButtons?: Array< Button >
+An array of buttons to be displayed at the right side of the TopBar. Buttons are layed out in order from left to right. See the [Buttons](#Buttons) section for more details.
+
+?> Android currently only supports a single left button and does not support custom left Buttons
+___
+### BackButton
+#### icon?: number
+Change the default back button icon.
+___
+#### visible?: boolean
+Hide or show the back button.
+___
+#### title?: string (iOS specific)
+Change the text displayed next to the title. Usually the back button shows the title of the previous screen. 
+___
+#### showTitle?: boolean (iOS specific)
+Show or hide the text displayed next to the back button.
+___
+#### color?: Color
+Change the back button's color. This will change the text color as well.
 ___
 ### Button
 #### id: string
@@ -242,6 +276,13 @@ ___
 ### IconInsets
 ___
 ### Background
+#### color?: Color
+Set the background color. Ignored if a component is specified.
+___
+#### component?: Component
+Set a react [component](#component) as the background. Useful for example to show a gradient as background.
+
+?> On Android, Setting an `id` to the Component will prevent the component from being recreated each time it's used by a screen. The component will be created once and whenever possible it will be reused.
 
 <!-- div:right-panel -->
 <ul id="optionsUl">
@@ -251,9 +292,9 @@ ___
       <li><a href="#/docs/stack?id=drawbehind-boolean">drawBehind</a></li>
       <li><a href="#/docs/stack?id=visible-boolean">visible</a></li>
       <li><a href="#/docs/stack?id=animate-boolean">animate</a></li>
-      <li><a href="#/docs/stack?id=testid-boolean">testID</a></li>
-      <li><a href="#/docs/stack?id=leftbuttoncolor-color">leftButtonColor</a></li>
+      <li><a href="#/docs/stack?id=testid-string">testID</a></li>
       <li><a href="#/docs/stack?id=rightbuttoncolor-color">rightButtonColor</a></li>
+      <li><a href="#/docs/stack?id=leftbuttoncolor-color">leftButtonColor</a></li>
       <li><a href="#/docs/stack?id=hideonscroll-boolean">hideOnScroll</a></li>
       <li><span class="caret">title</span>
         <ul class="nested">
@@ -296,15 +337,15 @@ ___
       </li>
       <li><span class="caret">largeTitle</span>
         <ul class="nested">
-          <li><a href="">visible</a></li>
-          <li><a href="">fontSize</a></li>
-          <li><a href="">color</a></li>
-          <li><a href="">fontFamily</a></li>
-          <li><a href="">fontWeight</a></li>
+          <li><a href="#/docs/stack?id=visible-boolean-1">visible</a></li>
+          <li><a href="/#/docs/stack?id=fontsize-number-2">fontSize</a></li>
+          <li><a href="#/docs/stack?id=color-color-2">color</a></li>
+          <li><a href="#/docs/stack?id=fontfamily-fontfamily-2">fontFamily</a></li>
+          <li><a href="#/docs/stack?id=fontweight-number">fontWeight</a></li>
         </ul>
       </li>
-      <li><a href="">rightButtons</a></li>
-      <li><a href="">leftButtons</a></li>
+      <li><a href="#/docs/stack?id=rightbuttons-arraylt-button-gt">rightButtons</a></li>
+      <li><a href="#/docs/stack?id=leftbuttons-arraylt-button-gt">leftButtons</a></li>
       <li><span class="caret">backButton</span>
         <ul class="nested">
           <li><a href="">icon</a></li>
@@ -316,7 +357,7 @@ ___
       </li>
       <li><span class="caret">background</span>
         <ul class="nested">
-          color
+          <li><a href="#/docs/stack?id=color-color-5">color</a></li>
           <li><span class="caret">component</span>
             <ul class="nested">
               name
