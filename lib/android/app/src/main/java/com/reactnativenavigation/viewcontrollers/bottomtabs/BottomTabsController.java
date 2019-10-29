@@ -155,6 +155,7 @@ public class BottomTabsController extends ParentController implements AHBottomNa
             return new AHBottomNavigationItem(
                     options.text.get(""),
                     imageLoader.loadIcon(getActivity(), options.icon.get()),
+                    imageLoader.loadIcon(getActivity(), options.selectedIcon.get(null)),
                     options.testId.get("")
             );
         });
