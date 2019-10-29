@@ -22,11 +22,14 @@ function registerScreens() {
   Navigation.registerComponent(Screens.FirstBottomTabsScreen, () => require('./FirstBottomTabScreen'));
   Navigation.registerComponent(Screens.SecondBottomTabsScreen, () => require('./SecondBottomTabScreen'));
   Navigation.registerComponent(Screens.Lifecycle, () => require('./LifecycleScreen'));
+  Navigation.registerComponent(Screens.Options, () => require('./OptionsScreen'));
+  Navigation.registerComponent(Screens.Buttons, () => require('./ButtonsScreen'));
+  Navigation.registerComponent(Screens.Orientation, () => require('./OrientationScreen'));
+  Navigation.registerComponent(Screens.OrientationDetect, () => require('./OrientationDetectScreen'));
   Navigation.registerComponent(Screens.Overlay, () => require('./OverlayScreen'));
   Navigation.registerComponent(Screens.OverlayAlert, () => require('./OverlayAlert'));
   Navigation.registerComponent(Screens.Pushed, () => require('./PushedScreen'));
   Navigation.registerComponent(Screens.ScrollViewOverlay, () => require('./ScrollViewOverlay'));
-  Navigation.registerComponent(Screens.RoundButton, () => require('./RoundedButton'));
   Navigation.registerComponent(Screens.LifecycleButton, () => require('./LifecycleButton'));
   Navigation.registerComponent(Screens.ReactTitleView, () => require('./CustomTopBar'));
   Navigation.registerComponent(Screens.RoundButton, () => require('./RoundedButton'));

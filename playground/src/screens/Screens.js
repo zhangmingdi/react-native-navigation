@@ -4,6 +4,7 @@ module.exports = {
   Pushed: 'Pushed',
   Layouts: 'Layouts',
   Options: 'Options',
+  Buttons: 'Buttons',
   Stack: 'Stack',
   Modal: 'Modal',
   SetRoot: 'SetRoot',
