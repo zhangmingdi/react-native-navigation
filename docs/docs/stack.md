@@ -212,6 +212,33 @@ ___
 #### passProps?: object
 A JavaScript object with props accessible inside the component using `this.props`.
 ___
+### barStyle?: 'default' | 'black' (iOS specific)
+Control the TopBar blur style. Requires `translucent: true`.
+___
+### noBorder?: boolean (iOS specific)
+Disables the border at bottom of the TopBar.
+___
+### searchBar?: boolean (iOS 11+ specific)
+Show a UISearchBar in the TopBar.
+___
+### searchBarHiddenWhenScrolling?: boolean (iOS 11+ specific)
+Hides the UISearchBar when scrolling.
+___
+### searchBarPlaceholder?: string (iOS 11+ specific)
+The placeholder value in the UISearchBar.
+___
+### hideNavBarOnFocusSearchBar?: boolean (iOS 11+ specific)
+Indicates whether the navigation bar should be hidden when searching. True by default.
+___
+### borderColor?: Color (iOS specific)
+Change the topBar border color.
+___
+### borderHeight?: number (Android specific)
+Set the border height of the navbar in dp.
+___
+### elevation?: number (Android specific)
+Set the elevation of the TopBar in dp. This option changes how the shadow under the TopBar looks. Setting this value to 0 will remove the shadow completley.
+___
 ### IconInsets
 ___
 ### Background
@@ -302,7 +329,6 @@ ___
       <li><a href="">searchBar</a></li>
       <li><a href="">searchBarHiddenWhenScrolling</a></li>
       <li><a href="">searchBarPlaceholder</a></li>
-      <li><a href="">height</a></li>
       <li><a href="">borderColor</a></li>
       <li><a href="">borderHeight</a></li>
       <li><a href="">elevation</a></li>
