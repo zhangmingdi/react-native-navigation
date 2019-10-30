@@ -19,7 +19,6 @@ import com.reactnativenavigation.views.topbar.TopBar;
 
 import org.mockito.Mockito;
 
-
 public class SimpleViewController extends ChildController<SimpleViewController.SimpleView> {
 
 

@@ -60,7 +60,7 @@ class FirstBottomTabScreen extends React.Component {
     }
   });
 
-  switchTabByComponentId = () => Navigation.mergeOptions('SecondTab', {
+  switchTabByComponentId = () => Navigation.mergeOptions(this, {
     bottomTabs: {
       currentTabId: 'SecondTab'
     }
