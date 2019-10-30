@@ -91,6 +91,33 @@ ___
 #### hideOnScroll?: boolean
 Hide the TopBar when a scrolling layout is scrolled.
 ___
+#### barStyle?: 'default' | 'black' (iOS specific)
+Control the TopBar blur style. Requires `translucent: true`.
+___
+#### noBorder?: boolean (iOS specific)
+Disables the border at bottom of the TopBar.
+___
+#### searchBar?: boolean (iOS 11+ specific)
+Show a UISearchBar in the TopBar.
+___
+#### searchBarHiddenWhenScrolling?: boolean (iOS 11+ specific)
+Hides the UISearchBar when scrolling.
+___
+#### searchBarPlaceholder?: string (iOS 11+ specific)
+The placeholder value in the UISearchBar.
+___
+#### hideNavBarOnFocusSearchBar?: boolean (iOS 11+ specific)
+Indicates whether the navigation bar should be hidden when searching. True by default.
+___
+#### borderColor?: Color (iOS specific)
+Change the topBar border color.
+___
+#### borderHeight?: number (Android specific)
+Set the border height of the navbar in dp.
+___
+#### elevation?: number (Android specific)
+Set the elevation of the TopBar in dp. This option changes how the shadow under the TopBar looks. Setting this value to 0 will remove the shadow completley.
+___
 ### Title
 #### text: string
 Set the title for the TopBar.
@@ -219,10 +246,12 @@ System icon, it is ignored if an [icon](#icon-number) is specified. For more inf
 ___
 ### Background
 #### color?: Color
-Background color, ignored if a component is defined.
+Set the background color. Ignored if a component is specified.
 ___
 #### component?: Component
-A react [component](#component) to be used as background.
+Set a react [component](#component) as the background. Useful for example to show a gradient as background.
+
+?> On Android, Setting an `id` to the Component will prevent the component from being recreated each time it's used by a screen. The component will be created once and whenever possible it will be reused.
 ___
 ### Component
 #### name: string
@@ -246,43 +275,8 @@ ___
 #### passProps?: object
 A JavaScript object with props accessible inside the component using `this.props`.
 ___
-### barStyle?: 'default' | 'black' (iOS specific)
-Control the TopBar blur style. Requires `translucent: true`.
-___
-### noBorder?: boolean (iOS specific)
-Disables the border at bottom of the TopBar.
-___
-### searchBar?: boolean (iOS 11+ specific)
-Show a UISearchBar in the TopBar.
-___
-### searchBarHiddenWhenScrolling?: boolean (iOS 11+ specific)
-Hides the UISearchBar when scrolling.
-___
-### searchBarPlaceholder?: string (iOS 11+ specific)
-The placeholder value in the UISearchBar.
-___
-### hideNavBarOnFocusSearchBar?: boolean (iOS 11+ specific)
-Indicates whether the navigation bar should be hidden when searching. True by default.
-___
-### borderColor?: Color (iOS specific)
-Change the topBar border color.
-___
-### borderHeight?: number (Android specific)
-Set the border height of the navbar in dp.
-___
-### elevation?: number (Android specific)
-Set the elevation of the TopBar in dp. This option changes how the shadow under the TopBar looks. Setting this value to 0 will remove the shadow completley.
-___
 ### IconInsets
 ___
-### Background
-#### color?: Color
-Set the background color. Ignored if a component is specified.
-___
-#### component?: Component
-Set a react [component](#component) as the background. Useful for example to show a gradient as background.
-
-?> On Android, Setting an `id` to the Component will prevent the component from being recreated each time it's used by a screen. The component will be created once and whenever possible it will be reused.
 
 <!-- div:right-panel -->
 <ul id="optionsUl">
