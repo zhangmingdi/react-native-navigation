@@ -6,14 +6,6 @@
 
 @implementation RNNTitleView
 
-- (void)layoutSubviews {
-	CGFloat heightSum = _titleLabel.frame.size.height + _subtitleLabel.frame.size.height;
-	CGFloat yOffset = (self.frame.size.height - heightSum) / 2;
-	
-	[_titleLabel setFrame:CGRectMake(0, yOffset, self.frame.size.width, _titleLabel.frame.size.height)];
-	[_subtitleLabel setFrame:CGRectMake(0, yOffset+_titleLabel.frame.size.height, self.frame.size
-										.width, _subtitleLabel.frame.size.height)];
-}
 
 @end
 
@@ -62,7 +54,7 @@
 	
 	self.titleView = [[RNNTitleView alloc] initWithFrame:navigationBarBounds];
 	self.titleView.backgroundColor = [UIColor clearColor];
-	self.titleView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleHeight;
+	self.titleView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
 	self.titleView.clipsToBounds = YES;
 	
 	if (self.subtitle) {
@@ -102,7 +94,7 @@
 	UILabel *subtitleLabel = [[UILabel alloc] initWithFrame:subtitleFrame];
 	subtitleLabel.textAlignment = NSTextAlignmentCenter;
 	subtitleLabel.backgroundColor = [UIColor clearColor];
-	subtitleLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+	subtitleLabel.autoresizingMask = self.titleView.autoresizingMask;
 	
 	NSDictionary* fontAttributes = [RNNFontAttributesCreator createWithFontFamily:[_subtitleOptions.fontFamily getWithDefaultValue:nil] fontSize:[_subtitleOptions.fontSize getWithDefaultValue:nil] fontWeight:[_subtitleOptions.fontWeight getWithDefaultValue:nil] color:[_subtitleOptions.color getWithDefaultValue:nil]];
 	[subtitleLabel setAttributedText:[[NSAttributedString alloc] initWithString:self.subtitle attributes:fontAttributes]];
@@ -134,7 +126,7 @@
 	titleLabel.textAlignment = NSTextAlignmentCenter;
 	titleLabel.backgroundColor = [UIColor clearColor];
 	
-	titleLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+	titleLabel.autoresizingMask = self.titleView.autoresizingMask;
 	
 	NSDictionary* fontAttributes = [RNNFontAttributesCreator createWithFontFamily:[_titleOptions.fontFamily getWithDefaultValue:nil] fontSize:[_titleOptions.fontSize getWithDefaultValue:nil] fontWeight:[_titleOptions.fontWeight getWithDefaultValue:nil] color:[_subtitleOptions.color getWithDefaultValue:nil]];
 	[titleLabel setAttributedText:[[NSAttributedString alloc] initWithString:self.title attributes:fontAttributes]];
