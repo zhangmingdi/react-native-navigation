@@ -67,35 +67,92 @@ const stack = {
 
 ## Options
 ### TopBar
-#### height?: number
-The height of the TopBar in dp.
-___
-#### drawBehind?: boolean
-Controls if the child should be drawn behind the TopBar or below it.
-___
-#### visible?: boolean
-Determines whether the TopBar is visible or not.
-___
 #### animate?: boolean
 Determines if changing the TopBar visibility will be animated or not.
 ___
-#### testID?: string
-Used to interact with the TopBar in e2e tests.
+### BackButton
+#### icon?: number
+Change the default back button icon.
 ___
-#### rightButtonColor?: Color
-Default color for right buttons.
+#### visible?: boolean
+Hide or show the back button.
 ___
-#### leftButtonColor?: Color
-Default color for left buttons.
+#### title?: string (iOS specific)
+Change the text displayed next to the title. Usually the back button shows the title of the previous screen. 
 ___
-#### hideOnScroll?: boolean
-Hide the TopBar when a scrolling layout is scrolled.
+#### showTitle?: boolean (iOS specific)
+Show or hide the text displayed next to the back button.
+___
+#### color?: Color
+Change the back button's color. This will change the text color as well.
+___
+### Background
+#### color?: Color
+Set the background color. Ignored if a component is specified.
+___
+#### component?: Component
+Set a react [component](#component) as the background. Useful for example to show a gradient as background.
+
+?> On Android, Setting an `id` to the Component will prevent the component from being recreated each time it's used by a screen. The component will be created once and whenever possible it will be reused.
 ___
 #### barStyle?: 'default' | 'black' (iOS specific)
 Control the TopBar blur style. Requires `translucent: true`.
 ___
+#### borderColor?: Color (iOS specific)
+Change the topBar border color.
+___
+#### borderHeight?: number (Android specific)
+Set the border height of the navbar in dp.
+___
+#### drawBehind?: boolean
+Controls if the child should be drawn behind the TopBar or below it.
+___
+#### elevation?: number (Android specific)
+Set the elevation of the TopBar in dp. This option changes how the shadow under the TopBar looks. Setting this value to 0 will remove the shadow completely.
+___
+#### height?: number
+The height of the TopBar in dp.
+___
+#### hideOnScroll?: boolean
+Hide the TopBar when a scrolling layout is scrolled.
+___
+#### hideNavBarOnFocusSearchBar?: boolean (iOS 11+ specific)
+Indicates whether the navigation bar should be hidden when searching. True by default.
+___
+### LargeTitle (iOS specific)
+Available on iOS 11 and above.
+
+#### visible?: boolean
+Controls whether the large title is visible or not.
+___
+#### fontSize?: number
+Set the title font size. On Android this value is treated in sp units.
+___
+#### color?: Color
+Large title text color.
+___
+#### fontFamily?: FontFamily
+Set the large title's [FontFamily]().
+___
+#### fontWeight?: number
+Set the large title's font weight.
+___
+#### leftButtons?: Array< Button >
+An array of buttons to be displayed at the right side of the TopBar. Buttons are layed out in order from left to right. See the [Buttons](#Buttons) section for more details.
+
+?> Android currently only supports a single left button and does not support custom left Buttons
+___
+#### leftButtonColor?: Color
+Default color for left buttons.
+___
 #### noBorder?: boolean (iOS specific)
 Disables the border at bottom of the TopBar.
+___
+#### rightButtons?: Array< Button >
+An array of buttons to be displayed at the right side of the TopBar. Buttons are layed out in order from right to left. See the [Buttons](#Buttons) section for more details.
+___
+#### rightButtonColor?: Color
+Default color for right buttons.
 ___
 #### searchBar?: boolean (iOS 11+ specific)
 Show a UISearchBar in the TopBar.
@@ -106,17 +163,24 @@ ___
 #### searchBarPlaceholder?: string (iOS 11+ specific)
 The placeholder value in the UISearchBar.
 ___
-#### hideNavBarOnFocusSearchBar?: boolean (iOS 11+ specific)
-Indicates whether the navigation bar should be hidden when searching. True by default.
+### Subtitle
+#### text: string
+The subtitle text.
 ___
-#### borderColor?: Color (iOS specific)
-Change the topBar border color.
+#### fontSize?: number
+The subtitle fontSize. On Android this value is treated in sp units.
 ___
-#### borderHeight?: number (Android specific)
-Set the border height of the navbar in dp.
+#### color?: Color
+The subtitle color.
 ___
-#### elevation?: number (Android specific)
-Set the elevation of the TopBar in dp. This option changes how the shadow under the TopBar looks. Setting this value to 0 will remove the shadow completley.
+#### fontFamily?: FontFamily
+The subtitle FontFamily.
+___
+#### alignment?: 'center' | 'fill'
+`fill` will make the subtitle stretch and consume all available space in the TopBar while `center` will center the subtitle in the middle of the TopBar.
+___
+#### testID?: string
+Used to interact with the TopBar in e2e tests.
 ___
 ### Title
 #### text: string
@@ -142,63 +206,11 @@ ___
 #### background?: Background
 Set the [Background](#background) for the title.
 ___
-### Subtitle
-#### text: string
-The subtitle text.
-___
-#### fontSize?: number
-The subtitle fontSize. On Android this value is treated in sp units.
-___
-#### color?: Color
-The subtitle color.
-___
-#### fontFamily?: FontFamily
-The subtitle FontFamily.
-___
-#### alignment?: 'center' | 'fill'
-`fill` will make the subtitle stretch and consume all available space in the TopBar while `center` will center the subtitle in the middle of the TopBar.
-___
-### LargeTitle (iOS specific)
-Available on iOS 11 and above.
-
-#### visible?: boolean
-Controls whether the large title is visible or not.
-___
-#### fontSize?: number
-Set the title font size. On Android this value is treated in sp units.
-___
-#### color?: Color
-Large title text color.
-___
-#### fontFamily?: FontFamily
-Set the large title's [FontFamily]().
-___
-#### fontWeight?: number
-Set the large title's font weight.
-___
-#### rightButtons?: Array< Button >
-An array of buttons to be displayed at the right side of the TopBar. Buttons are layed out in order from right to left. See the [Buttons](#Buttons) section for more details.
-___
-#### leftButtons?: Array< Button >
-An array of buttons to be displayed at the right side of the TopBar. Buttons are layed out in order from left to right. See the [Buttons](#Buttons) section for more details.
-
-?> Android currently only supports a single left button and does not support custom left Buttons
-___
-### BackButton
-#### icon?: number
-Change the default back button icon.
+#### topMargin?: number (Android specific)
+Change to TopBar's top margin.
 ___
 #### visible?: boolean
-Hide or show the back button.
-___
-#### title?: string (iOS specific)
-Change the text displayed next to the title. Usually the back button shows the title of the previous screen. 
-___
-#### showTitle?: boolean (iOS specific)
-Show or hide the text displayed next to the back button.
-___
-#### color?: Color
-Change the back button's color. This will change the text color as well.
+Determines whether the TopBar is visible or not.
 ___
 ### Button
 #### id: string
@@ -244,15 +256,6 @@ System icon, it is ignored if an [icon](#icon-number) is specified. For more inf
 * undo
 * redo
 ___
-### Background
-#### color?: Color
-Set the background color. Ignored if a component is specified.
-___
-#### component?: Component
-Set a react [component](#component) as the background. Useful for example to show a gradient as background.
-
-?> On Android, Setting an `id` to the Component will prevent the component from being recreated each time it's used by a screen. The component will be created once and whenever possible it will be reused.
-___
 ### Component
 #### name: string
 The key used when registering the component with `Navigation.registerComponent`.
@@ -282,14 +285,61 @@ ___
 <ul id="optionsUl">
   <li><span class="caret">TopBar</span>
     <ul class="nested active">
-      <li><a href="#/docs/stack?id=height-number">height</a></li>
-      <li><a href="#/docs/stack?id=drawbehind-boolean">drawBehind</a></li>
-      <li><a href="#/docs/stack?id=visible-boolean">visible</a></li>
       <li><a href="#/docs/stack?id=animate-boolean">animate</a></li>
-      <li><a href="#/docs/stack?id=testid-string">testID</a></li>
-      <li><a href="#/docs/stack?id=rightbuttoncolor-color">rightButtonColor</a></li>
-      <li><a href="#/docs/stack?id=leftbuttoncolor-color">leftButtonColor</a></li>
+      <li><span class="caret">backButton</span>
+        <ul class="nested">
+          <li><a href="">icon</a></li>
+          <li><a href="">visible</a></li>
+          <li><a href="">title</a></li>
+          <li><a href="">showTitle</a></li>
+          <li><a href="">color</a></li>
+        </ul>
+      </li>
+      <li><span class="caret">background</span>
+        <ul class="nested">
+          <li><a href="#/docs/stack?id=color-color-5">color</a></li>
+          <li><span class="caret">component</span>
+            <ul class="nested">
+              name
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><a href="#/docs/stack?id=barstyle-39default39-39black39-ios-specific">barStyle</a></li>
+      <li><a href="#/docs/stack?id=bordercolor-color-ios-specific">borderColor</a></li>
+      <li><a href="#/docs/stack?id=borderheight-number-android-specific">borderHeight</a></li>
+      <li><a href="#/docs/stack?id=drawbehind-boolean">drawBehind</a></li>
+      <li><a href="#/docs/stack?id=elevation-number-android-specific">elevation</a></li>
+      <li><a href="#/docs/stack?id=height-number">height</a></li>
       <li><a href="#/docs/stack?id=hideonscroll-boolean">hideOnScroll</a></li>
+      <li><a href="#/docs/stack?id=hidenavbaronfocussearchbar-boolean-ios-11-specific">hideNavBarOnFocusSearchBar</a></li>
+      <li><span class="caret">largeTitle</span>
+        <ul class="nested">
+          <li><a href="#/docs/stack?id=visible-boolean-1">visible</a></li>
+          <li><a href="/#/docs/stack?id=fontsize-number-2">fontSize</a></li>
+          <li><a href="#/docs/stack?id=color-color-2">color</a></li>
+          <li><a href="#/docs/stack?id=fontfamily-fontfamily-2">fontFamily</a></li>
+          <li><a href="#/docs/stack?id=fontweight-number">fontWeight</a></li>
+        </ul>
+      </li>
+      <li><a href="#/docs/stack?id=leftbuttons-arraylt-button-gt">leftButtons</a></li>
+      <li><a href="#/docs/stack?id=leftbuttoncolor-color">leftButtonColor</a></li>
+      <li><a href="#/docs/stack?id=noborder-boolean-ios-specific">noBorder</a></li>
+      <li><a href="#/docs/stack?id=rightbuttons-arraylt-button-gt">rightButtons</a></li>
+      <li><a href="#/docs/stack?id=rightbuttoncolor-color">rightButtonColor</a></li>
+      <li><a href="#/docs/stack?id=searchbar-boolean-ios-11-specific">searchBar</a></li>
+      <li><a href="#/docs/stack?id=searchbarhiddenwhenscrolling-boolean-ios-11-specific">searchBarHiddenWhenScrolling</a></li>
+      <li><a href="#/docs/stack?id=searchbarplaceholder-string-ios-11-specific">searchBarPlaceholder</a></li>
+      <li><span class="caret">subtitle</span>
+        <ul class="nested">
+          <li><a href="#/docs/stack?id=text-string-1">text</a></li>
+          <li><a href="#/docs/stack?id=fontsize-number-1">fontSize</a></li>
+          <li><a href="#/docs/stack?id=color-color-1">color</a></li>
+          <li><a href="#/docs/stack?id=fontfamily-fontfamily-1">fontFamily</a></li>
+          <li><a href="#/docs/stack?id=alignment-39center39-39fill39-1">alignment</a></li>
+        </ul>
+      </li>
+      <li><a href="#/docs/stack?id=testid-string">testID</a></li>
       <li><span class="caret">title</span>
         <ul class="nested">
           <li><a href="#/docs/stack?id=text-string">text</a></li>
@@ -320,54 +370,8 @@ ___
           </li>
         </ul>
       </li>
-      <li><span class="caret">subtitle</span>
-        <ul class="nested">
-          <li><a href="#/docs/stack?id=text-string-1">text</a></li>
-          <li><a href="#/docs/stack?id=fontsize-number-1">fontSize</a></li>
-          <li><a href="#/docs/stack?id=color-color-1">color</a></li>
-          <li><a href="#/docs/stack?id=fontfamily-fontfamily-1">fontFamily</a></li>
-          <li><a href="#/docs/stack?id=alignment-39center39-39fill39-1">alignment</a></li>
-        </ul>
-      </li>
-      <li><span class="caret">largeTitle</span>
-        <ul class="nested">
-          <li><a href="#/docs/stack?id=visible-boolean-1">visible</a></li>
-          <li><a href="/#/docs/stack?id=fontsize-number-2">fontSize</a></li>
-          <li><a href="#/docs/stack?id=color-color-2">color</a></li>
-          <li><a href="#/docs/stack?id=fontfamily-fontfamily-2">fontFamily</a></li>
-          <li><a href="#/docs/stack?id=fontweight-number">fontWeight</a></li>
-        </ul>
-      </li>
-      <li><a href="#/docs/stack?id=rightbuttons-arraylt-button-gt">rightButtons</a></li>
-      <li><a href="#/docs/stack?id=leftbuttons-arraylt-button-gt">leftButtons</a></li>
-      <li><span class="caret">backButton</span>
-        <ul class="nested">
-          <li><a href="">icon</a></li>
-          <li><a href="">visible</a></li>
-          <li><a href="">title</a></li>
-          <li><a href="">showTitle</a></li>
-          <li><a href="">color</a></li>
-        </ul>
-      </li>
-      <li><span class="caret">background</span>
-        <ul class="nested">
-          <li><a href="#/docs/stack?id=color-color-5">color</a></li>
-          <li><span class="caret">component</span>
-            <ul class="nested">
-              name
-            </ul>
-          </li>
-        </ul>
-      </li>
-      <li><a href="">barStyle</a></li>
-      <li><a href="">noBorder</a></li>
-      <li><a href="">searchBar</a></li>
-      <li><a href="">searchBarHiddenWhenScrolling</a></li>
-      <li><a href="">searchBarPlaceholder</a></li>
-      <li><a href="">borderColor</a></li>
-      <li><a href="">borderHeight</a></li>
-      <li><a href="">elevation</a></li>
-      <li><a href="">topMargin</a></li>
+      <li><a href="#/docs/stack?id=topmargin-number-android-specific">topMargin</a></li>
+      <li><a href="#/docs/stack?id=visible-boolean">visible</a></li>
   </li>
 </ul>
 <!-- panels:end -->
