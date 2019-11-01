@@ -9,20 +9,130 @@ In this layout, only a single child screen is visible at any given time and cons
 
 The stack manages the TopBar at the top of the stack. The TopBar displays the current screens' title and buttons. It can be hidden with the `topBar: { visible: false }` option. By default, screens are rendered below the TopBar. This behavior can be changed by setting `topBar: { drawBehind: true }` in the current screens' options.
 
+## API
+### push(componentId, layout)
+Push a screen into the stack and updates the display according to the screen's options.
+#### Parameters
+* **componentId: string**<br>
+The componentId of a screen pushed into the stack, or the stack's id.
+* **layout: Layout**<br>
+The layout being pushed into the stack. Any type of layout (except stack) can be pushed into stacks. Typically, Component layout is pushed into stacks but it's possible to push SideMenu or BottomTabs as well.
+
+<!-- tabs:start -->
+#### **Component**
+The most common use case - push a single react component.
+```js
+Navigation.push(this.props.componentId, {
+  component: {
+    name: 'example.PushedScreen'
+  }
+});
+```
+
+#### **Update options on push **
+Options are applied when screen becomes visible.
+```js
+Navigation.push(this.props.componentId, {
+  component: {
+    name: 'example.PushedScreen',
+    options: {
+      topBar: {
+        title: {
+          text: 'Pushed screen title'
+        }
+      }
+    }
+  }
+});
+```
+
+#### **Push other layouts**
+Any layout type can be pushed. In this example we push a SideMenu layout.
+```js
+Navigation.push(this.props.componentId, {
+  sideMenu: {
+    left: {
+      component: {
+        name: 'drawerScreen'
+      }
+    },
+    center: {
+      component: {
+        name: 'centerScreen'
+      }
+    }
+  }
+});
+```
+<!-- tabs:end -->
+___
+### pop(id, mergeOptions?)
+Pop the top screen from the stack.
+#### Parameters
+* **componentId: string**<br>
+The componentId of a screen pushed into the stack, or the stack's id.
+* **mergeOptions?: object**<br>
+Optional options to be merged before popping the screen.
+```js
+Navigation.pop(this.props.componentId);
+```
+___
+### popToRoot(componentId, mergeOptions?)
+Pop all screens pushed into the stack.
+```
+Navigation.popToRoot(this.props.componentId);
+```
+___
+### popTo(componentId, mergeOptions?)
+Pop the stack to a given component.
+```js
+Navigation.popTo(componentId);
+```
+___
+### setStackRoot(componentId, layout)
+Reset the stack to the given layout (accepts multiple children).
+
+<!-- tabs:start -->
+#### **Single child**
+```js
+Navigation.setStackRoot(this.props.componentId, {
+  component: {
+    name: 'example.NewRootScreen'
+  }
+});
+```
+
+#### **Multiple children**
+In the example below we reset the stack with two components. The first one will be the root component and the second (`PushedScreen`) will be displayed. Pressing the back button (either hardware or software) will pop it, revealing the root component - `NewRootScreen`.
+```js
+Navigation.setStackRoot(this.props.componentId, [
+  {
+    component: {
+      name: 'NewRootScreen',
+    }
+  },
+  {
+    component: {
+      name: 'PushedScreen',
+    }
+  }
+]);
+```
+<!-- tabs:end -->
+___
 ## Buttons
-Buttons can be added to the right and left areas of the TopBar. Buttons can have either an icon or a text. They are declared in the child's options object and, as with any other option, can be updated dynamically with the `Navigation.mergeOptions` command.
+Buttons can be added to the [right](#/docs/stack?id=rightbuttons-arraylt-button-gt) and [left](#/docs/stack?id=leftbuttons-arraylt-button-gt) areas of the TopBar. Buttons can have either an icon or a text. They are declared in the child's options object and, as with any other option, can be updated dynamically with the `Navigation.mergeOptions` command.
 
-* throttling is not supported
-
-### Three dots menu
+### Overflow menu
 It's common practice to group less important actions in a menu or an action sheet.
 
 To do so on iOS, include a button with a menu icon and open an [ActionSheet](https://facebook.github.io/react-native/docs/actionsheetios) with the relevant actions when the button is clicked. On Android, use the `showAsAction` options to control when the button should appear in the menu.
 
-
 ### Left button
 * single left button Android
 * Textual left button isn't supported on Android atm
+
+### Back button
 
 ### Custom button
 
