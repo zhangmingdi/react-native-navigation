@@ -121,23 +121,26 @@ Navigation.setStackRoot(this.props.componentId, [
 <!-- tabs:end -->
 ___
 ## Buttons
-Buttons can be added to the [right](#/docs/stack?id=rightbuttons-arraylt-button-gt) and [left](#/docs/stack?id=leftbuttons-arraylt-button-gt) areas of the TopBar. Buttons can have either an icon or a text. They are declared in the child's options object and, as with any other option, can be updated dynamically with the `Navigation.mergeOptions` command.
+Buttons can be added to the [right](#rightButtons) and [left](#leftButtons) areas of the TopBar. Buttons can have either an icon or a text. They are declared in the the options object and, as with any other option, can be updated dynamically with the `Navigation.mergeOptions` command.
+
+?> When using an icon button on **Android**, you should always pass a title as well. The title is used when the button is collapsed to the overflow menu and as a tooltip when the button is long pressed.
 
 ### Overflow menu
 It's common practice to group less important actions in a menu or an action sheet.
 
-To do so on iOS, include a button with a menu icon and open an [ActionSheet](https://facebook.github.io/react-native/docs/actionsheetios) with the relevant actions when the button is clicked. On Android, use the `showAsAction` options to control when the button should appear in the menu.
+To do so on iOS, include a button with a menu icon and open an [ActionSheet](https://facebook.github.io/react-native/docs/actionsheetios) with the relevant actions when the button is clicked.
+
+On Android, use the [showAsAction](#showasaction) options to control when the button should appear in the menu.
 
 ### Left button
+Left buttons behave like right buttons with two caveats on Android:
 * single left button Android
 * Textual left button isn't supported on Android atm
 
 ### Back button
+The back button is added automatically when two or more screens are pushed into the stack and can be customized via [options](http://localhost:3000/#/docs/stack?id=backbutton). Handling the back button is not possible. However, you can set a left button with a chevron and handle it like you'd handle any other button, calling `Navigation.pop` when desired.
 
 ### Custom button
-
-
-* long press on a button android
 
 ## Examples
 ### Single child
@@ -247,7 +250,7 @@ ___
 #### fontWeight?: number
 Set the large title's font weight.
 ___
-#### leftButtons?: Array< Button >
+#### leftButtons?: Array< Button > :id=leftButtons
 An array of buttons to be displayed at the right side of the TopBar. Buttons are layed out in order from left to right. See the [Buttons](#Buttons) section for more details.
 
 ?> Android currently only supports a single left button and does not support custom left Buttons
@@ -258,7 +261,7 @@ ___
 #### noBorder?: boolean (iOS specific)
 Disables the border at bottom of the TopBar.
 ___
-#### rightButtons?: Array< Button >
+#### rightButtons?: Array< Button > :id=rightButtons
 An array of buttons to be displayed at the right side of the TopBar. Buttons are layed out in order from right to left. See the [Buttons](#Buttons) section for more details.
 ___
 #### rightButtonColor?: Color
@@ -331,6 +334,15 @@ Button icon. If the button is pushed to the overflow menu the button's [text](#t
 ___
 #### text?: string
 Button text, ignored an an icon is specified unless the button is displayed in the overflow menu.
+___
+### showAsAction?: 'always' | 'never' | 'withText' | 'ifRoom' (Android specific) :id=showAsAction
+
+| Value  | Description                                                                                          |
+|--------|------------------------------------------------------------------------------------------------------|
+| ifRoom | Only place this button in the TopBar if there is room for it, otherwise add it to the overflow menu. |
+| never  | Never place this button in the TopBar. Instead, list the item in the overflow menu.                  |
+| always | Always place this button in the app bar.                                                             |
+
 ___
 #### component?: Component
 Set a react [component](#component) as this button's view which will be displayed instead of the regular view.
