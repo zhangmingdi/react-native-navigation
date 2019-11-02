@@ -335,13 +335,11 @@ ___
 #### text?: string
 Button text, ignored an an icon is specified unless the button is displayed in the overflow menu.
 ___
-### showAsAction?: 'always' | 'never' | 'withText' | 'ifRoom' (Android specific) :id=showAsAction
+#### showAsAction?: 'always' | 'never' | 'withText' | 'ifRoom' (Android specific) :id=showAsAction
 
-| Value  | Description                                                                                          |
-|--------|------------------------------------------------------------------------------------------------------|
-| ifRoom | Only place this button in the TopBar if there is room for it, otherwise add it to the overflow menu. |
-| never  | Never place this button in the TopBar. Instead, list the item in the overflow menu.                  |
-| always | Always place this button in the app bar.                                                             |
+* **ifRooom** - Only add the button to the TopBar if there is room for it, otherwise add it to the overflow menu.
+* **never** - Never place this button in the TopBar. Instead, list the button in the overflow menu.
+* **always** - Always place this button in the app bar.
 
 ___
 #### component?: Component
