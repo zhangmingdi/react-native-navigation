@@ -49,7 +49,11 @@
 		}
 		UIColor* color = [self color:[RCTConvert UIColor:button[@"color"]] defaultColor:[defaultStyle.color getWithDefaultValue:nil]];
 		if (color) {
-			self.viewController.navigationController.navigationBar.tintColor = color;
+            if (@available(iOS 13.0, *)) {
+                barButtonItem.customView.tintColor = color;
+            } else {
+                self.viewController.navigationController.navigationBar.tintColor = color;
+            }
 		}
 	}
 	
