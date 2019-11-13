@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static com.reactnativenavigation.utils.CollectionUtils.forEach;
+import static com.reactnativenavigation.utils.CollectionUtils.*;
 
 public abstract class ViewController<T extends ViewGroup> implements ViewTreeObserver.OnGlobalLayoutListener, ViewGroup.OnHierarchyChangeListener {
 
@@ -283,7 +283,7 @@ public abstract class ViewController<T extends ViewGroup> implements ViewTreeObs
     }
 
     void runOnPreDraw(Func1<T> task) {
-        UiUtils.runOnPreDrawOnce(getView(), () -> task.run(getView()));
+        if (!isDestroyed) UiUtils.runOnPreDrawOnce(getView(), task);
     }
 
     public abstract void sendOnNavigationButtonPressed(String buttonId);
