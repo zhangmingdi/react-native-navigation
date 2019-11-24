@@ -1,7 +1,9 @@
 <!-- panels:start -->
 <!-- div:left-panel -->
 # BottomTabs
-This is docs
+https://developer.apple.com/documentation/uikit/uitabbarcontroller
+https://material.io/develop/android/components/bottom-navigation-view/
+
 ## Selecting Tabs Programmatically
 Tabs can be selected programmatically by updating the `currentTabIndex` or `currentTabId` options.
 
@@ -88,6 +90,19 @@ Navigation.push(componentId, {
       }
     }
   }
+});
+```
+
+## Updating tab options dynamically
+To update a tab option, like icon, text or color, simply call `mergeOptions` with the new options using the id of a component or layout contained in the tab we wish to update.
+
+The following snippet demonstrate how to update the color of a specific tab.
+```js
+Navigation.mergeOptions(componentId, {
+  bottomTab: {
+    iconColor: 'red',
+    textColor: 'red'
+  },
 });
 ```
 
