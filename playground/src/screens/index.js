@@ -11,6 +11,7 @@ const KeyboardScreen = require('./KeyboardScreen');
 const Screens = require('./Screens');
 
 function registerScreens() {
+  Navigation.registerComponent("ToolbarComponent", () => require('./ToolbarComponent'));
   Navigation.registerComponent(Screens.Alert, () => require('./Alert'));
   Navigation.registerComponent(Screens.EventsOverlay, () => require('./StaticLifecycleOverlay'));
   Navigation.registerComponent(Screens.EventsScreen, () => require('./StaticEventsScreen'));

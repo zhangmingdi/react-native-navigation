@@ -15,12 +15,12 @@ const {stack} = require('../commons/Layouts');
 class LayoutsScreen extends React.Component {
   static options() {
     return {
-      topBar: {
-        testID: WELCOME_SCREEN_HEADER,
-        title: {
-          text: 'React Native Navigation'
-        }
-      }
+      // topBar: {
+      //   testID: WELCOME_SCREEN_HEADER,
+      //   title: {
+      //     text: 'React Native Navigation'
+      //   }
+      // }
     };
   }
 

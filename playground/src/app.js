@@ -65,11 +65,11 @@ function start() {
                   }
                 ],
                 options: {
-                  topBar: {
-                    title: {
-                      text: 'Default Title'
-                    }
-                  },
+                  // topBar: {
+                  //   title: {
+                  //     text: 'Default Title'
+                  //   }
+                  // },
                   bottomTab: {
                     text: 'Options',
                     icon: require('../img/options.png'),

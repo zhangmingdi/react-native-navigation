@@ -7,6 +7,13 @@ const { useSlowOpenScreenAnimations } = require('../flags');
 const SHOW_DURATION = 230 * 8;
 
 const setDefaultOptions = () => Navigation.setDefaultOptions({
+  topBar: {
+    drawBehind: false,
+    backButton: { visible: false, showTitle: false},
+    buttonColor: "black",
+    hideOnScroll: false,
+    title: { component: { name: "ToolbarComponent", alignment: "center"}}
+  }, 
   layout: {
     componentBackgroundColor: Colors.background,
     orientation: ['portrait'],
