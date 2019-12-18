@@ -5,6 +5,6 @@
 
 @interface RNNAnimator : NSObject <UIViewControllerAnimatedTransitioning>
 
--(instancetype)initWithTransitionOptions:(RNNSharedElementAnimationOptions *)transitionOptions uiManager:(RCTUIManager *)uiManager;
+- (instancetype)initWithTransitionOptions:(RNNSharedElementAnimationOptions *)transitionOptions;
 
 @end

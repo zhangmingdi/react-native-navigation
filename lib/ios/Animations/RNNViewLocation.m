@@ -1,26 +1,31 @@
 #import "RNNViewLocation.h"
+#import "RNNReactView.h"
 #import <React/RCTSafeAreaView.h>
 
 @implementation RNNViewLocation
 
-- (instancetype)initWithFromElement:(RNNElementView *)fromElement toElement:(RNNElementView *)toElement startPoint:(CGPoint)startPoint endPoint:(CGPoint)endPoint andVC:(UIViewController *)vc toVC:(UIViewController *)toVC {
+- (instancetype)initWithFromElement:(RNNElementView *)fromElement toElement:(RNNElementView *)toElement {
 	self = [super init];
-	
-    UIView *fromView = fromElement.sourceView;
-    UIView *toView = toElement.sourceView;
-    
-    self.fromFrame = [self frameFromSuperViewController:fromView andView:vc.view];
-    self.toFrame = [self frameFromSuperViewController:toView andView:toVC.view];
-	
+    self.fromFrame = [self convertViewFrame:fromElement.sourceView];
+    self.toFrame = [self convertViewFrame:toElement.sourceView];
 	return self;
 }
 
-- (CGRect)frameFromSuperViewController:(UIView *)view andView:(UIView *)su {
-    CGRect frame = [su convertRect:view.bounds fromView:view];
-    CGFloat safeAreaTopOffset = [self safeAreaOffsetForView:view inView:su];
+- (CGRect)convertViewFrame:(UIView *)view {
+    UIView* topMostView = [self topMostView:view];
+    CGRect frame = [topMostView convertRect:view.bounds fromView:view];
+    CGFloat safeAreaTopOffset = [self safeAreaOffsetForView:view inView:topMostView];
     frame.origin.y += safeAreaTopOffset;
 
     return frame;
+}
+
+- (UIView *)topMostView:(UIView *)view {
+    if ([view isKindOfClass:[RNNReactView class]]) {
+        return view;
+    } else {
+        return [self topMostView:view.superview];
+    }
 }
 
 - (CGFloat)safeAreaOffsetForView:(UIView *)view inView:(UIView *)inView {
