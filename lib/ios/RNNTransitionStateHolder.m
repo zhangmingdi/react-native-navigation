@@ -59,16 +59,13 @@
 	return UIViewAnimationOptionCurveEaseInOut;
 }
 
-- (void)setupInitialTransitionForView:(UIView*)view {
-	_initialFrame = view.frame;
-	view.alpha = self.startAlpha;
-	view.frame = CGRectMake(_initialFrame.origin.x + self.startX, _initialFrame.origin.y + self.startY, view.frame.size.width, view.frame.size.height);
+- (CGPoint)startPoint {
+    return CGPointMake(self.startX, self.startY);
 }
 
-- (void)completeTransitionForView:(UIView*)view {
-	view.alpha = self.endAlpha;
-	view.frame = CGRectMake(_initialFrame.origin.x + self.endX, _initialFrame.origin.y + self.endY, view.frame.size.width, view.frame.size.height);
-	[view layoutSubviews];
+- (CGPoint)endPoint {
+    return CGPointMake(self.endX, self.endY);
 }
+
 
 @end

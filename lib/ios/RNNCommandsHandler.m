@@ -159,6 +159,7 @@ static NSString* const setDefaultOptions	= @"setDefaultOptions";
 	} else {
 		id animationDelegate = (newVc.resolveOptionsWithDefault.animations.push.hasCustomAnimation || newVc.resolveOptionsWithDefault.customTransition.animations) ? newVc : nil;
         newVc.waitForRender = ([newVc.resolveOptionsWithDefault.animations.push.waitForRender getWithDefaultValue:NO] || animationDelegate);
+        [(RNNComponentViewController *)newVc setAvailableSize:fromVC.navigationController.view.bounds.size];
         [newVc setReactViewReadyCallback:^{
             [_stackManager push:newVc onTop:fromVC animated:[newVc.resolveOptionsWithDefault.animations.push.enable getWithDefaultValue:YES] animationDelegate:animationDelegate completion:^{
                 [_eventEmitter sendOnNavigationCommandCompletion:push commandId:commandId params:@{@"componentId": componentId}];

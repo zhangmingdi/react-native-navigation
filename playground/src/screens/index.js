@@ -24,6 +24,7 @@ function registerScreens() {
   Navigation.registerComponent(Screens.Navigation, () => require('./NavigationScreen'));
   Navigation.registerComponent(Screens.Options, () => require('./OptionsScreen'));
   Navigation.registerComponent(Screens.Buttons, () => require('./ButtonsScreen'));
+  Navigation.registerComponent(Screens.SharedElement, () => require('./CustomTransitionOrigin'));
   Navigation.registerComponent(Screens.Orientation, () => require('./OrientationScreen'));
   Navigation.registerComponent(Screens.OrientationDetect, () => require('./OrientationDetectScreen'));
   Navigation.registerComponent(Screens.Overlay, () => require('./OverlayScreen'));

@@ -12,6 +12,7 @@ module.exports = {
   Layouts: 'Layouts',
   Options: 'Options',
   Buttons: 'Buttons',
+  SharedElement: 'SharedElement',
   Stack: 'Stack',
   Modal: 'Modal',
   FullScreenModal: 'FullScreenModal',

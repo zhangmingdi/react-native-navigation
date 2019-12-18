@@ -9,10 +9,11 @@
 - (instancetype)initWithLayoutInfo:(RNNLayoutInfo *)layoutInfo rootViewCreator:(id<RNNComponentViewCreator>)creator eventEmitter:(RNNEventEmitter *)eventEmitter presenter:(RNNComponentPresenter *)presenter options:(RNNNavigationOptions *)options defaultOptions:(RNNNavigationOptions *)defaultOptions {
 	self = [super initWithLayoutInfo:layoutInfo creator:creator options:options defaultOptions:defaultOptions presenter:presenter eventEmitter:eventEmitter childViewControllers:nil];
 	
-	self.animator = [[RNNAnimator alloc] initWithTransitionOptions:self.resolveOptions.customTransition];
-	
-	self.navigationController.delegate = self;
-	
+    self.animator = [[RNNAnimator alloc] initWithTransitionOptions:self.resolveOptions.customTransition uiManager:eventEmitter.bridge.uiManager];
+
+    self.navigationController.delegate = self;
+	self.extendedLayoutIncludesOpaqueBars = YES;
+    
 	return self;
 }
 
@@ -58,7 +59,7 @@
 
 - (void)renderReactViewIfNeeded {
     if (!self.isViewLoaded) {
-        self.view = [self.creator createRootView:self.layoutInfo.name rootViewId:self.layoutInfo.componentId reactViewReadyBlock:^{
+        self.view = [self.creator createRootView:self.layoutInfo.name rootViewId:self.layoutInfo.componentId availableSize:UIScreen.mainScreen.bounds.size reactViewReadyBlock:^{
             [self->_presenter renderComponents:self.resolveOptions perform:^{
                 [self readyForPresentation];
             }];

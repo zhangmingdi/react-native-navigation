@@ -23,9 +23,9 @@ typedef void (^RNNAnimationBlock)(void);
 		nvc.delegate = nil;
 	}
 	
-	[self performAnimationBlock:^{
+//	[self performAnimationBlock:^{
 		[nvc pushViewController:newTop animated:animated];
-	} completion:completion];
+//	} completion:completion];
 }
 
 - (void)pop:(UIViewController *)viewController animated:(BOOL)animated completion:(RNNTransitionCompletionBlock)completion rejection:(RNNTransitionRejectionBlock)rejection {
