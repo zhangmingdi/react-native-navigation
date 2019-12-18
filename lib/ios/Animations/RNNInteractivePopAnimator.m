@@ -74,9 +74,6 @@
 			[UIView animateWithDuration:0.3 delay:0 usingSpringWithDamping:0.8 initialSpringVelocity:0.8 options:UIViewAnimationOptionCurveEaseOut  animations:^{
 				self.imageSnapshot.frame = self.originFrame;
 				self.imageSnapshot.contentMode = UIViewContentModeScaleAspectFill;
-				if ([self.bottomView resizeMode]) {
-					self.imageSnapshot.contentMode = [RNNAnimatedView contentModefromString:[self.bottomView resizeMode]];
-				}
 			} completion:^(BOOL finished) {
 				self.nc.delegate = nil;
 			}];
@@ -114,9 +111,6 @@
 	CGRect fromOriginRect = CGRectMake(fromSharedViewFrameOrigin.x, fromSharedViewFrameOrigin.y, topViewContent.frame.size.width, topViewContent.frame.size.height);
 	self.topFrame = fromOriginRect;
 	imageSnapshot.contentMode = UIViewContentModeScaleAspectFill;
-	if ([self.topView resizeMode]) {
-		imageSnapshot.contentMode = [RNNAnimatedView contentModefromString:[self.topView resizeMode]];
-	}
 	imageSnapshot.frame = fromOriginRect;
 	self.imageSnapshot = imageSnapshot;
 	[self.bottomView setHidden:YES];

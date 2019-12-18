@@ -1,17 +1,12 @@
 #import <React/RCTRootView.h>
 #import <React/RCTRootViewDelegate.h>
-#import "RNNEventEmitter.h"
-
-#define ComponentTypeScreen @"Component"
-#define ComponentTypeTitle @"TopBarTitle"
-#define ComponentTypeButton @"TopBarButton"
-#define ComponentTypeBackground @"TopBarBackground"
+#import "UIView+Utils.h"
 
 typedef void (^RNNReactViewReadyCompletionBlock)(void);
 
 @interface RNNReactView : RCTRootView
 
-- (instancetype)initWithBridge:(RCTBridge *)bridge moduleName:(NSString *)moduleName initialProperties:(NSDictionary *)initialProperties eventEmitter:(RNNEventEmitter *)eventEmitter reactViewReadyBlock:(RNNReactViewReadyCompletionBlock)reactViewReadyBlock;
+- (instancetype)initWithBridge:(RCTBridge *)bridge moduleName:(NSString *)moduleName initialProperties:(NSDictionary *)initialProperties  availableSize:(CGSize)availableSize reactViewReadyBlock:(RNNReactViewReadyCompletionBlock)reactViewReadyBlock;
 
 @property (nonatomic, copy) RNNReactViewReadyCompletionBlock reactViewReadyBlock;
 @property (nonatomic, strong) RNNEventEmitter* eventEmitter;
