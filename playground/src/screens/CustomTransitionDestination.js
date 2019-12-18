@@ -51,10 +51,7 @@ class CustomTransitionDestination extends Component {
       customTransition: {
         animations: [
           {type: 'sharedElement', fromId: 'title2', toId: 'title1', startDelay: 0, springVelocity: 0.2, duration: 0.5},
-          {type: 'sharedElement', toId: 'image1', fromId: 'customDestinationImage', startDelay: 0, springVelocity: 0.2, duration: 0.5},
-          // { type: 'sharedElement', toId: 'image2', fromId: 'customDestinationImage2', startDelay: 0, duration: 0.8 },
-          // { fromId: 'image4', x: { from: 50 }, y: { from: 50 }, startAlpha: 0, startDelay: 0, duration: 0.8, springVelocity: 0.5 },
-          // { fromId: 'customDestinationParagraph', y: { to: 50 }, x: { to: 50 }, endAlpha: 0, startAlpha: 1, startDelay: 0, duration: 0.8 }
+          {type: 'sharedElement', toId: 'image1', fromId: 'customDestinationImage', startDelay: 0, springVelocity: 0.2, duration: 0.5}
         ],
         duration: 0.8
       }
@@ -68,11 +65,9 @@ class CustomTransitionDestination extends Component {
             <Image resizeMode='cover' source={require('../../img/400.jpeg')} />
           </Navigation.Element>
 
-          {/* <TouchableOpacity testID={'shared_image2'} onPress={this.pop}> */}
-            <Navigation.Element elementId={'title2'}>
+          <Navigation.Element elementId={'title2'}>
               <Text style={[styles.h1]}>{`Custom Transition Screen`}</Text>
             </Navigation.Element>
-          {/* </TouchableOpacity> */}
 
         </View>
       </SafeAreaView>

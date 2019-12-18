@@ -1,6 +1,7 @@
 #import "AnimatedTextView.h"
 #import <React/RCTComponentData.h>
 #import <React/RCTTextView.h>
+#import "FrameAnimator.h"
 
 @implementation AnimatedTextView {
     RCTTextView* _tv;
@@ -37,36 +38,7 @@
 }
 
 - (void)animateWithDuration:(CGFloat)duration delay:(CGFloat)delay usingSpringWithDamping:(CGFloat)springDamping initialSpringVelocity:(CGFloat)springVelocity options:(UIViewAnimationOptions)options {
-    CGFloat intervalMultiplier = 0.01;
-    _duration = duration;
-    _fireDate = [NSDate date];
-    
-    NSTimer* timer = [NSTimer timerWithTimeInterval:intervalMultiplier/duration target:self selector:@selector(timerFired:) userInfo:nil repeats:YES];
-    [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
-//    [NSTimer scheduledTimerWithTimeInterval:intervalMultiplier/duration target:self selector:@selector(timerFired:) userInfo:nil repeats:YES];
-}
-
-- (void)timerFired:(NSTimer *)timer {
-    NSTimeInterval interval = [[NSDate date] timeIntervalSinceDate:_fireDate];
-    if (interval > _duration) {
-        [timer invalidate];
-        timer = nil;
-    }
-    
-    CGFloat precent = 1 - (interval / _duration);
-    
-    CGFloat offsetWidth = _endTextContainer.size.width - _origSize.width;
-    CGFloat offsetHeight = _endTextContainer.size.height - _origSize.height;
-    CGFloat offsetX = _endFrame.origin.x - _origFrame.origin.x;
-    CGFloat offsetY = _endFrame.origin.y - _origFrame.origin.y;
-    
-    CGRect frame = self.frame;
-    frame.size.width = _endFrame.size.width - (offsetWidth * precent);
-    frame.size.height = _endFrame.size.height - (offsetHeight * precent);
-    frame.origin.x = _endFrame.origin.x - (offsetX * precent);
-    frame.origin.y = _endFrame.origin.y - (offsetY * precent);
-    
-    self.frame = frame;
+    [FrameAnimator animateView:self toFrame:_endFrame duration:duration];
 }
 
 - (void)layoutSubviews {
@@ -76,9 +48,7 @@
 }
 
 - (void)setAnimatedViewFinalProperties {
-    //    [super setAnimatedViewFinalProperties];
-    //    _endTextContainer.size = self.frame.size;
-//    [_tv setTextStorage:_endTextStorage contentFrame:self.bounds descendantViews:@[]];
+    
 }
 
 - (void)removeFromSuperview {
