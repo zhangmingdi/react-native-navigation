@@ -15,15 +15,6 @@
 	return self;
 }
 
-- (void)safeAreaInsetsDidChange {
-    
-}
-
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    
-}
-
 - (void)contentDidAppear:(NSNotification *)notification {
 #ifdef DEBUG
 	if ([((RNNReactView *)notification.object).moduleName isEqualToString:self.moduleName]) {
