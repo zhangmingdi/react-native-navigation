@@ -1,4 +1,12 @@
 # Changelog
+# 4.0.6
+## Fixed
+* Fix native bottomTab.icon resource not working [#aa1870a](https://github.com/wix/react-native-navigation/commit/aa1870a743ff9e1611c643a5462ca84f81710fcd) by [guyca](https://github.com/guyca)
+
+### iOS
+* Fix default font size regression [#8f9e719](https://github.com/wix/react-native-navigation/commit/8f9e719747ef9c0861122f5c5a75b0ec852574fc) by [yogevbd](https://github.com/yogevbd)
+* Fix crash when reloading while an overlay is displayed [#2fa17aa](https://github.com/wix/react-native-navigation/commit/2fa17aaaca56a1faef751e1d946eb3cc16ee7284) by [yogevbd](https://github.com/yogevbd)
+
 # 4.0.5
 ## Fixed
 * Fix conflict with React Native's getConstants [#5e6d6fc](https://github.com/wix/react-native-navigation/commit/5e6d6fce132fc37722867c3e43a0036f4fe085b8) by [guyca](https://github.com/guyca)
