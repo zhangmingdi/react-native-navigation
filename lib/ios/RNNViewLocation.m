@@ -6,14 +6,14 @@
 
 - (instancetype)initWithFromElement:(RNNElementView *)fromElement toElement:(RNNElementView *)toElement {
 	self = [super init];
-    self.fromFrame = [self convertViewFrame:fromElement.sourceView];
-    self.toFrame = [self convertViewFrame:toElement.sourceView];
+    self.fromFrame = [self convertViewFrame:fromElement.view];
+    self.toFrame = [self convertViewFrame:toElement.view];
 	return self;
 }
 
 - (CGRect)convertViewFrame:(UIView *)view {
     UIView* topMostView = [self topMostView:view];
-    CGRect frame = [topMostView convertRect:view.bounds fromView:view];
+    CGRect frame = [view.superview convertRect:view.frame toView:nil];
     CGFloat safeAreaTopOffset = [self safeAreaOffsetForView:view inView:topMostView];
     frame.origin.y += safeAreaTopOffset;
 

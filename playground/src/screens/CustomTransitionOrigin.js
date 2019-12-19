@@ -87,7 +87,7 @@ const styles = {
   },
   h1: {
     fontSize: 24,
-    textAlign: 'center',
+    textAlign: 'center'
   },
   footer: {
     fontSize: 10,

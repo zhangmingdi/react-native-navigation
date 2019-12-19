@@ -1,6 +1,5 @@
 #import "AnimatedViewFactory.h"
 #import "AnimatedImageView.h"
-#import "AnimatedSnapshotView.h"
 #import "AnimatedTextView.h"
 
 @implementation AnimatedViewFactory
@@ -11,11 +10,10 @@
             return [[AnimatedImageView alloc] initElement:element toElement:toElement alpha:alpha endAlpha:endAlpha isSharedElement:isSharedElement];
         case ViewTypeText:
             return [[AnimatedTextView alloc] initElement:element toElement:toElement alpha:alpha endAlpha:endAlpha isSharedElement:isSharedElement];
+        case ViewTypeOther:
         default:
-            return [[AnimatedSnapshotView alloc] initElement:element toElement:toElement alpha:alpha endAlpha:endAlpha isSharedElement:isSharedElement];
+            return [[RNNAnimatedView alloc] initElement:element toElement:toElement alpha:alpha endAlpha:endAlpha isSharedElement:isSharedElement];
     }
-    
-    return [[AnimatedSnapshotView alloc] initElement:element toElement:toElement alpha:alpha endAlpha:endAlpha isSharedElement:isSharedElement];
 }
 
 @end

@@ -6,19 +6,13 @@ typedef NS_ENUM(NSInteger, ViewType) {
     ViewTypeOther
 };
 
-@interface RNNElementView : UIView
+@interface RNNElementView : NSObject
 
+- (instancetype)initWithView:(UIView *)view;
+
+@property (nonatomic, strong) UIView* view;
 @property (nonatomic, strong) NSString* elementId;
-@property (nonatomic, strong) NSString* type;
-@property (nonatomic, strong) NSString* resizeMode;
-@property (nonatomic, strong) NSNumber* interactive;
-@property (nonatomic, strong) UIViewController* vc;
-@property (nonatomic) CGPoint originalCenter;
 
 - (ViewType)viewType;
-
-- (UIView *)sourceView;
-
-- (UIView *)animateView;
 
 @end

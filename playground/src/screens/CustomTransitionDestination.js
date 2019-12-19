@@ -85,7 +85,8 @@ const styles = {
   h1: {
     fontSize: 24,
     textAlign: 'center',
-    color: '#00ff00'
+    color: '#00ff00',
+    width: 100
   },
   p: {
     fontSize: 14,
