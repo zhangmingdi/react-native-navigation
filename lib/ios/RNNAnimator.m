@@ -73,6 +73,7 @@
         for (RNNTransition* transition in transitions) {
             [transition completeAnimation];
         }
+        [transitionContext.containerView addSubview:self.toVC.view];
         [fromSnapshot removeFromSuperview];
         [toSnapshot removeFromSuperview];
         if (![transitionContext transitionWasCancelled]) {
@@ -104,10 +105,10 @@
     toSnapshot.alpha = 0;
     
     [containerView addSubview:fromSnapshot];
-    [containerView addSubview:toVC.view];
+    [containerView addSubview:toSnapshot];
     
     NSArray* transitions = [self prepareSharedElementTransitionWithComponentView:containerView];
-    [self animateTransitions:transitions fromVCSnapshot:fromSnapshot toSnapshot:toVC.view andTransitioningContext:transitionContext];
+    [self animateTransitions:transitions fromVCSnapshot:fromSnapshot toSnapshot:toSnapshot andTransitioningContext:transitionContext];
     [self animateTransitions:transitions];
 }
 
