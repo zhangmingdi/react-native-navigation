@@ -20,13 +20,7 @@ class LayoutsScreen extends React.Component {
         title: {
           text: 'React Native Navigation'
         },
-        drawBehind: false,
-        background: {
-          color: 'transparent'
-        }
-      },
-      layout: {
-        backgroundColor: 'pink'
+        drawBehind: false
       }
     };
   }
