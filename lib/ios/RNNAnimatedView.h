@@ -5,12 +5,10 @@
 
 
 @property (nonatomic, strong) RNNViewLocation* location;
-
+@property (nonatomic, strong) UIView* reactView;
 
 - (instancetype)initElement:(RNNElementView*)element toElement:(RNNElementView *)toElement alpha:(CGFloat)alpha endAlpha:(CGFloat)endAlpha isSharedElement:(BOOL)isSharedElement;
 
 - (void)setAnimatedViewFinalProperties;
-
-- (void)animateWithDuration:(CGFloat)duration delay:(CGFloat)delay usingSpringWithDamping:(CGFloat)springDamping initialSpringVelocity:(CGFloat)springVelocity options:(UIViewAnimationOptions)options;
 
 @end

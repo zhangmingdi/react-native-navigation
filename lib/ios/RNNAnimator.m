@@ -1,6 +1,7 @@
 #import "RNNAnimator.h"
 #import "RNNTransition.h"
 #import "RNNReactView.h"
+#import "DisplayLinkAnimator.h"
 
 @interface  RNNAnimator()
 @property (nonatomic, strong) RNNSharedElementAnimationOptions* transitionOptions;
@@ -47,7 +48,7 @@
 - (RNNTransition *)createTransition:(NSDictionary *)transitionOptions {
     RNNTransitionStateHolder* transitionStateHolder = [[RNNTransitionStateHolder alloc] initWithDict:transitionOptions];
     if (self.backwardTransition) {
-        return [[RNNTransition alloc] initFromVC:self.toVC toVC:self.fromVC fromElementId:transitionStateHolder.toId toElementId:transitionStateHolder.fromId transitionOptions:transitionStateHolder startPoint:transitionStateHolder.endPoint endPoint:transitionStateHolder.startPoint startAlpha:transitionStateHolder.endAlpha endAlpha:transitionStateHolder.startAlpha];
+        return [[RNNTransition alloc] initFromVC:self.fromVC toVC:self.toVC fromElementId:transitionStateHolder.toId toElementId:transitionStateHolder.fromId transitionOptions:transitionStateHolder startPoint:transitionStateHolder.endPoint endPoint:transitionStateHolder.startPoint startAlpha:transitionStateHolder.endAlpha endAlpha:transitionStateHolder.startAlpha];
     } else {
         return [[RNNTransition alloc] initFromVC:self.fromVC toVC:self.toVC fromElementId:transitionStateHolder.fromId toElementId:transitionStateHolder.toId transitionOptions:transitionStateHolder startPoint:transitionStateHolder.startPoint endPoint:transitionStateHolder.endPoint startAlpha:transitionStateHolder.startAlpha endAlpha:transitionStateHolder.endAlpha];
     }
@@ -57,15 +58,23 @@
     
 }
 
-- (void)animateTransitions:(NSArray*)transitions fromVCSnapshot:(UIView*)fromSnapshot andTransitioningContext:(id<UIViewControllerContextTransitioning>)transitionContext {
-    [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 usingSpringWithDamping:[self.transitionOptions.springDamping doubleValue] initialSpringVelocity:[self.transitionOptions.springVelocity doubleValue] options:UIViewAnimationOptionLayoutSubviews  animations:^{
-        self.toVC.view.alpha = 1;
-    } completion:^(BOOL finished) {
-        for (RNNTransition* transition in transitions ) {
-            [transition transitionCompleted];
+- (void)animateTransitions:(NSArray<RNNTransition *>*)transitions fromVCSnapshot:(UIView*)fromSnapshot toSnapshot:(UIView *)toSnapshot andTransitioningContext:(id<UIViewControllerContextTransitioning>)transitionContext {
+    NSMutableArray* animations = [NSMutableArray new];
+    for (RNNTransition* transition in transitions) {
+        DisplayLinkAnimation* animation = [[DisplayLinkAnimation alloc] initWithView:transition.animatedView targetFrame:transition.animatedView.location.toFrame targetAlpha:1];
+        [animations addObject:animation];
+    }
+    
+    [animations addObject:[[DisplayLinkAnimation alloc] initWithView:toSnapshot targetFrame:toSnapshot.frame targetAlpha:1]];
+    
+    DisplayLinkAnimator* displayLinkAnimator = [[DisplayLinkAnimator alloc] initWithDisplayLinkAnimations:animations duration:0.5];
+    
+    [displayLinkAnimator setCompletion:^{
+        for (RNNTransition* transition in transitions) {
+            [transition completeAnimation];
         }
-        
         [fromSnapshot removeFromSuperview];
+        [toSnapshot removeFromSuperview];
         if (![transitionContext transitionWasCancelled]) {
             self.toVC.view.alpha = 1;
             [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
@@ -73,9 +82,7 @@
         }
     }];
     
-    for (RNNTransition* transition in transitions ) {
-        [transition animate];
-    }
+    [displayLinkAnimator start];
 }
 
 - (NSTimeInterval)transitionDuration:(id <UIViewControllerContextTransitioning>)transitionContext {
@@ -91,14 +98,16 @@
     
     
     UIView* fromSnapshot = [fromVC.view snapshotViewAfterScreenUpdates:true];
+    UIView* toSnapshot = [toVC.view snapshotViewAfterScreenUpdates:true];
     
-    toVC.view.alpha = 0;
+    toVC.view.alpha = 1;
+    toSnapshot.alpha = 0;
     
     [containerView addSubview:fromSnapshot];
     [containerView addSubview:toVC.view];
     
     NSArray* transitions = [self prepareSharedElementTransitionWithComponentView:containerView];
-    [self animateTransitions:transitions fromVCSnapshot:fromSnapshot andTransitioningContext:transitionContext];
+    [self animateTransitions:transitions fromVCSnapshot:fromSnapshot toSnapshot:toVC.view andTransitioningContext:transitionContext];
     [self animateTransitions:transitions];
 }
 

@@ -98,7 +98,7 @@
 - (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated{
 	RNNComponentViewController* vc =  (RNNComponentViewController*)viewController;
 	if (![[vc.self.resolveOptions.topBar.backButton.transition getWithDefaultValue:@""] isEqualToString:@"custom"]){
-		navigationController.delegate = nil;
+//		navigationController.delegate = nil;
 	}
 }
 
