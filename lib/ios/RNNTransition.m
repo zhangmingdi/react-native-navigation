@@ -7,8 +7,8 @@
 #import "RNNInteractivePopAnimator.h"
 
 @interface RNNTransition ()
-@property (nonatomic, strong) RNNElementView* fromElement;
-@property (nonatomic, strong) RNNElementView* toElement;
+@property (nonatomic, strong) UIView* fromElement;
+@property (nonatomic, strong) UIView* toElement;
 @end
 
 @implementation RNNTransition {
@@ -25,7 +25,7 @@
     self.animatedView = [AnimatedViewFactory createFromElement:self.fromElement toElement:self.toElement alpha:startAlpha endAlpha:endAlpha isSharedElement:transitionOptions.isSharedElementTransition];
 	
 //	if (transitionOptions.isSharedElementTransition) {
-		[self.toElement.view setHidden:YES];
+		[self.toElement setHidden:YES];
 //	}
 	
 	return self;
@@ -33,7 +33,7 @@
 
 - (void)completeAnimation {
 //	if (self.options.isSharedElementTransition) {
-		[self.toElement.view setHidden:NO];
+		[self.toElement setHidden:NO];
 //	}
 
 	[self.animatedView removeFromSuperview];

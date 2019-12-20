@@ -61,13 +61,9 @@ class CustomTransitionDestination extends Component {
     return (
       <SafeAreaView style={styles.root}>
         <View>
-          <Navigation.Element resizeMode={'cover'} elementId={'customDestinationImage'}>
-            <Image resizeMode='cover' source={require('../../img/400.jpeg')} />
-          </Navigation.Element>
+            <Image resizeMode='cover' source={require('../../img/400.jpeg')} testID={`customDestinationImage`} nativeID={`customDestinationImage`} />
 
-          <Navigation.Element elementId={'title2'}>
-              <Text style={[styles.h1]}>{`Custom Transition Screen`}</Text>
-            </Navigation.Element>
+              <Text testID={'title2'} nativeID={`title2`} style={[styles.h1]}>{`Custom Transition Screen`}</Text>
 
         </View>
       </SafeAreaView>
