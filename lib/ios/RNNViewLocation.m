@@ -4,10 +4,10 @@
 
 @implementation RNNViewLocation
 
-- (instancetype)initWithFromElement:(RNNElementView *)fromElement toElement:(RNNElementView *)toElement {
+- (instancetype)initWithFromElement:(UIView *)fromElement toElement:(UIView *)toElement {
 	self = [super init];
-    self.fromFrame = [self convertViewFrame:fromElement.view];
-    self.toFrame = [self convertViewFrame:toElement.view];
+    self.fromFrame = [self convertViewFrame:fromElement];
+    self.toFrame = [self convertViewFrame:toElement];
 	return self;
 }
 
@@ -31,7 +31,7 @@
 - (CGFloat)safeAreaOffsetForView:(UIView *)view inView:(UIView *)inView {
     CGFloat safeAreaOffset = inView.layoutMarginsGuide.layoutFrame.origin.y;
     
-    if ([view isKindOfClass:RCTSafeAreaView.class] && [[view valueForKey:@"currentSafeAreaInsets"] UIEdgeInsetsValue].top != safeAreaOffset) {
+    if ([view isKindOfClass:RCTSafeAreaView.class] && [[view valueForKey:@"_currentSafeAreaInsets"] UIEdgeInsetsValue].top != safeAreaOffset) {
         return safeAreaOffset;
     } else if (view.superview) {
         return [self safeAreaOffsetForView:view.superview inView:inView];

@@ -31,15 +31,11 @@ class CustomTransitionOrigin extends Component {
     return (
       <SafeAreaView style={styles.root}>
         <TouchableOpacity testID='shared_image1' activeOpacity={0.5} onPress={this.onClickNavigationIcon}>
-          <Navigation.Element elementId='title1'>
-            <Text style={[styles.h1]}>Custom Transition Screen</Text>
-          </Navigation.Element>
+            <Text testID={`title1`} nativeID={`title1`} style={[styles.h1]}>Custom Transition Screen</Text>
         </TouchableOpacity>
         <View style={{flex: 1, justifyContent: 'flex-start'}}>
           <TouchableOpacity testID='shared_image1' activeOpacity={0.5} onPress={this.onClickNavigationIcon}>
-            <Navigation.Element resizeMode='cover' elementId='image1'>
-              <Image resizeMode='cover' style={styles.gyroImage} source={require('../../img/400.jpeg')} />
-            </Navigation.Element>
+              <Image testID={`image1`} nativeID={`image1`} resizeMode='cover' style={styles.gyroImage} source={require('../../img/400.jpeg')} />
           </TouchableOpacity>
         </View>
       </SafeAreaView>
@@ -70,7 +66,7 @@ class CustomTransitionOrigin extends Component {
               springDamping: 1, duration: 1, interactivePop: true
               }
             ],
-            duration: 2
+            duration: 0.5
           }
         }
       }

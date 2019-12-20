@@ -54,10 +54,6 @@
     }
 }
 
-- (void)animateTransitions:(NSArray*)transitions {
-    
-}
-
 - (void)animateTransitions:(NSArray<RNNTransition *>*)transitions fromVCSnapshot:(UIView*)fromSnapshot toSnapshot:(UIView *)toSnapshot andTransitioningContext:(id<UIViewControllerContextTransitioning>)transitionContext {
     NSMutableArray* animations = [NSMutableArray new];
     for (RNNTransition* transition in transitions) {
@@ -65,19 +61,18 @@
         [animations addObject:animation];
     }
     
-    [animations addObject:[[DisplayLinkAnimation alloc] initWithView:toSnapshot targetFrame:toSnapshot.frame targetAlpha:1]];
+    [animations addObject:[[DisplayLinkAnimation alloc] initWithView:self.toVC.view targetFrame:self.toVC.view.frame targetAlpha:1]];
     
-    DisplayLinkAnimator* displayLinkAnimator = [[DisplayLinkAnimator alloc] initWithDisplayLinkAnimations:animations duration:0.5];
+    DisplayLinkAnimator* displayLinkAnimator = [[DisplayLinkAnimator alloc] initWithDisplayLinkAnimations:animations duration:self.transitionOptions.duration.doubleValue];
     
     [displayLinkAnimator setCompletion:^{
         for (RNNTransition* transition in transitions) {
             [transition completeAnimation];
         }
-        [transitionContext.containerView addSubview:self.toVC.view];
+
         [fromSnapshot removeFromSuperview];
         [toSnapshot removeFromSuperview];
         if (![transitionContext transitionWasCancelled]) {
-            self.toVC.view.alpha = 1;
             [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
             self.backwardTransition = true;
         }
@@ -99,17 +94,14 @@
     
     
     UIView* fromSnapshot = [fromVC.view snapshotViewAfterScreenUpdates:true];
-    UIView* toSnapshot = [toVC.view snapshotViewAfterScreenUpdates:true];
     
-    toVC.view.alpha = 1;
-    toSnapshot.alpha = 0;
+    toVC.view.alpha = 0;
     
     [containerView addSubview:fromSnapshot];
-    [containerView addSubview:toSnapshot];
+    [transitionContext.containerView addSubview:toVC.view];
     
     NSArray* transitions = [self prepareSharedElementTransitionWithComponentView:containerView];
-    [self animateTransitions:transitions fromVCSnapshot:fromSnapshot toSnapshot:toSnapshot andTransitioningContext:transitionContext];
-    [self animateTransitions:transitions];
+    [self animateTransitions:transitions fromVCSnapshot:fromSnapshot toSnapshot:nil andTransitioningContext:transitionContext];
 }
 
 @end

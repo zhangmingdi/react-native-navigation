@@ -6,6 +6,8 @@
 	CGRect _targetFrame;
     CGFloat _startAlpha;
     CGFloat _targetAlpha;
+    BOOL _animateAlpha;
+    BOOL _animateFrame;
 }
 
 - (instancetype)initWithView:(UIView*)view targetFrame:(CGRect)frame targetAlpha:(CGFloat)targetAlpha {
@@ -16,16 +18,23 @@
 		_targetFrame = frame;
         _startAlpha = view.alpha;
         _targetAlpha = targetAlpha;
+        _animateAlpha = _startAlpha != _targetAlpha;
+        _animateFrame = !CGRectEqualToRect(_startFrame, _targetFrame);
 	}
 	return self;
 }
 
 - (void)layout:(CGFloat)p {
-	_view.frame = CGRectMake(LNInterpolate(_startFrame.origin.x, _targetFrame.origin.x, p),
-							 LNInterpolate(_startFrame.origin.y, _targetFrame.origin.y, p),
-							 LNInterpolate(_startFrame.size.width, _targetFrame.size.width, p),
-							 LNInterpolate(_startFrame.size.height, _targetFrame.size.height, p));
-    _view.alpha = LNInterpolate(_startAlpha, _targetAlpha, p);
+    if (_animateFrame) {
+        _view.frame = CGRectMake(LNInterpolate(_startFrame.origin.x, _targetFrame.origin.x, p),
+        LNInterpolate(_startFrame.origin.y, _targetFrame.origin.y, p),
+        LNInterpolate(_startFrame.size.width, _targetFrame.size.width, p),
+        LNInterpolate(_startFrame.size.height, _targetFrame.size.height, p));
+    }
+    
+    if (_animateAlpha) {
+        _view.alpha = p;
+    }
 }
 
 static CGFloat LNSmootherStep(double p) {

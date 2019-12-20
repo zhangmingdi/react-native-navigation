@@ -8,11 +8,11 @@
     CGRect _originalFrame;
 }
 
-- (instancetype)initElement:(RNNElementView *)element toElement:(RNNElementView *)toElement alpha:(CGFloat)alpha endAlpha:(CGFloat)endAlpha isSharedElement:(BOOL)isSharedElement {
+- (instancetype)initElement:(UIView *)element toElement:(UIView *)toElement alpha:(CGFloat)alpha endAlpha:(CGFloat)endAlpha isSharedElement:(BOOL)isSharedElement {
     self.location = [[RNNViewLocation alloc] initWithFromElement:element toElement:toElement];
     self = [super initWithFrame:self.location.fromFrame];
     
-    _reactView = element.view;
+    _reactView = element;
     _endAlpha = endAlpha;
     _isSharedElement = isSharedElement;
     _originalFrame = _reactView.frame;
