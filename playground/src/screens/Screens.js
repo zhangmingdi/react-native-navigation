@@ -7,6 +7,7 @@ const StatusBarFirstTab = 'StatusBarFirstTab'
 
 module.exports = {
   Buttons: 'Buttons',
+  CocktailDetailsScreen: 'CocktailDetailsScreen',
   CocktailsListScreen: 'CocktailsListScreen',
   ContextScreen: 'ContextScreen',
   ExternalComponent: 'ExternalComponent',

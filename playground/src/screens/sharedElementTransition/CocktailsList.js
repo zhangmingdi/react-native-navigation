@@ -1,8 +1,9 @@
 const React = require('react');
 const { Component } = require('react');
-const { SafeAreaView, FlatList, View, Image, Text, StyleSheet } = require('react-native');
-const { Navigation } = require('react-native-navigation');
+const { SafeAreaView, TouchableOpacity, FlatList, View, Image, Text, StyleSheet } = require('react-native');
+const Navigation = require('../../services/Navigation');
 const { slice } = require('lodash');
+const Screens = require('../Screens')
 const data = require('../../assets/cocktails').default;
 
 class CocktailsList extends Component {
@@ -14,10 +15,6 @@ class CocktailsList extends Component {
         }
       }
     }
-  }
-
-  constructor(props) {
-    super(props);
   }
 
   render() {
@@ -35,7 +32,15 @@ class CocktailsList extends Component {
   separatorComponent = () => <View style={styles.separator} />;
 
   renderItem = ({ item }) => (
-    <View style={styles.itemContainer}>
+    <TouchableOpacity
+      activeOpacity={0.75}
+      style={styles.itemContainer}
+      onPress={() => Navigation.push(this, {
+        component: {
+          name: Screens.CocktailDetailsScreen,
+          passProps: { ...item }
+        }
+      })}>
       <Image
         source={item.image}
         style={styles.image}
@@ -47,7 +52,7 @@ class CocktailsList extends Component {
           <Text style={styles.ingredients}>{slice(item.ingredients, 0, 3).map(i => i.name).join(' • ')}</Text>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   )
 
   keyExtractor = item => item.id;

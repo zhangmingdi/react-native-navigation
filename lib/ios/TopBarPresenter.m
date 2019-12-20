@@ -126,7 +126,7 @@
 }
 
 - (BOOL)transparent {
-    return (_backgroundColor && CGColorGetAlpha(_backgroundColor.CGColor) == 0.0);
+    return (self.backgroundColor && CGColorGetAlpha(self.backgroundColor.CGColor) == 0.0);
 }
 
 @end
