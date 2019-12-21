@@ -1,10 +1,8 @@
 #import <Foundation/Foundation.h>
 
-@interface DisplayLinkAnimation : NSObject
+@interface DisplayLinkAnimation : UIView
 
-- (instancetype)initWithView:(UIView*)view targetFrame:(CGRect)frame targetAlpha:(CGFloat)targetAlpha;
-
-- (void)layout:(CGFloat)p;
+- (void)animateWithProgress:(CGFloat)p;
 
 - (void)end;
 

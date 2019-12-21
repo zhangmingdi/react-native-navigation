@@ -55,15 +55,15 @@
 }
 
 - (void)animateTransitions:(NSArray<RNNTransition *>*)transitions fromVCSnapshot:(UIView*)fromSnapshot toSnapshot:(UIView *)toSnapshot andTransitioningContext:(id<UIViewControllerContextTransitioning>)transitionContext {
+    double duration = self.transitionOptions.duration.doubleValue;
     NSMutableArray* animations = [NSMutableArray new];
     for (RNNTransition* transition in transitions) {
-        DisplayLinkAnimation* animation = [[DisplayLinkAnimation alloc] initWithView:transition.animatedView targetFrame:transition.animatedView.location.toFrame targetAlpha:1];
-        [animations addObject:animation];
+        [animations addObject:transition.animatedView];
     }
     
-    [animations addObject:[[DisplayLinkAnimation alloc] initWithView:self.toVC.view targetFrame:self.toVC.view.frame targetAlpha:1]];
-    
-    DisplayLinkAnimator* displayLinkAnimator = [[DisplayLinkAnimator alloc] initWithDisplayLinkAnimations:animations duration:self.transitionOptions.duration.doubleValue];
+//    [animations addObject:[[RNNAnimatedView alloc] initElement:self.toVC.view toElement:nil alpha:0 endAlpha:1 isSharedElement:NO]];
+    self.toVC.view.alpha = 1;
+    DisplayLinkAnimator* displayLinkAnimator = [[DisplayLinkAnimator alloc] initWithDisplayLinkAnimations:animations duration:duration];
     
     [displayLinkAnimator setCompletion:^{
         for (RNNTransition* transition in transitions) {

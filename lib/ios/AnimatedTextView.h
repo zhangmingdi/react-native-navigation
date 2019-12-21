@@ -1,6 +1,6 @@
 #import <Foundation/Foundation.h>
-#import "RNNAnimatedView.h"
+#import "AnimatedReactView.h"
 
-@interface AnimatedTextView : RNNAnimatedView
+@interface AnimatedTextView : AnimatedReactView
 
 @end
