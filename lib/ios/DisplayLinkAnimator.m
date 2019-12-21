@@ -43,7 +43,7 @@
 
 - (void)updateAnimations:(CGFloat)p {
 	for (DisplayLinkAnimation* animation in _animations) {
-		[animation layout:p];
+		[animation animateWithProgress:p];
 	}
 }
 

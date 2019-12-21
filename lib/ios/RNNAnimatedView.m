@@ -2,38 +2,37 @@
 #import <React/RCTImageView.h>
 
 @implementation RNNAnimatedView {
-    CGFloat _endAlpha;
-    BOOL _isSharedElement;
     UIView* _originalParent;
-    CGRect _originalFrame;
+    UIView* _hijackedView;
+    CGFloat _startAlpha;
+    CGFloat _targetAlpha;
 }
 
-- (instancetype)initElement:(UIView *)element toElement:(UIView *)toElement alpha:(CGFloat)alpha endAlpha:(CGFloat)endAlpha isSharedElement:(BOOL)isSharedElement {
-    self.location = [[RNNViewLocation alloc] initWithFromElement:element toElement:toElement];
-    self = [super initWithFrame:self.location.fromFrame];
-    
-    _reactView = element;
-    _endAlpha = endAlpha;
-    _isSharedElement = isSharedElement;
-    _originalFrame = _reactView.frame;
-    self.frame = self.location.fromFrame;
-    _originalParent = _reactView.superview;
-    _reactView.frame = self.bounds;
-    [self addSubview:_reactView];
-    self.alpha = alpha;
+- (instancetype)initWithView:(UIView *)view alpha:(CGFloat)alpha endAlpha:(CGFloat)endAlpha {
+    self = [super initWithFrame:view.bounds];
+    [self hijackView:view];
     
 	return self;
 }
 
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    _reactView.frame = self.bounds;
+- (void)hijackView:(UIView *)view {
+    _hijackedView = view;
+    _originalParent = view.superview;
+    [self addSubview:view];
+}
+
+- (void)animateWithProgress:(CGFloat)p {
+//    self.frame = RNNInterpolateRect(self.location.fromFrame, self.location.toFrame, p);
+}
+
+- (void)end {
+    
 }
 
 - (void)removeFromSuperview {
     [super removeFromSuperview];
-    _reactView.frame = _originalFrame;
-    [_originalParent addSubview:_reactView];
+//    _hijackedView.alpha = _originalFrame;
+    [_originalParent addSubview:_hijackedView];
 }
 
 @end

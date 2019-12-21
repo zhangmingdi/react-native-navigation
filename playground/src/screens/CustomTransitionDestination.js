@@ -1,6 +1,6 @@
 const React = require('react');
 const {Component} = require('react');
-const {View, TouchableOpacity, Image, Text ,SafeAreaView} = require('react-native');
+const {View, TouchableOpacity, Image, Text, SafeAreaView} = require('react-native');
 const {Navigation} = require('react-native-navigation');
 import ViewOverflow from 'react-native-view-overflow';
 const Root = require('../components/Root');
@@ -61,10 +61,8 @@ class CustomTransitionDestination extends Component {
     return (
       <SafeAreaView style={styles.root}>
         <View>
-            <Image resizeMode='cover' source={require('../../img/400.jpeg')} testID={`customDestinationImage`} nativeID={`customDestinationImage`} />
-
-              <Text testID={'title2'} nativeID={`title2`} style={[styles.h1]}>{`Custom Transition Screen`}</Text>
-
+          <Image resizeMode='cover' source={require('../../img/400.jpeg')} testID={`customDestinationImage`} nativeID={`customDestinationImage`} />
+          <Text testID={'title2'} nativeID={`title2`} style={[styles.h1]}>{`Custom Transition Screen`}</Text>
         </View>
       </SafeAreaView>
     );
@@ -79,10 +77,9 @@ const styles = {
     alignItems: 'center',
   },
   h1: {
-    fontSize: 24,
+    fontSize: 35,
     textAlign: 'center',
-    color: '#00ff00',
-    width: 100
+    color: '#00ff00'
   },
   p: {
     fontSize: 14,

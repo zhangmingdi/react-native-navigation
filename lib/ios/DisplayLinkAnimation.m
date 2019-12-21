@@ -1,4 +1,5 @@
 #import "DisplayLinkAnimation.h"
+#import "UIView+Utils.h"
 
 @implementation DisplayLinkAnimation {
 	UIView* _view;
@@ -24,7 +25,7 @@
 	return self;
 }
 
-- (void)layout:(CGFloat)p {
+- (void)animateWithProgress:(CGFloat)p {
     if (_animateFrame) {
         _view.frame = CGRectMake(LNInterpolate(_startFrame.origin.x, _targetFrame.origin.x, p),
         LNInterpolate(_startFrame.origin.y, _targetFrame.origin.y, p),
@@ -35,6 +36,8 @@
     if (_animateAlpha) {
         _view.alpha = p;
     }
+    
+    [_view layout:p];
 }
 
 static CGFloat LNSmootherStep(double p) {
@@ -42,7 +45,17 @@ static CGFloat LNSmootherStep(double p) {
 }
 
 static CGFloat LNInterpolate(CGFloat from, CGFloat to, CGFloat p) {
-	return from + LNSmootherStep(p) * (to - from);
+	return from + QuarticEaseInOut(p) * (to - from);
+}
+
+CGFloat QuarticEaseInOut(CGFloat p)
+{
+    if(p < 0.5) {
+        return 4 * p * p * p;
+    } else {
+        CGFloat f = ((2 * p) - 2);
+        return 0.5 * f * f * f + 1;
+    }
 }
 
 - (void)end {

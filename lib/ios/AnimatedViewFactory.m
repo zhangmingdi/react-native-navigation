@@ -13,7 +13,7 @@
             return [[AnimatedTextView alloc] initElement:element toElement:toElement alpha:alpha endAlpha:endAlpha isSharedElement:isSharedElement];
         case ViewTypeOther:
         default:
-            return [[RNNAnimatedView alloc] initElement:element toElement:toElement alpha:alpha endAlpha:endAlpha isSharedElement:isSharedElement];
+            return [[AnimatedReactView alloc] initElement:element toElement:toElement alpha:alpha endAlpha:endAlpha isSharedElement:isSharedElement];
     }
 }
 

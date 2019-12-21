@@ -1,6 +1,6 @@
 #import <UIKit/UIKit.h>
-#import "RNNAnimatedView.h"
+#import "AnimatedReactView.h"
 
-@interface AnimatedImageView : RNNAnimatedView
+@interface AnimatedImageView : AnimatedReactView
 
 @end

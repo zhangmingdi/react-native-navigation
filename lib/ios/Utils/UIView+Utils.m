@@ -11,6 +11,10 @@
     return nil;
 }
 
+- (void)layout:(CGFloat)p {
+    
+}
+
 - (ViewType)viewType {
     if ([self isKindOfClass:[RCTImageView class]]) {
         return ViewTypeImage;
