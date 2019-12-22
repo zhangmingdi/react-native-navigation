@@ -7,28 +7,23 @@
 #import "AnimatedViewFactory.h"
 
 @interface  CustomTransitionDelegate()
-@property (nonatomic, strong) RNNSharedElementAnimationOptions* transitionOptions;
-@property (nonatomic) BOOL backwardTransition;
 @property (nonatomic, weak) UIViewController* fromVC;
 @property (nonatomic, weak) UIViewController* toVC;
 @end
 
-@implementation CustomTransitionDelegate
+@implementation CustomTransitionDelegate {
+    RNNScreenTransition* _screenTransition;
+}
 
-- (instancetype)initWithTransitionOptions:(RNNSharedElementAnimationOptions *)transitionOptions {
+- (instancetype)initWithScreenTransition:(RNNScreenTransition *)screenTransition {
     self = [super init];
-    if (transitionOptions.animations) {
-        self.transitionOptions = transitionOptions;
-    } else {
-        return nil;
-    }
-    
+    _screenTransition = screenTransition;
     return self;
 }
 
 - (NSArray<AnimatedReactView *>*)createSharedElementViews {
     NSMutableArray* transitions = [NSMutableArray new];
-    for (NSDictionary* transitionOptions in self.transitionOptions.animations) {
+    for (NSDictionary* transitionOptions in _screenTransition.elements) {
         AnimatedReactView* animatedView = [self createAnimatedView:transitionOptions];
         [transitions addObject:animatedView];
     }
@@ -45,25 +40,17 @@
 
 - (AnimatedReactView *)createAnimatedView:(NSDictionary *)transitionOptions {
     RNNTransitionStateHolder* transitionStateHolder = [[RNNTransitionStateHolder alloc] initWithDict:transitionOptions];
-    if (self.backwardTransition) {
-        UIView *fromElement = [RNNElementFinder findElementForId:transitionStateHolder.toId inView:self.fromVC.view];
-        UIView *toElement = [RNNElementFinder findElementForId:transitionStateHolder.fromId inView:self.toVC.view];
-        return [AnimatedViewFactory createFromElement:fromElement toElement:toElement alpha:transitionStateHolder.startAlpha endAlpha:transitionStateHolder.endAlpha isSharedElement:YES];
-    } else {
-        UIView *fromElement = [RNNElementFinder findElementForId:transitionStateHolder.fromId inView:self.fromVC.view];
-        UIView *toElement = [RNNElementFinder findElementForId:transitionStateHolder.toId inView:self.toVC.view];
-        return [AnimatedViewFactory createFromElement:fromElement toElement:toElement alpha:transitionStateHolder.startAlpha endAlpha:transitionStateHolder.endAlpha isSharedElement:YES];
-    }
+    UIView *fromElement = [RNNElementFinder findElementForId:transitionStateHolder.fromId inView:self.fromVC.view];
+    UIView *toElement = [RNNElementFinder findElementForId:transitionStateHolder.toId inView:self.toVC.view];
+    return [AnimatedViewFactory createFromElement:fromElement toElement:toElement alpha:transitionStateHolder.startAlpha endAlpha:transitionStateHolder.endAlpha isSharedElement:YES];
 }
 
 - (void)animateTransitions:(NSArray<id<DisplayLinkAnimation>>*)animations andTransitioningContext:(id<UIViewControllerContextTransitioning>)transitionContext {
-    double duration = self.transitionOptions.duration.doubleValue;
-    DisplayLinkAnimator* displayLinkAnimator = [[DisplayLinkAnimator alloc] initWithDisplayLinkAnimations:animations duration:duration];
+    DisplayLinkAnimator* displayLinkAnimator = [[DisplayLinkAnimator alloc] initWithDisplayLinkAnimations:animations duration:[self transitionDuration:transitionContext]];
     
     [displayLinkAnimator setCompletion:^{
         if (![transitionContext transitionWasCancelled]) {
             [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
-            self.backwardTransition = true;
         }
     }];
     
@@ -71,14 +58,14 @@
 }
 
 - (NSTimeInterval)transitionDuration:(id <UIViewControllerContextTransitioning>)transitionContext {
-    return [self.transitionOptions.duration doubleValue];
+    return [_screenTransition.duration getWithDefaultValue:@(0.5)].floatValue;
 }
 
 - (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext {
     self.fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     self.toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     
-    [transitionContext.containerView addSubview:self.toVC.view];
+        [transitionContext.containerView addSubview:self.toVC.view];
     
     NSMutableArray<id<DisplayLinkAnimation>>* animations = [NSMutableArray new];
     

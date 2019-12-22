@@ -28,13 +28,10 @@ class CustomTransitionDestination extends Component {
       },
       animations: {
         pop: {
-          content: {
-            alpha: {
-              from: 1,
-              to: 0,
-              duration: 250
-            }
-          }
+          elements: [
+            {type: 'sharedElement', fromId: 'title2', toId: 'title1'},
+            {type: 'sharedElement', fromId: 'customDestinationImage', toId: 'image1'}
+          ]
         }
       }
     };
