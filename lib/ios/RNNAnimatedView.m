@@ -18,11 +18,11 @@
 }
 
 - (void)animateWithProgress:(CGFloat)p {
-    _view.alpha = RNNInterpolate(_startAlpha, _targetAlpha, p);
+    _view.alpha = [RNNInterpolator fromFloat:_startAlpha toFloat:_targetAlpha precent:p];
 }
 
 - (void)end {
-    
+    _view.alpha = _targetAlpha;
 }
 
 @end

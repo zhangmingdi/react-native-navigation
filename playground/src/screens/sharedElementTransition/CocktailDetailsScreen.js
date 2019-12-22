@@ -5,16 +5,16 @@ const { SafeAreaView, FlatList, View, Image, Text, StyleSheet } = require('react
 class CocktailDetailsScreen extends Component {
   render() {
     return (
-      <View style={styles.root}>
+      <SafeAreaView style={styles.root}>
         <View style={[styles.header, {backgroundColor: this.props.color}]}>
           <Text nativeID={'text2'} style={styles.title}>{this.props.name}</Text>
-        </View>
-        <Image
-          nativeID={'image2'}
-          source={this.props.image}
-          style={styles.image}
+          <Image
+            nativeID={'image2'}
+            source={this.props.image}
+            style={styles.image}
           />
-      </View>
+        </View>
+      </SafeAreaView>
     );
   }
 }
@@ -24,7 +24,7 @@ const SIZE = 120;
 const HEADER = 150;
 const styles = StyleSheet.create({
   root: {
-    
+
   },
   header: {
     height: HEADER,

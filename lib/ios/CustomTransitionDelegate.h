@@ -3,7 +3,7 @@
 #import "RNNSharedElementAnimationOptions.h"
 #import <React/RCTUIManager.h>
 
-@interface RNNAnimator : NSObject <UIViewControllerAnimatedTransitioning>
+@interface CustomTransitionDelegate : NSObject <UIViewControllerAnimatedTransitioning>
 
 - (instancetype)initWithTransitionOptions:(RNNSharedElementAnimationOptions *)transitionOptions;
 

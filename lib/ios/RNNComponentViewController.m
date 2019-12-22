@@ -2,17 +2,17 @@
 #import "RNNAnimationsTransitionDelegate.h"
 #import "UIViewController+LayoutProtocol.h"
 
-@implementation RNNComponentViewController
+@implementation RNNComponentViewController {
+    CustomTransitionDelegate* _customTransitionDelegate;
+}
 
 @synthesize previewCallback;
 
 - (instancetype)initWithLayoutInfo:(RNNLayoutInfo *)layoutInfo rootViewCreator:(id<RNNComponentViewCreator>)creator eventEmitter:(RNNEventEmitter *)eventEmitter presenter:(RNNComponentPresenter *)presenter options:(RNNNavigationOptions *)options defaultOptions:(RNNNavigationOptions *)defaultOptions {
 	self = [super initWithLayoutInfo:layoutInfo creator:creator options:options defaultOptions:defaultOptions presenter:presenter eventEmitter:eventEmitter childViewControllers:nil];
 	
-  self.animator = [[RNNAnimator alloc] initWithTransitionOptions:self.resolveOptions.customTransition];
-    // self.navigationController.delegate = self;
 	self.extendedLayoutIncludesOpaqueBars = YES;
-	self.animator = [[RNNAnimator alloc] initWithTransitionOptions:self.resolveOptions.customTransition];
+	_customTransitionDelegate = [[CustomTransitionDelegate alloc] initWithTransitionOptions:self.resolveOptions.customTransition];
 	
 	return self;
 }
@@ -83,10 +83,6 @@
 	[self.eventEmitter sendOnSearchBarCancelPressed:self.layoutInfo.componentId];
 }
 
--(BOOL)isCustomTransitioned {
-	return self.resolveOptions.customTransition.animations != nil;
-}
-
 - (BOOL)prefersStatusBarHidden {
 	return [_presenter isStatusBarVisibility:self.navigationController resolvedOptions:self.resolveOptions];
 }
@@ -106,8 +102,8 @@
 								  animationControllerForOperation:(UINavigationControllerOperation)operation
 											   fromViewController:(UIViewController*)fromVC
 												 toViewController:(UIViewController*)toVC {
-	if (self.animator) {
-		return self.animator;
+	if (_customTransitionDelegate) {
+		return _customTransitionDelegate;
 	} else if (operation == UINavigationControllerOperationPush && self.resolveOptions.animations.push.hasCustomAnimation) {
 		return [[RNNAnimationsTransitionDelegate alloc] initWithScreenTransition:self.resolveOptions.animations.push isDismiss:NO];
 	} else if (operation == UINavigationControllerOperationPop && self.resolveOptions.animations.pop.hasCustomAnimation) {
