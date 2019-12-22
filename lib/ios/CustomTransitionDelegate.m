@@ -65,7 +65,7 @@
     self.fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     self.toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     
-        [transitionContext.containerView addSubview:self.toVC.view];
+    [transitionContext.containerView addSubview:self.toVC.view];
     
     NSMutableArray<id<DisplayLinkAnimation>>* animations = [NSMutableArray new];
     
