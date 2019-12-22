@@ -3,6 +3,20 @@ const { Component } = require('react');
 const { SafeAreaView, FlatList, View, Image, Text, StyleSheet } = require('react-native');
 
 class CocktailDetailsScreen extends Component {
+  static options(props) {
+    return {
+      animations: {
+        pop: {
+          elements: [
+            {type: 'sharedElement', fromId: 'text2', toId: `${props.name}-text`},
+            {type: 'sharedElement', fromId: 'image2', toId: `${props.name}-image`}
+          ]
+        },
+        duration: 0.5
+      }
+    }
+  }
+
   render() {
     return (
       <SafeAreaView style={styles.root}>

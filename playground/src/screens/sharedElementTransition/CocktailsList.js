@@ -40,12 +40,14 @@ class CocktailsList extends Component {
           name: Screens.CocktailDetailsScreen,
           passProps: { ...item },
           options: {
-            customTransition: {
-              animations: [
-                {type: 'sharedElement', fromId: `${item.name}-text`, toId: 'text2'},
-                {type: 'sharedElement', fromId: `${item.name}-image`, toId: 'image2'}
-              ],
-              duration: 0.5
+            animations: {
+              push: {
+                elements: [
+                  {type: 'sharedElement', fromId: `${item.name}-text`, toId: 'text2'},
+                  {type: 'sharedElement', fromId: `${item.name}-image`, toId: 'image2'}
+                ],
+                duration: 0.5
+              }
             }
           }
         }
