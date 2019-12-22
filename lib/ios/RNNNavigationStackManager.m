@@ -16,10 +16,6 @@ typedef void (^RNNAnimationBlock)(void);
 		nvc.view.semanticContentAttribute = UISemanticContentAttributeForceLeftToRight;
 		nvc.navigationBar.semanticContentAttribute = UISemanticContentAttributeForceLeftToRight;
 	}
-
-	if (animationDelegate) {
-		nvc.delegate = animationDelegate;
-	}
 	
 	[self performAnimationBlock:^{
 		[nvc pushViewController:newTop animated:animated];

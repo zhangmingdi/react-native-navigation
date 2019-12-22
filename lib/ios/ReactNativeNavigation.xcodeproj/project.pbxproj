@@ -282,6 +282,8 @@
 		50EA541723AEDF5D006F881A /* RNNInterpolator.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EA541523AEDF5D006F881A /* RNNInterpolator.m */; };
 		50EA541A23AEE1C6006F881A /* AnimatedReactView.h in Headers */ = {isa = PBXBuildFile; fileRef = 50EA541823AEE1C6006F881A /* AnimatedReactView.h */; };
 		50EA541B23AEE1C6006F881A /* AnimatedReactView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EA541923AEE1C6006F881A /* AnimatedReactView.m */; };
+		50EA541E23B00E03006F881A /* StackControllerDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 50EA541C23B00E03006F881A /* StackControllerDelegate.h */; };
+		50EA541F23B00E03006F881A /* StackControllerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EA541D23B00E03006F881A /* StackControllerDelegate.m */; };
 		50EAF67B23A7B91E0006A86D /* AnimatedSnapshotView.h in Headers */ = {isa = PBXBuildFile; fileRef = 50EAF67923A7B91D0006A86D /* AnimatedSnapshotView.h */; };
 		50EAF67C23A7B91E0006A86D /* AnimatedSnapshotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 50EAF67A23A7B91E0006A86D /* AnimatedSnapshotView.m */; };
 		50EAF67F23A7B9260006A86D /* AnimatedTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = 50EAF67D23A7B9260006A86D /* AnimatedTextView.h */; };
@@ -687,6 +689,8 @@
 		50EA541523AEDF5D006F881A /* RNNInterpolator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNNInterpolator.m; sourceTree = "<group>"; };
 		50EA541823AEE1C6006F881A /* AnimatedReactView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnimatedReactView.h; sourceTree = "<group>"; };
 		50EA541923AEE1C6006F881A /* AnimatedReactView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AnimatedReactView.m; sourceTree = "<group>"; };
+		50EA541C23B00E03006F881A /* StackControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StackControllerDelegate.h; sourceTree = "<group>"; };
+		50EA541D23B00E03006F881A /* StackControllerDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StackControllerDelegate.m; sourceTree = "<group>"; };
 		50EAF67923A7B91D0006A86D /* AnimatedSnapshotView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnimatedSnapshotView.h; sourceTree = "<group>"; };
 		50EAF67A23A7B91E0006A86D /* AnimatedSnapshotView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AnimatedSnapshotView.m; sourceTree = "<group>"; };
 		50EAF67D23A7B9260006A86D /* AnimatedTextView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnimatedTextView.h; sourceTree = "<group>"; };
@@ -1134,6 +1138,8 @@
 				50451D042042DAEB00695F00 /* RNNPushAnimation.m */,
 				50E5F7932240EBD6002AFEAD /* RNNAnimationsTransitionDelegate.h */,
 				50E5F7942240EBD6002AFEAD /* RNNAnimationsTransitionDelegate.m */,
+				50EA541C23B00E03006F881A /* StackControllerDelegate.h */,
+				50EA541D23B00E03006F881A /* StackControllerDelegate.m */,
 				50996C6B23AA68B900008F89 /* DisplayLinkAnimator.h */,
 				50996C6C23AA68B900008F89 /* DisplayLinkAnimator.m */,
 				50588B8A23AAC2FF001F6A5E /* DisplayLinkAnimation.h */,
@@ -1472,6 +1478,7 @@
 				50F5DFC11F407A8C001A00BC /* RNNBottomTabsController.h in Headers */,
 				50395587217480C900B0A663 /* IntNumber.h in Headers */,
 				5012242A217372B3000F5F98 /* ImageParser.h in Headers */,
+				50EA541E23B00E03006F881A /* StackControllerDelegate.h in Headers */,
 				50CB3B691FDE911400AA153B /* RNNSideMenuOptions.h in Headers */,
 				5012240A21735959000F5F98 /* RNNSideMenuPresenter.h in Headers */,
 				50E02BDD21A6EE7900A43942 /* SideMenuOpenGestureModeParser.h in Headers */,
@@ -1806,6 +1813,7 @@
 				504AFE751FFFF0540076E904 /* RNNTopTabsOptions.m in Sources */,
 				50175CD2207A2AA1004FE91B /* RNNComponentOptions.m in Sources */,
 				505C640323E074860078AFC0 /* TopBarTitlePresenter.m in Sources */,
+				50EA541F23B00E03006F881A /* StackControllerDelegate.m in Sources */,
 				50E02BDC21A6EE7900A43942 /* SideMenuOpenGestureModeParser.m in Sources */,
 				7BEF0D1D1E43771B003E96B0 /* RNNLayoutNode.m in Sources */,
 				7BA500781E254908001B9E1B /* RNNSplashScreen.m in Sources */,

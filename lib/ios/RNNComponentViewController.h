@@ -2,7 +2,6 @@
 #import "RNNComponentViewCreator.h"
 #import "RNNEventEmitter.h"
 #import "RNNNavigationOptions.h"
-#import "CustomTransitionDelegate.h"
 #import "RNNUIBarButtonItem.h"
 #import "RNNLayoutInfo.h"
 #import "RNNLayoutProtocol.h"

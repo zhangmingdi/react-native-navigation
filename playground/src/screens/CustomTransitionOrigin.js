@@ -55,18 +55,15 @@ class CustomTransitionOrigin extends Component {
                   to: 1,
                   duration: 250
                 }
-              }
+              },
+              elements: [
+                {type: 'sharedElement', fromId: 'title1', toId: 'title2', startDelay: 0, springVelocity: 0.2, duration: 1},
+                {
+                type: 'sharedElement', fromId: 'image1', toId: 'customDestinationImage', startDelay: 0, springVelocity: 1,
+                springDamping: 1, duration: 1, interactivePop: true
+                }
+              ]
             }
-          },
-          customTransition: {
-            animations: [
-              {type: 'sharedElement', fromId: 'title1', toId: 'title2', startDelay: 0, springVelocity: 0.2, duration: 1},
-              {
-              type: 'sharedElement', fromId: 'image1', toId: 'customDestinationImage', startDelay: 0, springVelocity: 1,
-              springDamping: 1, duration: 1, interactivePop: true
-              }
-            ],
-            duration: 0.5
           }
         }
       }

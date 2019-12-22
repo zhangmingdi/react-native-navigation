@@ -163,7 +163,7 @@ static NSString* const setDefaultOptions	= @"setDefaultOptions";
 			});
 		}
 	} else {
-		id animationDelegate = (newVc.resolveOptionsWithDefault.animations.push.hasCustomAnimation || newVc.resolveOptionsWithDefault.customTransition.animations) ? newVc : nil;
+		id animationDelegate = (newVc.resolveOptionsWithDefault.animations.push.hasCustomAnimation) ? newVc : nil;
         newVc.waitForRender = ([newVc.resolveOptionsWithDefault.animations.push.waitForRender getWithDefaultValue:NO] || animationDelegate);
         [(RNNComponentViewController *)newVc setAvailableSize:fromVC.navigationController.view.bounds.size];
         [newVc setReactViewReadyCallback:^{
@@ -213,14 +213,12 @@ static NSString* const setDefaultOptions	= @"setDefaultOptions";
 	
 	UINavigationController *nvc = vc.navigationController;
 	
-	if ([nvc topViewController] == vc) {
+	if ([nvc topViewController] != vc) {
 		if (vc.resolveOptions.animations.pop.hasCustomAnimation) {
-			nvc.delegate = vc;
+			NSMutableArray * vcs = nvc.viewControllers.mutableCopy;
+            [vcs removeObject:vc];
+            [nvc setViewControllers:vcs animated:[vc.resolveOptionsWithDefault.animations.pop.enable getWithDefaultValue:YES]];
 		}
-	} else {
-		NSMutableArray * vcs = nvc.viewControllers.mutableCopy;
-		[vcs removeObject:vc];
-		[nvc setViewControllers:vcs animated:[vc.resolveOptionsWithDefault.animations.pop.enable getWithDefaultValue:YES]];
 	}
 	
 	[_stackManager pop:vc animated:[vc.resolveOptionsWithDefault.animations.pop.enable getWithDefaultValue:YES] completion:^{

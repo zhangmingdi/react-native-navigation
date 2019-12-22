@@ -1,10 +1,7 @@
 #import "RNNComponentViewController.h"
-#import "RNNAnimationsTransitionDelegate.h"
 #import "UIViewController+LayoutProtocol.h"
 
-@implementation RNNComponentViewController {
-    CustomTransitionDelegate* _customTransitionDelegate;
-}
+@implementation RNNComponentViewController
 
 @synthesize previewCallback;
 
@@ -85,30 +82,6 @@
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
 	return [_presenter getStatusBarStyle:[self resolveOptions]];
-}
-
-- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated{
-	RNNComponentViewController* vc =  (RNNComponentViewController*)viewController;
-	if (![[vc.self.resolveOptions.topBar.backButton.transition getWithDefaultValue:@""] isEqualToString:@"custom"]){
-//		navigationController.delegate = nil;
-	}
-}
-
-- (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
-								  animationControllerForOperation:(UINavigationControllerOperation)operation
-											   fromViewController:(UIViewController*)fromVC
-												 toViewController:(UIViewController*)toVC {
-	if (_customTransitionDelegate) {
-		return _customTransitionDelegate;
-	} else if (operation == UINavigationControllerOperationPush && self.resolveOptions.animations.push.hasCustomAnimation) {
-		return [[RNNAnimationsTransitionDelegate alloc] initWithScreenTransition:self.resolveOptions.animations.push isDismiss:NO];
-	} else if (operation == UINavigationControllerOperationPop && self.resolveOptions.animations.pop.hasCustomAnimation) {
-		return [[RNNAnimationsTransitionDelegate alloc] initWithScreenTransition:self.resolveOptions.animations.pop isDismiss:YES];
-	} else {
-		return nil;
-	}
-	
-	return nil;
 }
 
 - (UIViewController *)previewingContext:(id<UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location{
