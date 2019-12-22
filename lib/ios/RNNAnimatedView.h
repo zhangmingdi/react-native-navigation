@@ -3,7 +3,7 @@
 #import "DisplayLinkAnimation.h"
 #import "RNNInterpolator.h"
 
-@interface RNNAnimatedView : DisplayLinkAnimation
+@interface RNNAnimatedView : NSObject <DisplayLinkAnimation>
 
 - (instancetype)initWithView:(UIView *)view alpha:(CGFloat)alpha endAlpha:(CGFloat)endAlpha;
 

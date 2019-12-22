@@ -7,9 +7,9 @@ typedef void (^CompletionBlock)(void);
 
 @property (nonatomic, copy) CompletionBlock completion;
 
-- (instancetype)initWithDisplayLinkAnimations:(NSArray<DisplayLinkAnimation *> *)displayLinkAnimations duration:(CGFloat)duration;
+- (instancetype)initWithDisplayLinkAnimations:(NSArray<id<DisplayLinkAnimation>> *)displayLinkAnimations duration:(CGFloat)duration;
 
-- (instancetype)initWithDisplayLinkAnimation:(DisplayLinkAnimation *)displayLinkAnimation duration:(CGFloat)duration;
+- (instancetype)initWithDisplayLinkAnimation:(id<DisplayLinkAnimation>)displayLinkAnimation duration:(CGFloat)duration;
 
 - (void)start;
 

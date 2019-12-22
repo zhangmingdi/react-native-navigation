@@ -1,20 +1,20 @@
 #import "DisplayLinkAnimator.h"
 
 @implementation DisplayLinkAnimator {
-    NSArray<DisplayLinkAnimation *>* _animations;
+    NSArray<id<DisplayLinkAnimation>>* _animations;
     CADisplayLink* _displayLink;
     NSDate* _startDate;
     CGFloat _duration;
 }
 
-- (instancetype)initWithDisplayLinkAnimations:(NSArray<DisplayLinkAnimation *> *)displayLinkAnimations duration:(CGFloat)duration {
+- (instancetype)initWithDisplayLinkAnimations:(NSArray<id<DisplayLinkAnimation>> *)displayLinkAnimations duration:(CGFloat)duration {
     self = [super init];
     _animations = displayLinkAnimations;
     _duration = duration;
     return self;
 }
 
-- (instancetype)initWithDisplayLinkAnimation:(DisplayLinkAnimation *)displayLinkAnimation duration:(CGFloat)duration {
+- (instancetype)initWithDisplayLinkAnimation:(id<DisplayLinkAnimation>)displayLinkAnimation duration:(CGFloat)duration {
 	self = [self initWithDisplayLinkAnimations:@[displayLinkAnimation] duration:duration];
     return self;
 }
@@ -42,13 +42,13 @@
 }
 
 - (void)updateAnimations:(CGFloat)p {
-	for (DisplayLinkAnimation* animation in _animations) {
+	for (id<DisplayLinkAnimation> animation in _animations) {
 		[animation animateWithProgress:p];
 	}
 }
 
 - (void)end {
-    for (DisplayLinkAnimation* animation in _animations) {
+    for (id<DisplayLinkAnimation> animation in _animations) {
         [animation end];
     }
 }

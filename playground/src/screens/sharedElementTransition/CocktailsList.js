@@ -38,16 +38,26 @@ class CocktailsList extends Component {
       onPress={() => Navigation.push(this, {
         component: {
           name: Screens.CocktailDetailsScreen,
-          passProps: { ...item }
+          passProps: { ...item },
+          options: {
+            customTransition: {
+              animations: [
+                {type: 'sharedElement', fromId: `${item.name}-text`, toId: 'text2'},
+                {type: 'sharedElement', fromId: `${item.name}-image`, toId: 'image2'}
+              ],
+              duration: 0.5
+            }
+          }
         }
       })}>
       <Image
         source={item.image}
         style={styles.image}
         resizeMode={'contain'}
+        nativeID={`${item.name}-image`}
       />
       <View style={styles.textContainer}>
-        <Text style={styles.title}>{item.name}</Text>
+        <Text nativeID={`${item.name}-text`} style={styles.title}>{item.name}</Text>
         <View style={{ flexDirection: 'row' }}>
           <Text style={styles.ingredients}>{slice(item.ingredients, 0, 3).map(i => i.name).join(' • ')}</Text>
         </View>

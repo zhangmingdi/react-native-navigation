@@ -1,6 +1,8 @@
-#import "RNNAnimatedView.h"
+#import "RNNViewLocation.h"
+#import "DisplayLinkAnimation.h"
+#import "RNNInterpolator.h"
 
-@interface AnimatedReactView : RNNAnimatedView
+@interface AnimatedReactView : UIView <DisplayLinkAnimation>
 
 @property (nonatomic, strong) RNNViewLocation* location;
 @property (nonatomic, strong) UIView* reactView;

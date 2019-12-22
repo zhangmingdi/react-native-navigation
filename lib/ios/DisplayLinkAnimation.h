@@ -1,7 +1,8 @@
 #import <Foundation/Foundation.h>
 
-@interface DisplayLinkAnimation : UIView
+@protocol DisplayLinkAnimation <NSObject>
 
+@required
 - (void)animateWithProgress:(CGFloat)p;
 
 - (void)end;
