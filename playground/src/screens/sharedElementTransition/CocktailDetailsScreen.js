@@ -7,9 +7,10 @@ class CocktailDetailsScreen extends Component {
     return (
       <View style={styles.root}>
         <View style={[styles.header, {backgroundColor: this.props.color}]}>
-          <Text style={styles.title}>{this.props.name}</Text>
+          <Text nativeID={'text2'} style={styles.title}>{this.props.name}</Text>
         </View>
         <Image
+          nativeID={'image2'}
           source={this.props.image}
           style={styles.image}
           />

@@ -2,6 +2,7 @@
 #import "RNNTransition.h"
 #import "RNNReactView.h"
 #import "DisplayLinkAnimator.h"
+#import "RNNAnimatedView.h"
 
 @interface  RNNAnimator()
 @property (nonatomic, strong) RNNSharedElementAnimationOptions* transitionOptions;
@@ -56,13 +57,13 @@
 
 - (void)animateTransitions:(NSArray<RNNTransition *>*)transitions fromVCSnapshot:(UIView*)fromSnapshot toSnapshot:(UIView *)toSnapshot andTransitioningContext:(id<UIViewControllerContextTransitioning>)transitionContext {
     double duration = self.transitionOptions.duration.doubleValue;
-    NSMutableArray* animations = [NSMutableArray new];
+    NSMutableArray<id<DisplayLinkAnimation>>* animations = [NSMutableArray new];
     for (RNNTransition* transition in transitions) {
         [animations addObject:transition.animatedView];
     }
     
-//    [animations addObject:[[RNNAnimatedView alloc] initElement:self.toVC.view toElement:nil alpha:0 endAlpha:1 isSharedElement:NO]];
-    self.toVC.view.alpha = 1;
+    [animations addObject:[[RNNAnimatedView alloc] initWithView:self.toVC.view alpha:0 endAlpha:1]];
+    
     DisplayLinkAnimator* displayLinkAnimator = [[DisplayLinkAnimator alloc] initWithDisplayLinkAnimations:animations duration:duration];
     
     [displayLinkAnimator setCompletion:^{
