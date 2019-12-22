@@ -2,7 +2,9 @@
 #import "RNNAnimationsTransitionDelegate.h"
 #import "UIViewController+LayoutProtocol.h"
 
-@implementation RNNComponentViewController
+@implementation RNNComponentViewController {
+    CustomTransitionDelegate* _customTransitionDelegate;
+}
 
 @synthesize previewCallback;
 
@@ -77,10 +79,6 @@
 	[self.eventEmitter sendOnSearchBarCancelPressed:self.layoutInfo.componentId];
 }
 
--(BOOL)isCustomTransitioned {
-	return self.resolveOptions.customTransition.animations != nil;
-}
-
 - (BOOL)prefersStatusBarHidden {
 	return [_presenter isStatusBarVisibility:self.navigationController resolvedOptions:self.resolveOptions];
 }
@@ -100,8 +98,8 @@
 								  animationControllerForOperation:(UINavigationControllerOperation)operation
 											   fromViewController:(UIViewController*)fromVC
 												 toViewController:(UIViewController*)toVC {
-	if (self.animator) {
-		return self.animator;
+	if (_customTransitionDelegate) {
+		return _customTransitionDelegate;
 	} else if (operation == UINavigationControllerOperationPush && self.resolveOptions.animations.push.hasCustomAnimation) {
 		return [[RNNAnimationsTransitionDelegate alloc] initWithScreenTransition:self.resolveOptions.animations.push isDismiss:NO];
 	} else if (operation == UINavigationControllerOperationPop && self.resolveOptions.animations.pop.hasCustomAnimation) {
