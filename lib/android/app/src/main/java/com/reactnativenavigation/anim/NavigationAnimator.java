@@ -14,7 +14,6 @@ import com.reactnativenavigation.parse.Options;
 import com.reactnativenavigation.views.element.ElementTransitionManager;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import androidx.annotation.RestrictTo;
@@ -34,39 +33,44 @@ public class NavigationAnimator extends BaseAnimator {
 
     public void push(ViewGroup appearing, ViewGroup disappearing, Options options, Runnable onAnimationEnd) {
         appearing.setAlpha(0);
-        AnimatorSet push = options.animations.push.content.getAnimation(appearing, getDefaultPushAnimation(appearing));
-        AnimatorSet set = new AnimatorSet();
-        List<Animator> elementTransitions = transitionManager.createTransitions(options.animations.transitions, disappearing, appearing);
-        if (elementTransitions.isEmpty()) {
-            set.playTogether(push);
-        } else {
-            set.playTogether(merge(new FadeAnimation().content.getAnimation(appearing).getChildAnimations(), elementTransitions));
-        }
-        set.addListener(new AnimatorListenerAdapter() {
-            private boolean isCancelled;
+        transitionManager.createTransitions(
+                options.animations.transitions,
+                disappearing,
+                appearing,
+                elementTransitions -> {
+                    AnimatorSet set = new AnimatorSet();
+                    if (elementTransitions.isEmpty()) {
+                        set.playTogether(options.animations.push.content.getAnimation(appearing, getDefaultPushAnimation(appearing)));
+                    } else {
+                        set.playTogether(merge(new FadeAnimation().content.getAnimation(appearing).getChildAnimations(), elementTransitions));
+                    }
+                    set.addListener(new AnimatorListenerAdapter() {
+                        private boolean isCancelled;
 
-            @Override
-            public void onAnimationStart(Animator animation) {
-                appearing.setAlpha(1);
-            }
+                        @Override
+                        public void onAnimationStart(Animator animation) {
+                            appearing.setAlpha(1);
+                        }
 
-            @Override
-            public void onAnimationCancel(Animator animation) {
-                isCancelled = true;
-                runningPushAnimations.remove(appearing);
-                onAnimationEnd.run();
-            }
+                        @Override
+                        public void onAnimationCancel(Animator animation) {
+                            isCancelled = true;
+                            runningPushAnimations.remove(appearing);
+                            onAnimationEnd.run();
+                        }
 
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                if (!isCancelled) {
-                    runningPushAnimations.remove(appearing);
-                    onAnimationEnd.run();
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            if (!isCancelled) {
+                                runningPushAnimations.remove(appearing);
+                                onAnimationEnd.run();
+                            }
+                        }
+                    });
+                    runningPushAnimations.put(appearing, set);
+                    set.start();
                 }
-            }
-        });
-        runningPushAnimations.put(appearing, set);
-        set.start();
+        );
     }
 
     public void pop(View view, NestedAnimationsOptions pop, Runnable onAnimationEnd) {

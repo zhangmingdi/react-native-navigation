@@ -1,9 +1,7 @@
 package com.reactnativenavigation.views.element.animators;
 
 import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.reactnativenavigation.parse.Transition;
 
@@ -40,20 +38,7 @@ public abstract class PropertyAnimatorCreator<T> {
     }
 
     public Animator create(Transition transition) {
-        Animator animator = create().setDuration(transition.duration.get());
-        animator.addListener(new AnimatorListenerAdapter() {
-            private final boolean originalClipChildren = ((ViewGroup) to.getParent()).getClipChildren();
-            @Override
-            public void onAnimationStart(Animator animation) {
-                ((ViewGroup) to.getParent()).setClipChildren(false);
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                ((ViewGroup) to.getParent()).setClipChildren(originalClipChildren);
-            }
-        });
-        return animator;
+        return create().setDuration(transition.duration.get());
     }
 
     protected abstract Animator create();
