@@ -47,12 +47,12 @@ class CocktailsList extends Component {
                   {
                     from: `image${item.id}`,
                     to: `image${item.id}Dest`,
-                    duration: 2000
+                    duration: 1200
                   },
                   {
                     from: `title${item.id}`,
                     to: `title${item.id}Dest`,
-                    duration: 2000
+                    duration: 1200
                   }
                 ]
               }
