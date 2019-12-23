@@ -4,9 +4,12 @@ import android.animation.Animator;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.facebook.react.uimanager.util.ReactFindViewUtil;
 import com.reactnativenavigation.parse.Transition;
 import com.reactnativenavigation.parse.Transitions;
+import com.reactnativenavigation.utils.Functions;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -34,14 +37,34 @@ public class ElementTransitionManager {
         animatorCreator = new TransitionAnimatorCreator();
     }
 
-    public List<Animator> createTransitions(Transitions transitions, ViewGroup fromScreen, ViewGroup toScreen) {
-        if (!transitions.hasValue()) return Collections.emptyList();
+    public void createTransitions(Transitions transitions, ViewGroup fromScreen, ViewGroup toScreen, Functions.Func1<List<Animator>> onAnimatorsCreated) {
+        if (!transitions.hasValue()) {
+            onAnimatorsCreated.run(Collections.emptyList());
+            return;
+        }
         Map<String, View> from = new HashMap<>();
         Map<String, View> to = new HashMap<>();
+        List<ReactFindViewUtil.OnViewFoundListener> listeners = new ArrayList<>();
         for (Transition transition : transitions.get()) {
             perform(findView(fromScreen, transition.from.get()), v -> from.put(transition.from.get(), v));
-            perform(findView(toScreen, transition.to.get()), v -> to.put(transition.to.get(), v));
+
+            ReactFindViewUtil.OnViewFoundListener viewFoundListener = new ReactFindViewUtil.OnViewFoundListener() {
+                @Override
+                public String getNativeId() {
+                    return transition.to.get();
+                }
+
+                @Override
+                public void onViewFound(View view) {
+                    to.put(transition.to.get(), view);
+                    if (from.size() == to.size()) {
+                        onAnimatorsCreated.run(animatorCreator.create(filter(transitions.get(), t -> validator.validate(t, from, to)), from, to));
+                    }
+                }
+            };
+            listeners.add(viewFoundListener);
+            findView(toScreen, viewFoundListener);
         }
-        return animatorCreator.create(filter(transitions.get(), t -> validator.validate(t, from, to)), from, to);
+        forEach(listeners, ReactFindViewUtil::removeViewListener);
     }
 }
