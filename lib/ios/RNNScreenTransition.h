@@ -13,6 +13,8 @@
 @property (nonatomic, strong) Number* duration;
 
 - (BOOL)hasCustomAnimation;
+- (BOOL)shouldWaitForRender;
 - (double)maxDuration;
+
 
 @end

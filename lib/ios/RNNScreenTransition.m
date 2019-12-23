@@ -20,6 +20,10 @@
 	return (self.topBar.hasAnimation || self.content.hasAnimation || self.bottomTabs.hasAnimation || self.elements);
 }
 
+- (BOOL)shouldWaitForRender {
+    return [self.waitForRender getWithDefaultValue:NO] || self.hasCustomAnimation;
+}
+
 - (double)maxDuration {
 	double maxDuration = 0;
 	if ([self.topBar maxDuration] > 0) {
