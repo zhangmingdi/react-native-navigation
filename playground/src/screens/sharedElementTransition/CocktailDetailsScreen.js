@@ -1,16 +1,17 @@
 const React = require('react');
 const { Component } = require('react');
-const { SafeAreaView, FlatList, View, Image, Text, StyleSheet } = require('react-native');
+const { View, Image, Text, StyleSheet } = require('react-native');
 
 class CocktailDetailsScreen extends Component {
   render() {
     return (
       <View style={styles.root}>
         <View style={[styles.header, {backgroundColor: this.props.color}]}>
-          <Text style={styles.title}>{this.props.name}</Text>
+          <Text style={styles.title} nativeID={`title${this.props.id}Dest`}>{this.props.name}</Text>
         </View>
         <Image
           source={this.props.image}
+          nativeID={`image${this.props.id}Dest`}
           style={styles.image}
           />
       </View>

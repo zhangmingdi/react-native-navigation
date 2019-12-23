@@ -2,7 +2,6 @@ package com.reactnativenavigation.views.element;
 
 import android.animation.Animator;
 import android.app.Activity;
-import android.view.View;
 
 import com.reactnativenavigation.BaseTest;
 import com.reactnativenavigation.parse.Transition;
@@ -49,7 +48,7 @@ public class ElementTransitionManagerTest extends BaseTest {
         from1 = createElement(activity, "from1Id");
         to1 = createElement(activity, "to1Id");
         validTransition = createTransition(from1, to1);
-        invalidTransition = createTransition(from1, to1); invalidTransition.toId = new Text("nonexistentElement");
+        invalidTransition = createTransition(from1, to1); invalidTransition.to = new Text("nonexistentElement");
     }
 
     @Test
@@ -75,8 +74,8 @@ public class ElementTransitionManagerTest extends BaseTest {
     @Test
     public void createElementTransitions_returnsIfNoMatchingElements() {
         Transition invalidTransition = new Transition();
-        invalidTransition.fromId = new Text("from1Id");
-        invalidTransition.toId = new Text("nonExistentElement");
+        invalidTransition.from = new Text("from1Id");
+        invalidTransition.to = new Text("nonExistentElement");
         Transitions transitions = new Transitions(Collections.singletonList(invalidTransition));
 
         Collection<? extends Animator> result = uut.createTransitions(

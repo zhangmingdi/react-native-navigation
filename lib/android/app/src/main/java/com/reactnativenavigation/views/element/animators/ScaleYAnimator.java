@@ -6,14 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.facebook.react.views.text.ReactTextView;
-import com.reactnativenavigation.views.element.Element;
 
 import java.util.Collections;
 import java.util.List;
 
 public class ScaleYAnimator extends PropertyAnimatorCreator<ViewGroup> {
 
-    public ScaleYAnimator(Element from, Element to) {
+    public ScaleYAnimator(View from, View to) {
         super(from, to);
     }
 
@@ -30,9 +29,9 @@ public class ScaleYAnimator extends PropertyAnimatorCreator<ViewGroup> {
     @Override
     public Animator create() {
         return ObjectAnimator.ofFloat(
-                to.getChild(),
+                to,
                 View.SCALE_Y,
-                ((float) from.getChild().getHeight()) / to.getChild().getHeight(),
+                ((float) from.getHeight()) / to.getHeight(),
                 1
         );
     }

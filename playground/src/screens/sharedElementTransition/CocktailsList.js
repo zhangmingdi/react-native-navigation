@@ -35,19 +35,39 @@ class CocktailsList extends Component {
     <TouchableOpacity
       activeOpacity={0.75}
       style={styles.itemContainer}
-      onPress={() => Navigation.push(this, {
-        component: {
-          name: Screens.CocktailDetailsScreen,
-          passProps: { ...item }
+      onPress={() => Navigation.push(
+        this,
+        {
+          component: {
+            name: Screens.CocktailDetailsScreen,
+            passProps: { ...item },
+            options: {
+              animations: {
+                transitions: [
+                  {
+                    from: `image${item.id}`,
+                    to: `image${item.id}Dest`,
+                    duration: 2000
+                  },
+                  {
+                    from: `title${item.id}`,
+                    to: `title${item.id}Dest`,
+                    duration: 2000
+                  }
+                ]
+              }
+            }
+          }
         }
-      })}>
+      )}>
       <Image
         source={item.image}
+        nativeID={`image${item.id}`}
         style={styles.image}
         resizeMode={'contain'}
       />
       <View style={styles.textContainer}>
-        <Text style={styles.title}>{item.name}</Text>
+        <Text style={styles.title} nativeID={`title${item.id}`}>{item.name}</Text>
         <View style={{ flexDirection: 'row' }}>
           <Text style={styles.ingredients}>{slice(item.ingredients, 0, 3).map(i => i.name).join(' • ')}</Text>
         </View>
