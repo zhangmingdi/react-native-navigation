@@ -10,19 +10,18 @@ import com.facebook.drawee.drawable.ScalingUtils;
 import com.facebook.drawee.generic.GenericDraweeHierarchy;
 import com.facebook.drawee.view.DraweeView;
 import com.facebook.react.views.image.ReactImageView;
-import com.reactnativenavigation.views.element.Element;
 
 import static com.reactnativenavigation.utils.ViewUtils.areDimensionsEqual;
 
 public class MatrixAnimator extends PropertyAnimatorCreator<ReactImageView> {
 
-    public MatrixAnimator(Element from, Element to) {
+    public MatrixAnimator(View from, View to) {
         super(from, to);
     }
 
     @Override
     public boolean shouldAnimateProperty(ReactImageView fromChild, ReactImageView toChild) {
-        return !areDimensionsEqual(from.getChild(), to.getChild());
+        return !areDimensionsEqual(from, to);
     }
 
     @Override
@@ -44,13 +43,20 @@ public class MatrixAnimator extends PropertyAnimatorCreator<ReactImageView> {
 
     private Animator imageTransformAnimator() {
         ScalingUtils.InterpolatingScaleType ist = new ScalingUtils.InterpolatingScaleType(
-                getScaleType(from.getChild()),
-                getScaleType(to.getChild()),
-                calculateBounds(from.getChild()),
-                calculateBounds(to.getChild())
+                getScaleType(from),
+                getScaleType(to),
+                calculateBounds(from),
+                calculateBounds(to)
         );
-        ((DraweeView<GenericDraweeHierarchy>) to.getChild()).getHierarchy().setActualImageScaleType(ist);
-        return ObjectAnimator.ofFloat(to, "matrixTransform", 0, 1);
+        ((DraweeView<GenericDraweeHierarchy>) to).getHierarchy().setActualImageScaleType(ist);
+        return ObjectAnimator.ofObject((fraction, startValue, endValue) -> {
+            GenericDraweeHierarchy hierarchy = ((DraweeView<GenericDraweeHierarchy>) to).getHierarchy();
+            if (hierarchy.getActualImageScaleType() != null) {
+                ((ScalingUtils.InterpolatingScaleType) hierarchy.getActualImageScaleType()).setValue(fraction);
+                to.invalidate();
+            }
+            return null;
+        }, 0, 1);
     }
 
     private ScalingUtils.ScaleType getScaleType(View child) {

@@ -1,49 +1,44 @@
 package com.reactnativenavigation.parse;
 
-import com.reactnativenavigation.parse.params.Fraction;
 import com.reactnativenavigation.parse.params.NullNumber;
 import com.reactnativenavigation.parse.params.NullText;
 import com.reactnativenavigation.parse.params.Number;
 import com.reactnativenavigation.parse.params.Text;
-import com.reactnativenavigation.parse.parsers.FractionParser;
+import com.reactnativenavigation.parse.parsers.NumberParser;
 import com.reactnativenavigation.parse.parsers.TextParser;
 
 import org.json.JSONObject;
 
+import androidx.annotation.Nullable;
+
 public class Transition {
-    public Text fromId = new NullText();
-    public Text toId = new NullText();
+    public Text from = new NullText();
+    public Text to = new NullText();
     public Number startDelay = new NullNumber();
     public Number duration = new NullNumber();
 
-    public static Transition parse(JSONObject json) {
+    public static Transition parse(@Nullable JSONObject json) {
         Transition transition = new Transition();
         if (json == null) return transition;
 
-        transition.fromId = TextParser.parse(json, "fromId");
-        transition.toId = TextParser.parse(json, "toId");
-        Fraction startDelay = FractionParser.parse(json, "startDelay");
-        if (startDelay.hasValue()) {
-            transition.startDelay = new Number((int) (startDelay.get() * 1000));
-        }
-        Fraction duration = FractionParser.parse(json, "duration");
-        if (duration.hasValue()) {
-            transition.duration = new Number((int) (duration.get() * 1000));
-        }
+        transition.from = TextParser.parse(json, "from");
+        transition.to = TextParser.parse(json, "to");
+        transition.startDelay = NumberParser.parse(json, "startDelay");
+        transition.duration = NumberParser.parse(json, "duration");
 
         return transition;
     }
 
     void mergeWith(Transition other) {
-        if (other.fromId.hasValue()) fromId = other.fromId;
-        if (other.toId.hasValue()) toId = other.toId;
+        if (other.from.hasValue()) from = other.from;
+        if (other.to.hasValue()) to = other.to;
         if (other.startDelay.hasValue()) startDelay = other.startDelay;
         if (other.duration.hasValue()) duration = other.duration;
     }
 
     void mergeWithDefault(Transition defaultOptions) {
-        if (!fromId.hasValue()) fromId = defaultOptions.fromId;
-        if (!toId.hasValue()) toId = defaultOptions.toId;
+        if (!from.hasValue()) from = defaultOptions.from;
+        if (!to.hasValue()) to = defaultOptions.to;
         if (!startDelay.hasValue()) startDelay = defaultOptions.startDelay;
         if (!duration.hasValue()) duration = defaultOptions.duration;
     }

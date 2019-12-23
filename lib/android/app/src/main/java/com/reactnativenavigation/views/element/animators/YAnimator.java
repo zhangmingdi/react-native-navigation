@@ -7,7 +7,6 @@ import android.view.View;
 
 import com.facebook.react.views.text.ReactTextView;
 import com.reactnativenavigation.utils.ViewUtils;
-import com.reactnativenavigation.views.element.Element;
 
 import java.util.Collections;
 import java.util.List;
@@ -16,10 +15,10 @@ public class YAnimator extends PropertyAnimatorCreator<View> {
 
     private final int dy;
 
-    public YAnimator(Element from, Element to) {
+    public YAnimator(View from, View to) {
         super(from, to);
-        final Point fromXy = ViewUtils.getLocationOnScreen(from.getChild());
-        final Point toXy = ViewUtils.getLocationOnScreen(to.getChild());
+        final Point fromXy = ViewUtils.getLocationOnScreen(from);
+        final Point toXy = ViewUtils.getLocationOnScreen(to);
         dy = fromXy.y - toXy.y;
     }
 
@@ -35,6 +34,6 @@ public class YAnimator extends PropertyAnimatorCreator<View> {
 
     @Override
     public Animator create() {
-        return ObjectAnimator.ofFloat(to.getChild(), View.TRANSLATION_Y, dy, 0);
+        return ObjectAnimator.ofFloat(to, View.TRANSLATION_Y, dy, 0);
     }
 }

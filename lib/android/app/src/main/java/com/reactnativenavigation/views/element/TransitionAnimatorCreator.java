@@ -1,6 +1,7 @@
 package com.reactnativenavigation.views.element;
 
 import android.animation.Animator;
+import android.view.View;
 
 import com.reactnativenavigation.parse.Transition;
 import com.reactnativenavigation.views.element.animators.BackgroundColorAnimator;
@@ -21,16 +22,16 @@ import java.util.Map;
 
 public class TransitionAnimatorCreator {
 
-    public Collection<Animator> create(List<Transition> transitions, Map<String, Element> from, Map<String, Element> to) {
-        if (transitions.isEmpty()) return Collections.EMPTY_LIST;
+    public List<Animator> create(List<Transition> transitions, Map<String, View> from, Map<String, View> to) {
+        if (transitions.isEmpty()) return Collections.emptyList();
         List<Animator> animators = new ArrayList<>();
         for (Transition transition : transitions) {
-            animators.addAll(create(transition, from.get(transition.fromId.get()), to.get(transition.toId.get())));
+            animators.addAll(create(transition, from.get(transition.from.get()), to.get(transition.to.get())));
         }
         return animators;
     }
 
-    protected Collection<? extends Animator> create(Transition transition, Element from, Element to) {
+    protected Collection<? extends Animator> create(Transition transition, View from, View to) {
         Collection<Animator> animators = new ArrayList<>();
         for (PropertyAnimatorCreator creator : getAnimators(from, to)) {
             if (creator.shouldAnimateProperty()) animators.add(creator.create(transition));
@@ -38,7 +39,7 @@ public class TransitionAnimatorCreator {
         return animators;
     }
 
-    protected List<PropertyAnimatorCreator> getAnimators(Element from, Element to) {
+    private List<PropertyAnimatorCreator> getAnimators(View from, View to) {
         return Arrays.asList(
                 new XAnimator(from, to),
                 new YAnimator(from, to),

@@ -1,12 +1,12 @@
 package com.reactnativenavigation.parse;
 
-import androidx.annotation.RestrictTo;
-
 import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.Nullable;
+import androidx.annotation.RestrictTo;
 
 public class Transitions {
     private List<Transition> transitions = new ArrayList<>();
@@ -24,12 +24,11 @@ public class Transitions {
         this.transitions = transitions;
     }
 
-    public static Transitions parse(JSONObject json) {
+    public static Transitions parse(@Nullable JSONArray transitions) {
         Transitions result = new Transitions();
-        if (json != null && json.has("animations")) {
-            JSONArray animations = json.optJSONArray("animations");
-            for (int i = 0; i < animations.length(); i++) {
-                result.transitions.add(Transition.parse(animations.optJSONObject(i)));
+        if (transitions != null) {
+            for (int i = 0; i < transitions.length(); i++) {
+                result.transitions.add(Transition.parse(transitions.optJSONObject(i)));
             }
         }
         return result;

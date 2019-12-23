@@ -15,6 +15,7 @@ public class AnimationsOptions {
         options.setRoot = AnimationOptions.parse(json.optJSONObject("setRoot"));
         options.showModal = AnimationOptions.parse(json.optJSONObject("showModal"));
         options.dismissModal = AnimationOptions.parse(json.optJSONObject("dismissModal"));
+        options.transitions = Transitions.parse(json.optJSONArray("transitions"));
 
         return options;
     }
@@ -25,6 +26,7 @@ public class AnimationsOptions {
     public AnimationOptions setRoot = new AnimationOptions();
     public AnimationOptions showModal = new AnimationOptions();
     public AnimationOptions dismissModal = new AnimationOptions();
+    public Transitions transitions = new Transitions();
 
     public void mergeWith(AnimationsOptions other) {
         push.mergeWith(other.push);
@@ -33,6 +35,7 @@ public class AnimationsOptions {
         setStackRoot.mergeWith(other.setStackRoot);
         showModal.mergeWith(other.showModal);
         dismissModal.mergeWith(other.dismissModal);
+        transitions.mergeWith(other.transitions);
     }
 
     void mergeWithDefault(AnimationsOptions defaultOptions) {
@@ -42,5 +45,6 @@ public class AnimationsOptions {
         setRoot.mergeWithDefault(defaultOptions.setRoot);
         showModal.mergeWithDefault(defaultOptions.showModal);
         dismissModal.mergeWithDefault(defaultOptions.dismissModal);
+        transitions.mergeWithDefault(defaultOptions.transitions);
     }
 }

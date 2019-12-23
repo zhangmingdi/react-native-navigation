@@ -4,21 +4,20 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.content.Context;
-import androidx.annotation.RestrictTo;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.reactnativenavigation.parse.AnimationOptions;
+import com.reactnativenavigation.parse.FadeAnimation;
 import com.reactnativenavigation.parse.NestedAnimationsOptions;
-import com.reactnativenavigation.parse.Transitions;
-import com.reactnativenavigation.views.element.Element;
+import com.reactnativenavigation.parse.Options;
 import com.reactnativenavigation.views.element.ElementTransitionManager;
 
-import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import androidx.annotation.RestrictTo;
 
 import static com.reactnativenavigation.utils.CollectionUtils.*;
 
@@ -33,40 +32,40 @@ public class NavigationAnimator extends BaseAnimator {
         this.transitionManager = transitionManager;
     }
 
-    public void push(ViewGroup view, NestedAnimationsOptions animation, Runnable onAnimationEnd) {
-        push(view, animation, new Transitions(), Collections.EMPTY_LIST, Collections.EMPTY_LIST, onAnimationEnd);
-    }
-
-    public void push(ViewGroup view, NestedAnimationsOptions animation, Transitions transitions, List<Element> fromElements, List<Element> toElements, Runnable onAnimationEnd) {
-        view.setAlpha(0);
-        AnimatorSet push = animation.content.getAnimation(view, getDefaultPushAnimation(view));
+    public void push(ViewGroup appearing, ViewGroup disappearing, Options options, Runnable onAnimationEnd) {
+        appearing.setAlpha(0);
+        AnimatorSet push = options.animations.push.content.getAnimation(appearing, getDefaultPushAnimation(appearing));
         AnimatorSet set = new AnimatorSet();
-        Collection<Animator> elementTransitions = transitionManager.createTransitions(transitions, fromElements, toElements);
-        set.playTogether(merge(push.getChildAnimations(), elementTransitions));
+        List<Animator> elementTransitions = transitionManager.createTransitions(options.animations.transitions, disappearing, appearing);
+        if (elementTransitions.isEmpty()) {
+            set.playTogether(push);
+        } else {
+            set.playTogether(merge(new FadeAnimation().content.getAnimation(appearing).getChildAnimations(), elementTransitions));
+        }
         set.addListener(new AnimatorListenerAdapter() {
             private boolean isCancelled;
 
             @Override
             public void onAnimationStart(Animator animation) {
-                view.setAlpha(1);
+                appearing.setAlpha(1);
             }
 
             @Override
             public void onAnimationCancel(Animator animation) {
                 isCancelled = true;
-                runningPushAnimations.remove(view);
+                runningPushAnimations.remove(appearing);
                 onAnimationEnd.run();
             }
 
             @Override
             public void onAnimationEnd(Animator animation) {
                 if (!isCancelled) {
-                    runningPushAnimations.remove(view);
+                    runningPushAnimations.remove(appearing);
                     onAnimationEnd.run();
                 }
             }
         });
-        runningPushAnimations.put(view, set);
+        runningPushAnimations.put(appearing, set);
         set.start();
     }
 

@@ -6,14 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.facebook.react.views.text.ReactTextView;
-import com.reactnativenavigation.views.element.Element;
 
 import java.util.Collections;
 import java.util.List;
 
 public class ScaleXAnimator extends PropertyAnimatorCreator<ViewGroup> {
 
-    public ScaleXAnimator(Element from, Element to) {
+    public ScaleXAnimator(View from, View to) {
         super(from, to);
     }
 
@@ -30,9 +29,9 @@ public class ScaleXAnimator extends PropertyAnimatorCreator<ViewGroup> {
     @Override
     public Animator create() {
         return ObjectAnimator.ofFloat(
-                to.getChild(),
+                to,
                 View.SCALE_X,
-                ((float) from.getChild().getWidth()) / to.getChild().getWidth(),
+                ((float) from.getWidth()) / to.getWidth(),
                 1
         );
     }

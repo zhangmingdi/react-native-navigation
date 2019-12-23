@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.reactnativenavigation.anim.NavigationAnimator;
+import com.reactnativenavigation.parse.NestedAnimationsOptions;
 import com.reactnativenavigation.parse.Options;
 import com.reactnativenavigation.presentation.Presenter;
 import com.reactnativenavigation.presentation.StackPresenter;
@@ -154,15 +155,16 @@ public class StackController extends ParentController<StackLayout> {
         addChildToStack(child, child.getView(), resolvedOptions);
 
         if (toRemove != null) {
-            if (resolvedOptions.animations.push.enabled.isTrueOrUndefined()) {
-                if (resolvedOptions.animations.push.waitForRender.isTrue()) {
+            NestedAnimationsOptions animation = resolvedOptions.animations.push;
+            if (animation.enabled.isTrueOrUndefined()) {
+                if (animation.waitForRender.isTrue() || resolvedOptions.animations.transitions.hasValue()) {
                     child.getView().setAlpha(0);
-                    child.addOnAppearedListener(() -> animator.push(child.getView(), resolvedOptions.animations.push, resolvedOptions.transitions, toRemove.getElements(), child.getElements(), () -> {
+                    child.addOnAppearedListener(() -> animator.push(child.getView(), toRemove.getView(), resolvedOptions, () -> {
                         getView().removeView(toRemove.getView());
                         listener.onSuccess(child.getId());
                     }));
                 } else {
-                    animator.push(child.getView(), resolvedOptions.animations.push, () -> {
+                    animator.push(child.getView(), toRemove.getView(), resolvedOptions, () -> {
                         if (!toRemove.equals(peek())) {
                             getView().removeView(toRemove.getView());
                         }
@@ -226,15 +228,13 @@ public class StackController extends ParentController<StackLayout> {
                 child.getView().setAlpha(0);
                 child.addOnAppearedListener(() -> animator.push(
                         child.getView(),
-                        resolvedOptions.animations.setStackRoot,
-                        resolvedOptions.transitions,
-                        toRemove.getElements(),
-                        child.getElements(),
+                        toRemove.getView(),
+                        resolvedOptions,
                         () -> listenerAdapter.onSuccess(child.getId())
                     )
                 );
             } else {
-                animator.push(child.getView(), resolvedOptions.animations.setStackRoot, () -> listenerAdapter.onSuccess(child.getId()));
+                animator.push(child.getView(), toRemove.getView(), resolvedOptions, () -> listenerAdapter.onSuccess(child.getId()));
             }
         } else {
             listenerAdapter.onSuccess(child.getId());

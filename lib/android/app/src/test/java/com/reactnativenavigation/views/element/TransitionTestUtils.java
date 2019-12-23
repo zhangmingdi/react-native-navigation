@@ -14,8 +14,8 @@ public class TransitionTestUtils {
     static Transition createTransition(Element from, Element to) {
         Transition transition = new Transition();
         transition.duration = new Number(DURATION);
-        transition.fromId = new Text(from.getElementId());
-        transition.toId = new Text(to.getElementId());
+        transition.from = new Text(from.getElementId());
+        transition.to = new Text(to.getElementId());
         return transition;
     }
 
