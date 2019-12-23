@@ -40,14 +40,14 @@ public class TransitionValidatorTest extends BaseTest {
     private Transition createTransition(String fromId, String toId) {
         Transition transition = new Transition();
         transition.duration = new Number(100);
-        transition.fromId = new Text(fromId);
-        transition.toId = new Text(toId);
+        transition.from = new Text(fromId);
+        transition.to = new Text(toId);
         return transition;
     }
 
     @Test
     public void validate_falseIfNullToId() {
-        transition.toId = new NullText();
+        transition.to = new NullText();
         boolean result = uut.validate(
                 transition,
                 keyBy(Collections.singletonList(from1), Element::getElementId),
@@ -58,7 +58,7 @@ public class TransitionValidatorTest extends BaseTest {
 
     @Test
     public void validate_falseIfNullFromId() {
-        transition.fromId = new NullText();
+        transition.from = new NullText();
         boolean result = uut.validate(
                 transition,
                 keyBy(Collections.singletonList(from1), Element::getElementId),

@@ -2,20 +2,20 @@ package com.reactnativenavigation.views.element.animators;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.facebook.react.views.text.ReactTextView;
 import com.facebook.react.views.view.ReactViewBackgroundDrawable;
 import com.reactnativenavigation.utils.ColorUtils;
 import com.reactnativenavigation.utils.ViewUtils;
-import com.reactnativenavigation.views.element.Element;
 
 import java.util.Collections;
 import java.util.List;
 
 public class BackgroundColorAnimator extends PropertyAnimatorCreator<ViewGroup> {
 
-    public BackgroundColorAnimator(Element from, Element to) {
+    public BackgroundColorAnimator(View from, View to) {
         super(from, to);
     }
 
@@ -37,8 +37,8 @@ public class BackgroundColorAnimator extends PropertyAnimatorCreator<ViewGroup> 
                 to,
                 "backgroundColor",
                 new LabColorEvaluator(),
-                ColorUtils.colorToLAB(ViewUtils.getBackgroundColor(from.getChild())),
-                ColorUtils.colorToLAB(ViewUtils.getBackgroundColor(to.getChild()))
+                ColorUtils.colorToLAB(ViewUtils.getBackgroundColor(from)),
+                ColorUtils.colorToLAB(ViewUtils.getBackgroundColor(to))
         );
     }
 }

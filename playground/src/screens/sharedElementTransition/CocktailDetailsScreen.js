@@ -1,6 +1,5 @@
 const React = require('react');
-const {Component} = require('react');
-const {SafeAreaView, FlatList, View, Image, Text, StyleSheet} = require('react-native');
+const { SafeAreaView, FlatList, View, Image, Text, StyleSheet } = require('react-native');
 
 class CocktailDetailsScreen extends Component {
   static options(props) {
@@ -20,11 +19,11 @@ class CocktailDetailsScreen extends Component {
             // }
           },
           sharedElementTransitions: [
-            {fromId: 'text2', toId: `${props.name}-text`, duration: 1000},
-            {fromId: 'image2', toId: `${props.name}-image`, duration: 1000, startDelay: 500}
+            { fromId: 'text2', toId: `${props.name}-text`, duration: 1000 },
+            { fromId: 'image2', toId: `${props.name}-image`, duration: 1000, startDelay: 500 }
           ],
           elementTransitions: [
-            {id: `redbox`, y: {to: -150, duration: 300}}
+            { id: `redbox`, y: { to: -150, duration: 300 } }
           ]
         }
       }
@@ -34,13 +33,13 @@ class CocktailDetailsScreen extends Component {
   render() {
     return (
       <SafeAreaView>
-        <View style={styles.header}>
-          <View nativeID={'redbox'} style={[styles.redBackground]}>
+        <View style={styles.root}>
+          <View style={[styles.header, { backgroundColor: this.props.color }]}>
+            <Text style={styles.title} nativeID={`title${this.props.id}Dest`}>{this.props.name}</Text>
           </View>
-          <Text nativeID={'text2'} style={styles.title}>{this.props.name}</Text>
           <Image
-            nativeID={'image2'}
             source={this.props.image}
+            nativeID={`image${this.props.id}Dest`}
             style={styles.image}
           />
         </View>

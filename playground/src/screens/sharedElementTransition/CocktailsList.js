@@ -35,40 +35,40 @@ class CocktailsList extends Component {
     <TouchableOpacity
       activeOpacity={0.75}
       style={styles.itemContainer}
-      onPress={() => Navigation.push(this, {
-        component: {
-          name: Screens.CocktailDetailsScreen,
-          passProps: { ...item },
-          options: {
-            animations: {
-              push: {
-                content: {
-                  alpha: {
-                    from: 0,
-                    to: 1,
-                    duration: 300
+      onPress={() => Navigation.push(
+        this,
+        {
+          component: {
+            name: Screens.CocktailDetailsScreen,
+            passProps: { ...item },
+            options: {
+              animations: {
+                transitions: [
+                  {
+                    from: `image${item.id}`,
+                    to: `image${item.id}Dest`,
+                    duration: 2000
+                  },
+                  {
+                    from: `title${item.id}`,
+                    to: `title${item.id}Dest`,
+                    duration: 2000
                   }
-                },
-                sharedElementTransitions: [
-                  {fromId: `${item.name}-text`, toId: 'text2', duration: 300},
-                  {fromId: `${item.name}-image`, toId: 'image2', duration: 300}
-                ],
-                elementTransitions: [
-                  {id: `redbox`, alpha: {from: 1}, y: {from: -150, duration: 300}}
                 ]
               }
             }
           }
         }
-      })}>
+      )}>
       <Image
         source={item.image}
+        nativeID={`image${item.id}`}
         style={styles.image}
         resizeMode={'contain'}
         nativeID={`${item.name}-image`}
       />
       <View style={styles.textContainer}>
-        <Text nativeID={`${item.name}-text`} style={styles.title}>{item.name}</Text>
+        <Text style={styles.title} nativeID={`title${item.id}`}>{item.name}</Text>
         <View style={{ flexDirection: 'row' }}>
           <Text style={styles.ingredients}>{slice(item.ingredients, 0, 3).map(i => i.name).join(' • ')}</Text>
         </View>
