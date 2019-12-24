@@ -40,7 +40,7 @@ public abstract class ViewController<T extends ViewGroup> implements ViewTreeObs
         ViewGroup.OnHierarchyChangeListener,
         BehaviourAdapter {
 
-    private final List<Runnable> onAppearedListeners = new ArrayList();
+    private final List<Runnable> onAppearedListeners = new ArrayList<>();
     private boolean appearEventPosted;
     private boolean isFirstLayout = true;
     private Bool waitForRender = new NullBool();
@@ -92,7 +92,11 @@ public abstract class ViewController<T extends ViewGroup> implements ViewTreeObs
     }
 
     public void addOnAppearedListener(Runnable onAppearedListener) {
-        onAppearedListeners.add(onAppearedListener);
+        if (isShown) {
+            onAppearedListener.run();
+        } else {
+            onAppearedListeners.add(onAppearedListener);
+        }
     }
 
     public void removeOnAppearedListener(Runnable onAppearedListener) {
@@ -140,7 +144,7 @@ public abstract class ViewController<T extends ViewGroup> implements ViewTreeObs
     }
 
     public void setDefaultOptions(Options defaultOptions) {
-        
+
     }
 
     public Activity getActivity() {

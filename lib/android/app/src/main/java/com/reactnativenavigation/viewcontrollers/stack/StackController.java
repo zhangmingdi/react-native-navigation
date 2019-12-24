@@ -156,19 +156,24 @@ public class StackController extends ParentController<StackLayout> {
         child.setParentController(this);
         stack.push(child.getId(), child);
         Options resolvedOptions = resolveCurrentOptions(presenter.getDefaultOptions());
-        addChildToStack(child, child.getView(), resolvedOptions);
 
         if (toRemove != null) {
             NestedAnimationsOptions animation = resolvedOptions.animations.push;
             if (animation.enabled.isTrueOrUndefined()) {
                 if (animation.waitForRender.isTrue() || resolvedOptions.animations.transitions.hasValue()) {
-                    child.getView().setAlpha(0);
-                    child.addOnAppearedListener(() -> animator.push(child.getView(), toRemove.getView(), resolvedOptions, () -> {
+//                    child.getView().setAlpha(0);
+                    animator.push(child, toRemove, resolvedOptions, () -> {
                         getView().removeView(toRemove.getView());
                         listener.onSuccess(child.getId());
-                    }));
+                    });
+                    addChildToStack(child, child.getView(), resolvedOptions);
+//                    child.addOnAppearedListener(() -> animator.push(child.getView(), toRemove.getView(), resolvedOptions, () -> {
+//                        getView().removeView(toRemove.getView());
+//                        listener.onSuccess(child.getId());
+//                    }));
                 } else {
-                    animator.push(child.getView(), toRemove.getView(), resolvedOptions, () -> {
+                    addChildToStack(child, child.getView(), resolvedOptions);
+                    animator.push(child, toRemove, resolvedOptions, () -> {
                         if (!toRemove.equals(peek())) {
                             getView().removeView(toRemove.getView());
                         }
@@ -231,14 +236,14 @@ public class StackController extends ParentController<StackLayout> {
             if (resolvedOptions.animations.setStackRoot.waitForRender.isTrue()) {
                 child.getView().setAlpha(0);
                 child.addOnAppearedListener(() -> animator.push(
-                        child.getView(),
-                        toRemove.getView(),
+                        child,
+                        toRemove,
                         resolvedOptions,
                         () -> listenerAdapter.onSuccess(child.getId())
                     )
                 );
             } else {
-                animator.push(child.getView(), toRemove.getView(), resolvedOptions, () -> listenerAdapter.onSuccess(child.getId()));
+                animator.push(child, toRemove, resolvedOptions, () -> listenerAdapter.onSuccess(child.getId()));
             }
         } else {
             listenerAdapter.onSuccess(child.getId());

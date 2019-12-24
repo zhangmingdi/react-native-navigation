@@ -10,7 +10,6 @@ import com.reactnativenavigation.parse.Transitions;
 import com.reactnativenavigation.utils.Functions;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +21,15 @@ import static com.reactnativenavigation.utils.CollectionUtils.*;
 import static com.reactnativenavigation.utils.ObjectUtils.perform;
 
 public class ElementTransitionManager {
+    public class TransitionSet {
+        Map<String, View> from = new HashMap<>();
+        Map<String, View> to = new HashMap<>();
+        List<Transition> validTransitions = new ArrayList<>();
+
+        public boolean isEmpty() {
+            return validTransitions.isEmpty();
+        }
+    }
 
     private final TransitionValidator validator;
     private final TransitionAnimatorCreator animatorCreator;
@@ -37,18 +45,15 @@ public class ElementTransitionManager {
         animatorCreator = new TransitionAnimatorCreator();
     }
 
-    public void createTransitions(Transitions transitions, ViewGroup fromScreen, ViewGroup toScreen, Functions.Func1<List<Animator>> onAnimatorsCreated) {
+    public void createTransitions(Transitions transitions, ViewGroup fromScreen, ViewGroup toScreen, Functions.Func1<TransitionSet> onAnimatorsCreated) {
         if (!transitions.hasValue()) {
-            onAnimatorsCreated.run(Collections.emptyList());
+            onAnimatorsCreated.run(new TransitionSet());
             return;
         }
-        Map<String, View> from = new HashMap<>();
-        Map<String, View> to = new HashMap<>();
-        List<ReactFindViewUtil.OnViewFoundListener> listeners = new ArrayList<>();
+        TransitionSet transitionSet = new TransitionSet();
         for (Transition transition : transitions.get()) {
-            perform(findView(fromScreen, transition.from.get()), v -> from.put(transition.from.get(), v));
-
-            ReactFindViewUtil.OnViewFoundListener viewFoundListener = new ReactFindViewUtil.OnViewFoundListener() {
+            perform(findView(fromScreen, transition.from.get()), v -> transitionSet.from.put(transition.from.get(), v));
+            findView(toScreen, new ReactFindViewUtil.OnViewFoundListener() {
                 @Override
                 public String getNativeId() {
                     return transition.to.get();
@@ -56,15 +61,17 @@ public class ElementTransitionManager {
 
                 @Override
                 public void onViewFound(View view) {
-                    to.put(transition.to.get(), view);
-                    if (from.size() == to.size()) {
-                        onAnimatorsCreated.run(animatorCreator.create(filter(transitions.get(), t -> validator.validate(t, from, to)), from, to));
+                    transitionSet.to.put(transition.to.get(), view);
+                    if (transitionSet.to.size() == transitions.get().size()) {
+                        transitionSet.validTransitions = filter(transitions.get(), t -> validator.validate(t, transitionSet.from, transitionSet.to));
+                        onAnimatorsCreated.run(transitionSet);
                     }
                 }
-            };
-            listeners.add(viewFoundListener);
-            findView(toScreen, viewFoundListener);
+            });
         }
-        forEach(listeners, ReactFindViewUtil::removeViewListener);
+    }
+
+    public List<Animator> createAnimators(TransitionSet transitionSet) {
+        return animatorCreator.create(transitionSet.validTransitions, transitionSet.from, transitionSet.to);
     }
 }
