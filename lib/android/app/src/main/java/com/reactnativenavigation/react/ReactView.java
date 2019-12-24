@@ -3,7 +3,6 @@ package com.reactnativenavigation.react;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
-import androidx.annotation.RestrictTo;
 import android.view.MotionEvent;
 
 import com.facebook.react.ReactInstanceManager;
@@ -19,6 +18,8 @@ import com.reactnativenavigation.views.element.Element;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.RestrictTo;
 
 @SuppressLint("ViewConstructor")
 public class ReactView extends ReactRootView implements IReactView, Renderable {
@@ -36,10 +37,16 @@ public class ReactView extends ReactRootView implements IReactView, Renderable {
 		this.componentId = componentId;
 		this.componentName = componentName;
 		jsTouchDispatcher = new JSTouchDispatcher(this);
-		start();
 	}
 
-	private void start() {
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        start();
+    }
+
+    private void start() {
+        if (isAttachedToReactInstance) return;
 		setEventListener(reactRootView -> {
             reactRootView.setEventListener(null);
             isAttachedToReactInstance = true;
