@@ -55,17 +55,17 @@
 }
 
 - (void)setAlignment:(NSString *)alignment inFrame:(CGRect)frame {
-	if ([alignment isEqualToString:@"fill"]) {
-		_fillParent = YES;
-		self.translatesAutoresizingMaskIntoConstraints = NO;
-		self.sizeFlexibility = RCTRootViewSizeFlexibilityNone;
-	} else {
-		self.sizeFlexibility = RCTRootViewSizeFlexibilityWidthAndHeight;
-		__weak RNNReactView *weakSelf = self;
-		[self setRootViewDidChangeIntrinsicSize:^(CGSize intrinsicSize) {
-			[weakSelf setFrame:CGRectMake(0, 0, intrinsicSize.width, intrinsicSize.height)];
-		}];
-	}
+    if ([alignment isEqualToString:@"fill"]) {
+        _fillParent = YES;
+        self.frame = frame;
+        self.sizeFlexibility = RCTRootViewSizeFlexibilityNone;
+    } else {
+        self.sizeFlexibility = RCTRootViewSizeFlexibilityWidthAndHeight;
+        __weak RNNReactView *weakSelf = self;
+        [self setRootViewDidChangeIntrinsicSize:^(CGSize intrinsicSize) {
+            [weakSelf setFrame:CGRectMake(0, 0, intrinsicSize.width, intrinsicSize.height)];
+        }];
+    }
 }
 
 @end
