@@ -3,22 +3,18 @@
 @implementation RNNInterpolator
 
 + (UIColor *)fromColor:(UIColor *)fromColor toColor:(UIColor *)toColor precent:(CGFloat)precent {
-    const CGFloat *components = CGColorGetComponents([self CGColorRefFromUIColor:fromColor]);
-    CGFloat red = components[0];
-    CGFloat green = components[1];
-    CGFloat blue = components[2];
-    CGFloat alpha = components[3];
+    CGFloat fromHue, fromSaturation, fromBrightness, fromAlpha;
+    [fromColor getHue:&fromHue saturation:&fromSaturation brightness:&fromBrightness alpha:&fromAlpha];
+
+    CGFloat toHue, toSaturation, toBrightness, toAlpha;
+    [toColor getHue:&toHue saturation:&toSaturation brightness:&toBrightness alpha:&toAlpha];
     
-    const CGFloat *toComponents = CGColorGetComponents([self CGColorRefFromUIColor:toColor]);
-    CGFloat finalRed = toComponents[0];
-    CGFloat finalGreen = toComponents[1];
-    CGFloat finalBlue = toComponents[2];
-    CGFloat finalAlpha = toComponents[3];
+    CGFloat finalHue = RNNInterpolateFloat(fromHue, toHue, precent);
+    CGFloat finalSaturation = RNNInterpolateFloat(fromSaturation, toSaturation, precent);
+    CGFloat finalBrightness = RNNInterpolateFloat(fromBrightness, toBrightness, precent);
+    CGFloat finalAlpha = RNNInterpolateFloat(fromAlpha, toAlpha, precent);
     
-    CGFloat newRed   = (1.0f - precent) * red   + precent * finalRed;
-    CGFloat newGreen = (1.0f - precent) * green + precent * finalGreen;
-    CGFloat newBlue  = (1.0f - precent) * blue  + precent * finalBlue;
-    return [UIColor colorWithRed:newRed green:newGreen blue:newBlue alpha:RNNInterpolateFloat(alpha, finalAlpha, precent)];
+    return [UIColor colorWithHue:finalHue saturation:finalSaturation brightness:finalBrightness alpha:finalAlpha];
 }
 
 + (CGFloat)fromFloat:(CGFloat)from toFloat:(CGFloat)to precent:(CGFloat)precent {
@@ -30,13 +26,6 @@
     RNNInterpolateFloat(from.origin.y, to.origin.y, p),
     RNNInterpolateFloat(from.size.width, to.size.width, p),
     RNNInterpolateFloat(from.size.height, to.size.height, p));
-}
-
-+ (CGColorRef)CGColorRefFromUIColor:(UIColor*)newColor {
-     CGFloat components[4] = {0.0,0.0,0.0,0.0};
-     [newColor getRed:&components[0] green:&components[1] blue:&components[2] alpha:&components[3]];
-     CGColorRef newRGB = CGColorCreate(CGColorSpaceCreateDeviceRGB(), components);
-     return newRGB;
 }
 
 static CGFloat RNNInterpolateFloat(CGFloat from, CGFloat to, CGFloat p) {
