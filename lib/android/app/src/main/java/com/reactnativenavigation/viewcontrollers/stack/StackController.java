@@ -156,7 +156,7 @@ public class StackController extends ParentController<StackLayout> {
         if (toRemove != null) {
             NestedAnimationsOptions animation = resolvedOptions.animations.push;
             if (animation.enabled.isTrueOrUndefined()) {
-                if (animation.waitForRender.isTrue() || resolvedOptions.animations.transitions.hasValue()) {
+                if (animation.waitForRender.isTrue() || resolvedOptions.animations.push.sharedElements.hasValue()) {
 //                    child.getView().setAlpha(0);
                     animator.push(child, toRemove, resolvedOptions, () -> {
                         getView().removeView(toRemove.getView());

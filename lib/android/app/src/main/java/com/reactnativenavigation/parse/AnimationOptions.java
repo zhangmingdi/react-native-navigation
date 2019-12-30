@@ -84,6 +84,10 @@ public class AnimationOptions {
         return animationSet;
     }
 
+    public int getDuration() {
+        return reduce(valueOptions, 0, (item, currentValue) -> Math.max(item.duration.get(currentValue), currentValue));
+    }
+
     private static Property<View, Float> getAnimProp(String key) {
         switch (key) {
             case "y":

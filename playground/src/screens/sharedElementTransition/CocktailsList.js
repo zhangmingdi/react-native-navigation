@@ -43,18 +43,40 @@ class CocktailsList extends Component {
             passProps: { ...item },
             options: {
               animations: {
-                transitions: [
-                  {
-                    from: `image${item.id}`,
-                    to: `image${item.id}Dest`,
-                    duration: 1200
-                  },
-                  {
-                    from: `title${item.id}`,
-                    to: `title${item.id}Dest`,
-                    duration: 1200
-                  }
-                ]
+                push: {
+                  sharedElementTransitions: [
+                    {
+                      fromId: `image${item.id}`,
+                      toId: `image${item.id}Dest`,
+                    },
+                    {
+                      fromId: `title${item.id}`,
+                      toId: `title${item.id}Dest`,
+                    }
+                  ],
+                  // elementTransitions: [
+                  //   {
+                  //     id: 'ImageId',
+                  //     alpha: {
+                  //       fromValue: 0,
+                  //       // to: 1, //
+                  //       duration: 200,  // optional. Default value - alpha animation
+                  //       startDelay: 50,  // optional. Default value - 0
+                  //       interpolation: 'linear' | 'accelerateDecelerate' | 'decelerate' | 'accelerate' | 'decelerateAccelerate'
+                  //     },
+                  //     translationY: {
+                  //       fromValue: -ALACHSON_HEIGHT,
+                  //       duration: 300,
+                  //       interpolation: 'linear',
+                  //     },
+                  //     y: {
+                  //       fromValue: -ALACHSON_HEIGHT,
+                  //       duration: 300,
+                  //       interpolation: 'linear',
+                  //     }
+                  //   }
+                  // ]
+                }
               }
             }
           }
