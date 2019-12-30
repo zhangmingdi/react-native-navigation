@@ -2,7 +2,7 @@ package com.reactnativenavigation.views.element;
 
 import android.app.Activity;
 
-import com.reactnativenavigation.parse.Transition;
+import com.reactnativenavigation.parse.SharedElementTransition;
 import com.reactnativenavigation.parse.params.Number;
 import com.reactnativenavigation.parse.params.Text;
 
@@ -11,11 +11,11 @@ import java.util.UUID;
 public class TransitionTestUtils {
     private static final int DURATION = 250;
 
-    static Transition createTransition(Element from, Element to) {
-        Transition transition = new Transition();
+    static SharedElementTransition createTransition(Element from, Element to) {
+        SharedElementTransition transition = new SharedElementTransition();
         transition.duration = new Number(DURATION);
-        transition.from = new Text(from.getElementId());
-        transition.to = new Text(to.getElementId());
+        transition.fromId = new Text(from.getElementId());
+        transition.toId = new Text(to.getElementId());
         return transition;
     }
 
