@@ -3,7 +3,8 @@ package com.reactnativenavigation.views.element;
 import android.animation.Animator;
 import android.view.View;
 
-import com.reactnativenavigation.parse.Transition;
+import com.reactnativenavigation.parse.AnimationOptions;
+import com.reactnativenavigation.parse.SharedElementTransition;
 import com.reactnativenavigation.views.element.animators.BackgroundColorAnimator;
 import com.reactnativenavigation.views.element.animators.MatrixAnimator;
 import com.reactnativenavigation.views.element.animators.PropertyAnimatorCreator;
@@ -22,19 +23,19 @@ import java.util.Map;
 
 public class TransitionAnimatorCreator {
 
-    public List<Animator> create(List<Transition> transitions, Map<String, View> from, Map<String, View> to) {
+    public List<Animator> create(AnimationOptions animation, List<SharedElementTransition> transitions, Map<String, View> from, Map<String, View> to) {
         if (transitions.isEmpty()) return Collections.emptyList();
         List<Animator> animators = new ArrayList<>();
-        for (Transition transition : transitions) {
-            animators.addAll(create(transition, from.get(transition.from.get()), to.get(transition.to.get())));
+        for (SharedElementTransition transition : transitions) {
+            animators.addAll(create(animation, transition, from.get(transition.fromId.get()), to.get(transition.toId.get())));
         }
         return animators;
     }
 
-    protected Collection<? extends Animator> create(Transition transition, View from, View to) {
+    protected Collection<? extends Animator> create(AnimationOptions animation, SharedElementTransition transition, View from, View to) {
         Collection<Animator> animators = new ArrayList<>();
         for (PropertyAnimatorCreator creator : getAnimators(from, to)) {
-            if (creator.shouldAnimateProperty()) animators.add(creator.create(transition));
+            if (creator.shouldAnimateProperty()) animators.add(creator.create(transition, animation));
         }
         return animators;
     }

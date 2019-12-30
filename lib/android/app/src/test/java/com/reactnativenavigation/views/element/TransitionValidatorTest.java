@@ -3,7 +3,7 @@ package com.reactnativenavigation.views.element;
 import android.app.Activity;
 
 import com.reactnativenavigation.BaseTest;
-import com.reactnativenavigation.parse.Transition;
+import com.reactnativenavigation.parse.SharedElementTransition;
 import com.reactnativenavigation.parse.params.NullNumber;
 import com.reactnativenavigation.parse.params.NullText;
 import com.reactnativenavigation.parse.params.Number;
@@ -21,9 +21,9 @@ public class TransitionValidatorTest extends BaseTest {
     private TransitionValidator uut;
     private Element from1;
     private Element to1;
-    private Transition transition;
-    private Transition invalidFromElementTransition;
-    private Transition invalidToElementTransition;
+    private SharedElementTransition transition;
+    private SharedElementTransition invalidFromElementTransition;
+    private SharedElementTransition invalidToElementTransition;
 
     @Override
     public void beforeEach() {
@@ -37,17 +37,17 @@ public class TransitionValidatorTest extends BaseTest {
         invalidToElementTransition = createTransition(from1.getElementId(), NONEXISTENT_ELEMENT);
     }
 
-    private Transition createTransition(String fromId, String toId) {
-        Transition transition = new Transition();
+    private SharedElementTransition createTransition(String fromId, String toId) {
+        SharedElementTransition transition = new SharedElementTransition();
         transition.duration = new Number(100);
-        transition.from = new Text(fromId);
-        transition.to = new Text(toId);
+        transition.fromId = new Text(fromId);
+        transition.toId = new Text(toId);
         return transition;
     }
 
     @Test
     public void validate_falseIfNullToId() {
-        transition.to = new NullText();
+        transition.toId = new NullText();
         boolean result = uut.validate(
                 transition,
                 keyBy(Collections.singletonList(from1), Element::getElementId),
@@ -58,7 +58,7 @@ public class TransitionValidatorTest extends BaseTest {
 
     @Test
     public void validate_falseIfNullFromId() {
-        transition.from = new NullText();
+        transition.fromId = new NullText();
         boolean result = uut.validate(
                 transition,
                 keyBy(Collections.singletonList(from1), Element::getElementId),

@@ -35,7 +35,7 @@ public class NavigationAnimator extends BaseAnimator {
     public void push(ViewController appearing, ViewController disappearing, Options options, Runnable onAnimationEnd) {
         appearing.getView().setAlpha(0);
         transitionManager.createTransitions(
-                options.animations.transitions,
+                options.animations.push.sharedElements,
                 disappearing.getView(),
                 appearing.getView(),
                 transitionSet -> {
@@ -71,8 +71,9 @@ public class NavigationAnimator extends BaseAnimator {
                         set.start();
                     } else {
                         appearing.addOnAppearedListener(() -> {
-                            List<Animator> transitions = transitionManager.createAnimators(transitionSet);
-                            set.playTogether(merge(new FadeAnimation().content.getAnimation(appearing.getView()).getChildAnimations(), transitions));
+                            AnimationOptions fade = new FadeAnimation().content;
+                            List<Animator> transitions = transitionManager.createAnimators(fade, transitionSet);
+                            set.playTogether(merge(fade.getAnimation(appearing.getView()).getChildAnimations(), transitions));
                             set.start();
                         });
                     }

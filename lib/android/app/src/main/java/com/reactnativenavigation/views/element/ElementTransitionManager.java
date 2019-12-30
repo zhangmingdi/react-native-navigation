@@ -5,8 +5,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.facebook.react.uimanager.util.ReactFindViewUtil;
-import com.reactnativenavigation.parse.Transition;
-import com.reactnativenavigation.parse.Transitions;
+import com.reactnativenavigation.parse.AnimationOptions;
+import com.reactnativenavigation.parse.SharedElementTransition;
+import com.reactnativenavigation.parse.SharedElements;
 import com.reactnativenavigation.utils.Functions;
 
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ public class ElementTransitionManager {
     public class TransitionSet {
         Map<String, View> from = new HashMap<>();
         Map<String, View> to = new HashMap<>();
-        List<Transition> validTransitions = new ArrayList<>();
+        List<SharedElementTransition> validTransitions = new ArrayList<>();
 
         public boolean isEmpty() {
             return validTransitions.isEmpty();
@@ -45,23 +46,23 @@ public class ElementTransitionManager {
         animatorCreator = new TransitionAnimatorCreator();
     }
 
-    public void createTransitions(Transitions transitions, ViewGroup fromScreen, ViewGroup toScreen, Functions.Func1<TransitionSet> onAnimatorsCreated) {
+    public void createTransitions(SharedElements transitions, ViewGroup fromScreen, ViewGroup toScreen, Functions.Func1<TransitionSet> onAnimatorsCreated) {
         if (!transitions.hasValue()) {
             onAnimatorsCreated.run(new TransitionSet());
             return;
         }
         TransitionSet transitionSet = new TransitionSet();
-        for (Transition transition : transitions.get()) {
-            perform(findView(fromScreen, transition.from.get()), v -> transitionSet.from.put(transition.from.get(), v));
+        for (SharedElementTransition transition : transitions.get()) {
+            perform(findView(fromScreen, transition.fromId.get()), v -> transitionSet.from.put(transition.fromId.get(), v));
             findView(toScreen, new ReactFindViewUtil.OnViewFoundListener() {
                 @Override
                 public String getNativeId() {
-                    return transition.to.get();
+                    return transition.toId.get();
                 }
 
                 @Override
                 public void onViewFound(View view) {
-                    transitionSet.to.put(transition.to.get(), view);
+                    transitionSet.to.put(transition.toId.get(), view);
                     if (transitionSet.to.size() == transitions.get().size()) {
                         transitionSet.validTransitions = filter(transitions.get(), t -> validator.validate(t, transitionSet.from, transitionSet.to));
                         onAnimatorsCreated.run(transitionSet);
@@ -71,7 +72,7 @@ public class ElementTransitionManager {
         }
     }
 
-    public List<Animator> createAnimators(TransitionSet transitionSet) {
-        return animatorCreator.create(transitionSet.validTransitions, transitionSet.from, transitionSet.to);
+    public List<Animator> createAnimators(AnimationOptions animation, TransitionSet transitionSet) {
+        return animatorCreator.create(animation, transitionSet.validTransitions, transitionSet.from, transitionSet.to);
     }
 }

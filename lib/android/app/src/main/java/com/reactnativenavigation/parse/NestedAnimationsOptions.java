@@ -17,6 +17,7 @@ public class NestedAnimationsOptions {
         options.topBar = AnimationOptions.parse(json.optJSONObject("topBar"));
         options.enabled = BoolParser.parseFirst(json, "enabled", "enable");
         options.waitForRender = BoolParser.parse(json, "waitForRender");
+        options.sharedElements = SharedElements.parse(json);
 
         return options;
     }
@@ -26,11 +27,13 @@ public class NestedAnimationsOptions {
     public AnimationOptions content = new AnimationOptions();
     public AnimationOptions bottomTabs = new AnimationOptions();
     public AnimationOptions topBar = new AnimationOptions();
+    public SharedElements sharedElements = new SharedElements();
 
     void mergeWith(NestedAnimationsOptions other) {
         topBar.mergeWith(other.topBar);
         content.mergeWith(other.content);
         bottomTabs.mergeWith(other.bottomTabs);
+        sharedElements.mergeWith(other.sharedElements);
         if (other.enabled.hasValue()) enabled = other.enabled;
         if (other.waitForRender.hasValue()) waitForRender = other.waitForRender;
     }
@@ -39,6 +42,7 @@ public class NestedAnimationsOptions {
         content.mergeWithDefault(defaultOptions.content);
         bottomTabs.mergeWithDefault(defaultOptions.bottomTabs);
         topBar.mergeWithDefault(defaultOptions.topBar);
+        sharedElements.mergeWithDefault(defaultOptions.sharedElements);
         if (!enabled.hasValue()) enabled = defaultOptions.enabled;
         if (!waitForRender.hasValue()) waitForRender = defaultOptions.waitForRender;
     }

@@ -4,8 +4,8 @@ import android.animation.Animator;
 import android.app.Activity;
 
 import com.reactnativenavigation.BaseTest;
-import com.reactnativenavigation.parse.Transition;
-import com.reactnativenavigation.parse.Transitions;
+import com.reactnativenavigation.parse.SharedElementTransition;
+import com.reactnativenavigation.parse.SharedElements;
 import com.reactnativenavigation.parse.params.Text;
 import com.reactnativenavigation.views.element.animators.PropertyAnimatorCreator;
 
@@ -27,8 +27,8 @@ import static org.mockito.Mockito.verify;
 
 public class ElementTransitionManagerTest extends BaseTest {
     private ElementTransitionManager uut;
-    private Transition validTransition;
-    private Transition invalidTransition;
+    private SharedElementTransition validTransition;
+    private SharedElementTransition invalidTransition;
     private Element from1;
     private Element to1;
     private TransitionValidator validator;
@@ -48,13 +48,13 @@ public class ElementTransitionManagerTest extends BaseTest {
         from1 = createElement(activity, "from1Id");
         to1 = createElement(activity, "to1Id");
         validTransition = createTransition(from1, to1);
-        invalidTransition = createTransition(from1, to1); invalidTransition.to = new Text("nonexistentElement");
+        invalidTransition = createTransition(from1, to1); invalidTransition.toId = new Text("nonexistentElement");
     }
 
     @Test
     public void createElementTransitions_returnsOnEmptyTransitions() {
         Collection<? extends Animator> result = uut.createTransitions(
-                new Transitions(),
+                new SharedElements(),
                 Collections.singletonList(from1),
                 Collections.singletonList(to1)
         );
@@ -64,7 +64,7 @@ public class ElementTransitionManagerTest extends BaseTest {
     @Test
     public void createElementTransitions_returnsIfNoElements() {
         Collection<? extends Animator> result = uut.createTransitions(
-                new Transitions(Collections.singletonList(validTransition)),
+                new SharedElements(Collections.singletonList(validTransition)),
                 Collections.EMPTY_LIST,
                 Collections.EMPTY_LIST
         );
@@ -73,10 +73,10 @@ public class ElementTransitionManagerTest extends BaseTest {
 
     @Test
     public void createElementTransitions_returnsIfNoMatchingElements() {
-        Transition invalidTransition = new Transition();
-        invalidTransition.from = new Text("from1Id");
-        invalidTransition.to = new Text("nonExistentElement");
-        Transitions transitions = new Transitions(Collections.singletonList(invalidTransition));
+        SharedElementTransition invalidTransition = new SharedElementTransition();
+        invalidTransition.fromId = new Text("from1Id");
+        invalidTransition.toId = new Text("nonExistentElement");
+        SharedElements transitions = new SharedElements(Collections.singletonList(invalidTransition));
 
         Collection<? extends Animator> result = uut.createTransitions(
                 transitions,
@@ -90,7 +90,7 @@ public class ElementTransitionManagerTest extends BaseTest {
     @Test
     public void createElementTransitions_delegatesAnimatorCreationToCreator() {
         uut.createTransitions(
-                new Transitions(Arrays.asList(validTransition, invalidTransition)),
+                new SharedElements(Arrays.asList(validTransition, invalidTransition)),
                 Collections.singletonList(from1),
                 Collections.singletonList(to1)
         );

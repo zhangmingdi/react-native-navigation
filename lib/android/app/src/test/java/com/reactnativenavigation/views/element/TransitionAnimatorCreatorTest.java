@@ -3,7 +3,7 @@ package com.reactnativenavigation.views.element;
 import android.app.Activity;
 
 import com.reactnativenavigation.BaseTest;
-import com.reactnativenavigation.parse.Transition;
+import com.reactnativenavigation.parse.SharedElementTransition;
 import com.reactnativenavigation.views.element.animators.PropertyAnimatorCreator;
 
 import org.junit.Test;
@@ -23,8 +23,8 @@ import static org.mockito.Mockito.when;
 
 public class TransitionAnimatorCreatorTest extends BaseTest {
     private TransitionAnimatorCreator uut;
-    private Transition t1;
-    private Transition t2;
+    private SharedElementTransition t1;
+    private SharedElementTransition t2;
     private Element e1;
     private Element e2;
     private Element e3;
@@ -64,7 +64,7 @@ public class TransitionAnimatorCreatorTest extends BaseTest {
 
     @Test
     public void create_animatorsAreCreated() {
-        List<Transition> transitions = Arrays.asList(t1, t2);
+        List<SharedElementTransition> transitions = Arrays.asList(t1, t2);
         uut.create(
                 transitions,
                 keyBy(Arrays.asList(e1, e3), Element::getElementId),
@@ -73,7 +73,7 @@ public class TransitionAnimatorCreatorTest extends BaseTest {
         verify(animator1, times(2)).shouldAnimateProperty();
         verify(animator2, times(2)).shouldAnimateProperty();
         verify(animator3, times(2)).shouldAnimateProperty();
-        for (Transition transition : transitions) {
+        for (SharedElementTransition transition : transitions) {
             verify(animator1).create(transition);
             verify(animator2).create(transition);
         }

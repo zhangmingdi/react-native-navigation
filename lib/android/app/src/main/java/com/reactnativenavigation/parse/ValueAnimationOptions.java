@@ -38,7 +38,7 @@ public class ValueAnimationOptions {
     private FloatParam fromDelta = new FloatParam(0f);
     private FloatParam to = new NullFloatParam();
     private FloatParam toDelta = new FloatParam(0f);
-    private Number duration = new NullNumber();
+    Number duration = new NullNumber();
     private Number startDelay = new NullNumber();
     private Interpolation interpolation = Interpolation.NO_VALUE;
 
