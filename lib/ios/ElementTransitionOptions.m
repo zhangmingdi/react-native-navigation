@@ -1,13 +1,13 @@
-#import "RNNElementTransitionOptions.h"
+#import "ElementTransitionOptions.h"
 
-@implementation RNNElementTransitionOptions
+@implementation ElementTransitionOptions
 
 - (instancetype)initWithDict:(NSDictionary *)dict {
 	self = [super init];
 	
-	self.alpha = [[RNNAnimationConfigurationOptions alloc] initWithDict:dict[@"alpha"]];
-	self.x = [[RNNAnimationConfigurationOptions alloc] initWithDict:dict[@"x"]];
-	self.y = [[RNNAnimationConfigurationOptions alloc] initWithDict:dict[@"y"]];
+	self.alpha = [[TransitionOptions alloc] initWithDict:dict[@"alpha"]];
+	self.x = [[TransitionOptions alloc] initWithDict:dict[@"x"]];
+	self.y = [[TransitionOptions alloc] initWithDict:dict[@"y"]];
 
 	return self;
 }
@@ -16,7 +16,7 @@
 	return self.x.hasAnimation || self.y.hasAnimation || self.alpha.hasAnimation;
 }
 
-- (double)maxDuration {
+- (NSTimeInterval)minDuration {
 	double maxDuration = 0;
 	if ([_x.duration getWithDefaultValue:0] > maxDuration) {
 		maxDuration = [_x.duration getWithDefaultValue:0];

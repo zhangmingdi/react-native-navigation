@@ -10,7 +10,7 @@
 - (instancetype)initWithDisplayLinkAnimations:(NSArray<id<DisplayLinkAnimation>> *)displayLinkAnimations duration:(CGFloat)duration {
     self = [super init];
     _animations = displayLinkAnimations;
-    _duration = duration;
+    _duration = [self maxDuration:displayLinkAnimations];
     return self;
 }
 
@@ -25,9 +25,19 @@
 	[_displayLink addToRunLoop:NSRunLoop.mainRunLoop forMode:NSDefaultRunLoopMode];
 }
 
+- (CGFloat)maxDuration:(NSArray<id<DisplayLinkAnimation>> *)displayLinkAnimations {
+    CGFloat maxDuration = 0;
+    for (id<DisplayLinkAnimation> animation in displayLinkAnimations) {
+        if (animation.duration > maxDuration) {
+            maxDuration = animation.duration;
+        }
+    }
+    
+    return maxDuration;
+}
+
 - (void)_displayLinkDidTick:(CADisplayLink*)displayLink {
 	NSTimeInterval elapsed = [NSDate.date timeIntervalSinceDate:_startDate];
-	CGFloat p = elapsed/_duration;
 	if(elapsed > _duration) {
 		[self end];
 		[displayLink invalidate];
@@ -38,11 +48,12 @@
 		return;
 	}
 	
-	[self updateAnimations:p];
+    [self updateAnimations:elapsed];
 }
 
-- (void)updateAnimations:(CGFloat)p {
+- (void)updateAnimations:(NSTimeInterval)elapsed {
 	for (id<DisplayLinkAnimation> animation in _animations) {
+        CGFloat p = elapsed/animation.duration;
 		[animation animateWithProgress:p];
 	}
 }

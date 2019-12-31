@@ -1,10 +1,7 @@
 #import "CustomTransitionDelegate.h"
-#import "RNNTransition.h"
-#import "RNNReactView.h"
 #import "DisplayLinkAnimator.h"
-#import "RNNAnimatedView.h"
-#import "RNNElementFinder.h"
-#import "AnimatedViewFactory.h"
+#import "SharedElementTransitionsCreator.h"
+#import "ScreenTransitionsCreator.h"
 
 @interface  CustomTransitionDelegate()
 @property (nonatomic, weak) UIViewController* fromVC;
@@ -12,37 +9,13 @@
 @end
 
 @implementation CustomTransitionDelegate {
-    RNNScreenTransition* _screenTransition;
+    ScreenTransitionsCreator* _transitionsCreator;
 }
 
 - (instancetype)initWithScreenTransition:(RNNScreenTransition *)screenTransition {
     self = [super init];
-    _screenTransition = screenTransition;
+	_transitionsCreator = [[ScreenTransitionsCreator alloc] initWithScreenTransition:screenTransition];
     return self;
-}
-
-- (NSArray<AnimatedReactView *>*)createSharedElementViews {
-    NSMutableArray* transitions = [NSMutableArray new];
-    for (NSDictionary* transitionOptions in _screenTransition.elements) {
-        AnimatedReactView* animatedView = [self createAnimatedView:transitionOptions];
-        [transitions addObject:animatedView];
-    }
-    
-    return transitions;
-}
-
-- (void)addSharedElementViews:(NSArray<AnimatedReactView *> *)views toContainerView:(UIView *)containerView {
-    for (AnimatedReactView* view in views) {
-        [containerView addSubview:view];
-        [containerView bringSubviewToFront:view];
-    }
-}
-
-- (AnimatedReactView *)createAnimatedView:(NSDictionary *)transitionOptions {
-    RNNTransitionStateHolder* transitionStateHolder = [[RNNTransitionStateHolder alloc] initWithDict:transitionOptions];
-    UIView *fromElement = [RNNElementFinder findElementForId:transitionStateHolder.fromId inView:self.fromVC.view];
-    UIView *toElement = [RNNElementFinder findElementForId:transitionStateHolder.toId inView:self.toVC.view];
-    return [AnimatedViewFactory createFromElement:fromElement toElement:toElement alpha:transitionStateHolder.startAlpha endAlpha:transitionStateHolder.endAlpha isSharedElement:YES];
 }
 
 - (void)animateTransitions:(NSArray<id<DisplayLinkAnimation>>*)animations andTransitioningContext:(id<UIViewControllerContextTransitioning>)transitionContext {
@@ -58,7 +31,7 @@
 }
 
 - (NSTimeInterval)transitionDuration:(id <UIViewControllerContextTransitioning>)transitionContext {
-    return [_screenTransition.duration getWithDefaultValue:@(0.5)].floatValue;
+    return _transitionsCreator.minDuration;
 }
 
 - (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext {
@@ -67,16 +40,8 @@
     
     [transitionContext.containerView addSubview:self.toVC.view];
     
-    NSMutableArray<id<DisplayLinkAnimation>>* animations = [NSMutableArray new];
-    
-    NSArray* sharedElementViews = [self createSharedElementViews];
-    [self addSharedElementViews:sharedElementViews toContainerView:transitionContext.containerView];
-    
-    [animations addObjectsFromArray:sharedElementViews];
-    [animations addObject:[[RNNAnimatedView alloc] initWithView:self.toVC.view alpha:0 endAlpha:1]];
-    
-    
-    [self animateTransitions:animations andTransitioningContext:transitionContext];
+	NSArray* transitions = [_transitionsCreator createFromVC:self.fromVC toVC:self.toVC containerView:transitionContext.containerView];
+    [self animateTransitions:transitions andTransitioningContext:transitionContext];
 }
 
 @end

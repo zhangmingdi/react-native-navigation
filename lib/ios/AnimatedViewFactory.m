@@ -5,15 +5,15 @@
 
 @implementation AnimatedViewFactory
 
-+ (AnimatedReactView *)createFromElement:(UIView *)element toElement:(UIView *)toElement alpha:(CGFloat)alpha endAlpha:(CGFloat)endAlpha isSharedElement:(BOOL)isSharedElement {
++ (AnimatedReactView *)createFromElement:(UIView *)element toElement:(UIView *)toElement transitionOptions:(SharedElementTransitionOptions *)transitionOptions {
     switch (element.viewType) {
         case ViewTypeImage:
-            return [[AnimatedImageView alloc] initElement:element toElement:toElement alpha:alpha endAlpha:endAlpha isSharedElement:isSharedElement];
+            return [[AnimatedImageView alloc] initElement:element toElement:toElement transitionOptions:transitionOptions];
         case ViewTypeText:
-            return [[AnimatedTextView alloc] initElement:element toElement:toElement alpha:alpha endAlpha:endAlpha isSharedElement:isSharedElement];
+            return [[AnimatedTextView alloc] initElement:element toElement:toElement transitionOptions:transitionOptions];
         case ViewTypeOther:
         default:
-            return [[AnimatedReactView alloc] initElement:element toElement:toElement alpha:alpha endAlpha:endAlpha isSharedElement:isSharedElement];
+            return [[AnimatedReactView alloc] initElement:element toElement:toElement transitionOptions:transitionOptions];
     }
 }
 

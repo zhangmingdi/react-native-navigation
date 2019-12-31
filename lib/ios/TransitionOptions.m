@@ -1,6 +1,6 @@
-#import "RNNAnimationConfigurationOptions.h"
+#import "TransitionOptions.h"
 
-@implementation RNNAnimationConfigurationOptions
+@implementation TransitionOptions
 
 - (instancetype)initWithDict:(NSDictionary *)dict {
 	self = [super init];
@@ -8,7 +8,7 @@
 	self.from = [DoubleParser parse:dict key:@"from"];
 	self.to = [DoubleParser parse:dict key:@"to"];
 	self.startDelay = [DoubleParser parse:dict key:@"startDelay"];
-	self.duration = [DoubleParser parse:dict key:@"duration"];
+	self.duration = [TimeIntervalParser parse:dict key:@"duration"];
 	
 	return self;
 }

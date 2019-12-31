@@ -42,11 +42,17 @@ class CocktailsList extends Component {
           options: {
             animations: {
               push: {
-                elements: [
-                  {type: 'sharedElement', fromId: `${item.name}-text`, toId: 'text2'},
-                  {type: 'sharedElement', fromId: `${item.name}-image`, toId: 'image2'}
-                ],
-                duration: 0.5
+                content: {
+                  alpha: {
+                    from: 0,
+                    to: 1,
+                    duration: 300
+                  }
+                },
+                sharedElementTransitions: [
+                  {type: 'sharedElement', fromId: `${item.name}-text`, toId: 'text2', duration: 300},
+                  {type: 'sharedElement', fromId: `${item.name}-image`, toId: 'image2', duration: 300}
+                ]
               }
             }
           }
