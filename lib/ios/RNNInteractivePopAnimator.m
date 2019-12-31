@@ -1,6 +1,5 @@
 #import "RNNInteractivePopAnimator.h"
 #import "CustomTransitionDelegate.h"
-#import "RNNAnimatedView.h"
 #import "RNNElementView.h"
 #import "RNNComponentViewController.h"
 #import "VICMAImageView.h"

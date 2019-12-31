@@ -768,15 +768,23 @@ export interface OptionsAnimationPropertyConfig {
  * Used to animate the actual content added to the hierarchy.
  * Content can be a React component (component) or any other layout (Stack, BottomTabs etc)
  */
-export interface ScreenAnimationOptions {
+export interface Transition {
   /**
-   * Animate the element over translateX
+   * Animate the element over x value
    */
   x?: OptionsAnimationPropertyConfig;
   /**
-   * Animate the element over translateY
+   * Animate the element over y value
    */
   y?: OptionsAnimationPropertyConfig;
+  /**
+   * Animate the element over translateX
+   */
+  translationX?: OptionsAnimationPropertyConfig;
+  /**
+   * Animate the element over translateY
+   */
+  translationY?: OptionsAnimationPropertyConfig;
   /**
    * Animate the element over opacity
    */
@@ -831,7 +839,7 @@ export interface IconInsets {
   right?: number;
 }
 
-export interface ViewAnimationOptions extends ScreenAnimationOptions {
+export interface ViewTransition extends Transition {
   /**
    * ID of the Top Bar we want to animate
    */
@@ -854,15 +862,23 @@ export interface StackAnimationOptions {
   /**
    * Configure animations for the top bar
    */
-  topBar?: ViewAnimationOptions;
+  topBar?: ViewTransition;
   /**
    * Configure animations for the bottom tabs
    */
-  bottomTabs?: ViewAnimationOptions;
+  bottomTabs?: ViewTransition;
   /**
    * Configure animations for the content (Screen)
    */
-  content?: ViewAnimationOptions;
+  content?: ViewTransition;
+  /**
+   * Configure shared element transitions
+   */
+  sharedElementTransitions?: SharedElementTransition[];
+  /**
+   * Configure transitions for elements on the destination screen
+   */
+  elementTransitions?: ViewTransition[];
 }
 
 /**
@@ -872,11 +888,11 @@ export interface AnimationOptions {
   /**
    * Configure the setStackRoot animation
    */
-  setStackRoot?: ScreenAnimationOptions;
+  setStackRoot?: ViewTransition;
   /**
    * Configure the setRoot animation
    */
-  setRoot?: ScreenAnimationOptions;
+  setRoot?: ViewTransition;
   /**
    * Configure what animates when a screen is pushed
    */
@@ -888,23 +904,19 @@ export interface AnimationOptions {
   /**
    * Configure what animates when modal is shown
    */
-  showModal?: ScreenAnimationOptions;
+  showModal?: ViewTransition;
   /**
    * Configure what animates when modal is dismissed
    */
-  dismissModal?: ScreenAnimationOptions;
+  dismissModal?: ViewTransition;
 }
 
-export interface OptionsCustomTransition {
-  animations: OptionsCustomTransitionAnimation[];
-  duration?: number;
-}
+// export interface OptionsCustomTransition {
+//   animations: OptionsCustomTransitionAnimation[];
+//   duration?: number;
+// }
 
-export interface OptionsCustomTransitionAnimation {
-  /**
-   * Animation type, only support sharedElement currently
-   */
-  type: 'sharedElement';
+export interface SharedElementTransition {
   /**
    * Transition from element Id
    */
@@ -1002,27 +1014,6 @@ setRoot: {
 ```
    */
   animations?: AnimationOptions;
-
-  /**
-   * Custom Transition used for animate shared element between two screens
-   * Example:
-  ```js
-  Navigation.push(this.props.componentId, {
-    component: {
-      name: 'second.screen',
-      options: {
-        customTransition: {
-          animations: [
-            { type: 'sharedElement', fromId: 'image1', toId: 'image2', startDelay: 0, springVelocity: 0.2, duration: 0.5 }
-          ],
-          duration: 0.8
-        }
-      }
-    }
-  });
-  ```
-  */
-  customTransition?: OptionsCustomTransition;
   /**
    * Preview configuration for Peek and Pop
    * #### (iOS specific)

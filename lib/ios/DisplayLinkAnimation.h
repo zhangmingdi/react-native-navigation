@@ -8,4 +8,6 @@
 
 - (void)end;
 
+- (NSTimeInterval)duration;
+
 @end

@@ -13,7 +13,6 @@
 @property (nonatomic) double startDelay;
 @property (nonatomic, strong) NSString* fromId;
 @property (nonatomic, strong) NSString* toId;
-@property (nonatomic) BOOL isSharedElementTransition;
 @property (nonatomic) double startY;
 @property (nonatomic) double endY;
 @property (nonatomic) double startX;

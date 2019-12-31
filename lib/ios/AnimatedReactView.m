@@ -4,11 +4,13 @@
     UIView* _originalParent;
     CGRect _originalFrame;
     UIView* _toElement;
+    SharedElementTransitionOptions* _transitionOptions;
 }
 
-- (instancetype)initElement:(UIView *)element toElement:(UIView *)toElement alpha:(CGFloat)alpha endAlpha:(CGFloat)endAlpha isSharedElement:(BOOL)isSharedElement {
+- (instancetype)initElement:(UIView *)element toElement:(UIView *)toElement transitionOptions:(SharedElementTransitionOptions *)transitionOptions {
     self.location = [[RNNViewLocation alloc] initWithFromElement:element toElement:toElement];
     self = [super initWithFrame:self.location.fromFrame];
+    _transitionOptions = transitionOptions;
     _toElement = toElement;
     _toElement.hidden = YES;
     [self hijackReactElement:element];
@@ -34,6 +36,10 @@
     [_originalParent addSubview:_reactView];
     _toElement.hidden = NO;
     [self removeFromSuperview];
+}
+
+- (NSTimeInterval)duration {
+    return [_transitionOptions.duration getWithDefaultValue:0.7];
 }
 
 - (void)layoutSubviews {
