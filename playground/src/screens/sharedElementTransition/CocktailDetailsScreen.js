@@ -3,6 +3,16 @@ const { Component } = require('react');
 const { View, Image, Text, StyleSheet } = require('react-native');
 
 class CocktailDetailsScreen extends Component {
+  static options() {
+    return {
+      topBar: {
+        title: {
+          text: 'Cocktails'
+        }
+      }
+    }
+  }
+
   render() {
     return (
       <View style={styles.root}>

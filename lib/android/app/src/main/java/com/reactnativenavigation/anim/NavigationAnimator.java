@@ -14,12 +14,9 @@ import com.reactnativenavigation.viewcontrollers.ViewController;
 import com.reactnativenavigation.views.element.ElementTransitionManager;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import androidx.annotation.RestrictTo;
-
-import static com.reactnativenavigation.utils.CollectionUtils.*;
 
 @SuppressWarnings("ResourceType")
 public class NavigationAnimator extends BaseAnimator {
@@ -36,8 +33,8 @@ public class NavigationAnimator extends BaseAnimator {
         appearing.getView().setAlpha(0);
         transitionManager.createTransitions(
                 options.animations.push.sharedElements,
-                disappearing.getView(),
-                appearing.getView(),
+                disappearing,
+                appearing,
                 transitionSet -> {
                     AnimatorSet set = new AnimatorSet();
                     runningPushAnimations.put(appearing.getView(), set);
@@ -72,8 +69,8 @@ public class NavigationAnimator extends BaseAnimator {
                     } else {
                         appearing.addOnAppearedListener(() -> {
                             AnimationOptions fade = new FadeAnimation().content;
-                            List<Animator> transitions = transitionManager.createAnimators(fade, transitionSet);
-                            set.playTogether(merge(fade.getAnimation(appearing.getView()).getChildAnimations(), transitions));
+                            AnimatorSet transitions = transitionManager.createAnimators(appearing, fade, transitionSet);
+                            set.playTogether(fade.getAnimation(appearing.getView()), transitions);
                             set.start();
                         });
                     }
