@@ -1,5 +1,6 @@
 #import "ElementTransitionCreator.h"
 #import "ElementAlphaTransition.h"
+#import "ElementVerticalTransition.h"
 
 @implementation ElementTransitionCreator {
 	ElementTransitionOptions* _transitionOptions;
@@ -16,6 +17,10 @@
 	if (_transitionOptions.alpha.hasAnimation) {
 		[transitions addObject:[[ElementAlphaTransition alloc] initWithView:view transitionOptions:_transitionOptions.alpha]];
 	}
+    
+    if (_transitionOptions.x.hasAnimation) {
+        [transitions addObject:[[ElementVerticalTransition alloc] initWithView:view transitionOptions:_transitionOptions.x]];
+    }
 	
 	return transitions;
 }

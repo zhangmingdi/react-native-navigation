@@ -3,11 +3,6 @@
 #import "SharedElementTransitionsCreator.h"
 #import "ScreenTransitionsCreator.h"
 
-@interface  CustomTransitionDelegate()
-@property (nonatomic, weak) UIViewController* fromVC;
-@property (nonatomic, weak) UIViewController* toVC;
-@end
-
 @implementation CustomTransitionDelegate {
     ScreenTransitionsCreator* _transitionsCreator;
 }
@@ -35,12 +30,12 @@
 }
 
 - (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext {
-    self.fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    self.toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    UIViewController* fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+    UIViewController* toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     
-    [transitionContext.containerView addSubview:self.toVC.view];
+    [transitionContext.containerView addSubview:toVC.view];
     
-	NSArray* transitions = [_transitionsCreator createFromVC:self.fromVC toVC:self.toVC containerView:transitionContext.containerView];
+	NSArray* transitions = [_transitionsCreator createFromVC:fromVC toVC:toVC containerView:transitionContext.containerView];
     [self animateTransitions:transitions andTransitioningContext:transitionContext];
 }
 

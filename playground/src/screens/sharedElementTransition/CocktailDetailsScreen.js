@@ -7,12 +7,23 @@ class CocktailDetailsScreen extends Component {
     return {
       animations: {
         pop: {
-          elements: [
-            {type: 'sharedElement', fromId: 'text2', toId: `${props.name}-text`},
-            {type: 'sharedElement', fromId: 'image2', toId: `${props.name}-image`}
+          content: {
+            // alpha: {
+            //   from: 0,
+            //   to: 1,
+            //   duration: 1000
+            // },
+            x: {
+              from: 450,
+              to: 0,
+              duration: 1000
+            }
+          },
+          sharedElementTransitions: [
+            {fromId: 'text2', toId: `${props.name}-text`, duration: 1000},
+            {fromId: 'image2', toId: `${props.name}-image`, duration: 1000, startDelay: 500}
           ]
-        },
-        duration: 0.5
+        }
       }
     }
   }

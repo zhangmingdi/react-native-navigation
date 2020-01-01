@@ -48,21 +48,22 @@ class CustomTransitionOrigin extends Component {
         options: {
           animations: {
             push: {
-              waitForRender: true,
-              content: {
+              screen: {
                 alpha: {
                   from: 0,
                   to: 1,
                   duration: 250
                 }
               },
-              elements: [
-                {type: 'sharedElement', fromId: 'title1', toId: 'title2', startDelay: 0, springVelocity: 0.2, duration: 1},
-                {
-                type: 'sharedElement', fromId: 'image1', toId: 'customDestinationImage', startDelay: 0, springVelocity: 1,
-                springDamping: 1, duration: 1, interactivePop: true
-                }
-              ]
+              elements: {
+                shared: [
+                  {fromId: 'title1', toId: 'title2'},
+                  {fromId: 'image1', toId: 'customDestinationImage'}
+                ],
+                transition: [
+                  {id: 'kjdf'}
+                ]
+              }
             }
           }
         }
