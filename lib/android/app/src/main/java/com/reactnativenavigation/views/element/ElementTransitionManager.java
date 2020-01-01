@@ -1,14 +1,14 @@
 package com.reactnativenavigation.views.element;
 
-import android.animation.Animator;
+import android.animation.AnimatorSet;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.facebook.react.uimanager.util.ReactFindViewUtil;
 import com.reactnativenavigation.parse.AnimationOptions;
 import com.reactnativenavigation.parse.SharedElementTransition;
 import com.reactnativenavigation.parse.SharedElements;
 import com.reactnativenavigation.utils.Functions;
+import com.reactnativenavigation.viewcontrollers.ViewController;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,15 +46,15 @@ public class ElementTransitionManager {
         animatorCreator = new TransitionAnimatorCreator();
     }
 
-    public void createTransitions(SharedElements transitions, ViewGroup fromScreen, ViewGroup toScreen, Functions.Func1<TransitionSet> onAnimatorsCreated) {
+    public void createTransitions(SharedElements transitions, ViewController fromScreen, ViewController toScreen, Functions.Func1<TransitionSet> onAnimatorsCreated) {
         if (!transitions.hasValue()) {
             onAnimatorsCreated.run(new TransitionSet());
             return;
         }
         TransitionSet transitionSet = new TransitionSet();
         for (SharedElementTransition transition : transitions.get()) {
-            perform(findView(fromScreen, transition.fromId.get()), v -> transitionSet.from.put(transition.fromId.get(), v));
-            findView(toScreen, new ReactFindViewUtil.OnViewFoundListener() {
+            perform(findView(fromScreen.getView(), transition.fromId.get()), v -> transitionSet.from.put(transition.fromId.get(), v));
+            findView(toScreen.getView(), new ReactFindViewUtil.OnViewFoundListener() {
                 @Override
                 public String getNativeId() {
                     return transition.toId.get();
@@ -72,7 +72,7 @@ public class ElementTransitionManager {
         }
     }
 
-    public List<Animator> createAnimators(AnimationOptions animation, TransitionSet transitionSet) {
-        return animatorCreator.create(animation, transitionSet.validTransitions, transitionSet.from, transitionSet.to);
+    public AnimatorSet createAnimators(ViewController toScreen, AnimationOptions animation, TransitionSet transitionSet) {
+        return animatorCreator.create(toScreen, animation, transitionSet.validTransitions, transitionSet.from, transitionSet.to);
     }
 }

@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.facebook.react.views.text.ReactTextView;
 import com.reactnativenavigation.utils.ViewUtils;
+import com.reactnativenavigation.views.ComponentLayout;
 
 import java.util.Collections;
 import java.util.List;
@@ -19,7 +20,8 @@ public class YAnimator extends PropertyAnimatorCreator<View> {
         super(from, to);
         final Point fromXy = ViewUtils.getLocationOnScreen(from);
         final Point toXy = ViewUtils.getLocationOnScreen(to);
-        dy = fromXy.y - toXy.y;
+        View fromComponent = ViewUtils.findParent(from, ComponentLayout.class);
+        dy = (int) (fromXy.y - toXy.y - fromComponent.getY());
     }
 
     @Override
