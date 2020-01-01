@@ -42,6 +42,10 @@
     return [_transitionOptions.duration getWithDefaultValue:0.7];
 }
 
+- (NSTimeInterval)startDelay {
+    return [_transitionOptions.startDelay getWithDefaultValue:0.0];
+}
+
 - (void)layoutSubviews {
     [super layoutSubviews];
     _reactView.frame = self.bounds;

@@ -10,4 +10,6 @@
 
 - (NSTimeInterval)duration;
 
+- (NSTimeInterval)startDelay;
+
 @end

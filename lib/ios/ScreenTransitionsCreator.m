@@ -19,8 +19,8 @@
 - (NSArray<id<DisplayLinkAnimation>> *)createFromVC:(UIViewController *)fromVC toVC:(UIViewController *)toVC containerView:(UIView *)containerView {
 	NSMutableArray* transitions = [NSMutableArray new];
 	
-	[transitions addObjectsFromArray:[_sharedElementTransitionsCreator createFromVC:fromVC toVC:toVC containerView:containerView]];
-	[transitions addObjectsFromArray:[_contentTransitionCreator createWithView:toVC.view containerView:containerView]];
+    [transitions addObjectsFromArray:[_contentTransitionCreator createWithView:toVC.view containerView:containerView]];
+    [transitions addObjectsFromArray:[_sharedElementTransitionsCreator createFromVC:fromVC toVC:toVC containerView:containerView]];
 	
 	return transitions;
 }

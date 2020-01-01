@@ -53,8 +53,10 @@
 
 - (void)updateAnimations:(NSTimeInterval)elapsed {
 	for (id<DisplayLinkAnimation> animation in _animations) {
-        CGFloat p = elapsed/animation.duration;
-		[animation animateWithProgress:p];
+        if (elapsed < animation.duration && elapsed > animation.startDelay) {
+            CGFloat p = (elapsed-animation.startDelay)/(animation.duration-animation.startDelay);
+            [animation animateWithProgress:p];
+        }
 	}
 }
 

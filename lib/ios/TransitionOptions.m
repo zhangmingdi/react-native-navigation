@@ -7,7 +7,7 @@
 	
 	self.from = [DoubleParser parse:dict key:@"from"];
 	self.to = [DoubleParser parse:dict key:@"to"];
-	self.startDelay = [DoubleParser parse:dict key:@"startDelay"];
+	self.startDelay = [TimeIntervalParser parse:dict key:@"startDelay"];
 	self.duration = [TimeIntervalParser parse:dict key:@"duration"];
 	
 	return self;
