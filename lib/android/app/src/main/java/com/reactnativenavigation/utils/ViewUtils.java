@@ -1,18 +1,20 @@
 package com.reactnativenavigation.utils;
 
 import android.graphics.Point;
-import androidx.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewManager;
 import android.view.ViewParent;
 
 import com.facebook.react.views.view.ReactViewBackgroundDrawable;
-import com.reactnativenavigation.react.ReactView;
-import com.reactnativenavigation.utils.Functions.Func1;
+import com.reactnativenavigation.R;
+import com.reactnativenavigation.viewcontrollers.ViewController;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.Nullable;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import static com.reactnativenavigation.utils.ObjectUtils.perform;
 
@@ -93,21 +95,27 @@ public class ViewUtils {
         return view.getLayoutParams().height < 0 ? view.getHeight() : view.getLayoutParams().height;
     }
 
-    public static void performOnParentReactView(View child, Func1<ReactView> task) {
-        ReactView parent = findParentReactView(child.getParent());
-        if (parent != null) {
-            task.run(parent);
-        }
+    public static void reparent(View child, ViewController toScreen) {
+        Point loc = getLocationOnScreen(child);
+        ViewGroup biologicalParent = (ViewGroup) child.getParent();
+        child.setTag(R.id.original_parent, biologicalParent);
+        child.setTag(R.id.original_layout_params, child.getLayoutParams());
+
+        CoordinatorLayout.LayoutParams lp = new CoordinatorLayout.LayoutParams(child.getLayoutParams());
+        biologicalParent.removeView(child);
+        lp.topMargin = loc.y;
+        lp.leftMargin = loc.x;
+        toScreen.getParentController().getView().addView(child, lp);
     }
 
-    private static ReactView findParentReactView(ViewParent parent) {
-        if (parent == null) {
-            return null;
+    public static <T extends ViewGroup> T findParent(View view, Class<T> clazz) {
+        if (view == null) return null;
+        @Nullable ViewParent parent = view.getParent();
+        if (parent != null) {
+            if (parent.getClass().isAssignableFrom(clazz)) return (T) parent;
+            return findParent((View) parent, clazz);
         }
-        if (parent instanceof ReactView) {
-            return (ReactView) parent;
-        }
-        return findParentReactView(parent.getParent());
+        return null;
     }
 
     public static Point getLocationOnScreen(View view) {

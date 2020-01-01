@@ -2,29 +2,11 @@ const React = require('react');
 const { SafeAreaView, FlatList, View, Image, Text, StyleSheet } = require('react-native');
 
 class CocktailDetailsScreen extends Component {
-  static options(props) {
+  static options() {
     return {
-      animations: {
-        pop: {
-          content: {
-            alpha: {
-              from: 0,
-              to: 1,
-              duration: 1000
-            },
-            // x: {
-            //   from: 450,
-            //   to: 0,
-            //   duration: 1000
-            // }
-          },
-          sharedElementTransitions: [
-            { fromId: 'text2', toId: `${props.name}-text`, duration: 1000 },
-            { fromId: 'image2', toId: `${props.name}-image`, duration: 1000, startDelay: 500 }
-          ],
-          elementTransitions: [
-            { id: `redbox`, y: { to: -150, duration: 300 } }
-          ]
+      topBar: {
+        title: {
+          text: 'Cocktails'
         }
       }
     }
