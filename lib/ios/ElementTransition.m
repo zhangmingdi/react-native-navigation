@@ -1,8 +1,8 @@
-#import "ElementTransitionCreator.h"
+#import "ElementTransition.h"
 #import "ElementAlphaTransition.h"
 #import "ElementVerticalTransition.h"
 
-@implementation ElementTransitionCreator {
+@implementation ElementTransition {
 	ElementTransitionOptions* _transitionOptions;
 }
 

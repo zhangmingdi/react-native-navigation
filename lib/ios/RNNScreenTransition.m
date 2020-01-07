@@ -13,7 +13,7 @@
 	self.waitForRender = [BoolParser parse:dict key:@"waitForRender"];
     self.duration = [TimeIntervalParser parse:dict key:@"duration"];
     self.sharedElementTransitions = [OptionsArrayParser parse:dict key:@"sharedElementTransitions" ofClass:SharedElementTransitionOptions.class];
-	self.elementTransitions = dict[@"elementTransitions"];
+	self.elementTransitions = [OptionsArrayParser parse:dict key:@"elementTransitions" ofClass:SharedElementTransitionOptions.class];
     
 	return self;
 }
