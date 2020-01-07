@@ -2,7 +2,7 @@
 #import "ElementTransitionOptions.h"
 #import "DisplayLinkAnimation.h"
 
-@interface ElementTransitionCreator : NSObject
+@interface ElementTransition : NSObject
 
 - (instancetype)initWithTransitionOptions:(ElementTransitionOptions *)transitionOptions;
 
