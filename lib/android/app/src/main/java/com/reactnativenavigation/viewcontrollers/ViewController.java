@@ -164,6 +164,10 @@ public abstract class ViewController<T extends ViewGroup> implements ViewTreeObs
         return parentController;
     }
 
+    public ParentController requireParentController() {
+        return parentController;
+    }
+
     public void setParentController(@NonNull final ParentController parentController) {
         this.parentController = parentController;
     }
