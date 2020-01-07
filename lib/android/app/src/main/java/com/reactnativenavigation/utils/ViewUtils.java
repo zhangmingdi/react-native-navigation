@@ -105,7 +105,7 @@ public class ViewUtils {
         biologicalParent.removeView(child);
         lp.topMargin = loc.y;
         lp.leftMargin = loc.x;
-        toScreen.getParentController().getView().addView(child, lp);
+        toScreen.requireParentController().getView().addView(child, lp);
     }
 
     public static <T extends ViewGroup> T findParent(View view, Class<T> clazz) {
