@@ -1,6 +1,7 @@
 package com.reactnativenavigation.views.element;
 
 import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.view.View;
 
@@ -43,6 +44,22 @@ public class TransitionAnimatorCreator {
             if (creator.shouldAnimateProperty()) animators.add(creator.create(transition, animation));
         }
         AnimatorSet set = new AnimatorSet();
+        set.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                from.setAlpha(0);
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                from.setAlpha(1);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+                from.setAlpha(1);
+            }
+        });
         if (!animators.isEmpty()) {
             set.playTogether(animators);
         }
