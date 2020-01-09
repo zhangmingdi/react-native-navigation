@@ -1,4 +1,8 @@
-# Manual Installation
+---
+id: iosManual
+title: Manual installation
+sidebar_label: Manual installation
+---
 
 ## 1. Add react-native-navigation library
 In Xcode, in Project Navigator (left pane), right-click on the `Libraries` > `Add files to [project name]`. Add `node_modules/react-native-navigation/lib/ios/ReactNativeNavigation.xcodeproj` ([screenshots](https://facebook.github.io/react-native/docs/linking-libraries-ios.html#manual-linking)).

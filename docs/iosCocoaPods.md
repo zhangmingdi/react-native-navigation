@@ -1,4 +1,8 @@
-# Installation with CocoaPods
+---
+id: iosCocoaPods
+title: Installation with CocoaPods
+sidebar_label: Installation with CocoaPods
+---
 
 Projects generated using newer versions of react-native use CocoaPods by default. In that case it's easier to install react-native-navigation using CocoaPods.
 

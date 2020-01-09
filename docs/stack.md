@@ -1,6 +1,9 @@
-<!-- panels:start -->
-<!-- div:left-panel -->
-# Stack
+---
+id: stack
+title: Stack
+sidebar_label: Stack
+---
+
 A stack is a container layout promoting a hierarchical navigation. It is used for navigating between screens at consecutive levels of hierarchy, steps in a flow or across an app.
 
 The first child in the stack (represented by the `children` array) is the root and is displayed at the bottom of the stack. The last child in the children array is the child currently being displayed.

@@ -1,4 +1,8 @@
-# Manual Installation
+---
+id: installingAndroid
+title: Manual Installation
+sidebar_label: Manual Installation
+---
 
 ## 1. Update settings.gradle
 Add the following to `android/settings.gradle`:

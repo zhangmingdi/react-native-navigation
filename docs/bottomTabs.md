@@ -1,6 +1,9 @@
-<!-- panels:start -->
-<!-- div:left-panel -->
-# BottomTabs
+---
+id: bottomTabs
+title: Bottom Tabs
+sidebar_label: Bottom Tabs
+---
+
 https://developer.apple.com/documentation/uikit/uitabbarcontroller
 https://material.io/develop/android/components/bottom-navigation-view/
 

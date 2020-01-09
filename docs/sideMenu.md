@@ -1,4 +1,9 @@
-# SideMenu
+---
+id: sideMenu
+title: Side Menu
+sidebar_label: Side Menu
+---
+
 https://material.io/components/navigation-drawer/
 
 ## Adding a menu icon

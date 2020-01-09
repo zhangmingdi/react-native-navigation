@@ -1,8 +1,37 @@
 {
   "docs": {
-    "Docs": ["installing"]
+    "Installation": [
+      {
+        "type": "subcategory",
+        "label": "iOS",
+        "ids": [
+          "iosManual",
+          "iosCocoaPods"
+        ]
+      },
+      {
+        "type": "subcategory",
+        "label": "Android",
+        "ids": [
+          "installingAndroid"
+        ]
+      }
+    ],
+    "Guides": [
+      {
+        "type": "subcategory",
+        "label": "Layouts",
+        "ids": [
+          "stack",
+          "bottomTabs",
+          "sideMenu"
+        ]
+      }
+    ]
   },
   "api": {
-    "API": ["styling"]
+    "API": [
+      "styling"
+    ]
   }
 }
