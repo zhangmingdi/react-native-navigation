@@ -1,4 +1,8 @@
-# Installing
+---
+id: installing
+title: Installation
+sidebar_label: Installation
+---
 
 ## Requirements
 * node >= 8
