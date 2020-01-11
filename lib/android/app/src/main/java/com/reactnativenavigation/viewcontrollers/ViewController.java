@@ -17,13 +17,12 @@ import com.reactnativenavigation.utils.StringUtils;
 import com.reactnativenavigation.utils.UiThread;
 import com.reactnativenavigation.utils.UiUtils;
 import com.reactnativenavigation.viewcontrollers.stack.StackController;
+import com.reactnativenavigation.viewcontrollers.viewcontrolleroverlay.ViewControllerOverlay;
 import com.reactnativenavigation.views.BehaviourAdapter;
 import com.reactnativenavigation.views.Component;
 import com.reactnativenavigation.views.Renderable;
-import com.reactnativenavigation.views.element.Element;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import androidx.annotation.CallSuper;
@@ -69,17 +68,19 @@ public abstract class ViewController<T extends ViewGroup> implements ViewTreeObs
     private boolean isDestroyed;
     private ViewVisibilityListener viewVisibilityListener = new ViewVisibilityListenerAdapter();
     protected FabPresenter fabOptionsPresenter;
+    private ViewControllerOverlay overlay;
 
     public boolean isDestroyed() {
         return isDestroyed;
     }
 
-    public ViewController(Activity activity, String id, YellowBoxDelegate yellowBoxDelegate, Options initialOptions) {
+    public ViewController(Activity activity, String id, YellowBoxDelegate yellowBoxDelegate, Options initialOptions, ViewControllerOverlay overlay) {
         this.activity = activity;
         this.id = id;
         this.yellowBoxDelegate = yellowBoxDelegate;
         fabOptionsPresenter = new FabPresenter();
         this.initialOptions = initialOptions;
+        this.overlay = overlay;
         options = initialOptions.copy();
     }
 
@@ -116,6 +117,14 @@ public abstract class ViewController<T extends ViewGroup> implements ViewTreeObs
 
     public boolean handleBack(CommandListener listener) {
         return false;
+    }
+
+    public void addOverlay(View v) {
+        perform(view, view -> overlay.add(view, v));
+    }
+
+    public void removeOverlay(View view) {
+        overlay.remove(view);
     }
 
     @CheckResult
@@ -331,10 +340,6 @@ public abstract class ViewController<T extends ViewGroup> implements ViewTreeObs
 
     void applyOnController(ViewController controller, Func1<ViewController> task) {
         if (controller != null) task.run(controller);
-    }
-
-    public List<Element> getElements() {
-        return getView() instanceof IReactView && view != null? ((IReactView) view).getElements() : Collections.EMPTY_LIST;
     }
 
     @Override
