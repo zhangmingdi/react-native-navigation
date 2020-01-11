@@ -107,9 +107,19 @@
         "title": "Side Menu",
         "sidebar_label": "Side Menu"
       },
-      "stack": {
-        "title": "Stack",
-        "sidebar_label": "Stack"
+      "stack-api": {
+        "title": "Stack API",
+        "sidebar_label": "API"
+      },
+      "stack-buttons": {
+        "title": "stack-buttons"
+      },
+      "stack-examples": {
+        "title": "stack-examples"
+      },
+      "stack-options": {
+        "title": "Options",
+        "sidebar_label": "Options"
       },
       "Store": {
         "title": "Store"
@@ -147,7 +157,7 @@
     },
     "categories": {
       "Installation": "Installation",
-      "Guides": "Guides",
+      "Layouts": "Layouts",
       "API": "API"
     }
   },

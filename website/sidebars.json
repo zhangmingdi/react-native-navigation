@@ -17,14 +17,13 @@
         ]
       }
     ],
-    "Guides": [
+    "Layouts": [
       {
         "type": "subcategory",
-        "label": "Layouts",
+        "label": "Stack",
         "ids": [
-          "stack",
-          "bottomTabs",
-          "sideMenu"
+          "stack-api",
+          "stack-options"
         ]
       }
     ]
