@@ -39,7 +39,7 @@ public class TransitionAnimatorCreator {
 
     protected AnimatorSet create(ViewController toScreen, AnimationOptions animation, SharedElementTransition transition, View from, View to) {
         Collection<Animator> animators = new ArrayList<>();
-        ViewUtils.reparent(to, toScreen);
+        ViewUtils.reparent(to, child -> toScreen.requireParentController().addOverlay(child));
         for (PropertyAnimatorCreator creator : getAnimators(from, to)) {
             if (creator.shouldAnimateProperty()) animators.add(creator.create(transition, animation));
         }
@@ -52,6 +52,8 @@ public class TransitionAnimatorCreator {
 
             @Override
             public void onAnimationEnd(Animator animation) {
+                toScreen.removeOverlay(to);
+                ViewUtils.returnToOriginalParent(to);
                 from.setAlpha(1);
             }
 
