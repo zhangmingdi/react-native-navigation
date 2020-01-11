@@ -8,7 +8,7 @@ import android.view.ViewParent;
 
 import com.facebook.react.views.view.ReactViewBackgroundDrawable;
 import com.reactnativenavigation.R;
-import com.reactnativenavigation.viewcontrollers.ViewController;
+import com.reactnativenavigation.utils.Functions.Func1;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,17 +95,36 @@ public class ViewUtils {
         return view.getLayoutParams().height < 0 ? view.getHeight() : view.getLayoutParams().height;
     }
 
-    public static void reparent(View child, ViewController toScreen) {
-        Point loc = getLocationOnScreen(child);
+    public static void reparent(View child, Func1<View> reparenter) {
         ViewGroup biologicalParent = (ViewGroup) child.getParent();
         child.setTag(R.id.original_parent, biologicalParent);
         child.setTag(R.id.original_layout_params, child.getLayoutParams());
+        child.setTag(R.id.original_index_in_parent, biologicalParent.indexOfChild(child));
+        child.setTag(R.id.original_top, child.getTop());
+        child.setTag(R.id.original_bottom, child.getBottom());
+        child.setTag(R.id.original_right, child.getRight());
+        child.setTag(R.id.original_left, child.getLeft());
 
-        CoordinatorLayout.LayoutParams lp = new CoordinatorLayout.LayoutParams(child.getLayoutParams());
+        Point loc = getLocationOnScreen(child);
         biologicalParent.removeView(child);
+        CoordinatorLayout.LayoutParams lp = new CoordinatorLayout.LayoutParams(child.getLayoutParams());
         lp.topMargin = loc.y;
         lp.leftMargin = loc.x;
-        toScreen.requireParentController().getView().addView(child, lp);
+        child.setLayoutParams(lp);
+        reparenter.run(child);
+    }
+
+    public static void returnToOriginalParent(View view) {
+        ViewGroup parent = ViewTags.get(view, R.id.original_parent);
+        ViewGroup.LayoutParams lp = ViewTags.get(view, R.id.original_layout_params);
+        Integer indexInParent = ViewTags.get(view, R.id.original_index_in_parent);
+
+        removeFromParent(view);
+        view.setTop(ViewTags.get(view, R.id.original_top));
+        view.setBottom(ViewTags.get(view, R.id.original_bottom));
+        view.setRight(ViewTags.get(view, R.id.original_right));
+        view.setLeft(ViewTags.get(view, R.id.original_left));
+        parent.addView(view, indexInParent, lp);
     }
 
     public static <T extends ViewGroup> T findParent(View view, Class<T> clazz) {
