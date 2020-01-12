@@ -5,11 +5,11 @@
     CGFloat _targetAlpha;
 }
 
-- (instancetype)initWithView:(UIView *)view transitionOptions:(TransitionOptions *)transitionOptions {
-    self = [super initWithView:view transitionOptions:transitionOptions];
+- (instancetype)initWithView:(UIView *)view transitionDetails:(TransitionDetailsOptions *)transitionDetails  {
+    self = [super initWithView:view transitionDetails:transitionDetails];
     
-    self.view.alpha = _startAlpha = [transitionOptions.from getWithDefaultValue:view.alpha];
-    _targetAlpha = [transitionOptions.to getWithDefaultValue:1];
+    self.view.alpha = _startAlpha = [transitionDetails.from getWithDefaultValue:view.alpha];
+    _targetAlpha = [transitionDetails.to getWithDefaultValue:1];
 
 	return self;
 }

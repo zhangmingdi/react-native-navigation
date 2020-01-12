@@ -1,19 +1,17 @@
 #import "SharedElementTransitionOptions.h"
 #import "RNNUtils.h"
+#import "TimeIntervalParser.h"
 
 @implementation SharedElementTransitionOptions
 
 - (instancetype)initWithDict:(NSDictionary *)transition {
-	self = [super init];
+	self = [super initWithDict:transition];
 	
-	self.duration = [TimeIntervalParser parse:transition key:@"duration"];
-    self.startDelay = [TimeIntervalParser parse:transition key:@"startDelay"];
-	self.startAlpha = [RNNUtils getDoubleOrKey:transition withKey:@"startAlpha" withDefault:1];
-	self.endAlpha = [RNNUtils getDoubleOrKey:transition withKey:@"endAlpha" withDefault:1];
 	self.fromId = [transition objectForKey:@"fromId"];
 	self.toId = [transition objectForKey:@"toId"];
+    self.startDelay = [TimeIntervalParser parse:transition key:@"startDelay"];
+    self.duration = [TimeIntervalParser parse:transition key:@"duration"];
 //	self.interpolation = [self animationOptionsFromString:transition[@"interpolation"]];
-	
 	
 	return self;
 }

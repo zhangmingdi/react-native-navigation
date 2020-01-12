@@ -1,13 +1,11 @@
 #import <Foundation/Foundation.h>
-#import "RNNOptions.h"
+#import "TransitionOptions.h"
 
-@interface SharedElementTransitionOptions : RNNOptions
+@interface SharedElementTransitionOptions : TransitionOptions
 
-@property (nonatomic) double startAlpha;
-@property (nonatomic) double endAlpha;
-@property (nonatomic) TimeInterval* duration;
-@property (nonatomic) TimeInterval* startDelay;
 @property (nonatomic, strong) NSString* fromId;
 @property (nonatomic, strong) NSString* toId;
+@property (nonatomic, strong) TimeInterval* duration;
+@property (nonatomic, strong) TimeInterval* startDelay;
 
 @end
