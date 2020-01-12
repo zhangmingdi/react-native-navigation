@@ -50,8 +50,12 @@ class CocktailsList extends Component {
                   }
                 },
                 sharedElementTransitions: [
-                  {type: 'sharedElement', fromId: `${item.name}-text`, toId: 'text2', duration: 300},
-                  {type: 'sharedElement', fromId: `${item.name}-image`, toId: 'image2', duration: 300}
+                  {fromId: `${item.name}-text`, toId: 'text2', duration: 300},
+                  {fromId: `${item.name}-image`, toId: 'image2', duration: 300}
+                ],
+                elementTransitions: [
+                  {id: `${item.name}-text`, alpha: {from: 0, to: 1}},
+                  {id: `${item.name}-image`, duration: 300}
                 ]
               }
             }
