@@ -24,6 +24,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import static com.reactnativenavigation.utils.CollectionUtils.*;
+
 public class TransitionAnimatorCreator {
 
     public AnimatorSet create(ViewController toScreen, AnimationOptions animation, List<SharedElementTransition> transitions, Map<String, View> from, Map<String, View> to) {
@@ -33,6 +35,25 @@ public class TransitionAnimatorCreator {
             animators.add(create(toScreen, animation, transition, from.get(transition.fromId.get()), to.get(transition.toId.get())));
         }
         AnimatorSet set = new AnimatorSet();
+        set.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                restoreViewsToOriginalState();
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+                restoreViewsToOriginalState();
+            }
+
+            private void restoreViewsToOriginalState() {
+                forEach(transitions, transition -> {
+                    toScreen.removeOverlay(transition.getToView(to));
+                    ViewUtils.returnToOriginalParent(transition.getToView(to));
+                    transition.getFromView(from).setAlpha(1);
+                });
+            }
+        });
         set.playTogether(animators);
         return set;
     }
@@ -48,18 +69,6 @@ public class TransitionAnimatorCreator {
             @Override
             public void onAnimationStart(Animator animation) {
                 from.setAlpha(0);
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                toScreen.removeOverlay(to);
-                ViewUtils.returnToOriginalParent(to);
-                from.setAlpha(1);
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animation) {
-                from.setAlpha(1);
             }
         });
         if (!animators.isEmpty()) {
