@@ -1,5 +1,7 @@
 package com.reactnativenavigation.parse;
 
+import android.view.View;
+
 import com.reactnativenavigation.parse.params.NullNumber;
 import com.reactnativenavigation.parse.params.NullText;
 import com.reactnativenavigation.parse.params.Number;
@@ -8,6 +10,8 @@ import com.reactnativenavigation.parse.parsers.NumberParser;
 import com.reactnativenavigation.parse.parsers.TextParser;
 
 import org.json.JSONObject;
+
+import java.util.Map;
 
 import androidx.annotation.Nullable;
 
@@ -37,5 +41,13 @@ public class SharedElementTransition {
         if (!fromId.hasValue()) fromId = defaultOptions.fromId;
         if (!toId.hasValue()) toId = defaultOptions.toId;
         if (!duration.hasValue()) duration = defaultOptions.duration;
+    }
+
+    public View getToView(Map<String, View> toViews) {
+        return toViews.get(toId.get());
+    }
+
+    public View getFromView(Map<String, View> toViews) {
+        return toViews.get(toId.get());
     }
 }
