@@ -8,7 +8,7 @@
 	self = [super init];
 	_view = view;
 	_startDelay = [transitionDetails.startDelay getWithDefaultValue:0];
-	_duration = [transitionDetails.duration getWithDefaultValue:0.6];
+	_duration = [transitionDetails.duration getWithDefaultValue:1000];
 	return self;
 }
 

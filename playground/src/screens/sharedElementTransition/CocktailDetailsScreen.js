@@ -1,6 +1,6 @@
 const React = require('react');
-const { Component } = require('react');
-const { SafeAreaView, FlatList, View, Image, Text, StyleSheet } = require('react-native');
+const {Component} = require('react');
+const {SafeAreaView, FlatList, View, Image, Text, StyleSheet} = require('react-native');
 
 class CocktailDetailsScreen extends Component {
   static options(props) {
@@ -30,8 +30,10 @@ class CocktailDetailsScreen extends Component {
 
   render() {
     return (
-      <SafeAreaView style={styles.root}>
-        <View style={[styles.header, {backgroundColor: this.props.color}]}>
+      <SafeAreaView>
+        <View style={styles.header}>
+          <View nativeID={'redbox'} style={[styles.redBackground]}>
+          </View>
           <Text nativeID={'text2'} style={styles.title}>{this.props.name}</Text>
           <Image
             nativeID={'image2'}
@@ -68,5 +70,11 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 24,
     top: HEADER / 2
+  },
+  redBackground: {
+    height: '100%',
+    width: '100%',
+    position: 'absolute',
+    backgroundColor: 'red'
   }
 });

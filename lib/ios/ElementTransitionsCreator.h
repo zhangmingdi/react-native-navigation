@@ -4,7 +4,7 @@
 
 @interface ElementTransitionsCreator : NSObject
 
-- (instancetype)initWithElementTransitions:(NSArray<SharedElementTransitionOptions *>*)elementTransitions;
+- (instancetype)initWithElementTransitions:(NSArray<ElementTransitionOptions *>*)elementTransitions;
 
 - (NSArray<ElementTransition *>*)createFromVC:(UIViewController *)fromVC toVC:(UIViewController *)toVC containerView:(UIView *)containerView;
 

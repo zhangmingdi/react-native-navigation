@@ -24,6 +24,7 @@
 	
     [transitions addObjectsFromArray:[_contentTransition createWithView:toVC.view containerView:containerView]];
     [transitions addObjectsFromArray:[_sharedElementTransitionsCreator createFromVC:fromVC toVC:toVC containerView:containerView]];
+    [transitions addObjectsFromArray:[_elementTransitionsCreator createFromVC:fromVC toVC:toVC containerView:containerView]];
 	
 	return transitions;
 }
