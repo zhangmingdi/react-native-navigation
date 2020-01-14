@@ -13,13 +13,13 @@
 	self.waitForRender = [BoolParser parse:dict key:@"waitForRender"];
     self.duration = [TimeIntervalParser parse:dict key:@"duration"];
     self.sharedElementTransitions = [OptionsArrayParser parse:dict key:@"sharedElementTransitions" ofClass:SharedElementTransitionOptions.class];
-	self.elementTransitions = [OptionsArrayParser parse:dict key:@"elementTransitions" ofClass:SharedElementTransitionOptions.class];
+	self.elementTransitions = [OptionsArrayParser parse:dict key:@"elementTransitions" ofClass:ElementTransitionOptions.class];
     
 	return self;
 }
 
 - (BOOL)hasCustomAnimation {
-	return (self.topBar.hasAnimation || self.content.hasAnimation || self.bottomTabs.hasAnimation || self.sharedElementTransitions);
+	return (self.topBar.hasAnimation || self.content.hasAnimation || self.bottomTabs.hasAnimation || self.sharedElementTransitions || self.elementTransitions);
 }
 
 - (BOOL)shouldWaitForRender {
