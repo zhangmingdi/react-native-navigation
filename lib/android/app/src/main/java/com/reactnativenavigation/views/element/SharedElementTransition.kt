@@ -4,6 +4,7 @@ import android.animation.Animator
 import android.animation.AnimatorSet
 import android.view.View
 import com.reactnativenavigation.parse.SharedElementTransitionOptions
+import com.reactnativenavigation.viewcontrollers.ViewController
 import com.reactnativenavigation.views.element.animators.*
 
 class SharedElementTransition(options: SharedElementTransitionOptions) : Transition() {
@@ -11,6 +12,9 @@ class SharedElementTransition(options: SharedElementTransitionOptions) : Transit
     val toId: String = options.toId.get()
     lateinit var from: View
     lateinit var to: View
+    override lateinit var viewController: ViewController<*>
+    override val view: View
+        get() = to
 
     fun isValid(): Boolean = this::from.isInitialized
 

@@ -8,6 +8,7 @@ import android.view.ViewParent;
 import android.widget.FrameLayout;
 
 import com.facebook.react.views.view.ReactViewBackgroundDrawable;
+import com.facebook.react.views.view.ReactViewGroup;
 import com.reactnativenavigation.R;
 import com.reactnativenavigation.utils.Functions.Func1;
 
@@ -99,7 +100,7 @@ public class ViewUtils {
         ViewGroup biologicalParent = (ViewGroup) child.getParent();
         child.setTag(R.id.original_parent, biologicalParent);
         child.setTag(R.id.original_layout_params, child.getLayoutParams());
-        child.setTag(R.id.original_index_in_parent, biologicalParent.indexOfChild(child));
+//        child.setTag(R.id.original_index_in_parent, biologicalParent.indexOfChild(child));
         child.setTag(R.id.original_top, child.getTop());
         child.setTag(R.id.original_bottom, child.getBottom());
         child.setTag(R.id.original_right, child.getRight());
@@ -108,8 +109,10 @@ public class ViewUtils {
         Point loc = getLocationOnScreen(child);
         biologicalParent.removeView(child);
         FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(child.getLayoutParams());
-        lp.topMargin = loc.y;
-        lp.leftMargin = loc.x;
+        if (!(child instanceof ReactViewGroup)) {
+            lp.topMargin = loc.y;
+            lp.leftMargin = loc.x;
+        }
         lp.width = child.getWidth();
         lp.height = child.getHeight();
         child.setLayoutParams(lp);
@@ -119,14 +122,13 @@ public class ViewUtils {
     public static void returnToOriginalParent(View view) {
         ViewGroup parent = ViewTags.get(view, R.id.original_parent);
         ViewGroup.LayoutParams lp = ViewTags.get(view, R.id.original_layout_params);
-        Integer indexInParent = ViewTags.get(view, R.id.original_index_in_parent);
 
         removeFromParent(view);
         view.setTop(ViewTags.get(view, R.id.original_top));
         view.setBottom(ViewTags.get(view, R.id.original_bottom));
         view.setRight(ViewTags.get(view, R.id.original_right));
         view.setLeft(ViewTags.get(view, R.id.original_left));
-        parent.addView(view, indexInParent, lp);
+        parent.addView(view, lp);
     }
 
     public static <T extends ViewGroup> T findParent(View view, Class<T> clazz) {
@@ -154,6 +156,12 @@ public class ViewUtils {
             if (!view.getClass().isAssignableFrom(clazz)) return false;
         }
         return true;
+    }
+
+    public static int getIndexInParent(View view) {
+        ViewParent parent = view.getParent();
+        if (parent == null) return -1;
+        return ((ViewGroup) parent).indexOfChild(view);
     }
 
     public static int getBackgroundColor(View view) {
