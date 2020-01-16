@@ -32,7 +32,7 @@ public class NavigationAnimator extends BaseAnimator {
     public void push(ViewController appearing, ViewController disappearing, Options options, Runnable onAnimationEnd) {
         appearing.getView().setAlpha(0);
         transitionManager.createTransitions(
-                options.animations.push.sharedElements,
+                options.animations.push,
                 disappearing,
                 appearing,
                 transitionSet -> {

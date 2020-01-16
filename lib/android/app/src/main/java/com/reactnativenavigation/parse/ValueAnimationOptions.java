@@ -14,15 +14,19 @@ import com.reactnativenavigation.parse.params.Number;
 import com.reactnativenavigation.parse.parsers.FloatParser;
 import com.reactnativenavigation.parse.parsers.InterpolationParser;
 import com.reactnativenavigation.parse.parsers.NumberParser;
+import com.reactnativenavigation.utils.Functions;
 
 import org.json.JSONObject;
 
+import androidx.core.util.Pair;
+
 public class ValueAnimationOptions {
 
-    public static ValueAnimationOptions parse(JSONObject json, Property<View, Float> property) {
+    public static ValueAnimationOptions parse(JSONObject json, Pair<Property<View, Float>, Functions.FuncR1<View, Float>> property) {
         ValueAnimationOptions options = new ValueAnimationOptions();
 
-        options.animProp = property;
+        options.animProp = property.first;
+        options.animationValueAccessor = property.second;
         options.from = FloatParser.parse(json, "from");
         options.to = FloatParser.parse(json, "to");
         options.duration = NumberParser.parse(json, "duration");
@@ -33,6 +37,7 @@ public class ValueAnimationOptions {
     }
 
     private Property<View, Float> animProp;
+    private Functions.FuncR1<View, Float> animationValueAccessor;
 
     private FloatParam from = new NullFloatParam();
     private FloatParam fromDelta = new FloatParam(0f);
@@ -51,11 +56,13 @@ public class ValueAnimationOptions {
     }
 
     Animator getAnimation(View view) {
-        if (!from.hasValue() || !to.hasValue()) throw new IllegalArgumentException("Params 'from' and 'to' are mandatory");
+        if (!from.hasValue() && !to.hasValue()) throw new IllegalArgumentException("Params 'from' and 'to' are mandatory");
+        float from = this.from.get(animationValueAccessor.run(view)) + fromDelta.get();
+        float to = this.to.get(animationValueAccessor.run(view)) + toDelta.get();
         ObjectAnimator animator = ObjectAnimator.ofFloat(view,
                 animProp,
-                from.get() + fromDelta.get(),
-                to.get() + toDelta.get()
+                from,
+                to
         );
         animator.setInterpolator(interpolation.getInterpolator());
         if (duration.hasValue()) animator.setDuration(duration.get());

@@ -16,7 +16,7 @@ class CocktailDetailsScreen extends Component {
     return (
       <SafeAreaView>
         <View style={styles.root}>
-          <View style={[styles.header, { backgroundColor: this.props.color }]}>
+          <View nativeID={'header'} style={[styles.header, { backgroundColor: this.props.color }]}>
             <Text style={styles.title} nativeID={`title${this.props.id}Dest`}>{this.props.name}</Text>
           </View>
           <Image
