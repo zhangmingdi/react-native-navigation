@@ -34,6 +34,7 @@ public class ElementTransitionManager {
 
         for (SharedElementTransitionOptions transitionOptions : sharedElements.get()) {
             SharedElementTransition transition = new SharedElementTransition(transitionOptions);
+            transition.viewController = toScreen;
             perform(findView(fromScreen.getView(), transition.getFromId()), transition::setFrom);
             findView(toScreen.getView(), new ReactFindViewUtil.OnViewFoundListener() {
                 @Override
@@ -54,7 +55,12 @@ public class ElementTransitionManager {
 
         for (ElementTransitionOptions transitionOptions : elementTransitions.getTransitions()) {
             ElementTransition transition = new ElementTransition(transitionOptions);
-            perform(findView(fromScreen.getView(), transition.getId()), transition::setFromView);
+            perform(findView(fromScreen.getView(), transition.getId()), view -> {
+                transition.setView(view);
+                transition.setViewController(fromScreen);
+                transitionSet.add(transition);
+            });
+            if (transition.isValid()) continue;
             findView(toScreen.getView(), new ReactFindViewUtil.OnViewFoundListener() {
                 @Override
                 public String getNativeId() {
@@ -63,8 +69,9 @@ public class ElementTransitionManager {
 
                 @Override
                 public void onViewFound(View view) {
-                    transition.setFromView(view);
-                    if (transition.isValid()) transitionSet.add(transition);
+                    transition.setView(view);
+                    transition.setViewController(toScreen);
+                    transitionSet.add(transition);
                     if (transitionSet.size() == (sharedElements.get().size() + elementTransitions.getTransitions().size())) {
                         onAnimatorsCreated.run(transitionSet);
                     }
