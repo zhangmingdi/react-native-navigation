@@ -47,16 +47,16 @@ class CocktailsList extends Component {
                   sharedElementTransitions: [
                     {
                       fromId: `image${item.id}`,
-                      toId: `image${item.id}Dest`,
+                      toId: `image${item.id}Dest`
                     },
                     {
                       fromId: `title${item.id}`,
-                      toId: `title${item.id}Dest`,
+                      toId: `title${item.id}Dest`
                     }
                   ],
-                  // elementTransitions: [
-                  //   {
-                  //     id: 'ImageId',
+                  elementTransitions: [
+                    {
+                      id: 'header',
                   //     alpha: {
                   //       fromValue: 0,
                   //       // to: 1, //
@@ -64,18 +64,18 @@ class CocktailsList extends Component {
                   //       startDelay: 50,  // optional. Default value - 0
                   //       interpolation: 'linear' | 'accelerateDecelerate' | 'decelerate' | 'accelerate' | 'decelerateAccelerate'
                   //     },
-                  //     translationY: {
-                  //       fromValue: -ALACHSON_HEIGHT,
-                  //       duration: 300,
-                  //       interpolation: 'linear',
-                  //     },
+                      translationY: {
+                        from: -150,
+                        duration: 300,
+                        interpolation: 'linear',
+                      },
                   //     y: {
                   //       fromValue: -ALACHSON_HEIGHT,
                   //       duration: 300,
                   //       interpolation: 'linear',
                   //     }
-                  //   }
-                  // ]
+                    }
+                  ]
                 }
               }
             }

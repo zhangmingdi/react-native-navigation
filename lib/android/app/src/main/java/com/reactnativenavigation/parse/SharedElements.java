@@ -10,9 +10,9 @@ import java.util.List;
 import androidx.annotation.RestrictTo;
 
 public class SharedElements {
-    private List<SharedElementTransition> transitions = new ArrayList<>();
+    private List<SharedElementTransitionOptions> transitions = new ArrayList<>();
 
-    public List<SharedElementTransition> get() {
+    public List<SharedElementTransitionOptions> get() {
         return transitions;
     }
 
@@ -21,7 +21,7 @@ public class SharedElements {
     }
 
     @RestrictTo(RestrictTo.Scope.TESTS)
-    public SharedElements(List<SharedElementTransition> transitions) {
+    public SharedElements(List<SharedElementTransitionOptions> transitions) {
         this.transitions = transitions;
     }
 
@@ -31,16 +31,12 @@ public class SharedElements {
             JSONArray sharedElements = json.getJSONArray("sharedElementTransitions");
             if (sharedElements == null || sharedElements.length() == 0) return result;
             for (int i = 0; i < sharedElements.length(); i++) {
-                result.add(SharedElementTransition.parse(sharedElements.getJSONObject(i)));
+                result.add(SharedElementTransitionOptions.parse(sharedElements.getJSONObject(i)));
             }
             return result;
         } catch (JSONException e) {
             return result;
         }
-    }
-
-    private void add(SharedElementTransition transition) {
-        transitions.add(transition);
     }
 
     public boolean hasValue() {
@@ -53,5 +49,9 @@ public class SharedElements {
 
     void mergeWithDefault(SharedElements defaultOptions) {
         if (!hasValue()) transitions = defaultOptions.transitions;
+    }
+
+    private void add(SharedElementTransitionOptions transition) {
+        transitions.add(transition);
     }
 }

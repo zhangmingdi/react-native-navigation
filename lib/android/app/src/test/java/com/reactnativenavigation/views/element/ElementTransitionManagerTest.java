@@ -4,10 +4,10 @@ import android.animation.Animator;
 import android.app.Activity;
 
 import com.reactnativenavigation.BaseTest;
-import com.reactnativenavigation.parse.SharedElementTransition;
+import com.reactnativenavigation.parse.SharedElementTransitionOptions;
 import com.reactnativenavigation.parse.SharedElements;
 import com.reactnativenavigation.parse.params.Text;
-import com.reactnativenavigation.views.element.animators.PropertyAnimatorCreator;
+import com.reactnativenavigation.views.element.animators.shared.SharedPropertyAnimatorCreator;
 
 import org.junit.Test;
 
@@ -27,8 +27,8 @@ import static org.mockito.Mockito.verify;
 
 public class ElementTransitionManagerTest extends BaseTest {
     private ElementTransitionManager uut;
-    private SharedElementTransition validTransition;
-    private SharedElementTransition invalidTransition;
+    private SharedElementTransitionOptions validTransition;
+    private SharedElementTransitionOptions invalidTransition;
     private Element from1;
     private Element to1;
     private TransitionValidator validator;
@@ -39,7 +39,7 @@ public class ElementTransitionManagerTest extends BaseTest {
         validator = spy(new TransitionValidator());
         animatorCreator = spy(new TransitionAnimatorCreator() {
             @Override
-            protected List<PropertyAnimatorCreator> getAnimators(Element from, Element to) {
+            protected List<SharedPropertyAnimatorCreator> getAnimators(Element from, Element to) {
                 return Collections.EMPTY_LIST;
             }
         });
@@ -73,7 +73,7 @@ public class ElementTransitionManagerTest extends BaseTest {
 
     @Test
     public void createElementTransitions_returnsIfNoMatchingElements() {
-        SharedElementTransition invalidTransition = new SharedElementTransition();
+        SharedElementTransitionOptions invalidTransition = new SharedElementTransitionOptions();
         invalidTransition.fromId = new Text("from1Id");
         invalidTransition.toId = new Text("nonExistentElement");
         SharedElements transitions = new SharedElements(Collections.singletonList(invalidTransition));

@@ -3,37 +3,36 @@ package com.reactnativenavigation.views.element;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
-import android.view.View;
 
 import com.reactnativenavigation.parse.AnimationOptions;
-import com.reactnativenavigation.parse.SharedElementTransition;
 import com.reactnativenavigation.utils.ViewUtils;
 import com.reactnativenavigation.viewcontrollers.ViewController;
-import com.reactnativenavigation.views.element.animators.BackgroundColorAnimator;
-import com.reactnativenavigation.views.element.animators.MatrixAnimator;
-import com.reactnativenavigation.views.element.animators.PropertyAnimatorCreator;
-import com.reactnativenavigation.views.element.animators.ScaleXAnimator;
-import com.reactnativenavigation.views.element.animators.ScaleYAnimator;
-import com.reactnativenavigation.views.element.animators.TextChangeAnimator;
-import com.reactnativenavigation.views.element.animators.XAnimator;
-import com.reactnativenavigation.views.element.animators.YAnimator;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 import static com.reactnativenavigation.utils.CollectionUtils.*;
 
 public class TransitionAnimatorCreator {
 
-    public AnimatorSet create(ViewController toScreen, AnimationOptions animation, List<SharedElementTransition> transitions, Map<String, View> from, Map<String, View> to) {
-        if (transitions.isEmpty()) return new AnimatorSet();
-        List<Animator> animators = new ArrayList<>();
-        for (SharedElementTransition transition : transitions) {
-            animators.add(create(toScreen, animation, transition, from.get(transition.fromId.get()), to.get(transition.toId.get())));
+    public AnimatorSet create(ViewController toScreen, AnimationOptions fadeAnimation, TransitionSet transitions) {
+//        if (transitions.isEmpty()) return new AnimatorSet();
+        Collection<Animator> animators = new ArrayList<>();
+        animators.addAll(createSharedElementTransitionAnimators(toScreen, transitions.validSharedElementTransitions));
+        animators.addAll(createElementTransitionAnimators(transitions.validElementTransitions));
+        for (Animator set : animators) {
+            for(Animator animator : ((AnimatorSet) set).getChildAnimations()) {
+                animator.setDuration(fadeAnimation.getDuration());
+            }
         }
+
+//        for (ElementTransitionOptions transition : transitions.validElementTransitions) {
+//            View fromView = from.get(transition.getId());
+//            View toView = to.get(transition.getId());
+//            ViewController screen = fromView == null ? toScreen : fromScreen;
+//            animators.add(create(fadeAnimation, transition, screen, ObjectUtils.take(fromView, toView)));
+//        }
         AnimatorSet set = new AnimatorSet();
         set.addListener(new AnimatorListenerAdapter() {
             @Override
@@ -47,10 +46,15 @@ public class TransitionAnimatorCreator {
             }
 
             private void restoreViewsToOriginalState() {
-                forEach(transitions, transition -> {
-                    toScreen.removeOverlay(transition.getToView(to));
-                    ViewUtils.returnToOriginalParent(transition.getToView(to));
-                    transition.getFromView(from).setAlpha(1);
+                forEach(transitions.validSharedElementTransitions, transition -> {
+                    toScreen.removeOverlay(transition.to);
+                    ViewUtils.returnToOriginalParent(transition.to);
+                    transition.from.setAlpha(1);
+                });
+                forEach(transitions.validElementTransitions, transition -> {
+//                    toScreen.removeOverlay(transition.getView());
+//                    ViewUtils.returnToOriginalParent(transition.getView());
+//                    transition.getFromView(from).setAlpha(1);
                 });
             }
         });
@@ -58,34 +62,34 @@ public class TransitionAnimatorCreator {
         return set;
     }
 
-    protected AnimatorSet create(ViewController toScreen, AnimationOptions animation, SharedElementTransition transition, View from, View to) {
-        Collection<Animator> animators = new ArrayList<>();
-        ViewUtils.reparent(to, child -> toScreen.requireParentController().addOverlay(child));
-        for (PropertyAnimatorCreator creator : getAnimators(from, to)) {
-            if (creator.shouldAnimateProperty()) animators.add(creator.create(transition, animation));
+
+    private List<AnimatorSet> createSharedElementTransitionAnimators(ViewController toScreen, List<SharedElementTransition> transitions) {
+        List<AnimatorSet> animators = new ArrayList<>();
+        for (SharedElementTransition transition : transitions) {
+            animators.add(createSharedElementAnimator(toScreen, transition));
         }
+        return animators;
+    }
+
+    private AnimatorSet createSharedElementAnimator(ViewController toScreen, SharedElementTransition transition) {
+        ViewUtils.reparent(transition.to, child -> toScreen.requireParentController().addOverlay(child));
         AnimatorSet set = new AnimatorSet();
+        set.playTogether(transition.createAnimators());
         set.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationStart(Animator animation) {
-                from.setAlpha(0);
+                transition.from.setAlpha(0);
             }
         });
-        if (!animators.isEmpty()) {
-            set.playTogether(animators);
-        }
         return set;
     }
 
-    private List<PropertyAnimatorCreator> getAnimators(View from, View to) {
-        return Arrays.asList(
-                new XAnimator(from, to),
-                new YAnimator(from, to),
-                new MatrixAnimator(from, to),
-                new ScaleXAnimator(from, to),
-                new ScaleYAnimator(from, to),
-                new BackgroundColorAnimator(from, to),
-                new TextChangeAnimator(from, to)
-        );
+    private List<AnimatorSet> createElementTransitionAnimators(List<ElementTransition> transitions) {
+//        ViewUtils.reparent(view, screen::addOverlay);
+        List<AnimatorSet> animators = new ArrayList<>();
+        for (ElementTransition transition : transitions) {
+            animators.add(transition.createAnimators());
+        }
+        return animators;
     }
 }

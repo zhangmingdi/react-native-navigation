@@ -15,13 +15,13 @@ import java.util.Map;
 
 import androidx.annotation.Nullable;
 
-public class SharedElementTransition {
+public class SharedElementTransitionOptions {
     public Text fromId = new NullText();
     public Text toId = new NullText();
     public Number duration = new NullNumber();
 
-    public static SharedElementTransition parse(@Nullable JSONObject json) {
-        SharedElementTransition transition = new SharedElementTransition();
+    public static SharedElementTransitionOptions parse(@Nullable JSONObject json) {
+        SharedElementTransitionOptions transition = new SharedElementTransitionOptions();
         if (json == null) return transition;
 
         transition.fromId = TextParser.parse(json, "fromId");
@@ -31,13 +31,13 @@ public class SharedElementTransition {
         return transition;
     }
 
-    void mergeWith(SharedElementTransition other) {
+    void mergeWith(SharedElementTransitionOptions other) {
         if (other.fromId.hasValue()) fromId = other.fromId;
         if (other.toId.hasValue()) toId = other.toId;
         if (other.duration.hasValue()) duration = other.duration;
     }
 
-    void mergeWithDefault(SharedElementTransition defaultOptions) {
+    void mergeWithDefault(SharedElementTransitionOptions defaultOptions) {
         if (!fromId.hasValue()) fromId = defaultOptions.fromId;
         if (!toId.hasValue()) toId = defaultOptions.toId;
         if (!duration.hasValue()) duration = defaultOptions.duration;
@@ -47,7 +47,7 @@ public class SharedElementTransition {
         return toViews.get(toId.get());
     }
 
-    public View getFromView(Map<String, View> toViews) {
-        return toViews.get(toId.get());
+    public View getFromView(Map<String, View> fromViews) {
+        return fromViews.get(fromId.get());
     }
 }

@@ -14,6 +14,10 @@ public class ObjectUtils {
         return obj == null ? defaultValue : action.run(obj);
     }
 
+    public static <T> T take(@Nullable T obj, T defaultValue) {
+        return obj == null ? defaultValue : obj;
+    }
+
     public static boolean notNull(Object o) {
         return o != null;
     }
