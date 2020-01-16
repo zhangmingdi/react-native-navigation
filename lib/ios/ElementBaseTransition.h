@@ -10,5 +10,7 @@
 @property (readonly, strong) UIView* view;
 @property (readonly, nonatomic) NSTimeInterval startDelay;
 @property (readonly, nonatomic) NSTimeInterval duration;
+@property (nonatomic) CGFloat from;
+@property (nonatomic) CGFloat to;
 
 @end

@@ -7,7 +7,6 @@
 	RNNScreenTransition* _screenTransition;
 	SharedElementTransitionsCreator* _sharedElementTransitionsCreator;
 	ElementTransitionsCreator* _elementTransitionsCreator;
-	ElementTransition* _contentTransition;
 }
 
 - (instancetype)initWithScreenTransition:(RNNScreenTransition *)screenTransition {
@@ -15,14 +14,13 @@
     _screenTransition = screenTransition;
 	_sharedElementTransitionsCreator = [[SharedElementTransitionsCreator alloc] initWithSharedElementTransitions:screenTransition.sharedElementTransitions];
 	_elementTransitionsCreator = [[ElementTransitionsCreator alloc] initWithElementTransitions:screenTransition.elementTransitions];
-	_contentTransition = [[ElementTransition alloc] initWithTransitionOptions:screenTransition.content];
     return self;
 }
 
 - (NSArray<id<DisplayLinkAnimation>> *)createFromVC:(UIViewController *)fromVC toVC:(UIViewController *)toVC containerView:(UIView *)containerView {
 	NSMutableArray* transitions = [NSMutableArray new];
-	
-    [transitions addObjectsFromArray:[_contentTransition createWithView:toVC.view containerView:containerView]];
+    ElementTransition* contentTransition = [[ElementTransition alloc] initWithTransitionOptions:_screenTransition.content fromVC:fromVC toVC:toVC containerView:containerView view:toVC.view];
+    [transitions addObjectsFromArray:[contentTransition create]];
     [transitions addObjectsFromArray:[_sharedElementTransitionsCreator createFromVC:fromVC toVC:toVC containerView:containerView]];
     [transitions addObjectsFromArray:[_elementTransitionsCreator createFromVC:fromVC toVC:toVC containerView:containerView]];
 	
