@@ -1,7 +1,6 @@
 package com.reactnativenavigation.viewcontrollers.modal;
 
 import android.app.Activity;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import android.widget.FrameLayout;
 
 import com.reactnativenavigation.BaseTest;
@@ -21,6 +20,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Test;
 import org.mockito.Mockito;
+
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -97,7 +98,7 @@ public class ModalPresenterTest extends BaseTest {
     public void showModal_resolvesDefaultOptions() throws JSONException {
         Options defaultOptions = new Options();
         JSONObject disabledShowModalAnimation = new JSONObject().put("enabled", false);
-        defaultOptions.animations.showModal = AnimationOptions.parse(disabledShowModalAnimation);
+        defaultOptions.animations.showModal = new AnimationOptions(disabledShowModalAnimation);
 
         uut.setDefaultOptions(defaultOptions);
         uut.showModal(modal1, root, new CommandListenerAdapter());
