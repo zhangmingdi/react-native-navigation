@@ -7,7 +7,7 @@
 + (UIView *)findElementForId:(NSString *)elementId inView:(RCTRootView *)view {
     UIView* subView = [view.bridge.uiManager viewForNativeID:elementId withRootTag:view.reactTag];
     if (!subView) {
-        [[NSException exceptionWithName:NSInvalidArgumentException reason:[NSString stringWithFormat:@"elementId %@ does not exist", elementId] userInfo:nil] raise];
+        RCTLogWarn(@"elementId %@ does not exist", elementId);
     }
     
     return subView;

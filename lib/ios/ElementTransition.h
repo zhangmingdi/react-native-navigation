@@ -4,8 +4,10 @@
 
 @interface ElementTransition : NSObject
 
-- (instancetype)initWithTransitionOptions:(ElementTransitionOptions *)transitionOptions;
+- (instancetype)initWithTransitionOptions:(ElementTransitionOptions *)transitionOptions fromVC:(UIViewController *)fromVC toVC:(UIViewController *)toVC containerView:(UIView *)containerView;
 
-- (NSArray<id<DisplayLinkAnimation>>*)createWithView:(UIView *)view containerView:(UIView *)containerView;
+- (instancetype)initWithTransitionOptions:(ElementTransitionOptions *)transitionOptions fromVC:(UIViewController *)fromVC toVC:(UIViewController *)toVC containerView:(UIView *)containerView view:(UIView *)view;
+
+- (NSArray<id<DisplayLinkAnimation>>*)create;
 
 @end

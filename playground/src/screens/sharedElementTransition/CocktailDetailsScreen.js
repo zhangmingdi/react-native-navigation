@@ -8,20 +8,23 @@ class CocktailDetailsScreen extends Component {
       animations: {
         pop: {
           content: {
-            // alpha: {
-            //   from: 0,
-            //   to: 1,
-            //   duration: 1000
-            // },
-            x: {
-              from: 450,
-              to: 0,
+            alpha: {
+              from: 0,
+              to: 1,
               duration: 1000
-            }
+            },
+            // x: {
+            //   from: 450,
+            //   to: 0,
+            //   duration: 1000
+            // }
           },
           sharedElementTransitions: [
             {fromId: 'text2', toId: `${props.name}-text`, duration: 1000},
             {fromId: 'image2', toId: `${props.name}-image`, duration: 1000, startDelay: 500}
+          ],
+          elementTransitions: [
+            {id: `redbox`, y: {from: -150, to: 0, duration: 300}}
           ]
         }
       }

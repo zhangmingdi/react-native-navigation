@@ -1,21 +1,9 @@
 #import "HorizontalTranslationTransition.h"
 
-@implementation HorizontalTranslationTransition {
-    CGFloat _fromX;
-    CGFloat _toX;
-}
-
-- (instancetype)initWithView:(UIView *)view transitionDetails:(TransitionDetailsOptions *)transitionDetails {
-    self = [super initWithView:view transitionDetails:transitionDetails];
-    
-    _fromX = [transitionDetails.from getWithDefaultValue:0];
-    _toX = [transitionDetails.to getWithDefaultValue:0];
-    
-    return self;
-}
+@implementation HorizontalTranslationTransition
 
 - (void)animateWithProgress:(CGFloat)p {
-    CGFloat x = [RNNInterpolator fromFloat:_fromX toFloat:_toX precent:p];
+    CGFloat x = [RNNInterpolator fromFloat:self.from toFloat:self.to precent:p];
     self.view.frame = CGRectMake(x, self.view.frame.origin.y, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame));
 }
 
