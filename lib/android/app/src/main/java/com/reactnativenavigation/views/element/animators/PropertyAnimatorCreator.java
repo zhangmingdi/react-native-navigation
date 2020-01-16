@@ -3,9 +3,6 @@ package com.reactnativenavigation.views.element.animators;
 import android.animation.Animator;
 import android.view.View;
 
-import com.reactnativenavigation.parse.AnimationOptions;
-import com.reactnativenavigation.parse.SharedElementTransition;
-
 import java.lang.reflect.ParameterizedType;
 import java.util.Collections;
 import java.util.List;
@@ -38,11 +35,7 @@ public abstract class PropertyAnimatorCreator<T> {
         return Collections.emptyList();
     }
 
-    public Animator create(SharedElementTransition transition, AnimationOptions animation) {
-        return create().setDuration(transition.duration.get(animation.getDuration()));
-    }
-
-    protected abstract Animator create();
+    public abstract Animator create();
 
     private Class<T> getChildClass() {
         return (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];

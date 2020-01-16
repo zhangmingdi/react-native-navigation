@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewManager;
 import android.view.ViewParent;
+import android.widget.FrameLayout;
 
 import com.facebook.react.views.view.ReactViewBackgroundDrawable;
 import com.reactnativenavigation.R;
@@ -14,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.Nullable;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import static com.reactnativenavigation.utils.ObjectUtils.perform;
 
@@ -107,9 +107,11 @@ public class ViewUtils {
 
         Point loc = getLocationOnScreen(child);
         biologicalParent.removeView(child);
-        CoordinatorLayout.LayoutParams lp = new CoordinatorLayout.LayoutParams(child.getLayoutParams());
+        FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(child.getLayoutParams());
         lp.topMargin = loc.y;
         lp.leftMargin = loc.x;
+        lp.width = child.getWidth();
+        lp.height = child.getHeight();
         child.setLayoutParams(lp);
         reparenter.run(child);
     }

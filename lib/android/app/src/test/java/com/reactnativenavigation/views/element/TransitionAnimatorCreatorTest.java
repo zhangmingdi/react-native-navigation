@@ -3,8 +3,8 @@ package com.reactnativenavigation.views.element;
 import android.app.Activity;
 
 import com.reactnativenavigation.BaseTest;
-import com.reactnativenavigation.parse.SharedElementTransition;
-import com.reactnativenavigation.views.element.animators.PropertyAnimatorCreator;
+import com.reactnativenavigation.parse.SharedElementTransitionOptions;
+import com.reactnativenavigation.views.element.animators.shared.SharedPropertyAnimatorCreator;
 
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -18,20 +18,19 @@ import static com.reactnativenavigation.views.element.TransitionTestUtils.create
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 public class TransitionAnimatorCreatorTest extends BaseTest {
     private TransitionAnimatorCreator uut;
-    private SharedElementTransition t1;
-    private SharedElementTransition t2;
+    private SharedElementTransitionOptions t1;
+    private SharedElementTransitionOptions t2;
     private Element e1;
     private Element e2;
     private Element e3;
     private Element e4;
-    private PropertyAnimatorCreator animator1 = Mockito.mock(PropertyAnimatorCreator.class);
-    private PropertyAnimatorCreator animator2 = Mockito.mock(PropertyAnimatorCreator.class);
-    private PropertyAnimatorCreator animator3 = Mockito.mock(PropertyAnimatorCreator.class);
+    private SharedPropertyAnimatorCreator animator1 = Mockito.mock(SharedPropertyAnimatorCreator.class);
+    private SharedPropertyAnimatorCreator animator2 = Mockito.mock(SharedPropertyAnimatorCreator.class);
+    private SharedPropertyAnimatorCreator animator3 = Mockito.mock(SharedPropertyAnimatorCreator.class);
 
     @Override
     public void beforeEach() {
@@ -40,7 +39,7 @@ public class TransitionAnimatorCreatorTest extends BaseTest {
         when(animator3.shouldAnimateProperty()).thenReturn(false);
         uut = new TransitionAnimatorCreator() {
             @Override
-            protected List<PropertyAnimatorCreator> getAnimators(Element from, Element to) {
+            protected List<SharedPropertyAnimatorCreator> getAnimators(Element from, Element to) {
                 return Arrays.asList(animator1, animator2, animator3);
             }
         };
@@ -64,7 +63,7 @@ public class TransitionAnimatorCreatorTest extends BaseTest {
 
     @Test
     public void create_animatorsAreCreated() {
-        List<SharedElementTransition> transitions = Arrays.asList(t1, t2);
+        List<SharedElementTransitionOptions> transitions = Arrays.asList(t1, t2);
         uut.create(
                 transitions,
                 keyBy(Arrays.asList(e1, e3), Element::getElementId),
@@ -73,7 +72,7 @@ public class TransitionAnimatorCreatorTest extends BaseTest {
         verify(animator1, times(2)).shouldAnimateProperty();
         verify(animator2, times(2)).shouldAnimateProperty();
         verify(animator3, times(2)).shouldAnimateProperty();
-        for (SharedElementTransition transition : transitions) {
+        for (SharedElementTransitionOptions transition : transitions) {
             verify(animator1).create(transition);
             verify(animator2).create(transition);
         }

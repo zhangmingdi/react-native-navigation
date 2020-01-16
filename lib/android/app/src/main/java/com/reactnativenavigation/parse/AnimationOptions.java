@@ -12,6 +12,7 @@ import com.reactnativenavigation.parse.params.NullText;
 import com.reactnativenavigation.parse.params.Text;
 import com.reactnativenavigation.parse.parsers.BoolParser;
 import com.reactnativenavigation.parse.parsers.TextParser;
+import com.reactnativenavigation.utils.Functions;
 
 import org.json.JSONObject;
 
@@ -20,32 +21,37 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
+import androidx.core.util.Pair;
+
 import static com.reactnativenavigation.utils.CollectionUtils.*;
 
 public class AnimationOptions {
-    public static AnimationOptions parse(JSONObject json) {
-        AnimationOptions options = new AnimationOptions();
-        if (json == null) return options;
+    public AnimationOptions() {
 
+    }
+
+    public AnimationOptions(JSONObject json) {
+        if (json != null) parse(json);
+    }
+
+    private void parse(JSONObject json) {
         for (Iterator<String> it = json.keys(); it.hasNext(); ) {
             String key = it.next();
             switch (key) {
                 case "id":
-                    options.id = TextParser.parse(json, key);
+                    id = TextParser.parse(json, key);
                     break;
                 case "enable":
                 case "enabled":
-                    options.enabled = BoolParser.parse(json, key);
+                    enabled = BoolParser.parse(json, key);
                     break;
                 case "waitForRender":
-                    options.waitForRender = BoolParser.parse(json, key);
+                    waitForRender = BoolParser.parse(json, key);
                     break;
                 default:
-                    options.valueOptions.add(ValueAnimationOptions.parse(json.optJSONObject(key), getAnimProp(key)));
+                    valueOptions.add(ValueAnimationOptions.parse(json.optJSONObject(key), getAnimProp(key)));
             }
         }
-
-        return options;
     }
 
     public Text id = new NullText();
@@ -88,24 +94,28 @@ public class AnimationOptions {
         return reduce(valueOptions, 0, (item, currentValue) -> Math.max(item.duration.get(currentValue), currentValue));
     }
 
-    private static Property<View, Float> getAnimProp(String key) {
+    private static Pair<Property<View, Float>, Functions.FuncR1<View, Float>> getAnimProp(String key) {
         switch (key) {
             case "y":
-                return View.TRANSLATION_Y;
+                return new Pair<>(View.Y, View::getTranslationY);
             case "x":
-                return View.TRANSLATION_X;
+                return new Pair<>(View.X, View::getTranslationX);
+            case "translationY":
+                return new Pair<>(View.TRANSLATION_Y, View::getTranslationY);
+            case "translationX":
+                return new Pair<>(View.TRANSLATION_X, View::getTranslationX);
             case "alpha":
-                return View.ALPHA;
+                return new Pair<>(View.ALPHA, View::getAlpha);
             case "scaleY":
-                return View.SCALE_Y;
+                return new Pair<>(View.SCALE_Y, View::getScaleY);
             case "scaleX":
-                return View.SCALE_X;
+                return new Pair<>(View.SCALE_X, View::getScaleX);
             case "rotationX":
-                return View.ROTATION_X;
+                return new Pair<>(View.ROTATION_X, View::getRotationX);
             case "rotationY":
-                return View.ROTATION_Y;
+                return new Pair<>(View.ROTATION_Y, View::getRotationY);
             case "rotation":
-                return View.ROTATION;
+                return new Pair<>(View.ROTATION, View::getRotation);
         }
         throw new IllegalArgumentException("This animation is not supported: " + key);
     }
