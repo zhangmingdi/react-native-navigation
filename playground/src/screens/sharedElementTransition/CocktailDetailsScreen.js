@@ -55,8 +55,8 @@ const styles = StyleSheet.create({
     marginBottom: 16
   },
   description: {
-    fontSize: 16,
-    lineHeight: 22,
+    fontSize: 15,
+    lineHeight: 25,
     marginTop: 32,
     marginHorizontal: 24
   },
