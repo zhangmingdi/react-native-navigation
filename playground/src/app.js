@@ -32,7 +32,7 @@ function start() {
   Navigation.events().registerAppLaunchedListener(async () => {
     setDefaultOptions();
     setRoot();
-    showSETModal()
+    showSETModal();
   });
 }
 

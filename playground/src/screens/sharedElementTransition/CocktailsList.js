@@ -57,23 +57,29 @@ class CocktailsList extends Component {
                   elementTransitions: [
                     {
                       id: 'header',
-                  //     alpha: {
-                  //       fromValue: 0,
-                  //       // to: 1, //
-                  //       duration: 200,  // optional. Default value - alpha animation
-                  //       startDelay: 50,  // optional. Default value - 0
-                  //       interpolation: 'linear' | 'accelerateDecelerate' | 'decelerate' | 'accelerate' | 'decelerateAccelerate'
-                  //     },
                       translationY: {
                         from: -150,
                         duration: 300,
-                        interpolation: 'linear',
-                      },
-                  //     y: {
-                  //       fromValue: -ALACHSON_HEIGHT,
-                  //       duration: 300,
-                  //       interpolation: 'linear',
-                  //     }
+                        interpolation: 'decelerate',
+                      }
+                      //     alpha: {
+                      //       fromValue: 0,
+                      //       // to: 1, //
+                      //       duration: 200,  // optional. Default value - alpha animation
+                      //       startDelay: 50,  // optional. Default value - 0
+                      //       interpolation: 'linear' | 'accelerateDecelerate' | 'decelerate' | 'accelerate' | 'decelerateAccelerate'
+                      //     },
+                      //     y: {
+                      //       fromValue: -ALACHSON_HEIGHT,
+                      //       duration: 300,
+                      //       interpolation: 'linear',
+                      //     }
+                    },
+                    {
+                      id: 'description',
+                      alpha: {
+                        from: 0
+                      }
                     }
                   ]
                 }
@@ -82,13 +88,15 @@ class CocktailsList extends Component {
           }
         }
       )}>
-      <Image
-        source={item.image}
-        nativeID={`image${item.id}`}
-        style={styles.image}
-        resizeMode={'contain'}
-        nativeID={`${item.name}-image`}
-      />
+      <View style={styles.overlayContainer}>
+        <Image
+          source={item.image}
+          nativeID={`image${item.id}`}
+          style={styles.image}
+          resizeMode={'contain'}
+        />
+        <View style={[styles.backdrop, { backgroundColor: '#aaaaaa' }]} />
+      </View>
       <View style={styles.textContainer}>
         <Text style={styles.title} nativeID={`title${item.id}`}>{item.name}</Text>
         <View style={{ flexDirection: 'row' }}>
@@ -119,6 +127,16 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     height: '100%',
     width: 118,
+    zIndex: 1
+  },
+  backdrop: {
+    width: 118,
+    height: 118,
+    backgroundColor: 'green',
+    marginTop: -112,
+    marginLeft: 6
+  },
+  overlayContainer: {
   },
   textContainer: {
     flex: 1,

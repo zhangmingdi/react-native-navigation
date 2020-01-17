@@ -6,32 +6,32 @@ import android.animation.AnimatorSet
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import com.facebook.react.views.image.ReactImageView
 import com.reactnativenavigation.R
 import com.reactnativenavigation.parse.AnimationOptions
-import com.reactnativenavigation.utils.CollectionUtils
 import com.reactnativenavigation.utils.ViewTags
 import com.reactnativenavigation.utils.ViewUtils
 import com.reactnativenavigation.viewcontrollers.ViewController
 import java.util.*
 
 open class TransitionAnimatorCreator {
-    fun create(toScreen: ViewController<*>, fadeAnimation: AnimationOptions, transitions: TransitionSet): AnimatorSet {
-//        if (transitions.isEmpty()) return new AnimatorSet();
+    fun create(fadeAnimation: AnimationOptions, transitions: TransitionSet): AnimatorSet {
+        if (transitions.size() == 0) return AnimatorSet()
         transitions.registerViewIndexInParent()
+        transitions.transitions
+                .sortedBy { it.view.getTag(R.id.original_index_in_parent) as Int }
+                .forEach {
+                    reparent(it.viewController.requireParentController(), it.view, it.topInset)
+                }
         val animators: MutableCollection<Animator> = ArrayList()
-        animators.addAll(createSharedElementTransitionAnimators(toScreen, transitions.validSharedElementTransitions))
+        animators.addAll(createSharedElementTransitionAnimators(transitions.validSharedElementTransitions))
         animators.addAll(createElementTransitionAnimators(transitions.validElementTransitions))
+
         for (set in animators) {
             for (animator in (set as AnimatorSet).childAnimations) {
                 animator.duration = fadeAnimation.duration.toLong()
             }
         }
-        //        for (ElementTransitionOptions transition : transitions.validElementTransitions) {
-//            View fromView = from.get(transition.getId());
-//            View toView = to.get(transition.getId());
-//            ViewController screen = fromView == null ? toScreen : fromScreen;
-//            animators.add(create(fadeAnimation, transition, screen, ObjectUtils.take(fromView, toView)));
-//        }
         val set = AnimatorSet()
         set.addListener(object : AnimatorListenerAdapter() {
             override fun onAnimationEnd(animation: Animator) {
@@ -49,34 +49,26 @@ open class TransitionAnimatorCreator {
                 allTransitions.sortBy { it.view.getTag(R.id.original_index_in_parent) as Int}
                 allTransitions.forEach {
                     it.viewController.requireParentController().removeOverlay(it.view)
-                    it.viewController.removeOverlay(it.view)
                     returnToOriginalParent(it.view)
                 }
-                CollectionUtils.forEach(transitions.validSharedElementTransitions) { transition: SharedElementTransition ->
-//                    toScreen.removeOverlay(transition.to)
-//                    ViewUtils.returnToOriginalParent(transition.to)
-                    transition.from.alpha = 1f
+                transitions.validSharedElementTransitions.forEach {
+                    it.from.alpha = 1f
                 }
-//                CollectionUtils.forEach(transitions.validElementTransitions) { transition: ElementTransition ->
-//                    transition.viewController.removeOverlay(transition.view)
-//                    ViewUtils.returnToOriginalParent(transition.view)
-//                }
             }
         })
         set.playTogether(animators)
         return set
     }
 
-    private fun createSharedElementTransitionAnimators(toScreen: ViewController<*>, transitions: List<SharedElementTransition>): List<AnimatorSet> {
+    private fun createSharedElementTransitionAnimators(transitions: List<SharedElementTransition>): List<AnimatorSet> {
         val animators: MutableList<AnimatorSet> = ArrayList()
         for (transition in transitions) {
-            animators.add(createSharedElementAnimator(toScreen, transition))
+            animators.add(createSharedElementAnimator(transition))
         }
         return animators
     }
 
-    private fun createSharedElementAnimator(toScreen: ViewController<*>, transition: SharedElementTransition): AnimatorSet {
-        reparent(toScreen.requireParentController(), transition.to, 0)
+    private fun createSharedElementAnimator(transition: SharedElementTransition): AnimatorSet {
         val set = AnimatorSet()
         set.playTogether(transition.createAnimators())
         set.addListener(object : AnimatorListenerAdapter() {
@@ -90,7 +82,6 @@ open class TransitionAnimatorCreator {
     private fun createElementTransitionAnimators(transitions: List<ElementTransition>): List<AnimatorSet> {
         val animators: MutableList<AnimatorSet> = ArrayList()
         for (transition in transitions) {
-            reparent(transition.viewController.requireParentController(), transition.view, transition.viewController.topInset)
             animators.add(transition.createAnimators())
         }
         return animators
@@ -109,7 +100,10 @@ open class TransitionAnimatorCreator {
         biologicalParent.removeView(child)
 
         val lp = FrameLayout.LayoutParams(child.layoutParams)
-        lp.topMargin = loc.y + 0
+        lp.topMargin = loc.y
+        if (child !is ReactImageView) {
+            lp.topMargin += topInset
+        }
         lp.leftMargin = loc.x
         lp.width = child.width
         lp.height = child.height
