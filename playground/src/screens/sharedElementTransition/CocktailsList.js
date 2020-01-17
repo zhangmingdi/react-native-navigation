@@ -78,7 +78,11 @@ class CocktailsList extends Component {
                     {
                       id: 'description',
                       alpha: {
-                        from: 0
+                        from: 0.25
+                      },
+                      translationY: {
+                        from: 12,
+                        duration: 300
                       }
                     }
                   ]
@@ -127,7 +131,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     height: '100%',
     width: 118,
-    zIndex: 1
+    zIndex: 1,
   },
   backdrop: {
     width: 118,
