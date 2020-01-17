@@ -9,6 +9,8 @@ class TransitionSet {
     var validElementTransitions: MutableList<ElementTransition> = ArrayList()
     val isEmpty: Boolean
         get() = validSharedElementTransitions.isEmpty() && validElementTransitions.isEmpty()
+    val transitions: List<Transition>
+        get() = validElementTransitions + validSharedElementTransitions
 
     fun add(transition: SharedElementTransition) {
         validSharedElementTransitions.add(transition)

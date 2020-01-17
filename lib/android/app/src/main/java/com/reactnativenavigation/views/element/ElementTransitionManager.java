@@ -81,6 +81,6 @@ public class ElementTransitionManager {
     }
 
     public AnimatorSet createAnimators(ViewController toScreen, AnimationOptions fadeAnimation, TransitionSet transitionSet) {
-        return animatorCreator.create(toScreen, fadeAnimation, transitionSet);
+        return animatorCreator.create(fadeAnimation, transitionSet);
     }
 }

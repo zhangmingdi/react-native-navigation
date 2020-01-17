@@ -94,6 +94,6 @@ public class ElementTransitionManagerTest extends BaseTest {
                 Collections.singletonList(from1),
                 Collections.singletonList(to1)
         );
-        verify(animatorCreator).create(any(List.class), any(Map.class), any(Map.class));
+        verify(animatorCreator).create(any(Map.class), any(Map.class));
     }
 }

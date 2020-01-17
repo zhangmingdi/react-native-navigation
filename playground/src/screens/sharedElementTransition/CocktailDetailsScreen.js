@@ -24,6 +24,11 @@ class CocktailDetailsScreen extends Component {
             nativeID={`image${this.props.id}Dest`}
             style={styles.image}
           />
+          <Text
+            nativeID='description'
+            style={styles.description}>
+            {this.props.description}
+          </Text>
         </View>
       </SafeAreaView>
     );
@@ -33,6 +38,7 @@ class CocktailDetailsScreen extends Component {
 module.exports = CocktailDetailsScreen;
 const SIZE = 120;
 const HEADER = 150;
+const IMAGE_OFFSET = 52
 const styles = StyleSheet.create({
   root: {
 
@@ -48,17 +54,17 @@ const styles = StyleSheet.create({
     marginLeft: 24,
     marginBottom: 16
   },
+  description: {
+    fontSize: 16,
+    lineHeight: 22,
+    marginTop: 32,
+    marginHorizontal: 24
+  },
   image: {
     height: SIZE,
     width: SIZE,
     position: 'absolute',
     right: 24,
-    top: HEADER / 2
-  },
-  redBackground: {
-    height: '100%',
-    width: '100%',
-    position: 'absolute',
-    backgroundColor: 'red'
+    top: IMAGE_OFFSET
   }
 });
