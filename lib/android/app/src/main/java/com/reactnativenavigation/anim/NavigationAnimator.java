@@ -13,10 +13,13 @@ import com.reactnativenavigation.parse.Options;
 import com.reactnativenavigation.viewcontrollers.ViewController;
 import com.reactnativenavigation.views.element.ElementTransitionManager;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import androidx.annotation.RestrictTo;
+
+import static com.reactnativenavigation.utils.CollectionUtils.*;
 
 @SuppressWarnings("ResourceType")
 public class NavigationAnimator extends BaseAnimator {
@@ -69,8 +72,11 @@ public class NavigationAnimator extends BaseAnimator {
                     } else {
                         appearing.addOnAppearedListener(() -> {
                             AnimationOptions fade = new FadeAnimation().content;
-                            AnimatorSet transitions = transitionManager.createAnimators(appearing, fade, transitionSet);
+                            AnimatorSet transitions = transitionManager.createAnimators(fade, transitionSet);
+                            ArrayList<Animator.AnimatorListener> listeners = transitions.getListeners();
                             set.playTogether(fade.getAnimation(appearing.getView()), transitions);
+                            forEach(listeners, set::addListener);
+                            transitions.removeAllListeners();
                             set.start();
                         });
                     }
