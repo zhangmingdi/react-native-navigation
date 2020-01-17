@@ -80,7 +80,7 @@ public class ElementTransitionManager {
         }
     }
 
-    public AnimatorSet createAnimators(ViewController toScreen, AnimationOptions fadeAnimation, TransitionSet transitionSet) {
+    public AnimatorSet createAnimators(AnimationOptions fadeAnimation, TransitionSet transitionSet) {
         return animatorCreator.create(fadeAnimation, transitionSet);
     }
 }

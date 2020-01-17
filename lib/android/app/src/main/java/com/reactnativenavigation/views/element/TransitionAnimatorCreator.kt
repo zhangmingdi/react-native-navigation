@@ -6,6 +6,8 @@ import android.animation.AnimatorSet
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import androidx.core.animation.doOnCancel
+import androidx.core.animation.doOnEnd
 import com.facebook.react.views.image.ReactImageView
 import com.reactnativenavigation.R
 import com.reactnativenavigation.parse.AnimationOptions
@@ -17,16 +19,20 @@ import java.util.*
 open class TransitionAnimatorCreator {
     fun create(fadeAnimation: AnimationOptions, transitions: TransitionSet): AnimatorSet {
         if (transitions.size() == 0) return AnimatorSet()
-        transitions.registerViewIndexInParent()
-        transitions.transitions
-                .sortedBy { it.view.getTag(R.id.original_index_in_parent) as Int }
-                .forEach {
-                    reparent(it.viewController.requireParentController(), it.view, it.topInset)
-                }
-        val animators: MutableCollection<Animator> = ArrayList()
+        reparentViews(transitions)
+        val animators = ArrayList<Animator>()
         animators.addAll(createSharedElementTransitionAnimators(transitions.validSharedElementTransitions))
         animators.addAll(createElementTransitionAnimators(transitions.validElementTransitions))
 
+        setAnimatorsDuration(animators, fadeAnimation)
+        val set = AnimatorSet()
+        set.doOnEnd { restoreViewsToOriginalState(transitions) }
+        set.doOnCancel { restoreViewsToOriginalState(transitions) }
+        set.playTogether(animators)
+        return set
+    }
+
+    private fun setAnimatorsDuration(animators: MutableCollection<Animator>, fadeAnimation: AnimationOptions) {
         for (set in animators) {
             for (animator in (set as AnimatorSet).childAnimations) {
                 if (animator.duration.toInt() == 0) {
@@ -34,32 +40,15 @@ open class TransitionAnimatorCreator {
                 }
             }
         }
-        val set = AnimatorSet()
-        set.addListener(object : AnimatorListenerAdapter() {
-            override fun onAnimationEnd(animation: Animator) {
-                restoreViewsToOriginalState()
-            }
+    }
 
-            override fun onAnimationCancel(animation: Animator) {
-                restoreViewsToOriginalState()
-            }
-
-            private fun restoreViewsToOriginalState() {
-                val allTransitions = mutableListOf<Transition>()
-                allTransitions.addAll(transitions.validSharedElementTransitions)
-                allTransitions.addAll(transitions.validElementTransitions)
-                allTransitions.sortBy { it.view.getTag(R.id.original_index_in_parent) as Int}
-                allTransitions.forEach {
-                    it.viewController.requireParentController().removeOverlay(it.view)
-                    returnToOriginalParent(it.view)
+    private fun reparentViews(transitions: TransitionSet) {
+        transitions.registerViewIndexInParent()
+        transitions.transitions
+                .sortedBy { it.view.getTag(R.id.original_index_in_parent) as Int }
+                .forEach {
+                    reparent(it.viewController.requireParentController(), it.view, it.topInset)
                 }
-                transitions.validSharedElementTransitions.forEach {
-                    it.from.alpha = 1f
-                }
-            }
-        })
-        set.playTogether(animators)
-        return set
     }
 
     private fun createSharedElementTransitionAnimators(transitions: List<SharedElementTransition>): List<AnimatorSet> {
@@ -87,6 +76,20 @@ open class TransitionAnimatorCreator {
             animators.add(transition.createAnimators())
         }
         return animators
+    }
+
+    private fun restoreViewsToOriginalState(transitions: TransitionSet) {
+        val allTransitions = mutableListOf<Transition>()
+        allTransitions.addAll(transitions.validSharedElementTransitions)
+        allTransitions.addAll(transitions.validElementTransitions)
+        allTransitions.sortBy { it.view.getTag(R.id.original_index_in_parent) as Int}
+        allTransitions.forEach {
+            it.viewController.requireParentController().removeOverlay(it.view)
+            returnToOriginalParent(it.view)
+        }
+        transitions.validSharedElementTransitions.forEach {
+            it.from.alpha = 1f
+        }
     }
 
     open fun reparent(vc: ViewController<*>, child: View, topInset: Int) {

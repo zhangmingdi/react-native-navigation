@@ -5,7 +5,7 @@ const Navigation = require('../../services/Navigation');
 const { slice } = require('lodash');
 const Screens = require('../Screens')
 const data = require('../../assets/cocktails').default;
-
+const DURATION = 320
 class CocktailsList extends Component {
   static options() {
     return {
@@ -47,11 +47,13 @@ class CocktailsList extends Component {
                   sharedElementTransitions: [
                     {
                       fromId: `image${item.id}`,
-                      toId: `image${item.id}Dest`
+                      toId: `image${item.id}Dest`,
+                      duration: DURATION
                     },
                     {
                       fromId: `title${item.id}`,
-                      toId: `title${item.id}Dest`
+                      toId: `title${item.id}Dest`,
+                      duration: DURATION
                     }
                   ],
                   elementTransitions: [
@@ -59,7 +61,7 @@ class CocktailsList extends Component {
                       id: 'header',
                       translationY: {
                         from: -150,
-                        duration: 300,
+                        duration: DURATION,
                         interpolation: 'decelerate',
                       }
                   //     alpha: {
@@ -78,11 +80,11 @@ class CocktailsList extends Component {
                     {
                       id: 'description',
                       alpha: {
-                        from: 0.25
+                        from: 0
                       },
                       translationY: {
-                        from: 12,
-                        duration: 300
+                        from: 18,
+                        duration: 120
                       }
                     }
                   ]
