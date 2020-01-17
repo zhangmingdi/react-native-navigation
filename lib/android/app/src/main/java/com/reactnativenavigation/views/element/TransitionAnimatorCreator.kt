@@ -29,7 +29,9 @@ open class TransitionAnimatorCreator {
 
         for (set in animators) {
             for (animator in (set as AnimatorSet).childAnimations) {
-                animator.duration = fadeAnimation.duration.toLong()
+                if (animator.duration.toInt() == 0) {
+                    animator.duration = fadeAnimation.duration.toLong()
+                }
             }
         }
         val set = AnimatorSet()
