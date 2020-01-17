@@ -57,6 +57,11 @@ class CocktailsList extends Component {
                   elementTransitions: [
                     {
                       id: 'header',
+                      translationY: {
+                        from: -150,
+                        duration: 300,
+                        interpolation: 'decelerate',
+                      }
                   //     alpha: {
                   //       fromValue: 0,
                   //       // to: 1, //
@@ -64,16 +69,17 @@ class CocktailsList extends Component {
                   //       startDelay: 50,  // optional. Default value - 0
                   //       interpolation: 'linear' | 'accelerateDecelerate' | 'decelerate' | 'accelerate' | 'decelerateAccelerate'
                   //     },
-                      translationY: {
-                        from: -150,
-                        duration: 300,
-                        interpolation: 'linear',
-                      },
                   //     y: {
                   //       fromValue: -ALACHSON_HEIGHT,
                   //       duration: 300,
                   //       interpolation: 'linear',
                   //     }
+                    },
+                    {
+                      id: 'description',
+                      alpha: {
+                        from: 0
+                      }
                     }
                   ]
                 }
@@ -82,12 +88,15 @@ class CocktailsList extends Component {
           }
         }
       )}>
-      <Image
-        source={item.image}
-        nativeID={`image${item.id}`}
-        style={styles.image}
-        resizeMode={'contain'}
-      />
+      <View style={styles.overlayContainer}>
+        <Image
+          source={item.image}
+          nativeID={`image${item.id}`}
+          style={styles.image}
+          resizeMode={'contain'}
+        />
+        <View style={[styles.backdrop, {backgroundColor: '#aaaaaa'}]} />
+      </View>
       <View style={styles.textContainer}>
         <Text style={styles.title} nativeID={`title${item.id}`}>{item.name}</Text>
         <View style={{ flexDirection: 'row' }}>
@@ -118,6 +127,16 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     height: '100%',
     width: 118,
+    zIndex: 1
+  },
+  backdrop: {
+    width: 118,
+    height: 118,
+    backgroundColor: 'green',
+    marginTop: -112,
+    marginLeft: 6
+  },
+  overlayContainer: {
   },
   textContainer: {
     flex: 1,

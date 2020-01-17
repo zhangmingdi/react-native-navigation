@@ -53,19 +53,17 @@ public class TransitionAnimatorCreatorTest extends BaseTest {
     public void createAnimatorsForEachTransition() {
         TransitionAnimatorCreator spy = spy(uut);
         spy.create(
-                Arrays.asList(t1, t2),
                 keyBy(Arrays.asList(e1, e3), Element::getElementId),
                 keyBy(Arrays.asList(e2, e4), Element::getElementId)
         );
-        verify(spy).create(t1, e1, e2);
-        verify(spy).create(t2, e3, e4);
+        verify(spy).create(e1, e2);
+        verify(spy).create(e3, e4);
     }
 
     @Test
     public void create_animatorsAreCreated() {
         List<SharedElementTransitionOptions> transitions = Arrays.asList(t1, t2);
         uut.create(
-                transitions,
                 keyBy(Arrays.asList(e1, e3), Element::getElementId),
                 keyBy(Arrays.asList(e2, e4), Element::getElementId)
         );

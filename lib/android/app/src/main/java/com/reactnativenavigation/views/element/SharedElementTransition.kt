@@ -15,6 +15,8 @@ class SharedElementTransition(options: SharedElementTransitionOptions) : Transit
     override lateinit var viewController: ViewController<*>
     override val view: View
         get() = to
+    override val topInset: Int
+        get() = viewController.topInset
 
     fun isValid(): Boolean = this::from.isInitialized
 
