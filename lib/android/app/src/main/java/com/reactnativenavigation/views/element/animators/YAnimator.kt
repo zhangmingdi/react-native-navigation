@@ -16,7 +16,7 @@ class YAnimator(from: View, to: View) : PropertyAnimatorCreator<View>(from, to) 
         val fromXy = ViewUtils.getLocationOnScreen(from)
         val toXy = ViewUtils.getLocationOnScreen(to)
         val fromComponent: View = ViewUtils.findParent(from, ComponentLayout::class.java)
-        dy = (fromXy.y - toXy.y - fromComponent.y).toInt()
+        dy = fromXy.y - toXy.y - fromComponent.y.toInt()
         to.pivotY = 0f
     }
 
