@@ -5,7 +5,9 @@ const Navigation = require('../../services/Navigation');
 const { slice } = require('lodash');
 const Screens = require('../Screens')
 const data = require('../../assets/cocktails').default;
-const DURATION = 320 * 10
+const DURATION = 350 * 1
+const DURATION2 = 120
+
 class CocktailsList extends Component {
   static options() {
     return {
@@ -86,11 +88,11 @@ class CocktailsList extends Component {
                       id: 'description',
                       alpha: {
                         from: 0,
-                        duration: 120
+                        duration: DURATION2
                       },
                       translationY: {
                         from: 18,
-                        duration: 120
+                        duration: DURATION2 //120
                       }
                     }
                   ]

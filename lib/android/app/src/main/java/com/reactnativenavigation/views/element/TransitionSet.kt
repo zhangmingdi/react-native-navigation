@@ -1,7 +1,5 @@
 package com.reactnativenavigation.views.element
 
-import com.reactnativenavigation.R
-import com.reactnativenavigation.utils.ViewUtils
 import java.util.*
 
 class TransitionSet {
@@ -22,16 +20,5 @@ class TransitionSet {
 
     fun size(): Int {
         return validElementTransitions.size + validSharedElementTransitions.size
-    }
-
-    fun registerViewIndexInParent() {
-        for (transition in validSharedElementTransitions) {
-            val indexInParent = ViewUtils.getIndexInParent(transition.to)
-            transition.to.setTag(R.id.original_index_in_parent, indexInParent)
-        }
-        for (transition in validElementTransitions) {
-            val indexInParent = ViewUtils.getIndexInParent(transition.view)
-            transition.view.setTag(R.id.original_index_in_parent, indexInParent)
-        }
     }
 }
