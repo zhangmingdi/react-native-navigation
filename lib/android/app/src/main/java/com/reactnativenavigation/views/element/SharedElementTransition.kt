@@ -1,13 +1,12 @@
 package com.reactnativenavigation.views.element
 
-import android.animation.Animator
 import android.animation.AnimatorSet
 import android.view.View
 import com.reactnativenavigation.parse.SharedElementTransitionOptions
 import com.reactnativenavigation.viewcontrollers.ViewController
 import com.reactnativenavigation.views.element.animators.*
 
-class SharedElementTransition(options: SharedElementTransitionOptions) : Transition() {
+class SharedElementTransition(private val options: SharedElementTransitionOptions) : Transition() {
     val fromId: String = options.fromId.get()
     val toId: String = options.toId.get()
     lateinit var from: View
@@ -15,16 +14,13 @@ class SharedElementTransition(options: SharedElementTransitionOptions) : Transit
     override lateinit var viewController: ViewController<*>
     override val view: View
         get() = to
-    override val topInset: Int
-        get() = viewController.topInset
 
     fun isValid(): Boolean = this::from.isInitialized
 
     override fun createAnimators(): AnimatorSet {
-        val animators = mutableListOf<Animator>()
-        for (creator in animators()) {
-            if (creator.shouldAnimateProperty()) animators.add(creator.create())
-        }
+        val animators = animators()
+                .filter { it.shouldAnimateProperty() }
+                .map { it.create(options) }
         val set = AnimatorSet()
         set.playTogether(animators)
         return set
@@ -38,7 +34,7 @@ class SharedElementTransition(options: SharedElementTransitionOptions) : Transit
                 ScaleXAnimator(from, to),
                 ScaleYAnimator(from, to),
                 BackgroundColorAnimator(from, to),
-                TextChangeAnimator(from, to)
+                TextChangeAnimator(this, from, to)
         )
     }
 }

@@ -16,21 +16,20 @@ class CocktailDetailsScreen extends Component {
     return (
       <SafeAreaView>
         <View style={styles.root}>
-          <View nativeID={'header'} style={[styles.header, { backgroundColor: this.props.color }]}>
-            <Text style={styles.title} nativeID={`title${this.props.id}Dest`}>{this.props.name}</Text>
-          </View>
-          <Image
-            source={this.props.image}
-            nativeID={`image${this.props.id}Dest`}
-            style={styles.image}
-          />
-          <Text
-            nativeID='description'
-            style={styles.description}>
-            {this.props.description}
-          </Text>
+          <View nativeID={'backdrop'} style={[styles.header, { backgroundColor: this.props.color }]}></View>
+          <Text style={styles.title} nativeID={`title${this.props.id}Dest`}>{this.props.name}</Text>
         </View>
-      </SafeAreaView>
+        <Image
+          source={this.props.image}
+          nativeID={`image${this.props.id}Dest`}
+          style={styles.image}
+        />
+        <Text
+          nativeID='description'
+          style={styles.description}>
+          {this.props.description}
+        </Text>
+      </SafeAreaView >
     );
   }
 }
@@ -52,10 +51,12 @@ const styles = StyleSheet.create({
     fontSize: 32,
     color: 'whitesmoke',
     marginLeft: 24,
-    marginBottom: 16
+    marginBottom: 16,
+    zIndex: 2
   },
   description: {
     fontSize: 15,
+    letterSpacing: 0.2,
     lineHeight: 25,
     marginTop: 32,
     marginHorizontal: 24
