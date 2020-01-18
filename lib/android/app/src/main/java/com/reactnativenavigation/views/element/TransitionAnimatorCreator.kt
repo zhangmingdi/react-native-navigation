@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.core.animation.doOnCancel
 import androidx.core.animation.doOnEnd
-import com.facebook.react.views.image.ReactImageView
+import com.facebook.react.uimanager.ViewGroupManager
 import com.reactnativenavigation.R
 import com.reactnativenavigation.parse.AnimationOptions
 import com.reactnativenavigation.utils.ViewTags
@@ -32,12 +32,12 @@ open class TransitionAnimatorCreator {
         return set
     }
 
-    private fun setAnimatorsDuration(animators: MutableCollection<Animator>, fadeAnimation: AnimationOptions) {
-        for (set in animators) {
-            for (animator in (set as AnimatorSet).childAnimations) {
-                if (animator.duration.toInt() == 0) {
-                    animator.duration = fadeAnimation.duration.toLong()
-                }
+    private fun setAnimatorsDuration(animators: Collection<Animator>, fadeAnimation: AnimationOptions) {
+        for (animator in animators) {
+            if (animator is AnimatorSet) {
+                setAnimatorsDuration(animator.childAnimations, fadeAnimation)
+            } else if (animator.duration.toInt() <= 0) {
+                animator.duration = fadeAnimation.duration.toLong()
             }
         }
     }
@@ -45,9 +45,9 @@ open class TransitionAnimatorCreator {
     private fun reparentViews(transitions: TransitionSet) {
         transitions.registerViewIndexInParent()
         transitions.transitions
-                .sortedBy { it.view.getTag(R.id.original_index_in_parent) as Int }
+                .sortedBy { ViewGroupManager.getViewZIndex(it.view) }
                 .forEach {
-                    reparent(it.viewController.requireParentController(), it.view, it.topInset)
+                    reparent(it.viewController.requireParentController(), it.view)
                 }
     }
 
@@ -82,7 +82,7 @@ open class TransitionAnimatorCreator {
         val allTransitions = mutableListOf<Transition>()
         allTransitions.addAll(transitions.validSharedElementTransitions)
         allTransitions.addAll(transitions.validElementTransitions)
-        allTransitions.sortBy { it.view.getTag(R.id.original_index_in_parent) as Int}
+        allTransitions.sortBy { it.view.getTag(R.id.original_index_in_parent) as Int }
         allTransitions.forEach {
             it.viewController.requireParentController().removeOverlay(it.view)
             returnToOriginalParent(it.view)
@@ -92,7 +92,7 @@ open class TransitionAnimatorCreator {
         }
     }
 
-    open fun reparent(vc: ViewController<*>, child: View, topInset: Int) {
+    open fun reparent(vc: ViewController<*>, child: View) {
         val biologicalParent = child.parent as ViewGroup
         child.setTag(R.id.original_parent, biologicalParent)
         child.setTag(R.id.original_layout_params, child.layoutParams)
@@ -106,9 +106,9 @@ open class TransitionAnimatorCreator {
 
         val lp = FrameLayout.LayoutParams(child.layoutParams)
         lp.topMargin = loc.y
-        if (child !is ReactImageView) {
-            lp.topMargin += topInset
-        }
+//        if (child is ReactTextView) {
+//            lp.topMargin += 210
+//        }
         lp.leftMargin = loc.x
         lp.width = child.width
         lp.height = child.height

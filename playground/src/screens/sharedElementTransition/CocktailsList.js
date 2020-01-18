@@ -5,7 +5,7 @@ const Navigation = require('../../services/Navigation');
 const { slice } = require('lodash');
 const Screens = require('../Screens')
 const data = require('../../assets/cocktails').default;
-const DURATION = 320
+const DURATION = 320 * 10
 class CocktailsList extends Component {
   static options() {
     return {
@@ -54,33 +54,39 @@ class CocktailsList extends Component {
                       fromId: `title${item.id}`,
                       toId: `title${item.id}Dest`,
                       duration: DURATION
+                    },
+                    {
+                      fromId: `backdrop${item.id}`,
+                      toId: 'backdrop',
+                      duration: DURATION
                     }
                   ],
                   elementTransitions: [
-                    {
-                      id: 'header',
-                      translationY: {
-                        from: -150,
-                        duration: DURATION,
-                        interpolation: 'decelerate',
-                      }
-                      //     alpha: {
-                      //       fromValue: 0,
-                      //       // to: 1, //
-                      //       duration: 200,  // optional. Default value - alpha animation
-                      //       startDelay: 50,  // optional. Default value - 0
-                      //       interpolation: 'linear' | 'accelerateDecelerate' | 'decelerate' | 'accelerate' | 'decelerateAccelerate'
-                      //     },
-                      //     y: {
-                      //       fromValue: -ALACHSON_HEIGHT,
-                      //       duration: 300,
-                      //       interpolation: 'linear',
-                      //     }
-                    },
+                    // {
+                    //   id: 'header',
+                    //   translationY: {
+                    //     from: -150,
+                    //     duration: DURATION,
+                    //     interpolation: 'decelerate',
+                    //   }
+                    //     alpha: {
+                    //       fromValue: 0,
+                    //       // to: 1, //
+                    //       duration: 200,  // optional. Default value - alpha animation
+                    //       startDelay: 50,  // optional. Default value - 0
+                    //       interpolation: 'linear' | 'accelerateDecelerate' | 'decelerate' | 'accelerate' | 'decelerateAccelerate'
+                    //     },
+                    //     y: {
+                    //       fromValue: -ALACHSON_HEIGHT,
+                    //       duration: 300,
+                    //       interpolation: 'linear',
+                    //     }
+                    // },
                     {
                       id: 'description',
                       alpha: {
-                        from: 0
+                        from: 0,
+                        duration: 120
                       },
                       translationY: {
                         from: 18,
@@ -101,7 +107,7 @@ class CocktailsList extends Component {
           style={styles.image}
           resizeMode={'contain'}
         />
-        <View style={[styles.backdrop, { backgroundColor: '#aaaaaa' }]} />
+        <View nativeID={`backdrop${item.id}`} style={[styles.backdrop, { backgroundColor: '#aaaaaa' }]} />
       </View>
       <View style={styles.textContainer}>
         <Text style={styles.title} nativeID={`title${item.id}`}>{item.name}</Text>
