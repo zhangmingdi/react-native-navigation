@@ -7,7 +7,9 @@
 	
 	self.alpha = [[TransitionDetailsOptions alloc] initWithDict:dict[@"alpha"]];
 	self.x = [[TransitionDetailsOptions alloc] initWithDict:dict[@"x"]];
-	self.y = [[TransitionDetailsOptions alloc] initWithDict:dict[@"y"]];
+    self.y = [[TransitionDetailsOptions alloc] initWithDict:dict[@"y"]];
+    self.translationX = [[TransitionDetailsOptions alloc] initWithDict:dict[@"translationX"]];
+    self.translationY = [[TransitionDetailsOptions alloc] initWithDict:dict[@"translationY"]];
 
 	return self;
 }

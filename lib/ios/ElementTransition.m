@@ -2,6 +2,8 @@
 #import "ElementAlphaTransition.h"
 #import "ElementVerticalTransition.h"
 #import "ElementHorizontalTransition.h"
+#import "HorizontalTranslationTransition.h"
+#import "VerticalTranslationTransition.h"
 #import "Transition.h"
 #import "RNNElementFinder.h"
 
@@ -39,10 +41,18 @@
     if (_transitionOptions.y.hasAnimation) {
         [transitions addObject:self.y];
     }
-
-   if (_transitionOptions.x.hasAnimation) {
-       [transitions addObject:self.x];
-   }
+    
+    if (_transitionOptions.x.hasAnimation) {
+        [transitions addObject:self.x];
+    }
+    
+    if (_transitionOptions.translationX.hasAnimation) {
+        [transitions addObject:self.translationX];
+    }
+    
+    if (_transitionOptions.translationY.hasAnimation) {
+        [transitions addObject:self.translationY];
+    }
     
     return transitions;
 }
@@ -72,6 +82,14 @@
 
 - (ElementHorizontalTransition *)x {
     return [[ElementHorizontalTransition alloc] initWithView:_view transitionDetails:_transitionOptions.x];
+}
+
+- (ElementHorizontalTransition *)translationX {
+    return [[ElementHorizontalTransition alloc] initWithView:_view transitionDetails:_transitionOptions.translationX];
+}
+
+- (VerticalTranslationTransition *)translationY {
+    return [[VerticalTranslationTransition alloc] initWithView:_view transitionDetails:_transitionOptions.translationY];
 }
 
 

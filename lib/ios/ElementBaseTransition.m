@@ -1,11 +1,10 @@
 #import "ElementBaseTransition.h"
 
-@implementation ElementBaseTransition {
-    CGFloat _initialValue;
-}
+@implementation ElementBaseTransition
 
 @synthesize duration = _duration;
 @synthesize startDelay = _startDelay;
+@synthesize initialValue = _initialValue;
 
 - (instancetype)initWithView:(UIView *)view transitionDetails:(TransitionDetailsOptions *)transitionDetails {
     self = [super init];
@@ -14,6 +13,8 @@
     _startDelay = [transitionDetails.startDelay getWithDefaultValue:0];
     _duration = [transitionDetails.duration getWithDefaultValue:[self defaultDuration]];
     _initialValue = self.initialValue;
+    _from = [self calculateFrom];
+    _to = [self calculateTo];
     return self;
 }
 
@@ -21,11 +22,11 @@
     return 300;
 }
 
-- (CGFloat)from {
+- (CGFloat)calculateFrom {
     return _transitionDetails.from.hasValue ? _transitionDetails.from.get : _initialValue;
 }
 
-- (CGFloat)to {
+- (CGFloat)calculateTo {
     return _transitionDetails.to.hasValue ? _transitionDetails.to.get : _initialValue;
 }
 
