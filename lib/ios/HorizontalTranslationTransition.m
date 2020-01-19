@@ -7,4 +7,8 @@
     self.view.frame = CGRectMake(x, self.view.frame.origin.y, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame));
 }
 
+- (CGFloat)initialValue {
+    return self.view.frame.origin.x + self.from;
+}
+
 @end
