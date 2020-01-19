@@ -1,6 +1,7 @@
 #import "SharedElementTransitionsCreator.h"
 #import "RNNElementFinder.h"
 #import "AnimatedViewFactory.h"
+#import "BaseAnimator.h"
 
 @implementation SharedElementTransitionsCreator {
 	NSArray<SharedElementTransitionOptions *>* _sharedElementTransitions;
@@ -12,11 +13,14 @@
     return self;
 }
 
-- (NSArray<AnimatedReactView *>*)createFromVC:(UIViewController *)fromVC toVC:(UIViewController *)toVC containerView:(UIView *)containerView {
-    NSMutableArray* transitions = [NSMutableArray new];
+- (NSArray<DisplayLinkAnimatorDelegate>*)createFromVC:(UIViewController *)fromVC toVC:(UIViewController *)toVC containerView:(UIView *)containerView {
+    NSMutableArray<DisplayLinkAnimatorDelegate>* transitions = [NSMutableArray<DisplayLinkAnimatorDelegate> new];
     for (SharedElementTransitionOptions* transitionOptions in _sharedElementTransitions) {
         AnimatedReactView* animatedView = [self createAnimatedView:transitionOptions fromVC:fromVC toVC:toVC];
-        [transitions addObject:animatedView];
+        BaseAnimator* animator = [[BaseAnimator alloc] init];
+        animator.animations = @[animatedView];
+        animator.view = animatedView;
+        [transitions addObject:animator];
     }
 	
 	[self addSharedElementViews:transitions toContainerView:containerView];
@@ -24,10 +28,10 @@
     return transitions;
 }
 
-- (void)addSharedElementViews:(NSArray<AnimatedReactView *> *)views toContainerView:(UIView *)containerView {
-    for (AnimatedReactView* view in views) {
-        [containerView addSubview:view];
-        [containerView bringSubviewToFront:view];
+- (void)addSharedElementViews:(NSArray<BaseAnimator *> *)animators toContainerView:(UIView *)containerView {
+    for (BaseAnimator* animator in animators) {
+        [containerView addSubview:animator.view];
+        [containerView bringSubviewToFront:animator.view];
     }
 }
 

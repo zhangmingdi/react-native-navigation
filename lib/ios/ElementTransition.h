@@ -1,13 +1,11 @@
 #import <Foundation/Foundation.h>
 #import "ElementTransitionOptions.h"
-#import "DisplayLinkAnimation.h"
+#import "BaseAnimator.h"
 
-@interface ElementTransition : NSObject
+@interface ElementTransition : BaseAnimator
 
 - (instancetype)initWithTransitionOptions:(ElementTransitionOptions *)transitionOptions fromVC:(UIViewController *)fromVC toVC:(UIViewController *)toVC containerView:(UIView *)containerView;
 
 - (instancetype)initWithTransitionOptions:(ElementTransitionOptions *)transitionOptions fromVC:(UIViewController *)fromVC toVC:(UIViewController *)toVC containerView:(UIView *)containerView view:(UIView *)view;
-
-- (NSArray<id<DisplayLinkAnimation>>*)create;
 
 @end

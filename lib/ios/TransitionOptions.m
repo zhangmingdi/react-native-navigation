@@ -10,7 +10,9 @@
     self.y = [[TransitionDetailsOptions alloc] initWithDict:dict[@"y"]];
     self.translationX = [[TransitionDetailsOptions alloc] initWithDict:dict[@"translationX"]];
     self.translationY = [[TransitionDetailsOptions alloc] initWithDict:dict[@"translationY"]];
-
+    self.rotationX = [[TransitionDetailsOptions alloc] initWithDict:dict[@"rotationX"]];
+    self.rotationY = [[TransitionDetailsOptions alloc] initWithDict:dict[@"rotationY"]];
+    
 	return self;
 }
 

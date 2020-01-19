@@ -4,7 +4,7 @@
 
 @required
 
-- (void)animateWithProgress:(CGFloat)p;
+- (CGAffineTransform)animateWithProgress:(CGFloat)p;
 
 - (void)end;
 

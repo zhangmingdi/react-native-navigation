@@ -31,9 +31,9 @@
 											   fromViewController:(UIViewController*)fromVC
 												 toViewController:(UIViewController*)toVC {
 	if (operation == UINavigationControllerOperationPush && toVC.resolveOptions.animations.push.hasCustomAnimation) {
-		return [[CustomTransitionDelegate alloc] initWithScreenTransition:toVC.resolveOptions.animations.push];
+		return [[CustomTransitionDelegate alloc] initWithScreenTransition:toVC.resolveOptions.animations.push uiManager:_eventEmitter.bridge.uiManager];
 	} else if (operation == UINavigationControllerOperationPop && fromVC.resolveOptions.animations.pop.hasCustomAnimation) {
-		return [[CustomTransitionDelegate alloc] initWithScreenTransition:fromVC.resolveOptions.animations.pop];
+		return [[CustomTransitionDelegate alloc] initWithScreenTransition:fromVC.resolveOptions.animations.pop uiManager:_eventEmitter.bridge.uiManager];
 	} else {
 		return nil;
 	}

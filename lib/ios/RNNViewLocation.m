@@ -20,7 +20,7 @@
     return frame;
 }
 
-- (UIView *)topMostView:(UIView *)view {
+ - (UIView *)topMostView:(UIView *)view {
     if ([view isKindOfClass:[RNNReactView class]]) {
         return view;
     } else {

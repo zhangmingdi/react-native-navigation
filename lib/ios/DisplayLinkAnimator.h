@@ -1,5 +1,5 @@
 #import <Foundation/Foundation.h>
-#import "DisplayLinkAnimation.h"
+#import "DisplayLinkAnimatorDelegate.h"
 
 typedef void (^CompletionBlock)(void);
 
@@ -7,9 +7,9 @@ typedef void (^CompletionBlock)(void);
 
 @property (nonatomic, copy) CompletionBlock completion;
 
-- (instancetype)initWithDisplayLinkAnimations:(NSArray<id<DisplayLinkAnimation>> *)displayLinkAnimations duration:(CGFloat)duration;
+- (instancetype)initWithDisplayLinkAnimators:(NSArray<id<DisplayLinkAnimatorDelegate>> *)displayLinkAnimators duration:(CGFloat)duration;
 
-- (instancetype)initWithDisplayLinkAnimation:(id<DisplayLinkAnimation>)displayLinkAnimation duration:(CGFloat)duration;
+- (instancetype)initWithDisplayLinkAnimator:(id<DisplayLinkAnimatorDelegate>)displayLinkAnimators duration:(CGFloat)duration;
 
 - (void)start;
 

@@ -38,8 +38,8 @@
     return _duration;
 }
 
-- (void)animateWithProgress:(CGFloat)p { 
-
+- (CGAffineTransform)animateWithProgress:(CGFloat)p {
+    return CGAffineTransformIdentity;
 }
 
 - (void)end { 
