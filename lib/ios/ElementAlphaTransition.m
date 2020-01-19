@@ -2,8 +2,9 @@
 
 @implementation ElementAlphaTransition
 
-- (void)animateWithProgress:(CGFloat)p {
+- (CGAffineTransform)animateWithProgress:(CGFloat)p {
     self.view.alpha = [RNNInterpolator fromFloat:self.from toFloat:self.to precent:p];
+    return CGAffineTransformIdentity;
 }
 
 - (CGFloat)initialValue {

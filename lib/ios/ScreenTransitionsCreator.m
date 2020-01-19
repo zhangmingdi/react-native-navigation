@@ -17,10 +17,10 @@
     return self;
 }
 
-- (NSArray<id<DisplayLinkAnimation>> *)createFromVC:(UIViewController *)fromVC toVC:(UIViewController *)toVC containerView:(UIView *)containerView {
+- (NSArray<id<DisplayLinkAnimatorDelegate>> *)createFromVC:(UIViewController *)fromVC toVC:(UIViewController *)toVC containerView:(UIView *)containerView {
 	NSMutableArray* transitions = [NSMutableArray new];
     ElementTransition* contentTransition = [[ElementTransition alloc] initWithTransitionOptions:_screenTransition.content fromVC:fromVC toVC:toVC containerView:containerView view:toVC.view];
-    [transitions addObjectsFromArray:[contentTransition create]];
+    [transitions addObject:contentTransition];
     [transitions addObjectsFromArray:[_sharedElementTransitionsCreator createFromVC:fromVC toVC:toVC containerView:containerView]];
     [transitions addObjectsFromArray:[_elementTransitionsCreator createFromVC:fromVC toVC:toVC containerView:containerView]];
 	

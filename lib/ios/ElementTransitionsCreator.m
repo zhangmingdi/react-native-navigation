@@ -10,14 +10,14 @@
     return self;
 }
 
-- (NSArray<ElementTransition *>*)createFromVC:(UIViewController *)fromVC toVC:(UIViewController *)toVC containerView:(UIView *)containerView {
-    NSMutableArray* transitions = [NSMutableArray new];
+- (NSArray<DisplayLinkAnimatorDelegate>*)createFromVC:(UIViewController *)fromVC toVC:(UIViewController *)toVC containerView:(UIView *)containerView {
+    NSMutableArray<DisplayLinkAnimatorDelegate>* transitions = [NSMutableArray<DisplayLinkAnimatorDelegate> new];
     for (ElementTransitionOptions* transitionOptions in _elementTransitions) {
         ElementTransition* elementTransition = [[ElementTransition alloc] initWithTransitionOptions:transitionOptions
                                                                                              fromVC:fromVC
                                                                                                toVC:toVC
                                                                                       containerView:containerView];
-        [transitions addObjectsFromArray:[elementTransition create]];
+        [transitions addObject:elementTransition];
     }
     
     return transitions;

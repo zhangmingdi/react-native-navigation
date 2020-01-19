@@ -1,21 +1,21 @@
 #import "DisplayLinkAnimator.h"
 
 @implementation DisplayLinkAnimator {
-    NSArray<id<DisplayLinkAnimation>>* _animations;
+    NSArray<id<DisplayLinkAnimatorDelegate>>* _animators;
     CADisplayLink* _displayLink;
     NSDate* _startDate;
     CGFloat _duration;
 }
 
-- (instancetype)initWithDisplayLinkAnimations:(NSArray<id<DisplayLinkAnimation>> *)displayLinkAnimations duration:(CGFloat)duration {
+- (instancetype)initWithDisplayLinkAnimators:(NSArray<id<DisplayLinkAnimatorDelegate>> *)displayLinkAnimators duration:(CGFloat)duration {
     self = [super init];
-    _animations = displayLinkAnimations;
-    _duration = [self maxDuration:displayLinkAnimations];
+    _animators = displayLinkAnimators;
+    _duration = [self maxDuration:displayLinkAnimators];
     return self;
 }
 
-- (instancetype)initWithDisplayLinkAnimation:(id<DisplayLinkAnimation>)displayLinkAnimation duration:(CGFloat)duration {
-	self = [self initWithDisplayLinkAnimations:@[displayLinkAnimation] duration:duration];
+- (instancetype)initWithDisplayLinkAnimator:(id<DisplayLinkAnimatorDelegate>)displayLinkAnimator duration:(CGFloat)duration {
+	self = [self initWithDisplayLinkAnimators:@[displayLinkAnimator] duration:duration];
     return self;
 }
 
@@ -25,11 +25,11 @@
 	[_displayLink addToRunLoop:NSRunLoop.mainRunLoop forMode:NSDefaultRunLoopMode];
 }
 
-- (CGFloat)maxDuration:(NSArray<id<DisplayLinkAnimation>> *)displayLinkAnimations {
+- (CGFloat)maxDuration:(NSArray<id<DisplayLinkAnimatorDelegate>> *)displayLinkAnimators {
     CGFloat maxDuration = 0;
-    for (id<DisplayLinkAnimation> animation in displayLinkAnimations) {
-        if (animation.duration > maxDuration) {
-            maxDuration = animation.duration;
+    for (id<DisplayLinkAnimatorDelegate> animator in displayLinkAnimators) {
+        if (animator.maxDuration > maxDuration) {
+            maxDuration = animator.maxDuration;
         }
     }
     
@@ -52,17 +52,14 @@
 }
 
 - (void)updateAnimations:(NSTimeInterval)elapsed {
-	for (id<DisplayLinkAnimation> animation in _animations) {
-        if (elapsed < animation.duration && elapsed > animation.startDelay) {
-            CGFloat p = (elapsed-animation.startDelay)/(animation.duration-animation.startDelay);
-            [animation animateWithProgress:p];
-        }
+	for (id<DisplayLinkAnimatorDelegate> animator in _animators) {
+        [animator updateAnimations:elapsed];
 	}
 }
 
 - (void)end {
-    for (id<DisplayLinkAnimation> animation in _animations) {
-        [animation end];
+    for (id<DisplayLinkAnimatorDelegate> animator in _animators) {
+        [animator end];
     }
 }
 

@@ -27,8 +27,9 @@
     [self addSubview:_reactView];
 }
 
-- (void)animateWithProgress:(CGFloat)p {
+- (CGAffineTransform)animateWithProgress:(CGFloat)p {
     self.frame = [RNNInterpolator fromRect:self.location.fromFrame toRect:self.location.toFrame precent:p];
+    return CGAffineTransformIdentity;
 }
 
 - (void)end {

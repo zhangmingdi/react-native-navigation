@@ -6,13 +6,13 @@
 #import "VerticalTranslationTransition.h"
 #import "Transition.h"
 #import "RNNElementFinder.h"
+#import "VerticalRotationTransition.h"
 
 @implementation ElementTransition {
     ElementTransitionOptions* _transitionOptions;
     UIViewController* _toVC;
     UIViewController* _fromVC;
     UIView* _containerView;
-    UIView* _view;
     BOOL _from;
 }
 
@@ -22,39 +22,45 @@
     _fromVC = fromVC;
     _toVC = toVC;
     _containerView = containerView;
-    _view = [self findElementById:transitionOptions.elementId];
+    self.view = [self findElementById:transitionOptions.elementId];
+    self.animations = [self createAnimations:_transitionOptions];
     return self;
 }
 
 - (instancetype)initWithTransitionOptions:(ElementTransitionOptions *)transitionOptions fromVC:(UIViewController *)fromVC toVC:(UIViewController *)toVC containerView:(UIView *)containerView view:(UIView *)view {
     self = [self initWithTransitionOptions:transitionOptions fromVC:fromVC toVC:toVC containerView:containerView];
-    _view = view;
+    self.view = view;
+    self.animations = [self createAnimations:_transitionOptions];
     return self;
 }
 
-- (NSArray<id<DisplayLinkAnimation>>*)create {
-    NSMutableArray* transitions = [NSMutableArray new];
-    if (_transitionOptions.alpha.hasAnimation) {
-        [transitions addObject:self.alpha];
+- (NSArray<id<DisplayLinkAnimation>> *)createAnimations:(TransitionOptions *)transitionOptions {
+    NSMutableArray* animations = [NSMutableArray new];
+    if (transitionOptions.alpha.hasAnimation) {
+        [animations addObject:[[ElementAlphaTransition alloc] initWithView:self.view transitionDetails:_transitionOptions.alpha]];
     }
     
-    if (_transitionOptions.y.hasAnimation) {
-        [transitions addObject:self.y];
+    if (transitionOptions.x.hasAnimation) {
+        [animations addObject:[[ElementHorizontalTransition alloc] initWithView:self.view transitionDetails:_transitionOptions.x]];
     }
     
-    if (_transitionOptions.x.hasAnimation) {
-        [transitions addObject:self.x];
+    if (transitionOptions.y.hasAnimation) {
+        [animations addObject:[[ElementVerticalTransition alloc] initWithView:self.view transitionDetails:_transitionOptions.y]];
     }
     
-    if (_transitionOptions.translationX.hasAnimation) {
-        [transitions addObject:self.translationX];
+    if (transitionOptions.translationX.hasAnimation) {
+        [animations addObject:[[HorizontalTranslationTransition alloc] initWithView:self.view transitionDetails:_transitionOptions.translationX]];
     }
     
-    if (_transitionOptions.translationY.hasAnimation) {
-        [transitions addObject:self.translationY];
+    if (transitionOptions.translationY.hasAnimation) {
+        [animations addObject:[[VerticalTranslationTransition alloc] initWithView:self.view transitionDetails:_transitionOptions.translationY]];
     }
     
-    return transitions;
+    if (transitionOptions.rotationY.hasAnimation) {
+        [animations addObject:[[VerticalRotationTransition alloc] initWithView:self.view transitionDetails:_transitionOptions.rotationY]];
+    }
+    
+    return animations;
 }
 
 - (UIView *)findElementById:(NSString *)elementId {
@@ -71,26 +77,5 @@
     
     return nil;
 }
-
-- (ElementAlphaTransition *)alpha {
-    return [[ElementAlphaTransition alloc] initWithView:_view transitionDetails:_transitionOptions.alpha];
-}
-
-- (ElementVerticalTransition *)y {
-    return [[ElementVerticalTransition alloc] initWithView:_view transitionDetails:_transitionOptions.y];
-}
-
-- (ElementHorizontalTransition *)x {
-    return [[ElementHorizontalTransition alloc] initWithView:_view transitionDetails:_transitionOptions.x];
-}
-
-- (ElementHorizontalTransition *)translationX {
-    return [[ElementHorizontalTransition alloc] initWithView:_view transitionDetails:_transitionOptions.translationX];
-}
-
-- (VerticalTranslationTransition *)translationY {
-    return [[VerticalTranslationTransition alloc] initWithView:_view transitionDetails:_transitionOptions.translationY];
-}
-
 
 @end
