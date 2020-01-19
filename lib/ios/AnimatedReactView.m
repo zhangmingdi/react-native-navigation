@@ -4,6 +4,8 @@
     UIView* _originalParent;
     CGRect _originalFrame;
     UIView* _toElement;
+    UIColor* _fromColor;
+    UIColor* _toColor;
     SharedElementTransitionOptions* _transitionOptions;
 }
 
@@ -13,6 +15,8 @@
     _transitionOptions = transitionOptions;
     _toElement = toElement;
     _toElement.hidden = YES;
+    _fromColor = element.backgroundColor ?: UIColor.clearColor;
+    _toColor = toElement.backgroundColor ?: UIColor.clearColor;
     [self hijackReactElement:element];
     
     return self;
@@ -22,6 +26,7 @@
     _reactView = element;
     _originalFrame = _reactView.frame;
     self.frame = self.location.fromFrame;
+    _reactView.backgroundColor = _fromColor;
     _originalParent = _reactView.superview;
     _reactView.frame = self.bounds;
     [self addSubview:_reactView];
@@ -29,6 +34,7 @@
 
 - (CGAffineTransform)animateWithProgress:(CGFloat)p {
     self.frame = [RNNInterpolator fromRect:self.location.fromFrame toRect:self.location.toFrame precent:p];
+    _reactView.backgroundColor = [RNNInterpolator fromColor:_fromColor toColor:_toColor precent:p];
     return CGAffineTransformIdentity;
 }
 
@@ -36,6 +42,7 @@
     _reactView.frame = _originalFrame;
     [_originalParent addSubview:_reactView];
     _toElement.hidden = NO;
+    _reactView.backgroundColor = _fromColor;
     [self removeFromSuperview];
 }
 
