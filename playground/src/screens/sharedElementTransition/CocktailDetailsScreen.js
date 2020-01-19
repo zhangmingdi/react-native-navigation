@@ -1,7 +1,7 @@
 const React = require('react');
 const { SafeAreaView, FlatList, View, Image, Text, StyleSheet } = require('react-native');
 
-class CocktailDetailsScreen extends Component {
+class CocktailDetailsScreen extends React.Component {
   static options() {
     return {
       topBar: {
@@ -16,8 +16,9 @@ class CocktailDetailsScreen extends Component {
     return (
       <SafeAreaView>
         <View style={styles.root}>
-          <View nativeID={'backdrop'} style={[styles.header, { backgroundColor: this.props.color }]}></View>
-          <Text style={styles.title} nativeID={`title${this.props.id}Dest`}>{this.props.name}</Text>
+          <View nativeID={'backdrop'} style={[styles.header, { backgroundColor: this.props.color }]}>
+            <Text style={styles.title} nativeID={`title${this.props.id}Dest`}>{this.props.name}</Text>
+          </View>
         </View>
         <Image
           source={this.props.image}
