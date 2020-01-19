@@ -21,8 +21,8 @@
 	NSMutableArray* transitions = [NSMutableArray new];
     ElementTransition* contentTransition = [[ElementTransition alloc] initWithTransitionOptions:_screenTransition.content fromVC:fromVC toVC:toVC containerView:containerView view:toVC.view];
     [transitions addObject:contentTransition];
-    [transitions addObjectsFromArray:[_sharedElementTransitionsCreator createFromVC:fromVC toVC:toVC containerView:containerView]];
     [transitions addObjectsFromArray:[_elementTransitionsCreator createFromVC:fromVC toVC:toVC containerView:containerView]];
+    [transitions addObjectsFromArray:[_sharedElementTransitionsCreator createFromVC:fromVC toVC:toVC containerView:containerView]];
 	
 	return transitions;
 }
