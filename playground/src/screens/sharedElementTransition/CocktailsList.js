@@ -64,6 +64,17 @@ class CocktailsList extends Component {
                     }
                   ],
                   elementTransitions: [
+                    {
+                      id: 'description',
+                      alpha: {
+                        from: 0,
+                        duration: DURATION2
+                      },
+                      translationY: {
+                        from: 18,
+                        duration: DURATION2 //120
+                      }
+                    }
                     // {
                     //   id: 'header',
                     //   translationY: {
@@ -84,17 +95,6 @@ class CocktailsList extends Component {
                     //       interpolation: 'linear',
                     //     }
                     // },
-                    {
-                      id: 'description',
-                      alpha: {
-                        from: 0,
-                        duration: DURATION2
-                      },
-                      translationY: {
-                        from: 18,
-                        duration: DURATION2 //120
-                      }
-                    }
                   ]
                 }
               }
