@@ -843,7 +843,7 @@ export interface OptionsAnimationPropertyConfig {
  * Used to animate the actual content added to the hierarchy.
  * Content can be a React component (component) or any other layout (Stack, BottomTabs etc)
  */
-export interface Transition {
+export interface ScreenAnimationOptions {
   /**
    * Animate the element over x value
    */
@@ -914,7 +914,7 @@ export interface IconInsets {
   right?: number;
 }
 
-export interface ViewTransition extends Transition {
+export interface ViewAnimationOptions extends ScreenAnimationOptions {
   /**
    * ID of the Top Bar we want to animate
    */
@@ -937,11 +937,11 @@ export interface StackAnimationOptions {
   /**
    * Configure animations for the top bar
    */
-  topBar?: ViewTransition;
+  topBar?: ViewAnimationOptions;
   /**
    * Configure animations for the bottom tabs
    */
-  bottomTabs?: ViewTransition;
+  bottomTabs?: ViewAnimationOptions;
   /**
    * Configure animations for the content (Screen)
    */
@@ -963,11 +963,11 @@ export interface AnimationOptions {
   /**
    * Configure the setStackRoot animation
    */
-  setStackRoot?: ViewTransition;
+  setStackRoot?: ViewAnimationOptions;
   /**
    * Configure the setRoot animation
    */
-  setRoot?: ViewTransition;
+  setRoot?: ViewAnimationOptions;
   /**
    * Configure what animates when a screen is pushed
    */
@@ -979,39 +979,11 @@ export interface AnimationOptions {
   /**
    * Configure what animates when modal is shown
    */
-  showModal?: ViewTransition;
+  showModal?: ViewAnimationOptions;
   /**
    * Configure what animates when modal is dismissed
    */
-  dismissModal?: ViewTransition;
-}
-
-// export interface OptionsCustomTransition {
-//   animations: OptionsCustomTransitionAnimation[];
-//   duration?: number;
-// }
-
-export interface SharedElementTransition {
-  /**
-   * Transition from element Id
-   */
-  fromId: string;
-  /**
-   * Transition to element Id
-   */
-  toId: string;
-  /**
-   * Animation delay
-   */
-  startDelay?: number;
-  /**
-   * Animation spring Velocity
-   */
-  springVelocity?: number;
-  /**
-   * Animation duration
-   */
-  duration?: number;
+  dismissModal?: ViewAnimationOptions;
 }
 
 export interface Options {
