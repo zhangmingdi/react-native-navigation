@@ -54,7 +54,7 @@ class CocktailsList extends Component {
                   {fromId: `${item.name}-image`, toId: 'image2', duration: 300}
                 ],
                 elementTransitions: [
-                  {id: `redbox`, alpha: {from: 1, to: 1}, y: {from: -150, duration: 300}}
+                  {id: `redbox`, alpha: {from: 1}, y: {from: -150, duration: 300}}
                 ]
               }
             }
