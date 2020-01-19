@@ -1,31 +1,12 @@
 const React = require('react');
-const {Component} = require('react');
-const {SafeAreaView, FlatList, View, Image, Text, StyleSheet} = require('react-native');
+const { SafeAreaView, FlatList, View, Image, Text, StyleSheet } = require('react-native');
 
-class CocktailDetailsScreen extends Component {
-  static options(props) {
+class CocktailDetailsScreen extends React.Component {
+  static options() {
     return {
-      animations: {
-        pop: {
-          content: {
-            alpha: {
-              from: 0,
-              to: 1,
-              duration: 1000
-            },
-            // x: {
-            //   from: 450,
-            //   to: 0,
-            //   duration: 1000
-            // }
-          },
-          sharedElementTransitions: [
-            {fromId: 'text2', toId: `${props.name}-text`, duration: 1000},
-            {fromId: 'image2', toId: `${props.name}-image`, duration: 1000, startDelay: 500}
-          ],
-          elementTransitions: [
-            {id: `redbox`, y: {to: -150, duration: 300}}
-          ]
+      topBar: {
+        title: {
+          text: 'Cocktails'
         }
       }
     }
@@ -34,17 +15,22 @@ class CocktailDetailsScreen extends Component {
   render() {
     return (
       <SafeAreaView>
-        <View style={styles.header}>
-          <View nativeID={'redbox'} style={[styles.redBackground]}>
+        <View style={styles.root}>
+          <View nativeID={'backdrop'} style={[styles.header, { backgroundColor: this.props.color }]}>
+            <Text style={styles.title} nativeID={`title${this.props.id}Dest`}>{this.props.name}</Text>
           </View>
-          <Text nativeID={'text2'} style={styles.title}>{this.props.name}</Text>
-          <Image
-            nativeID={'image2'}
-            source={this.props.image}
-            style={styles.image}
-          />
         </View>
-      </SafeAreaView>
+        <Image
+          source={this.props.image}
+          nativeID={`image${this.props.id}Dest`}
+          style={styles.image}
+        />
+        <Text
+          nativeID='description'
+          style={styles.description}>
+          {this.props.description}
+        </Text>
+      </SafeAreaView >
     );
   }
 }
@@ -52,6 +38,7 @@ class CocktailDetailsScreen extends Component {
 module.exports = CocktailDetailsScreen;
 const SIZE = 120;
 const HEADER = 150;
+const IMAGE_OFFSET = 52
 const styles = StyleSheet.create({
   root: {
 
@@ -65,19 +52,21 @@ const styles = StyleSheet.create({
     fontSize: 32,
     color: 'whitesmoke',
     marginLeft: 24,
-    marginBottom: 16
+    marginBottom: 16,
+    zIndex: 2
+  },
+  description: {
+    fontSize: 15,
+    letterSpacing: 0.2,
+    lineHeight: 25,
+    marginTop: 32,
+    marginHorizontal: 24
   },
   image: {
     height: SIZE,
     width: SIZE,
     position: 'absolute',
     right: 24,
-    top: HEADER / 2
-  },
-  redBackground: {
-    height: '100%',
-    width: '100%',
-    position: 'absolute',
-    backgroundColor: 'red'
+    top: IMAGE_OFFSET
   }
 });
