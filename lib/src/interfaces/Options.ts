@@ -12,6 +12,7 @@ type SystemItemIcon = 'done' | 'cancel' | 'edit'
   | 'bookmarks' | 'search' | 'refresh' | 'stop'
   | 'camera' | 'trash' | 'play' | 'pause'
   | 'rewind' | 'fastForward' | 'undo' | 'redo';
+type Interpolation = 'linear' | 'accelerateDecelerate' | 'decelerate' | 'accelerate' | 'decelerateAccelerate';
 
 export interface OptionsSplitView {
   /**
@@ -460,6 +461,40 @@ export interface OptionsTopBar {
   topMargin?: number;
 }
 
+export interface SharedElementTransition {
+  fromId: string;
+  toId: string;
+  duration: number;
+  interpolation: Interpolation;
+}
+
+export interface ElementTransition {
+  id: string;
+  alpha?: AppearingElementAnimation | DisappearingElementAnimation;
+  translationX?: AppearingElementAnimation | DisappearingElementAnimation;
+  translationY?: AppearingElementAnimation | DisappearingElementAnimation;
+  scaleX?: AppearingElementAnimation | DisappearingElementAnimation;
+  scaleY?: AppearingElementAnimation | DisappearingElementAnimation;
+  rotationX?: AppearingElementAnimation | DisappearingElementAnimation;
+  rotationY?: AppearingElementAnimation | DisappearingElementAnimation;
+  x?: AppearingElementAnimation | DisappearingElementAnimation;
+  y?: AppearingElementAnimation | DisappearingElementAnimation;
+}
+
+export interface AppearingElementAnimation extends ElementAnimation {
+  from: number;
+}
+
+export interface DisappearingElementAnimation extends ElementAnimation {
+  to: number;
+}
+
+export interface ElementAnimation {
+  duration: number;
+  startDelay?: number;
+  interpolation: Interpolation;
+}
+
 export interface OptionsFab {
   id: string;
   backgroundColor?: Color;
@@ -874,15 +909,15 @@ export interface StackAnimationOptions {
   /**
    * Configure animations for the content (Screen)
    */
-  content?: ViewTransition;
+  content?: ViewAnimationOptions;
   /**
-   * Configure shared element transitions
+   * Animations to be applied on elements which are shared between the appearing and disappearing screens
    */
   sharedElementTransitions?: SharedElementTransition[];
   /**
-   * Configure transitions for elements on the destination screen
+   * Animations to be applied on views in the appearing or disappearing screens
    */
-  elementTransitions?: ViewTransition[];
+  elementTransitions?: ElementTransition[];
 }
 
 /**
