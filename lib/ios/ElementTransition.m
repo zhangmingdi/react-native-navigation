@@ -40,9 +40,9 @@
         [transitions addObject:self.y];
     }
 
-    if (_transitionOptions.x.hasAnimation) {
-        [transitions addObject:self.x];
-    }
+   if (_transitionOptions.x.hasAnimation) {
+       [transitions addObject:self.x];
+   }
     
     return transitions;
 }
@@ -63,27 +63,15 @@
 }
 
 - (ElementAlphaTransition *)alpha {
-    if (_from) {
-        return [[ElementAlphaTransition alloc] initFromView:_view transitionDetails:_transitionOptions.alpha];
-    } else {
-        return [[ElementAlphaTransition alloc] initToView:_view transitionDetails:_transitionOptions.alpha];
-    }
+    return [[ElementAlphaTransition alloc] initWithView:_view transitionDetails:_transitionOptions.alpha];
 }
 
 - (ElementVerticalTransition *)y {
-    if (_from) {
-        return [[ElementVerticalTransition alloc] initFromView:_view transitionDetails:_transitionOptions.y];
-    } else {
-        return [[ElementVerticalTransition alloc] initToView:_view transitionDetails:_transitionOptions.y];
-    }
+    return [[ElementVerticalTransition alloc] initWithView:_view transitionDetails:_transitionOptions.y];
 }
 
 - (ElementHorizontalTransition *)x {
-    if (_from) {
-        return [[ElementHorizontalTransition alloc] initFromView:_view transitionDetails:_transitionOptions.x];
-    } else {
-        return [[ElementHorizontalTransition alloc] initToView:_view transitionDetails:_transitionOptions.x];
-    }
+    return [[ElementHorizontalTransition alloc] initWithView:_view transitionDetails:_transitionOptions.x];
 }
 
 

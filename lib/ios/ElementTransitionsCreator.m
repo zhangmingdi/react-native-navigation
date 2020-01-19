@@ -19,12 +19,6 @@
                                                                                       containerView:containerView];
         [transitions addObjectsFromArray:[elementTransition create]];
     }
-//    for (SharedElementTransitionOptions* transitionOptions in _sharedElementTransitions) {
-//        AnimatedReactView* animatedView = [self createAnimatedView:transitionOptions fromVC:fromVC toVC:toVC];
-//        [transitions addObject:animatedView];
-//    }
-//	
-//	[self addSharedElementViews:transitions toContainerView:containerView];
     
     return transitions;
 }
