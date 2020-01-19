@@ -4,12 +4,14 @@
 #import "ElementHorizontalTransition.h"
 #import "Transition.h"
 #import "RNNElementFinder.h"
+
 @implementation ElementTransition {
     ElementTransitionOptions* _transitionOptions;
     UIViewController* _toVC;
     UIViewController* _fromVC;
     UIView* _containerView;
     UIView* _view;
+    BOOL _from;
 }
 
 - (instancetype)initWithTransitionOptions:(ElementTransitionOptions *)transitionOptions fromVC:(UIViewController *)fromVC toVC:(UIViewController *)toVC containerView:(UIView *)containerView {
@@ -31,15 +33,15 @@
 - (NSArray<id<DisplayLinkAnimation>>*)create {
     NSMutableArray* transitions = [NSMutableArray new];
     if (_transitionOptions.alpha.hasAnimation) {
-        [transitions addObject:[[ElementAlphaTransition alloc] initWithView:_view transitionDetails:_transitionOptions.alpha]];
-    }
-    
-    if (_transitionOptions.x.hasAnimation) {
-        [transitions addObject:[[ElementVerticalTransition alloc] initWithView:_view transitionDetails:_transitionOptions.x]];
+        [transitions addObject:self.alpha];
     }
     
     if (_transitionOptions.y.hasAnimation) {
-        [transitions addObject:[[ElementHorizontalTransition alloc] initWithView:_view transitionDetails:_transitionOptions.y]];
+        [transitions addObject:self.y];
+    }
+
+    if (_transitionOptions.x.hasAnimation) {
+        [transitions addObject:self.x];
     }
     
     return transitions;
@@ -53,25 +55,36 @@
     
     UIView* viewInDestinationView = [RNNElementFinder findElementForId:elementId inView:_toVC.view];
     if (viewInDestinationView) {
+        _from = YES;
         return viewInDestinationView;
     }
     
     return nil;
 }
 
-//- (TransitionDetailsOptions *)alpha {
-//    TransitionDetailsOptions* transition = [[TransitionDetailsOptions alloc] init];
-//    transition.to
-//    _to = [transitionDetails.to getWithDefaultValue:0];
-//    NSAssert(transitionDetails.from.hasValue, @"Transitioning elements in current visible screen `from` value is taken from the element initial values, `from` value should be removed");
-//    _from = self.initialValue;
-//}
+- (ElementAlphaTransition *)alpha {
+    if (_from) {
+        return [[ElementAlphaTransition alloc] initFromView:_view transitionDetails:_transitionOptions.alpha];
+    } else {
+        return [[ElementAlphaTransition alloc] initToView:_view transitionDetails:_transitionOptions.alpha];
+    }
+}
 
-//- (TransitionDetailsOptions *)alpha {
-////    _to = [transitionDetails.to getWithDefaultValue:0];
-////    NSAssert(transitionDetails.from.hasValue, @"Transitioning elements in current visible screen `from` value is taken from the element initial values, `from` value should be removed");
-////    _from = self.initialValue;
-//}
+- (ElementVerticalTransition *)y {
+    if (_from) {
+        return [[ElementVerticalTransition alloc] initFromView:_view transitionDetails:_transitionOptions.y];
+    } else {
+        return [[ElementVerticalTransition alloc] initToView:_view transitionDetails:_transitionOptions.y];
+    }
+}
+
+- (ElementHorizontalTransition *)x {
+    if (_from) {
+        return [[ElementHorizontalTransition alloc] initFromView:_view transitionDetails:_transitionOptions.x];
+    } else {
+        return [[ElementHorizontalTransition alloc] initToView:_view transitionDetails:_transitionOptions.x];
+    }
+}
 
 
 @end

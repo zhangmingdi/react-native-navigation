@@ -5,7 +5,11 @@
 
 @interface ElementBaseTransition : NSObject <DisplayLinkAnimation>
 
-- (instancetype)initWithView:(UIView *)view transitionDetails:(TransitionDetailsOptions *)transitionDetails;
+- (instancetype)initToView:(UIView *)view transitionDetails:(TransitionDetailsOptions *)transitionDetails;
+
+- (instancetype)initFromView:(UIView *)view transitionDetails:(TransitionDetailsOptions *)transitionDetails;
+
+- (CGFloat)initialValue;
 
 @property (readonly, strong) UIView* view;
 @property (readonly, nonatomic) NSTimeInterval startDelay;

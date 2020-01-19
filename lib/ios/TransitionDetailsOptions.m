@@ -14,7 +14,7 @@
 }
 
 - (BOOL)hasAnimation {
-	return self.from.hasValue && self.to.hasValue;
+	return self.from.hasValue || self.to.hasValue;
 }
 
 @end

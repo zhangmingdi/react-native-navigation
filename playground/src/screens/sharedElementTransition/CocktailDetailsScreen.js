@@ -24,7 +24,7 @@ class CocktailDetailsScreen extends Component {
             {fromId: 'image2', toId: `${props.name}-image`, duration: 1000, startDelay: 500}
           ],
           elementTransitions: [
-            {id: `redbox`, y: {from: -150, to: 0, duration: 300}}
+            {id: `redbox`, y: {to: -150, duration: 300}}
           ]
         }
       }
