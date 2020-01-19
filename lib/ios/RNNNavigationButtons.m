@@ -63,6 +63,41 @@
         [self clearPreviousButtonViews:barButtonItems oldButtons:self.viewController.navigationItem.rightBarButtonItems];
         [self.viewController.navigationItem setRightBarButtonItems:barButtonItems animated:animated];
     }
+    
+    [self notifyButtonsDidAppear:barButtonItems];
+}
+
+- (NSArray *)currentButtons {
+    NSArray* currentButtons = [self.viewController.navigationItem.leftBarButtonItems arrayByAddingObjectsFromArray:self.viewController.navigationItem.rightBarButtonItems];
+    return currentButtons;
+}
+
+- (void)componentDidAppear {
+    for (UIBarButtonItem* barButtonItem in [self currentButtons]) {
+	  if ([self isRNNUIBarButton:barButtonItem]) {
+		  [(RNNUIBarButtonItem *)barButtonItem notifyDidAppear];
+	  }
+    }
+}
+
+- (void)componentDidDisappear {
+    for (UIBarButtonItem* barButtonItem in [self currentButtons]) {
+	  if ([self isRNNUIBarButton:barButtonItem]) {
+		  [(RNNUIBarButtonItem *)barButtonItem notifyDidDisappear];
+	  }
+    }
+}
+
+- (void)notifyButtonsDidAppear:(NSArray *)barButtonItems {
+    for (UIBarButtonItem* barButtonItem in barButtonItems) {
+	  if ([self isRNNUIBarButton:barButtonItem]) {
+		  [(RNNUIBarButtonItem *)barButtonItem notifyDidAppear];
+	  }
+    }
+}
+
+- (BOOL)isRNNUIBarButton:(UIBarButtonItem *)barButtonItem {
+    return [barButtonItem isKindOfClass:[RNNUIBarButtonItem class]];
 }
 
 - (void)clearPreviousButtonViews:(NSArray<UIBarButtonItem *> *)newButtons oldButtons:(NSArray<UIBarButtonItem *> *)oldButtons {
@@ -71,6 +106,7 @@
     for (UIBarButtonItem* buttonItem in removedButtons) {
         RNNReactView* reactView = buttonItem.customView;
         if ([reactView isKindOfClass:[RNNReactView class]]) {
+            [reactView componentDidDisappear];
             [_componentRegistry removeChildComponent:reactView.componentId];
         }
     }
@@ -117,7 +153,7 @@
         componentOptions.componentId = [[Text alloc] initWithValue:component[@"componentId"]];
         componentOptions.name = [[Text alloc] initWithValue:component[@"name"]];
         
-        RNNReactView *view = [_componentRegistry createComponentIfNotExists:componentOptions parentComponentId:self.viewController.layoutInfo.componentId reactViewReadyBlock:nil];
+        RNNReactButtonView *view = [_componentRegistry createComponentIfNotExists:componentOptions parentComponentId:self.viewController.layoutInfo.componentId componentType:RNNComponentTypeTopBarButton reactViewReadyBlock:nil];
         barButtonItem = [[RNNUIBarButtonItem alloc] init:buttonId withCustomView:view];
     } else if (iconImage) {
         barButtonItem = [[RNNUIBarButtonItem alloc] init:buttonId withIcon:iconImage];
@@ -134,6 +170,7 @@
         return nil;
     }
     
+    barButtonItem.accessibilityLabel = dictionary[@"accessibilityLabel"];
     barButtonItem.target = self.viewController;
     barButtonItem.action = @selector(onButtonPress:);
     

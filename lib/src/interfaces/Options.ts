@@ -302,6 +302,10 @@ export interface OptionsTopBarButton {
    */
   text?: string;
   /**
+   * Overrides the text that's read by the screen reader when the user interacts with the element
+   */
+  accessibilityLabel?: string;
+  /**
    * Set the button font family
    */
   fontFamily?: string;
@@ -532,7 +536,7 @@ export interface OptionsBottomTabs {
    * Control the text display mode below the tab icon
    * #### (Android specific)
    */
-  titleDisplayMode?: 'alwaysShow' | 'showWhenActive' | 'alwaysHide';
+  titleDisplayMode?: 'alwaysShow' | 'showWhenActive' | 'alwaysHide' | 'showWhenActiveForce';
   /**
    * Set the elevation of the Bottom Tabs in dp
    * #### (Android specific)

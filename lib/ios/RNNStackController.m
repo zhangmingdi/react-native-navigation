@@ -24,10 +24,6 @@
 	[self.presenter applyOptionsOnViewDidLayoutSubviews:self.resolveOptions];
 }
 
-- (UIViewController *)getCurrentChild {
-	return self.topViewController;
-}
-
 - (UINavigationController *)navigationController {
 	return self;
 }

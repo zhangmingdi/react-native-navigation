@@ -185,6 +185,7 @@
 	
 	nav.navigationBar.barTintColor = UIColor.clearColor;
 	XCTAssertTrue([nav.navigationBar.barTintColor isEqual:UIColor.clearColor]);
+	XCTAssertTrue(nav.navigationBar.isTranslucent);
 }
 
 -(void)testTopBarTransparent_BOOL_false {
@@ -192,7 +193,7 @@
 	__unused RNNStackController* nav = [self createNavigationController];
 	self.options.topBar.background.color = [[Color alloc] initWithValue:inputColor];
 	[self.uut viewWillAppear:false];
-
+	XCTAssertFalse(nav.navigationBar.isTranslucent);
 	XCTAssertFalse([nav.navigationBar.barTintColor isEqual:UIColor.clearColor]);
 }
 

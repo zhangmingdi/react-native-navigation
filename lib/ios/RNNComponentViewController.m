@@ -28,18 +28,14 @@
 	[self.parentViewController onChildWillAppear];
 }
 
--(void)viewDidAppear:(BOOL)animated {
-	[super viewDidAppear:animated];
-	[self.eventEmitter sendComponentDidAppear:self.layoutInfo.componentId componentName:self.layoutInfo.name];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-	[super viewWillDisappear:animated];
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self componentDidAppear];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
-	[super viewDidDisappear:animated];
-	[self.eventEmitter sendComponentDidDisappear:self.layoutInfo.componentId componentName:self.layoutInfo.name];
+    [super viewDidDisappear:animated];
+    [self componentDidDisappear];
 }
 
 - (void)loadView {
@@ -55,7 +51,10 @@
 
 - (void)renderReactViewIfNeeded {
     if (!self.isViewLoaded) {
-        self.view = [self.creator createRootView:self.layoutInfo.name rootViewId:self.layoutInfo.componentId availableSize:UIScreen.mainScreen.bounds.size reactViewReadyBlock:^{
+        self.view = [self.creator createRootView:self.layoutInfo.name
+                                      rootViewId:self.layoutInfo.componentId
+                                          ofType:RNNComponentTypeComponent
+                             reactViewReadyBlock:^{
             [self->_presenter renderComponents:self.resolveOptions perform:^{
                 [self readyForPresentation];
             }];

@@ -72,6 +72,7 @@
     if (self.transparent) {
         [self setBackgroundColorTransparent];
     } else if (_backgroundColor) {
+        self.navigationController.navigationBar.translucent = NO;
         self.navigationController.navigationBar.barTintColor = _backgroundColor;
     } else if (_translucent) {
         self.navigationController.navigationBar.translucent = YES;
@@ -83,6 +84,7 @@
 
 - (void)setBackgroundColorTransparent {
     self.navigationController.navigationBar.barTintColor = UIColor.clearColor;
+    self.navigationController.navigationBar.translucent = YES;
     self.navigationController.navigationBar.shadowImage = [UIImage new];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
 }
