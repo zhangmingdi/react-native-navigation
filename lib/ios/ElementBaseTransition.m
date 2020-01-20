@@ -42,6 +42,10 @@
     return CGAffineTransformIdentity;
 }
 
+- (RNNInterpolationOptions)interpolation {
+    return [RCTConvert RNNInterpolationOptions:[_transitionDetails.interpolation getWithDefaultValue:@"accelerateDecelerate"]];
+}
+
 - (void)end { 
 
 }

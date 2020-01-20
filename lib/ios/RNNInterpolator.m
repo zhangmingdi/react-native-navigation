@@ -1,44 +1,60 @@
 #import "RNNInterpolator.h"
+#import "Color+Interpolation.h"
 
 @implementation RNNInterpolator
 
 + (UIColor *)fromColor:(UIColor *)fromColor toColor:(UIColor *)toColor precent:(CGFloat)precent {
-    CGFloat fromHue, fromSaturation, fromBrightness, fromAlpha;
-    [fromColor getHue:&fromHue saturation:&fromSaturation brightness:&fromBrightness alpha:&fromAlpha];
-
-    CGFloat toHue, toSaturation, toBrightness, toAlpha;
-    [toColor getHue:&toHue saturation:&toSaturation brightness:&toBrightness alpha:&toAlpha];
-    
-    CGFloat finalHue = RNNInterpolateFloat(fromHue, toHue, precent);
-    CGFloat finalSaturation = RNNInterpolateFloat(fromSaturation, toSaturation, precent);
-    CGFloat finalBrightness = RNNInterpolateFloat(fromBrightness, toBrightness, precent);
-    CGFloat finalAlpha = RNNInterpolateFloat(fromAlpha, toAlpha, precent);
-    
-    return [UIColor colorWithHue:finalHue saturation:finalSaturation brightness:finalBrightness alpha:finalAlpha];
+    return [fromColor ?: UIColor.clearColor interpolateToValue:toColor ?: UIColor.clearColor progress:precent behavior:LNInterpolationBehaviorUseLABColorSpace];
 }
 
-+ (CGFloat)fromFloat:(CGFloat)from toFloat:(CGFloat)to precent:(CGFloat)precent {
-    return from + RNNQuarticEaseInOut(precent) * (to - from);
++ (CGFloat)fromFloat:(CGFloat)from toFloat:(CGFloat)to precent:(CGFloat)precent interpolation:(RNNInterpolationOptions)interpolation {
+    return RNNInterpolate(from, to, precent, interpolation);
 }
 
-+ (CGRect)fromRect:(CGRect)from toRect:(CGRect)to precent:(CGFloat)p {
-    return CGRectMake(RNNInterpolateFloat(from.origin.x, to.origin.x, p),
-    RNNInterpolateFloat(from.origin.y, to.origin.y, p),
-    RNNInterpolateFloat(from.size.width, to.size.width, p),
-    RNNInterpolateFloat(from.size.height, to.size.height, p));
++ (CGRect)fromRect:(CGRect)from toRect:(CGRect)to precent:(CGFloat)p interpolation:(RNNInterpolationOptions)interpolation {
+    return CGRectMake(RNNInterpolate(from.origin.x, to.origin.x, p, interpolation),
+                      RNNInterpolate(from.origin.y, to.origin.y, p, interpolation),
+                      RNNInterpolate(from.size.width, to.size.width, p, interpolation),
+                      RNNInterpolate(from.size.height, to.size.height, p, interpolation));
 }
 
-static CGFloat RNNInterpolateFloat(CGFloat from, CGFloat to, CGFloat p) {
-    return from + RNNQuarticEaseInOut(p) * (to - from);
+static CGFloat RNNApplyInterpolation(CGFloat p, RNNInterpolationOptions interpolation) {
+    switch (interpolation) {
+        case RNNInterpolationAccelerate:
+            return RNNAccelerate(p);
+        case RNNInterpolationAccelerateDecelerate:
+            return RNNAccelerateDecelerate(p);
+        case RNNInterpolationLinear:
+            return RNNLinear(p);
+        case RNNInterpolationDecelerate:
+            return RNNDecelerate(p);
+    }
 }
 
-static CGFloat RNNQuarticEaseInOut(CGFloat p) {
-    if(p < 0.5) {
+static CGFloat RNNInterpolate(CGFloat from, CGFloat to, CGFloat p, RNNInterpolationOptions interpolation) {
+    return from + RNNApplyInterpolation(p, interpolation) * (to - from);
+}
+
+static CGFloat RNNLinear(CGFloat p) {
+    return p;
+}
+
+static CGFloat RNNAccelerate(CGFloat p) {
+    return p * p;
+}
+
+static CGFloat RNNDecelerate(CGFloat p) {
+    return -(p * (p - 2));
+}
+
+static CGFloat RNNAccelerateDecelerate(CGFloat p) {
+    if (p < 0.5) {
         return 4 * p * p * p;
     } else {
         CGFloat f = ((2 * p) - 2);
         return 0.5 * f * f * f + 1;
     }
 }
+
 
 @end

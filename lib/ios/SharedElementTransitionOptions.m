@@ -11,7 +11,7 @@
 	self.toId = [transition objectForKey:@"toId"];
     self.startDelay = [TimeIntervalParser parse:transition key:@"startDelay"];
     self.duration = [TimeIntervalParser parse:transition key:@"duration"];
-//	self.interpolation = [self animationOptionsFromString:transition[@"interpolation"]];
+	self.interpolation = [TextParser parse:transition key:@"interpolation"];
 	
 	return self;
 }

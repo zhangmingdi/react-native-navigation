@@ -1,6 +1,5 @@
 #import "RNNViewLocation.h"
 #import "DisplayLinkAnimation.h"
-#import "RNNInterpolator.h"
 #import "SharedElementTransitionOptions.h"
 
 @interface AnimatedReactView : UIView <DisplayLinkAnimation>

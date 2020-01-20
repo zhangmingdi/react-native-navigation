@@ -23,40 +23,33 @@
     _toVC = toVC;
     _containerView = containerView;
     self.view = [self findElementById:transitionOptions.elementId];
-    self.animations = [self createAnimations:_transitionOptions];
+    self.animations = [self createAnimations];
     return self;
 }
 
-- (instancetype)initWithTransitionOptions:(ElementTransitionOptions *)transitionOptions fromVC:(UIViewController *)fromVC toVC:(UIViewController *)toVC containerView:(UIView *)containerView view:(UIView *)view {
-    self = [self initWithTransitionOptions:transitionOptions fromVC:fromVC toVC:toVC containerView:containerView];
-    self.view = view;
-    self.animations = [self createAnimations:_transitionOptions];
-    return self;
-}
-
-- (NSArray<id<DisplayLinkAnimation>> *)createAnimations:(TransitionOptions *)transitionOptions {
+- (NSArray<id<DisplayLinkAnimation>> *)createAnimations {
     NSMutableArray* animations = [NSMutableArray new];
-    if (transitionOptions.alpha.hasAnimation) {
+    if (_transitionOptions.alpha.hasAnimation) {
         [animations addObject:[[ElementAlphaTransition alloc] initWithView:self.view transitionDetails:_transitionOptions.alpha]];
     }
     
-    if (transitionOptions.x.hasAnimation) {
+    if (_transitionOptions.x.hasAnimation) {
         [animations addObject:[[ElementHorizontalTransition alloc] initWithView:self.view transitionDetails:_transitionOptions.x]];
     }
     
-    if (transitionOptions.y.hasAnimation) {
+    if (_transitionOptions.y.hasAnimation) {
         [animations addObject:[[ElementVerticalTransition alloc] initWithView:self.view transitionDetails:_transitionOptions.y]];
     }
     
-    if (transitionOptions.translationX.hasAnimation) {
+    if (_transitionOptions.translationX.hasAnimation) {
         [animations addObject:[[HorizontalTranslationTransition alloc] initWithView:self.view transitionDetails:_transitionOptions.translationX]];
     }
     
-    if (transitionOptions.translationY.hasAnimation) {
+    if (_transitionOptions.translationY.hasAnimation) {
         [animations addObject:[[VerticalTranslationTransition alloc] initWithView:self.view transitionDetails:_transitionOptions.translationY]];
     }
     
-    if (transitionOptions.rotationY.hasAnimation) {
+    if (_transitionOptions.rotationY.hasAnimation) {
         [animations addObject:[[VerticalRotationTransition alloc] initWithView:self.view transitionDetails:_transitionOptions.rotationY]];
     }
     
