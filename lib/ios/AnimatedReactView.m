@@ -15,8 +15,8 @@
     _transitionOptions = transitionOptions;
     _toElement = toElement;
     _toElement.hidden = YES;
-    _fromColor = element.backgroundColor ?: UIColor.clearColor;
-    _toColor = toElement.backgroundColor ?: UIColor.clearColor;
+    _fromColor = element.backgroundColor;
+    _toColor = toElement.backgroundColor;
     [self hijackReactElement:element];
     
     return self;
@@ -33,7 +33,7 @@
 }
 
 - (CGAffineTransform)animateWithProgress:(CGFloat)p {
-    self.frame = [RNNInterpolator fromRect:self.location.fromFrame toRect:self.location.toFrame precent:p];
+    self.frame = [RNNInterpolator fromRect:self.location.fromFrame toRect:self.location.toFrame precent:p interpolation:self.interpolation];
     _reactView.backgroundColor = [RNNInterpolator fromColor:_fromColor toColor:_toColor precent:p];
     return CGAffineTransformIdentity;
 }
@@ -52,6 +52,10 @@
 
 - (NSTimeInterval)startDelay {
     return [_transitionOptions.startDelay getWithDefaultValue:0.0];
+}
+
+- (RNNInterpolationOptions)interpolation {
+    return [RCTConvert RNNInterpolationOptions:[_transitionOptions.interpolation getWithDefaultValue:@"accelerateDecelerate"]];
 }
 
 - (void)layoutSubviews {

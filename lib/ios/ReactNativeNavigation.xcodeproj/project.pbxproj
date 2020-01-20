@@ -96,6 +96,12 @@
 		502F0E142178CF8200367CC3 /* UIViewController+RNNOptionsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 502F0E132178CF8200367CC3 /* UIViewController+RNNOptionsTest.m */; };
 		502F0E162178D09600367CC3 /* RNNBasePresenterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 502F0E152178D09600367CC3 /* RNNBasePresenterTest.m */; };
 		502F0E182179C39900367CC3 /* RNNTabBarPresenterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 502F0E172179C39900367CC3 /* RNNTabBarPresenterTest.m */; };
+		5030B62123D5B4CB008F1642 /* LNInterpolable.m in Sources */ = {isa = PBXBuildFile; fileRef = 5030B61E23D5B4CA008F1642 /* LNInterpolable.m */; };
+		5030B62223D5B4CB008F1642 /* Color+Interpolation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5030B61F23D5B4CA008F1642 /* Color+Interpolation.m */; };
+		5030B62323D5B4CB008F1642 /* Color+Interpolation.h in Headers */ = {isa = PBXBuildFile; fileRef = 5030B62023D5B4CA008F1642 /* Color+Interpolation.h */; };
+		5030B62723D5B54E008F1642 /* LNInterpolable.h in Headers */ = {isa = PBXBuildFile; fileRef = 5030B62623D5B54D008F1642 /* LNInterpolable.h */; };
+		5030B62B23D5D732008F1642 /* ContentTransitionCreator.h in Headers */ = {isa = PBXBuildFile; fileRef = 5030B62923D5D732008F1642 /* ContentTransitionCreator.h */; };
+		5030B62C23D5D732008F1642 /* ContentTransitionCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5030B62A23D5D732008F1642 /* ContentTransitionCreator.m */; };
 		50344D2823A03DB4004B6A7C /* BottomTabsAttachMode.h in Headers */ = {isa = PBXBuildFile; fileRef = 50344D2623A03DB4004B6A7C /* BottomTabsAttachMode.h */; };
 		50344D2923A03DB4004B6A7C /* BottomTabsAttachMode.m in Sources */ = {isa = PBXBuildFile; fileRef = 50344D2723A03DB4004B6A7C /* BottomTabsAttachMode.m */; };
 		5038A374216CDDB6009280BC /* UIViewController+SideMenuController.h in Headers */ = {isa = PBXBuildFile; fileRef = 5038A372216CDDB6009280BC /* UIViewController+SideMenuController.h */; };
@@ -531,6 +537,13 @@
 		502F0E132178CF8200367CC3 /* UIViewController+RNNOptionsTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+RNNOptionsTest.m"; sourceTree = "<group>"; };
 		502F0E152178D09600367CC3 /* RNNBasePresenterTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNNBasePresenterTest.m; sourceTree = "<group>"; };
 		502F0E172179C39900367CC3 /* RNNTabBarPresenterTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNNTabBarPresenterTest.m; sourceTree = "<group>"; };
+		5030B61E23D5B4CA008F1642 /* LNInterpolable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LNInterpolable.m; sourceTree = "<group>"; };
+		5030B61F23D5B4CA008F1642 /* Color+Interpolation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Color+Interpolation.m"; sourceTree = "<group>"; };
+		5030B62023D5B4CA008F1642 /* Color+Interpolation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Color+Interpolation.h"; sourceTree = "<group>"; };
+		5030B62623D5B54D008F1642 /* LNInterpolable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LNInterpolable.h; sourceTree = "<group>"; };
+		5030B62823D5C9AF008F1642 /* RCTConvert+Interpolation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RCTConvert+Interpolation.h"; sourceTree = "<group>"; };
+		5030B62923D5D732008F1642 /* ContentTransitionCreator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContentTransitionCreator.h; sourceTree = "<group>"; };
+		5030B62A23D5D732008F1642 /* ContentTransitionCreator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContentTransitionCreator.m; sourceTree = "<group>"; };
 		50344D2623A03DB4004B6A7C /* BottomTabsAttachMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BottomTabsAttachMode.h; sourceTree = "<group>"; };
 		50344D2723A03DB4004B6A7C /* BottomTabsAttachMode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BottomTabsAttachMode.m; sourceTree = "<group>"; };
 		5038A372216CDDB6009280BC /* UIViewController+SideMenuController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+SideMenuController.h"; sourceTree = "<group>"; };
@@ -914,6 +927,7 @@
 				50E02BD521A6E54B00A43942 /* RCTConvert+SideMenuOpenGestureMode.h */,
 				7365070F21E4B16F004E020F /* RCTConvert+UIBarButtonSystemItem.h */,
 				7365071021E4B16F004E020F /* RCTConvert+UIBarButtonSystemItem.m */,
+				5030B62823D5C9AF008F1642 /* RCTConvert+Interpolation.h */,
 				5038A3BB216E1490009280BC /* RNNTabBarItemCreator.h */,
 				5038A3BC216E1490009280BC /* RNNTabBarItemCreator.m */,
 				5053CE7D2175FB1900D0386B /* RNNDefaultOptionsHelper.h */,
@@ -1222,6 +1236,8 @@
 				50EA541523AEDF5D006F881A /* RNNInterpolator.m */,
 				50D3A36C23B8D6C600717F95 /* SharedElementTransitionsCreator.h */,
 				50D3A36D23B8D6C600717F95 /* SharedElementTransitionsCreator.m */,
+				5030B62923D5D732008F1642 /* ContentTransitionCreator.h */,
+				5030B62A23D5D732008F1642 /* ContentTransitionCreator.m */,
 				503A8A2323BD04410094D1C4 /* ElementTransitionsCreator.h */,
 				503A8A2423BD04410094D1C4 /* ElementTransitionsCreator.m */,
 				503A89FF23BB7B810094D1C4 /* ElementTransition.h */,
@@ -1420,6 +1436,10 @@
 				5017D9E3239D2CC300B74047 /* Attachers */,
 				50588B8723AA87E3001F6A5E /* Animations */,
 				7BA500731E2544B9001B9E1B /* ReactNativeNavigation.h */,
+				5030B62023D5B4CA008F1642 /* Color+Interpolation.h */,
+				5030B61F23D5B4CA008F1642 /* Color+Interpolation.m */,
+				5030B62623D5B54D008F1642 /* LNInterpolable.h */,
+				5030B61E23D5B4CA008F1642 /* LNInterpolable.m */,
 				7BA500741E2544B9001B9E1B /* ReactNativeNavigation.m */,
 				2DCD9193200014A900EDC75D /* RNNBridgeManager.h */,
 				2DCD9194200014A900EDC75D /* RNNBridgeManager.m */,
@@ -1535,6 +1555,7 @@
 				5061B6C723D48449008B9827 /* VerticalRotationTransition.h in Headers */,
 				50EB4ED72068EBE000D6ED34 /* RNNBackgroundOptions.h in Headers */,
 				503A8A2123BCE9C60094D1C4 /* RNNReactBackgroundView.h in Headers */,
+				5030B62B23D5D732008F1642 /* ContentTransitionCreator.h in Headers */,
 				504AFE761FFFF1E00076E904 /* RNNNavigationOptions.h in Headers */,
 				503A8A1123BC9C040094D1C4 /* ElementBaseTransition.h in Headers */,
 				504AFE771FFFF1E20076E904 /* RNNTopBarOptions.h in Headers */,
@@ -1596,6 +1617,7 @@
 				5012242621737278000F5F98 /* NullImage.h in Headers */,
 				5038A3B9216DFCFD009280BC /* UITabBarController+RNNOptions.h in Headers */,
 				50644A2020E11A720026709C /* Constants.h in Headers */,
+				5030B62323D5B4CB008F1642 /* Color+Interpolation.h in Headers */,
 				E5F6C3AF22DB4D0F0093C2CE /* UIView+Utils.h in Headers */,
 				50D3A37623BB5CD900717F95 /* OptionsArrayParser.h in Headers */,
 				5012241E217366D4000F5F98 /* ColorParser.h in Headers */,
@@ -1657,6 +1679,7 @@
 				5012242221736883000F5F98 /* NullColor.h in Headers */,
 				50CED451239F9DFC00C42EE2 /* TopBarPresenter.h in Headers */,
 				50570B262061473D006A1B5C /* RNNTitleOptions.h in Headers */,
+				5030B62723D5B54E008F1642 /* LNInterpolable.h in Headers */,
 				50EA541623AEDF5D006F881A /* RNNInterpolator.h in Headers */,
 				5017D9EE239D2FAF00B74047 /* BottomTabsAfterInitialTabAttacher.h in Headers */,
 				50395593217485B000B0A663 /* Double.h in Headers */,
@@ -1887,9 +1910,11 @@
 				390AD478200F499D00A8250D /* RNNSwizzles.m in Sources */,
 				50E02BD921A6EE0F00A43942 /* SideMenuOpenMode.m in Sources */,
 				503A8A0E23BC9BC50094D1C4 /* ElementVerticalTransition.m in Sources */,
+				5030B62C23D5D732008F1642 /* ContentTransitionCreator.m in Sources */,
 				7BA500751E2544B9001B9E1B /* ReactNativeNavigation.m in Sources */,
 				50E5F7962240EBD6002AFEAD /* RNNAnimationsTransitionDelegate.m in Sources */,
 				5038A3BA216DFCFD009280BC /* UITabBarController+RNNOptions.m in Sources */,
+				5030B62123D5B4CB008F1642 /* LNInterpolable.m in Sources */,
 				50A246382395399700A192C5 /* RNNModalOptions.m in Sources */,
 				50E38DDE23A7A306009817F6 /* AnimatedImageView.m in Sources */,
 				263905B21E4C6F440023D7D3 /* MMDrawerController.m in Sources */,
@@ -1909,6 +1934,7 @@
 				5038A3CB216E328A009280BC /* Param.m in Sources */,
 				E5F6C3AA22DB4D0F0093C2CE /* UIColor+RNNUtils.m in Sources */,
 				651E1F8A21FD624600DFEA19 /* UISplitViewController+RNNOptions.m in Sources */,
+				5030B62223D5B4CB008F1642 /* Color+Interpolation.m in Sources */,
 				50395594217485B000B0A663 /* Double.m in Sources */,
 				504AFE751FFFF0540076E904 /* RNNTopTabsOptions.m in Sources */,
 				50175CD2207A2AA1004FE91B /* RNNComponentOptions.m in Sources */,

@@ -1,7 +1,7 @@
 #import "ScreenTransitionsCreator.h"
 #import "SharedElementTransitionsCreator.h"
 #import "ElementTransitionsCreator.h"
-#import "ElementTransition.h"
+#import "ContentTransitionCreator.h"
 
 @implementation ScreenTransitionsCreator {
 	RNNScreenTransition* _screenTransition;
@@ -19,7 +19,7 @@
 
 - (NSArray<id<DisplayLinkAnimatorDelegate>> *)createFromVC:(UIViewController *)fromVC toVC:(UIViewController *)toVC containerView:(UIView *)containerView {
 	NSMutableArray* transitions = [NSMutableArray new];
-    ElementTransition* contentTransition = [[ElementTransition alloc] initWithTransitionOptions:_screenTransition.content fromVC:fromVC toVC:toVC containerView:containerView view:toVC.view];
+    ContentTransitionCreator* contentTransition = [[ContentTransitionCreator alloc] initWithTransitionOptions:_screenTransition.content fromVC:fromVC toVC:toVC containerView:containerView view:toVC.view];
     [transitions addObject:contentTransition];
     [transitions addObjectsFromArray:[_elementTransitionsCreator createFromVC:fromVC toVC:toVC containerView:containerView]];
     [transitions addObjectsFromArray:[_sharedElementTransitionsCreator createFromVC:fromVC toVC:toVC containerView:containerView]];

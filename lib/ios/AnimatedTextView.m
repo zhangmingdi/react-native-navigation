@@ -52,7 +52,7 @@
     NSRange range = NSMakeRange(0, _textStorage.string.length);
     UIColor* color = [RNNInterpolator fromColor:_fromColor toColor:_toColor precent:progress];
     [_textStorage addAttribute:NSForegroundColorAttributeName value:color range:range];
-    CGFloat pointSize = [RNNInterpolator fromFloat:_fromFont.pointSize toFloat:_toFont.pointSize precent:progress];
+    CGFloat pointSize = [RNNInterpolator fromFloat:_fromFont.pointSize toFloat:_toFont.pointSize precent:progress interpolation:self.interpolation];
     [_textStorage addAttribute:NSFontAttributeName value:[_toFont fontWithSize:pointSize] range:range];
     
     return CGAffineTransformIdentity;
