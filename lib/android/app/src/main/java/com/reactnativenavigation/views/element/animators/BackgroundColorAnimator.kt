@@ -20,9 +20,7 @@ class BackgroundColorAnimator(from: View, to: View) : PropertyAnimatorCreator<Vi
 
     override fun create(transition: SharedElementTransitionOptions): Animator {
         return ObjectAnimator.ofObject(
-                to,
-                "backgroundColor",
-                LabColorEvaluator(),
+                BackgroundColorEvaluator(to.background as ReactViewBackgroundDrawable),
                 ColorUtils.colorToLAB(ViewUtils.getBackgroundColor(from)),
                 ColorUtils.colorToLAB(ViewUtils.getBackgroundColor(to))
         ).setDuration(transition.getDuration())
