@@ -91,35 +91,35 @@ open class TransitionAnimatorCreator {
         }
     }
 
-    open fun reparent(vc: ViewController<*>, child: View) {
-        val biologicalParent = child.parent as ViewGroup
-        child.setTag(R.id.original_parent, biologicalParent)
-        child.setTag(R.id.original_layout_params, child.layoutParams)
-        child.setTag(R.id.original_top, child.top)
-        child.setTag(R.id.original_bottom, child.bottom)
-        child.setTag(R.id.original_right, child.right)
-        child.setTag(R.id.original_left, child.left)
+    private fun reparent(vc: ViewController<*>, element: View) {
+        val biologicalParent = element.parent as ViewGroup
+        element.setTag(R.id.original_parent, biologicalParent)
+        element.setTag(R.id.original_layout_params, element.layoutParams)
+        element.setTag(R.id.original_top, element.top)
+        element.setTag(R.id.original_bottom, element.bottom)
+        element.setTag(R.id.original_right, element.right)
+        element.setTag(R.id.original_left, element.left)
 
-        val loc = ViewUtils.getLocationOnScreen(child)
-        biologicalParent.removeView(child)
+        val loc = ViewUtils.getLocationOnScreen(element)
+        biologicalParent.removeView(element)
 
-        val lp = FrameLayout.LayoutParams(child.layoutParams)
+        val lp = FrameLayout.LayoutParams(element.layoutParams)
         lp.topMargin = loc.y
         lp.leftMargin = loc.x
-        lp.width = child.width
-        lp.height = child.height
-        child.layoutParams = lp
-        vc.addOverlay(child)
+        lp.width = element.width
+        lp.height = element.height
+        element.layoutParams = lp
+        vc.addOverlay(element)
     }
 
-    open fun returnToOriginalParent(view: View) {
-        val parent = ViewTags.get<ViewGroup>(view, R.id.original_parent)
-        val lp = ViewTags.get<ViewGroup.LayoutParams>(view, R.id.original_layout_params)
-        ViewUtils.removeFromParent(view)
-        view.top = ViewTags.get(view, R.id.original_top)
-        view.bottom = ViewTags.get(view, R.id.original_bottom)
-        view.right = ViewTags.get(view, R.id.original_right)
-        view.left = ViewTags.get(view, R.id.original_left)
-        parent.addView(view, lp)
+    private fun returnToOriginalParent(element: View) {
+        ViewUtils.removeFromParent(element)
+        element.top = ViewTags.get(element, R.id.original_top)
+        element.bottom = ViewTags.get(element, R.id.original_bottom)
+        element.right = ViewTags.get(element, R.id.original_right)
+        element.left = ViewTags.get(element, R.id.original_left)
+        val parent = ViewTags.get<ViewGroup>(element, R.id.original_parent)
+        val lp = ViewTags.get<ViewGroup.LayoutParams>(element, R.id.original_layout_params)
+        parent.addView(element, lp)
     }
 }
