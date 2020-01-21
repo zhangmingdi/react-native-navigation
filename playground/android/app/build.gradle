@@ -61,7 +61,6 @@ dependencies {
     //noinspection GradleDynamicVersion
     implementation 'org.webkit:android-jsc-intl:+'
     implementation project(':react-native-navigation')
-    implementation project(':react-native-view-overflow')
 
     androidTestImplementation('com.wix:detox:+') { transitive = true }
     androidTestImplementation 'junit:junit:4.12'
