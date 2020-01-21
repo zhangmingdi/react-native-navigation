@@ -29,7 +29,6 @@ android {
         }
 
         testBuildType System.getProperty('testBuildType', 'debug')
-        missingDimensionStrategy "RNN.reactNativeVersion", "reactNative60"
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
     signingConfigs {
