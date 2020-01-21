@@ -33,8 +33,7 @@ public class ElementTransitionManager {
         TransitionSet transitionSet = new TransitionSet();
 
         for (SharedElementTransitionOptions transitionOptions : sharedElements.get()) {
-            SharedElementTransition transition = new SharedElementTransition(transitionOptions);
-            transition.viewController = toScreen;
+            SharedElementTransition transition = new SharedElementTransition(toScreen, fromScreen, transitionOptions);
             perform(findView(fromScreen.getView(), transition.getFromId()), transition::setFrom);
             findView(toScreen.getView(), new ReactFindViewUtil.OnViewFoundListener() {
                 @Override

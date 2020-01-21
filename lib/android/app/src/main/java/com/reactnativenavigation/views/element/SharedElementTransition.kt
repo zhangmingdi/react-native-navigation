@@ -6,14 +6,18 @@ import com.reactnativenavigation.parse.SharedElementTransitionOptions
 import com.reactnativenavigation.viewcontrollers.ViewController
 import com.reactnativenavigation.views.element.animators.*
 
-class SharedElementTransition(private val options: SharedElementTransitionOptions) : Transition() {
+class SharedElementTransition(private val appearing: ViewController<*>, private val disappearing: ViewController<*>, private val options: SharedElementTransitionOptions) : Transition() {
     val fromId: String = options.fromId.get()
     val toId: String = options.toId.get()
     lateinit var from: View
     lateinit var to: View
-    override lateinit var viewController: ViewController<*>
+    override var viewController: ViewController<*> = appearing
     override val view: View
         get() = to
+    override val topInset: Int
+        get() = viewController.topInset
+    override val topInsetDelta: Int
+        get() = disappearing.topInset - appearing.topInset
 
     fun isValid(): Boolean = this::from.isInitialized
 
@@ -29,7 +33,7 @@ class SharedElementTransition(private val options: SharedElementTransitionOption
     private fun animators(): List<PropertyAnimatorCreator<*>> {
         return listOf(
                 XAnimator(from, to),
-                YAnimator(from, to),
+                YAnimator(this, from, to),
                 MatrixAnimator(from, to),
                 ScaleXAnimator(from, to),
                 ScaleYAnimator(from, to),

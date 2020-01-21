@@ -7,8 +7,8 @@ import com.reactnativenavigation.viewcontrollers.ViewController
 abstract class Transition {
     abstract var viewController: ViewController<*>
     abstract val view: View
-    val topInset: Int
-        get() = viewController.topInset
+    abstract val topInset: Int
+    abstract val topInsetDelta: Int
 
     abstract fun createAnimators(): AnimatorSet
 }
