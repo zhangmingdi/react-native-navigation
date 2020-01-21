@@ -1,6 +1,6 @@
 const React = require('react');
 const { Component } = require('react');
-const { SafeAreaView, TouchableOpacity, FlatList, View, Image, Text, StyleSheet } = require('react-native');
+const { TouchableOpacity, FlatList, View, Image, Text, Platform, StyleSheet } = require('react-native');
 const Navigation = require('../../services/Navigation');
 const { slice } = require('lodash');
 const Screens = require('../Screens')
@@ -11,6 +11,14 @@ const SHORT_DURATION = 120
 class CocktailsList extends Component {
   static options() {
     return {
+      ...Platform.select({
+        android: {
+          statusBar: {
+            style: 'dark',
+            backgroundColor: 'white'
+          }
+        }
+      }),
       topBar: {
         title: {
           text: 'Cocktails'
