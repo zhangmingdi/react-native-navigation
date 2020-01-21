@@ -1,6 +1,5 @@
 package com.reactnativenavigation.playground;
 
-import com.entria.views.RNViewOverflowPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.reactnativenavigation.NavigationApplication;
@@ -37,8 +36,6 @@ public class MainApplication extends NavigationApplication {
     @Nullable
     @Override
     public List<ReactPackage> createAdditionalReactPackages() {
-        List<ReactPackage> packages = new ArrayList<>();
-        packages.add(new RNViewOverflowPackage());
-        return packages;
+        return new ArrayList<>();
     }
 }

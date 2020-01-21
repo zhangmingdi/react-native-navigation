@@ -1,16 +1,24 @@
 const React = require('react');
 const { Component } = require('react');
-const { SafeAreaView, TouchableOpacity, FlatList, View, Image, Text, StyleSheet } = require('react-native');
+const { TouchableOpacity, FlatList, View, Image, Text, Platform, StyleSheet } = require('react-native');
 const Navigation = require('../../services/Navigation');
 const { slice } = require('lodash');
 const Screens = require('../Screens')
 const data = require('../../assets/cocktails').default;
-const DURATION = 350 * 1
-const DURATION2 = 120
+const LONG_DURATION = 350 * 1
+const SHORT_DURATION = 120
 
 class CocktailsList extends Component {
   static options() {
     return {
+      ...Platform.select({
+        android: {
+          statusBar: {
+            style: 'dark',
+            backgroundColor: 'white'
+          }
+        }
+      }),
       topBar: {
         title: {
           text: 'Cocktails'
@@ -50,17 +58,17 @@ class CocktailsList extends Component {
                     {
                       fromId: `image${item.id}`,
                       toId: `image${item.id}Dest`,
-                      duration: DURATION
+                      duration: LONG_DURATION
                     },
                     {
                       fromId: `title${item.id}`,
                       toId: `title${item.id}Dest`,
-                      duration: DURATION
+                      duration: LONG_DURATION
                     },
                     {
                       fromId: `backdrop${item.id}`,
                       toId: 'backdrop',
-                      duration: DURATION
+                      duration: LONG_DURATION
                     }
                   ],
                   elementTransitions: [
@@ -68,33 +76,13 @@ class CocktailsList extends Component {
                       id: 'description',
                       alpha: {
                         from: 0,
-                        duration: DURATION2
+                        duration: SHORT_DURATION
                       },
                       translationY: {
                         from: 18,
-                        duration: DURATION2 //120
+                        duration: SHORT_DURATION
                       }
                     }
-                    // {
-                    //   id: 'header',
-                    //   translationY: {
-                    //     from: -150,
-                    //     duration: DURATION,
-                    //     interpolation: 'decelerate',
-                    //   }
-                    //     alpha: {
-                    //       fromValue: 0,
-                    //       // to: 1, //
-                    //       duration: 200,  // optional. Default value - alpha animation
-                    //       startDelay: 50,  // optional. Default value - 0
-                    //       interpolation: 'linear' | 'accelerateDecelerate' | 'decelerate' | 'accelerate' | 'decelerateAccelerate'
-                    //     },
-                    //     y: {
-                    //       fromValue: -ALACHSON_HEIGHT,
-                    //       duration: 300,
-                    //       interpolation: 'linear',
-                    //     }
-                    // },
                   ]
                 }
               }

@@ -1,9 +1,17 @@
 const React = require('react');
-const { SafeAreaView, FlatList, View, Image, Text, StyleSheet } = require('react-native');
+const { Image, Platform, SafeAreaView, StyleSheet, Text, View } = require('react-native');
 
 class CocktailDetailsScreen extends React.Component {
   static options() {
     return {
+      ...Platform.select({
+        android: {
+          statusBar: {
+            style: 'dark',
+            backgroundColor: 'white'
+          }
+        }
+      }),
       topBar: {
         title: {
           text: 'Cocktails'

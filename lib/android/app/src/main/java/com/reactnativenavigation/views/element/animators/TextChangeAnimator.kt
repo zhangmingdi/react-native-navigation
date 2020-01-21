@@ -20,14 +20,14 @@ class TextChangeAnimator(private val transition: SharedElementTransition, from: 
                 !fromXy.equals(toXy.x, toXy.y)
     }
 
-    override fun create(options: SharedElementTransitionOptions): Animator {
-        (to.layoutParams as ViewGroup.MarginLayoutParams).topMargin += 210
+    override fun create(transition: SharedElementTransitionOptions): Animator {
+        (to.layoutParams as ViewGroup.MarginLayoutParams).topMargin += this.transition.topInset
         return ReflowTextAnimatorHelper.Builder(from as TextView, to as TextView)
                 .calculateDuration(false)
                 .setBoundsCalculator { view: View ->
                     val loc = IntArray(2)
                     view.getLocationInWindow(loc)
-                    val topInset = if (view == to) transition.topInset else 0
+                    val topInset = if (view == to) this.transition.topInset else 0
                     Rect(
                             loc[0],
                             loc[1] + topInset,
@@ -35,7 +35,10 @@ class TextChangeAnimator(private val transition: SharedElementTransition, from: 
                             loc[1] + view.height
                     )
                 }
+                .setTextColorGetter {
+                    TextViewUtils.getTextColor(it)
+                }
                 .buildAnimator()
-                .setDuration(options.getDuration())
+                .setDuration(transition.getDuration())
     }
 }
