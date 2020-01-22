@@ -1,8 +1,6 @@
 const React = require('react');
 const { Navigation } = require('react-native-navigation');
 const ScrollViewScreen = require('./ScrollViewScreen');
-const CustomTransitionOrigin = require('./CustomTransitionOrigin');
-const CustomTransitionDestination = require('./CustomTransitionDestination');
 const CustomDialogWithScroll = require('./complexlayouts/CustomDialogWithScroll');
 const TopTabScreen = require('./TopTabScreen');
 const TopTabOptionsScreen = require('./TopTabOptionsScreen');
@@ -26,7 +24,6 @@ function registerScreens() {
   Navigation.registerComponent(Screens.Navigation, () => require('./NavigationScreen'));
   Navigation.registerComponent(Screens.Options, () => require('./OptionsScreen'));
   Navigation.registerComponent(Screens.Buttons, () => require('./ButtonsScreen'));
-  Navigation.registerComponent(Screens.SharedElement, () => require('./CustomTransitionOrigin'));
   Navigation.registerComponent(Screens.Orientation, () => require('./OrientationScreen'));
   Navigation.registerComponent(Screens.OrientationDetect, () => require('./OrientationDetectScreen'));
   Navigation.registerComponent(Screens.Overlay, () => require('./OverlayScreen'));
@@ -56,8 +53,6 @@ function registerScreens() {
     </ContextProvider>,
     () => ContextScreen);
 
-  Navigation.registerComponent(`navigation.playground.CustomTransitionDestination`, () => CustomTransitionDestination);
-  Navigation.registerComponent(`navigation.playground.CustomTransitionOrigin`, () => CustomTransitionOrigin);
   Navigation.registerComponent(`navigation.playground.ScrollViewScreen`, () => ScrollViewScreen);
 
   Navigation.registerComponent('navigation.playground.CustomDialog', () => CustomDialog);
