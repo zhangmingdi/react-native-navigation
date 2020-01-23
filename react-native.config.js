@@ -8,7 +8,10 @@ module.exports = {
         packageInstance: 'new NavigationPackage(reactNativeHost)',
       }
     },
-    assets: []
+    assets: [],
+    hooks: {
+      postlink: "./autolink/postlink.sh"
+    }
   },
   project: {
     ios: {
