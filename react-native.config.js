@@ -10,7 +10,7 @@ module.exports = {
     },
     assets: [],
     hooks: {
-      postlink: "node node_modules/react-native-navigation/scripts/postlink/run"
+      postlink: "node node_modules/react-native-navigation/autolink/postlink/run"
     }
   },
   project: {
