@@ -3,7 +3,6 @@ package com.reactnativenavigation.playground;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
-import com.facebook.soloader.SoLoader;
 import com.reactnativenavigation.NavigationApplication;
 import com.reactnativenavigation.react.NavigationPackage;
 import com.reactnativenavigation.react.NavigationReactNativeHost;
@@ -36,7 +35,6 @@ public class MainApplication extends NavigationApplication {
 
     @Override
     public void onCreate() {
-        SoLoader.init(this, false);
         super.onCreate();
         registerExternalComponent("RNNCustomComponent", new FragmentCreator());
     }
