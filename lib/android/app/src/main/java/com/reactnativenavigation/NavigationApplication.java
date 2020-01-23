@@ -4,17 +4,13 @@ import android.app.Application;
 
 import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactNativeHost;
-import com.facebook.react.ReactPackage;
-import com.reactnativenavigation.react.NavigationReactNativeHost;
 import com.reactnativenavigation.react.ReactGateway;
 import com.reactnativenavigation.viewcontrollers.externalcomponent.ExternalComponentCreator;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 public abstract class NavigationApplication extends Application implements ReactApplication {
 
@@ -39,7 +35,7 @@ public abstract class NavigationApplication extends Application implements React
      * @return a singleton {@link ReactGateway}
      */
 	protected ReactGateway createReactGateway() {
-	    return new ReactGateway(this, getReactNativeHost().getUseDeveloperSupport(), getReactNativeHost());
+	    return new ReactGateway(getReactNativeHost());
     }
     
 	public ReactGateway getReactGateway() {
@@ -53,9 +49,10 @@ public abstract class NavigationApplication extends Application implements React
 
     }
 
+    @Deprecated
     public boolean isDebug() {
         return getReactNativeHost().getUseDeveloperSupport();
-    };
+    }
 
     /**
      * Register a native View which can be displayed using the given {@code name}
