@@ -23,7 +23,7 @@ class ApplicationLinker {
     if (this._doesExtendApplication(applicationContents)) {
       debugn("   Extending NavigationApplication");
       return applicationContents
-        .replace("extends Application", "extends NavigationApplication")
+        .replace(/extends\s+Application\s+implements\s+ReactApplication/gi, "extends NavigationApplication")
         .replace("import com.facebook.react.ReactApplication;", "import com.reactnativenavigation.NavigationApplication;");
     }
     warnn("   MainApplication already extends NavigationApplication");
@@ -31,7 +31,7 @@ class ApplicationLinker {
   }
 
   _doesExtendApplication(contents) {
-    return /public class MainApplication extends Application implements ReactApplication\s*\{/.test(contents);
+    return /\s+MainApplication\s+extends\s+Application\s+implements\s+ReactApplication\s+/.test(contents);
   }
 
   _extendNavigationHost(applicationContents) {
