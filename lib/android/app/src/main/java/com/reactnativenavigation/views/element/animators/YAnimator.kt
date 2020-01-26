@@ -8,15 +8,16 @@ import com.facebook.react.views.text.ReactTextView
 import com.reactnativenavigation.parse.SharedElementTransitionOptions
 import com.reactnativenavigation.utils.ViewUtils
 import com.reactnativenavigation.views.ComponentLayout
+import com.reactnativenavigation.views.element.SharedElementTransition
 
-class YAnimator(from: View, to: View) : PropertyAnimatorCreator<View>(from, to) {
+class YAnimator(transition: SharedElementTransition, from: View, to: View) : PropertyAnimatorCreator<View>(from, to) {
     private val dy: Int
 
     init {
         val fromXy = ViewUtils.getLocationOnScreen(from)
         val toXy = ViewUtils.getLocationOnScreen(to)
         val fromComponent: View = ViewUtils.findParent(from, ComponentLayout::class.java)
-        dy = fromXy.y - toXy.y - fromComponent.y.toInt()
+        dy = fromXy.y - toXy.y - fromComponent.y.toInt() + transition.topInsetDelta
         to.pivotY = 0f
     }
 

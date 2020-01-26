@@ -10,6 +10,10 @@ class ElementTransition(private val transitionOptions: ElementTransitionOptions)
         get() = transitionOptions.id
     override lateinit var viewController: ViewController<*>
     override lateinit var view: View
+    override val topInset: Int
+        get() = viewController.topInset
+    override val topInsetDelta: Int
+        get() = 0
 
     override fun createAnimators(): AnimatorSet = transitionOptions.getAnimation(view)
 
