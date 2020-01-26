@@ -6,6 +6,7 @@
 @implementation RNNModalManager {
 	NSMutableArray* _pendingModalIdsToDismiss;
 	NSMutableArray* _presentedModals;
+    RNNAnimationsTransitionDelegate* tr;
 }
 
 
@@ -17,11 +18,7 @@
 	return self;
 }
 
--(void)showModal:(UIViewController *)viewController animated:(BOOL)animated completion:(RNNTransitionWithComponentIdCompletionBlock)completion {
-	[self showModal:viewController animated:animated hasCustomAnimation:NO completion:completion];
-}
-
--(void)showModal:(UIViewController<RNNLayoutProtocol> *)viewController animated:(BOOL)animated hasCustomAnimation:(BOOL)hasCustomAnimation completion:(RNNTransitionWithComponentIdCompletionBlock)completion {
+-(void)showModal:(UIViewController<RNNLayoutProtocol> *)viewController animated:(BOOL)animated completion:(RNNTransitionWithComponentIdCompletionBlock)completion {
 	if (!viewController) {
 		@throw [NSException exceptionWithName:@"ShowUnknownModal" reason:@"showModal called with nil viewController" userInfo:nil];
 	}
@@ -33,9 +30,10 @@
 		viewController.presentationController.delegate = self;
 	}
 	
-	RNNAnimationsTransitionDelegate* tr = [[RNNAnimationsTransitionDelegate alloc] initWithScreenTransition:viewController.resolveOptions.animations.showModal isDismiss:NO];
-	if (hasCustomAnimation) {
+	if (viewController.resolveOptionsWithDefault.animations.showModal.hasAnimation) {
+        tr = [[RNNAnimationsTransitionDelegate alloc] initWithScreenTransition:viewController.resolveOptionsWithDefault.animations.showModal isDismiss:NO];
 		viewController.transitioningDelegate = tr;
+        viewController.modalPresentationStyle = UIModalPresentationOverCurrentContext;
 	}
 	
 	[topVC presentViewController:viewController animated:animated completion:^{
@@ -88,7 +86,7 @@
 
 	UIViewController* topPresentedVC = [self topPresentedVC];
 	RNNAnimationsTransitionDelegate* tr = [[RNNAnimationsTransitionDelegate alloc] initWithScreenTransition:modalToDismiss.resolveOptions.animations.dismissModal isDismiss:YES];
-	if ([options.animations.dismissModal hasCustomAnimation]) {
+	if (options.animations.dismissModal.hasAnimation) {
 		[self topViewControllerParent:modalToDismiss].transitioningDelegate = tr;
 	}
 

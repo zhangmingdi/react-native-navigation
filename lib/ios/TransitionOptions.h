@@ -13,8 +13,9 @@
 @property (nonatomic, strong) TransitionDetailsOptions* rotationX;
 @property (nonatomic, strong) TransitionDetailsOptions* rotationY;
 @property (nonatomic, strong) Bool* waitForRender;
+@property (nonatomic, strong) Bool* enable;
 
-- (NSTimeInterval)minDuration;
+- (NSTimeInterval)maxDuration;
 - (BOOL)hasAnimation;
 
 @end

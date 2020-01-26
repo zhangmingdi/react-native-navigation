@@ -1,20 +1,19 @@
 #import "CustomTransitionDelegate.h"
 #import "SharedElementTransitionsCreator.h"
-#import "ScreenTransitionsCreator.h"
+#import "ElementTransitionsCreator.h"
 #import "DisplayLinkAnimator.h"
+#import "ContentTransitionCreator.h"
 
 @implementation CustomTransitionDelegate {
-    ScreenTransitionsCreator* _transitionsCreator;
     RCTUIManager* _uiManager;
-    UIViewController* _fromVC;
-    UIViewController* _toVC;
     id <UIViewControllerContextTransitioning> _transitionContext;
+    RNNScreenTransition* _screenTransition;
     BOOL _animate;
 }
 
 - (instancetype)initWithScreenTransition:(RNNScreenTransition *)screenTransition uiManager:(RCTUIManager *)uiManager {
     self = [super init];
-    _transitionsCreator = [[ScreenTransitionsCreator alloc] initWithScreenTransition:screenTransition];
+    _screenTransition = screenTransition;
     _uiManager = uiManager;
     [_uiManager.observerCoordinator addObserver:self];
     return self;
@@ -33,22 +32,30 @@
 }
 
 - (NSTimeInterval)transitionDuration:(id <UIViewControllerContextTransitioning>)transitionContext {
-    return _transitionsCreator.minDuration;
+    return _screenTransition.maxDuration;
 }
 
 - (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext {
     _animate = YES;
     UIViewController* fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     UIViewController* toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    _toVC = toVC;
-    _fromVC = fromVC;
     _transitionContext = transitionContext;
-    [_transitionContext.containerView addSubview:_toVC.view];
-    _toVC.view.alpha = 0;
+    [_transitionContext.containerView addSubview:toVC.view];
+    toVC.view.alpha = 0;
     
     if (![fromVC.navigationController.childViewControllers containsObject:fromVC]) {
         [self performAnimationOnce];
     }
+}
+
+- (NSArray *)createTransitionsFromVC:(UIViewController *)fromVC toVC:(UIViewController *)toVC containerView:(UIView *)containerView {
+    ContentTransitionCreator* contentTransition = [ContentTransitionCreator createTransition:_screenTransition.content view:toVC.view fromVC:fromVC toVC:toVC containerView:containerView];
+    
+    NSArray* elementTransitions = [ElementTransitionsCreator create:_screenTransition.elementTransitions fromVC:fromVC toVC:toVC containerView:containerView];
+    NSArray* sharedElementTransitions = [SharedElementTransitionsCreator create:_screenTransition.sharedElementTransitions fromVC:fromVC toVC:toVC containerView:containerView];
+    
+    
+    return [[[NSArray arrayWithObject:contentTransition] arrayByAddingObjectsFromArray:elementTransitions] arrayByAddingObjectsFromArray:sharedElementTransitions];
 }
 
 - (void)performAnimationOnce {
@@ -58,7 +65,7 @@
             id<UIViewControllerContextTransitioning> transitionContext = self->_transitionContext;
             UIViewController* fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
             UIViewController* toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-            NSArray* transitions = [self->_transitionsCreator createFromVC:fromVC toVC:toVC containerView:transitionContext.containerView];
+            NSArray* transitions = [self createTransitionsFromVC:fromVC toVC:toVC containerView:transitionContext.containerView];
             [self animateTransitions:transitions andTransitioningContext:transitionContext];
         });
     }

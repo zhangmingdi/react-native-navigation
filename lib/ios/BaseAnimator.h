@@ -3,7 +3,8 @@
 
 @interface BaseAnimator : NSObject<DisplayLinkAnimatorDelegate>
 
-@property (nonatomic, strong) NSArray<id<DisplayLinkAnimation>>* animations;
 @property (nonatomic, strong) UIView* view;
+
+@property (nonatomic, strong) NSMutableArray<id<DisplayLinkAnimation>> * animations;
 
 @end

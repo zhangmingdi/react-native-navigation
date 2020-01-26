@@ -26,19 +26,33 @@
     return [self.waitForRender getWithDefaultValue:NO] || self.hasCustomAnimation;
 }
 
-- (NSTimeInterval)minDuration {
-	NSTimeInterval minDuration = 0;
-	if ([self.topBar minDuration] > 0) {
-		minDuration = [self.topBar minDuration];
+- (NSTimeInterval)maxDuration {
+	NSTimeInterval maxDuration = 0;
+	if ([self.topBar maxDuration] > maxDuration) {
+		maxDuration = [self.topBar maxDuration];
 	}
-	if ([self.content minDuration] > 0) {
-		minDuration = [self.content minDuration];
+    
+	if ([self.content maxDuration] > maxDuration) {
+		maxDuration = [self.content maxDuration];
 	}
-	if ([self.bottomTabs minDuration] > 0) {
-		minDuration = [self.bottomTabs minDuration];
+    
+	if ([self.bottomTabs maxDuration] > maxDuration) {
+		maxDuration = [self.bottomTabs maxDuration];
 	}
+    
+    for (ElementTransitionOptions* elementTransition in self.elementTransitions) {
+        if (elementTransition.maxDuration > maxDuration) {
+            maxDuration = elementTransition.maxDuration;
+        }
+    }
+    
+    for (SharedElementTransitionOptions* sharedElementTransition in self.sharedElementTransitions) {
+        if (sharedElementTransition.maxDuration > maxDuration) {
+            maxDuration = sharedElementTransition.maxDuration;
+        }
+    }
 	
-	return minDuration;
+	return maxDuration;
 }
 
 @end

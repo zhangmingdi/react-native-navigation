@@ -2,17 +2,15 @@
 
 @implementation ContentTransitionCreator
 
-- (instancetype)initWithTransitionOptions:(ElementTransitionOptions *)transitionOptions fromVC:(UIViewController *)fromVC toVC:(UIViewController *)toVC containerView:(UIView *)containerView view:(UIView *)view {
-    self = [self initWithTransitionOptions:transitionOptions fromVC:fromVC toVC:toVC containerView:containerView];
-    self.view = view;
-    if (!transitionOptions.alpha.hasAnimation) {
-        transitionOptions.alpha = self.defaultAlphaTransition;
++ (id<DisplayLinkAnimatorDelegate>)createTransition:(ElementTransitionOptions *)elementTransition view:(UIView *)view fromVC:(UIViewController *)fromVC toVC:(UIViewController *)toVC containerView:(UIView *)containerView {
+    if (!elementTransition.alpha.hasAnimation) {
+        elementTransition.alpha = self.defaultAlphaTransition;
     }
-    self.animations = [self createAnimations];
-    return self;
+    
+    return [super createTransition:elementTransition view:view fromVC:fromVC toVC:toVC containerView:containerView];
 }
 
-- (TransitionDetailsOptions *)defaultAlphaTransition {
++ (TransitionDetailsOptions *)defaultAlphaTransition {
     TransitionDetailsOptions* defaultAlphaTransition = [TransitionDetailsOptions new];
     defaultAlphaTransition.duration = [TimeInterval withValue:300];
     defaultAlphaTransition.from = [Double withValue:0];
