@@ -1,65 +1,66 @@
 // @ts-check
 var path = require('./path');
 var fs = require("fs");
-var { warnn, infon, debugn } = require("./log");
+var { warnn, logn, infon, debugn } = require("./log");
 
 class ApplicationLinker {
   constructor() {
-    this.mainApplicationJavaPath = path.mainApplicationJava;
+    this.applicationPath = path.mainApplicationJava;
   }
 
   link() {
-    if (this.mainApplicationJavaPath) {
-      var applicationContents = fs.readFileSync(this.mainApplicationJavaPath, "utf8");
+    if (this.applicationPath) {
+      logn("Linking MainApplication...");
+      var applicationContents = fs.readFileSync(this.applicationPath, "utf8");
       applicationContents = this._extendNavigationApplication(applicationContents);
       applicationContents = this._extendNavigationHost(applicationContents);
       applicationContents = this._removeSOLoaderInit(applicationContents);
-      infon("MainApplication linked successfully!");
-      fs.writeFileSync(this.mainApplicationJavaPath, applicationContents);
+      fs.writeFileSync(this.applicationPath, applicationContents);
+      infon("MainApplication linked successfully!\n");
     }
   }
 
-  _extendNavigationApplication(applicationContents) {
-    if (this._doesExtendApplication(applicationContents)) {
+  _extendNavigationApplication(applicationContent) {
+    if (this._doesExtendApplication(applicationContent)) {
       debugn("   Extending NavigationApplication");
-      return applicationContents
+      return applicationContent
         .replace(/extends\s+Application\s+implements\s+ReactApplication/gi, "extends NavigationApplication")
         .replace("import com.facebook.react.ReactApplication;", "import com.reactnativenavigation.NavigationApplication;");
     }
     warnn("   MainApplication already extends NavigationApplication");
-    return applicationContents;
+    return applicationContent;
   }
 
-  _doesExtendApplication(contents) {
-    return /\s+MainApplication\s+extends\s+Application\s+implements\s+ReactApplication\s+/.test(contents);
+  _doesExtendApplication(applicationContent) {
+    return /\s+MainApplication\s+extends\s+Application\s+implements\s+ReactApplication\s+/.test(applicationContent);
   }
 
-  _extendNavigationHost(applicationContents) {
-    if (this._doesExtendReactNativeHost(applicationContents)) {
+  _extendNavigationHost(applicationContent) {
+    if (this._doesExtendReactNativeHost(applicationContent)) {
       debugn("   Changing host implementation to NavigationReactNativeHost");
-      return applicationContents
+      return applicationContent
         .replace("new ReactNativeHost(this)", "new NavigationReactNativeHost(this)")
         .replace("import com.facebook.react.ReactNativeHost;", "import com.reactnativenavigation.react.NavigationReactNativeHost;")
     }
     warnn("   NavigationReactNativeHost is already used");
-    return applicationContents;
+    return applicationContent;
   }
 
-  _removeSOLoaderInit(applicationContents) {
-    if (this._isSOLoaderInitCalled(applicationContents)) {
+  _removeSOLoaderInit(applicationContent) {
+    if (this._isSOLoaderInitCalled(applicationContent)) {
       debugn("   Removing call to SOLoader.init()");
-      return applicationContents.replace(/SoLoader.init\(this,\s*[/* native exopackage */]*\s*false\);/, "")
+      return applicationContent.replace(/SoLoader.init\(this,\s*[/* native exopackage */]*\s*false\);/, "")
     }
     warnn("   SOLoader.init() is not called");
-    return applicationContents;
+    return applicationContent;
   }
 
-  _isSOLoaderInitCalled(contents) {
-    return /SoLoader.init\(this,\s*[/* native exopackage */]*\s*false\);/.test(contents);
+  _isSOLoaderInitCalled(applicationContent) {
+    return /SoLoader.init\(this,\s*[/* native exopackage */]*\s*false\);/.test(applicationContent);
   }
 
-  _doesExtendReactNativeHost(contents) {
-    return /\s*new ReactNativeHost\(this\)\s*/.test(contents);
+  _doesExtendReactNativeHost(applicationContent) {
+    return /\s*new ReactNativeHost\(this\)\s*/.test(applicationContent);
   }
 }
 
