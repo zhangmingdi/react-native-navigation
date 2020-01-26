@@ -16,7 +16,7 @@
 
 - (BOOL)hasCustomAnimation;
 - (BOOL)shouldWaitForRender;
-- (NSTimeInterval)minDuration;
+- (NSTimeInterval)maxDuration;
 
 
 @end

@@ -1261,8 +1261,6 @@
 				503A8A0023BB7B810094D1C4 /* ElementTransition.m */,
 				50D4656B23CE2553005A84B2 /* Transition.h */,
 				50D4656C23CE2553005A84B2 /* Transition.m */,
-				503A89FB23BB6B390094D1C4 /* ScreenTransitionsCreator.h */,
-				503A89FC23BB6B390094D1C4 /* ScreenTransitionsCreator.m */,
 			);
 			name = Animations;
 			sourceTree = "<group>";
@@ -1694,7 +1692,6 @@
 				5038A374216CDDB6009280BC /* UIViewController+SideMenuController.h in Headers */,
 				E8A5CD621F49114F00E89D0D /* RNNElement.h in Headers */,
 				50CED449239EA56100C42EE2 /* TopBarPresenterCreator.h in Headers */,
-				503A89FD23BB6B390094D1C4 /* ScreenTransitionsCreator.h in Headers */,
 				5012240E21735999000F5F98 /* RNNBasePresenter.h in Headers */,
 				50495952216F62BD006D2B81 /* NullNumber.h in Headers */,
 				5012242221736883000F5F98 /* NullColor.h in Headers */,
@@ -1969,7 +1966,6 @@
 				503A8A0A23BB86200094D1C4 /* TimeIntervalParser.m in Sources */,
 				504AFE651FFE53070076E904 /* RNNOptions.m in Sources */,
 				5053CE802175FB1900D0386B /* RNNDefaultOptionsHelper.m in Sources */,
-				503A89FE23BB6B390094D1C4 /* ScreenTransitionsCreator.m in Sources */,
 				50495947216F5FB5006D2B81 /* TextParser.m in Sources */,
 				50F5DFC21F407A8C001A00BC /* RNNBottomTabsController.m in Sources */,
 				50887CA920F26BFE00D06111 /* RNNOverlayWindow.m in Sources */,

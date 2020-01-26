@@ -5,8 +5,8 @@
 
 @interface ElementTransitionsCreator : NSObject
 
-- (instancetype)initWithElementTransitions:(NSArray<ElementTransitionOptions *>*)elementTransitions;
++ (NSArray<DisplayLinkAnimatorDelegate>*)create:(NSArray<ElementTransitionOptions *>*)elementTransitions fromVC:(UIViewController *)fromVC toVC:(UIViewController *)toVC containerView:(UIView *)containerView;
 
-- (NSArray<DisplayLinkAnimatorDelegate>*)createFromVC:(UIViewController *)fromVC toVC:(UIViewController *)toVC containerView:(UIView *)containerView;
++ (id<DisplayLinkAnimatorDelegate>)createTransition:(ElementTransitionOptions *)elementTransition view:(UIView *)view fromVC:(UIViewController *)fromVC toVC:(UIViewController *)toVC containerView:(UIView *)containerView;
 
 @end

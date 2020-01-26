@@ -13,21 +13,20 @@
     UIViewController* _toVC;
     UIViewController* _fromVC;
     UIView* _containerView;
-    BOOL _from;
 }
 
-- (instancetype)initWithTransitionOptions:(ElementTransitionOptions *)transitionOptions fromVC:(UIViewController *)fromVC toVC:(UIViewController *)toVC containerView:(UIView *)containerView {
+- (instancetype)initWithTransitionOptions:(ElementTransitionOptions *)transitionOptions view:(UIView *)view fromVC:(UIViewController *)fromVC toVC:(UIViewController *)toVC containerView:(UIView *)containerView {
     self = [super init];
     _transitionOptions = transitionOptions;
     _fromVC = fromVC;
     _toVC = toVC;
     _containerView = containerView;
-    self.view = [self findElementById:transitionOptions.elementId];
+    self.view = view;
     self.animations = [self createAnimations];
     return self;
 }
 
-- (NSArray<id<DisplayLinkAnimation>> *)createAnimations {
+- (NSMutableArray<id<DisplayLinkAnimation>> *)createAnimations {
     NSMutableArray* animations = [NSMutableArray new];
     if (_transitionOptions.alpha.hasAnimation) {
         [animations addObject:[[ElementAlphaTransition alloc] initWithView:self.view transitionDetails:_transitionOptions.alpha]];
@@ -54,21 +53,6 @@
     }
     
     return animations;
-}
-
-- (UIView *)findElementById:(NSString *)elementId {
-    UIView* viewInSourceView = [RNNElementFinder findElementForId:elementId inView:_fromVC.view];
-    if (viewInSourceView) {
-        return viewInSourceView;
-    }
-    
-    UIView* viewInDestinationView = [RNNElementFinder findElementForId:elementId inView:_toVC.view];
-    if (viewInDestinationView) {
-        _from = YES;
-        return viewInDestinationView;
-    }
-    
-    return nil;
 }
 
 @end

@@ -4,8 +4,9 @@
 
 @interface SharedElementTransitionsCreator : NSObject
 
-- (NSArray<DisplayLinkAnimatorDelegate>*)createFromVC:(UIViewController *)fromVC toVC:(UIViewController *)toVC containerView:(UIView *)containerView;
-
-- (instancetype)initWithSharedElementTransitions:(NSArray<SharedElementTransitionOptions *>*)sharedElementTransitions;
++ (NSArray<DisplayLinkAnimatorDelegate>*)create:(NSArray<SharedElementTransitionOptions *>*)sharedElementTransitions
+                                         fromVC:(UIViewController *)fromVC
+                                           toVC:(UIViewController *)toVC
+                                  containerView:(UIView *)containerView;
 
 @end

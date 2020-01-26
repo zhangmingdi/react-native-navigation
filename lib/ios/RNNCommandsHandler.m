@@ -258,7 +258,7 @@ static NSString* const setDefaultOptions	= @"setDefaultOptions";
 	
     newVc.waitForRender = [newVc.resolveOptionsWithDefault.animations.showModal.waitForRender getWithDefaultValue:NO];
     [newVc setReactViewReadyCallback:^{
-        [_modalManager showModal:newVc animated:[newVc.resolveOptionsWithDefault.animations.showModal.enable getWithDefaultValue:YES] hasCustomAnimation:newVc.resolveOptionsWithDefault.animations.showModal.hasCustomAnimation completion:^(NSString *componentId) {
+        [_modalManager showModal:newVc animated:[newVc.resolveOptionsWithDefault.animations.showModal.enable getWithDefaultValue:YES] completion:^(NSString *componentId) {
             [self->_eventEmitter sendOnNavigationCommandCompletion:showModal commandId:commandId params:@{@"layout": layout}];
             completion(newVc.layoutInfo.componentId);
         }];
