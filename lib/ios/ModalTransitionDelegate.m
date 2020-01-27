@@ -1,9 +1,6 @@
 #import "ModalTransitionDelegate.h"
-#import "ContentTransitionCreator.h"
 
-@implementation ModalTransitionDelegate {
-    TransitionOptions* _contentTransitionOptions;
-}
+@implementation ModalTransitionDelegate
 
 - (instancetype)initWithContentTransition:(TransitionOptions *)contentTransitionOptions uiManager:(RCTUIManager *)uiManager {
     self = [super initWithUIManager:uiManager];
@@ -17,11 +14,13 @@
     return @[contentTransition];
 }
 
-- (nullable id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
-    return self;
+- (void)prepareTransitionContext:(id<UIViewControllerContextTransitioning>)transitionContext {
+    UIViewController* toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    toVC.view.alpha = 0;
+    [transitionContext.containerView addSubview:toVC.view];
 }
 
-- (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
+- (nullable id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
     return self;
 }
 

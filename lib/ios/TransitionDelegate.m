@@ -16,6 +16,7 @@
 
 - (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext {
     _animate = YES;
+    _transitionContext = transitionContext;
     [self prepareTransitionContext:transitionContext];
     
     UIViewController* fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
@@ -26,12 +27,8 @@
 
 - (void)prepareTransitionContext:(id<UIViewControllerContextTransitioning>)transitionContext {
     UIViewController* toVC = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    
-    _transitionContext = transitionContext;
     toVC.view.alpha = 0;
     [transitionContext.containerView addSubview:toVC.view];
-    [toVC.view setNeedsLayout];
-    [toVC.view layoutIfNeeded];
 }
 
 - (void)performAnimationOnce {
