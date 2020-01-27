@@ -21,6 +21,7 @@ import { OptionsProcessor } from './commands/OptionsProcessor';
 import { ColorService } from './adapters/ColorService';
 import { AssetService } from './adapters/AssetResolver';
 import { AppRegistryService } from './adapters/AppRegistryService';
+import { Deprecations } from './commands/Deprecations';
 
 export class NavigationRoot {
   public readonly Element = SharedElement;
@@ -53,7 +54,7 @@ export class NavigationRoot {
       appRegistryService
     );
     this.layoutTreeParser = new LayoutTreeParser(this.uniqueIdProvider);
-    const optionsProcessor = new OptionsProcessor(this.store, this.uniqueIdProvider, new ColorService(), new AssetService());
+    const optionsProcessor = new OptionsProcessor(this.store, this.uniqueIdProvider, new ColorService(), new AssetService(), new Deprecations());
     this.layoutTreeCrawler = new LayoutTreeCrawler(this.store, optionsProcessor);
     this.nativeCommandsSender = new NativeCommandsSender();
     this.commandsObserver = new CommandsObserver(this.uniqueIdProvider);
