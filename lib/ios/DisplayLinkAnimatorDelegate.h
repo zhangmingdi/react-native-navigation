@@ -9,6 +9,7 @@
 
 - (NSTimeInterval)maxDuration;
 
+@optional
 - (void)end;
 
 @end

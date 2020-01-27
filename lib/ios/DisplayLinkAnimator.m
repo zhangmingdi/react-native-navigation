@@ -39,7 +39,8 @@
 - (void)_displayLinkDidTick:(CADisplayLink*)displayLink {
 	NSTimeInterval elapsed = [NSDate.date timeIntervalSinceDate:_startDate];
 	if(elapsed > _duration) {
-		[self end];
+		[self updateAnimations:_duration];
+        [self end];
 		[displayLink invalidate];
         if (_completion) {
             _completion();

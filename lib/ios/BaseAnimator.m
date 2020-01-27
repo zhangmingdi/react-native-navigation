@@ -4,7 +4,8 @@
 
 - (void)updateAnimations:(NSTimeInterval)elapsed {
     CGAffineTransform transform = CGAffineTransformIdentity;
-    for (id<DisplayLinkAnimation> animation in _animations) {
+    for (int i = 0; i < _animations.count; i++) {
+        id<DisplayLinkAnimation> animation = _animations[i];
         if (elapsed < animation.duration + animation.startDelay && elapsed > animation.startDelay) {
             CGFloat p = (elapsed-animation.startDelay)/(animation.duration-animation.startDelay);
             transform = CGAffineTransformConcat(transform, [animation animateWithProgress:p]);
@@ -14,9 +15,8 @@
         }
     }
     
-    self.view.transform = transform;
+    self.view.layer.affineTransform = transform;
 }
-
 
 - (NSTimeInterval)maxDuration {
     CGFloat maxDuration = 0;
@@ -31,7 +31,9 @@
 
 - (void)end {
     for (id<DisplayLinkAnimatorDelegate> animation in _animations) {
-        [animation end];
+        if ([animation respondsToSelector:@selector(end)]) {
+            [animation end];
+        }
     }
 }
 

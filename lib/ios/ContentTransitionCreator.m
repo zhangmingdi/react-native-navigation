@@ -2,10 +2,10 @@
 
 @implementation ContentTransitionCreator
 
-+ (id<DisplayLinkAnimatorDelegate>)createTransition:(ElementTransitionOptions *)elementTransition view:(UIView *)view fromVC:(UIViewController *)fromVC toVC:(UIViewController *)toVC containerView:(UIView *)containerView {
-    if (!elementTransition.alpha.hasAnimation) {
-        elementTransition.alpha = self.defaultAlphaTransition;
-    }
++ (id<DisplayLinkAnimatorDelegate>)createTransition:(TransitionOptions *)elementTransition view:(UIView *)view fromVC:(UIViewController *)fromVC toVC:(UIViewController *)toVC containerView:(UIView *)containerView {
+   if (!elementTransition.alpha.hasAnimation) {
+       elementTransition.alpha = self.defaultAlphaTransition;
+   }
     
     return [super createTransition:elementTransition view:view fromVC:fromVC toVC:toVC containerView:containerView];
 }
