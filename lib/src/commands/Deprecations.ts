@@ -1,9 +1,10 @@
 import isEqual from 'lodash/isEqual';
 import once from 'lodash/once';
+import { Platform } from 'react-native';
 
 export class Deprecations {
   public onProcessOptions(key: string, parentOptions: Record<string, any>) {
-    if (isEqual(key, 'drawBehind')) {
+    if (isEqual(key, 'drawBehind') && Platform.OS === 'ios') {
       this.deprecateDrawBehind(parentOptions)
     }
   }
