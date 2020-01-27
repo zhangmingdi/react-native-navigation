@@ -2,6 +2,7 @@
 #import "RNNElementFinder.h"
 #import "AnimatedViewFactory.h"
 #import "BaseAnimator.h"
+#import "NSArray+utils.h"
 
 @implementation SharedElementTransitionsCreator
 
@@ -13,7 +14,7 @@
     for (SharedElementTransitionOptions* transitionOptions in sharedElementTransitions) {
         AnimatedReactView* animatedView = [self createAnimatedView:transitionOptions fromVC:fromVC toVC:toVC];
         BaseAnimator* animator = [[BaseAnimator alloc] init];
-        animator.animations = @[animatedView];
+        animator.animations = [NSMutableArray arrayWithArray:@[animatedView]];
         animator.view = animatedView;
         [transitions addObject:animator];
     }
@@ -24,9 +25,13 @@
 }
 
 + (void)addSharedElementViews:(NSArray<BaseAnimator *> *)animators toContainerView:(UIView *)containerView {
+    NSMutableArray<AnimatedReactView *> * sharedElementViews = [NSMutableArray<AnimatedReactView *> new];
     for (BaseAnimator* animator in animators) {
-        [containerView addSubview:animator.view];
-        [containerView bringSubviewToFront:animator.view];
+        [sharedElementViews addObject:(AnimatedReactView *)animator.view];
+    }
+    
+    for (UIView* sharedElementView in [sharedElementViews sortByPropertyName:@"reactZIndex"]) {
+        [containerView addSubview:sharedElementView];
     }
 }
 

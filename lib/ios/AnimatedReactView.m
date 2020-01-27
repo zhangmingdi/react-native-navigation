@@ -1,4 +1,5 @@
 #import "AnimatedReactView.h"
+#import <React/UIView+React.h>
 
 @implementation AnimatedReactView {
     UIView* _originalParent;
@@ -6,6 +7,7 @@
     UIView* _toElement;
     UIColor* _fromColor;
     UIColor* _toColor;
+    NSInteger _zIndex;
     SharedElementTransitionOptions* _transitionOptions;
 }
 
@@ -17,9 +19,14 @@
     _toElement.hidden = YES;
     _fromColor = element.backgroundColor;
     _toColor = toElement.backgroundColor;
+    _zIndex = toElement.reactZIndex;
     [self hijackReactElement:element];
     
     return self;
+}
+
+- (NSNumber *)reactZIndex {
+    return @(_zIndex);
 }
 
 - (void)hijackReactElement:(UIView *)element {
