@@ -80,6 +80,9 @@
 	
 	UIViewController* viewController = self.boundViewController;
 	RNNNavigationOptions *withDefault = [options withDefault:[self defaultOptions]];
+    [viewController setDrawBehindTopBar:[withDefault.topBar.drawBehind getWithDefaultValue:NO]];
+    [viewController setDrawBehindTabBar:[withDefault.bottomTabs.drawBehind getWithDefaultValue:NO] || ![withDefault.bottomTabs.visible getWithDefaultValue:YES]];
+    
 	if ((withDefault.topBar.leftButtons || withDefault.topBar.rightButtons)) {
 		[_navigationButtons applyLeftButtons:withDefault.topBar.leftButtons rightButtons:withDefault.topBar.rightButtons defaultLeftButtonStyle:withDefault.topBar.leftButtonStyle defaultRightButtonStyle:withDefault.topBar.rightButtonStyle];
 	}
