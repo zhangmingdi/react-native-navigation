@@ -12,6 +12,7 @@ class ApplicationLinker {
     if (this.applicationPath) {
       logn("Linking MainApplication...");
       var applicationContents = fs.readFileSync(this.applicationPath, "utf8");
+      var linkers = [this._extendNavigationApplication, this._extendNavigationHost, this._removeSOLoaderInit];
       applicationContents = this._extendNavigationApplication(applicationContents);
       applicationContents = this._extendNavigationHost(applicationContents);
       applicationContents = this._removeSOLoaderInit(applicationContents);
@@ -40,7 +41,7 @@ class ApplicationLinker {
       debugn("   Changing host implementation to NavigationReactNativeHost");
       return applicationContent
         .replace("new ReactNativeHost(this)", "new NavigationReactNativeHost(this)")
-        .replace("import com.facebook.react.ReactNativeHost;", "import com.reactnativenavigation.react.NavigationReactNativeHost;")
+        .replace("import com.facebook.react.ReactNativeHost;", "import com.facebook.react.ReactNativeHost;\nimport com.reactnativenavigation.react.NavigationReactNativeHost;")
     }
     warnn("   NavigationReactNativeHost is already used");
     return applicationContent;
@@ -49,7 +50,7 @@ class ApplicationLinker {
   _removeSOLoaderInit(applicationContent) {
     if (this._isSOLoaderInitCalled(applicationContent)) {
       debugn("   Removing call to SOLoader.init()");
-      return applicationContent.replace(/SoLoader.init\(this,\s*[/* native exopackage */]*\s*false\);/, "")
+      return applicationContent.replace(/SoLoader.init\(\s*this\s*,\s*[/* native exopackage */]*\s*false\s*\);/, "")
     }
     warnn("   SOLoader.init() is not called");
     return applicationContent;

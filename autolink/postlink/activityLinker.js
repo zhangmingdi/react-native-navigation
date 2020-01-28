@@ -21,18 +21,14 @@ class ActivityLinker {
   }
 
   _extendNavigationActivity(activityContent) {
-    var activityPath = path.mainActivityJava;
-    if (activityPath) {
-      if (this._doesActivityExtendReactActivity(activityContent)) {
-        debugn("   Extending NavigationActivity")
-        return activityContent
-          .replace(/extends\s+ReactActivity\s*/, "extends NavigationActivity ")
-          .replace("import com.facebook.react.ReactActivity;", "import com.reactnativenavigation.NavigationActivity;")
-      } else {
-        warnn("   MainActivity already extends NavigationActivity")
-      }
+    if (this._doesActivityExtendReactActivity(activityContent)) {
+      debugn("   Extending NavigationActivity")
+      return activityContent
+        .replace(/extends\s+ReactActivity\s*/, "extends NavigationActivity ")
+        .replace("import com.facebook.react.ReactActivity;", "import com.reactnativenavigation.NavigationActivity;")
+    } else {
+      warnn("   MainActivity already extends NavigationActivity")
     }
-    
     return activityContent;
   }
 
