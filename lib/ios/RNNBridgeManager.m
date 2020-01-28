@@ -23,7 +23,7 @@
 @implementation RNNBridgeManager {
 	NSURL* _jsCodeLocation;
 	NSDictionary* _launchOptions;
-	id<RNNBridgeManagerDelegate> _delegate;
+	id<RCTBridgeDelegate> _delegate;
 	RCTBridge* _bridge;
 	UIWindow* _mainWindow;
 	
@@ -32,7 +32,7 @@
 	RNNCommandsHandler* _commandsHandler;
 }
 
-- (instancetype)initWithJsCodeLocation:(NSURL *)jsCodeLocation launchOptions:(NSDictionary *)launchOptions bridgeManagerDelegate:(id<RNNBridgeManagerDelegate>)delegate mainWindow:(UIWindow *)mainWindow {
+- (instancetype)initWithJsCodeLocation:(NSURL *)jsCodeLocation launchOptions:(NSDictionary *)launchOptions bridgeManagerDelegate:(id<RCTBridgeDelegate>)delegate mainWindow:(UIWindow *)mainWindow {
 	if (self = [super init]) {
 		_mainWindow = mainWindow;
 		_jsCodeLocation = jsCodeLocation;
@@ -79,7 +79,11 @@
 # pragma mark - RCTBridgeDelegate
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge {
-	return _jsCodeLocation;
+    if ([_delegate respondsToSelector:@selector(sourceURLForBridge:)]) {
+        return [_delegate sourceURLForBridge:bridge];
+    } else {
+        return _jsCodeLocation;
+    }
 }
 
 - (NSArray<id<RCTBridgeModule>> *)extraModulesForBridge:(RCTBridge *)bridge {
