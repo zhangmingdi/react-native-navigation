@@ -427,7 +427,7 @@
 	id mockedVC = [OCMockObject partialMockForObject:self.vc1];
 	OCMStub([self.controllerFactory createLayout:[OCMArg any]]).andReturn(mockedVC);
 	
-	[[self.modalManager expect] showModal:mockedVC animated:YES hasCustomAnimation:NO completion:[OCMArg any]];
+	[[self.modalManager expect] showModal:mockedVC animated:YES completion:[OCMArg any]];
 	[self.uut showModal:@{} commandId:@"showModal" completion:^(NSString *componentId) {
 		
 	}];
