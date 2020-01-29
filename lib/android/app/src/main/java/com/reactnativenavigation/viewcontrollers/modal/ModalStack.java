@@ -63,7 +63,7 @@ public class ModalStack {
             CommandListenerAdapter onDismiss = new CommandListenerAdapter(listener) {
                 @Override
                 public void onSuccess(String childId) {
-                    eventEmitter.emitModalDismissed(componentId, 1);
+                    eventEmitter.emitModalDismissed(componentId, toDismiss.getCurrentComponentName(), 1);
                     super.onSuccess(componentId);
                 }
             };

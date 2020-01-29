@@ -74,6 +74,9 @@ public class ViewControllerTest extends BaseTest {
             public void sendOnNavigationButtonPressed(String buttonId) {
 
             }
+
+            @Override
+            public String getCurrentComponentName() { return null; }
         };
         assertThat(myController.getView()).isEqualTo(otherView);
     }
@@ -145,6 +148,9 @@ public class ViewControllerTest extends BaseTest {
             public void sendOnNavigationButtonPressed(String buttonId) {
 
             }
+
+            @Override
+            public String getCurrentComponentName() { return null; }
         };
         vc.onChildViewAdded(view, child);
         verify(yellowBoxDelegate).onChildViewAdded(view, child);
