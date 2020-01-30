@@ -17,19 +17,19 @@ import java.io.InputStream
 import java.net.URL
 import java.util.*
 
-class ImageLoader {
+open class ImageLoader {
     interface ImagesLoadingListener {
         fun onComplete(drawable: List<Drawable>)
         fun onComplete(drawable: Drawable)
         fun onError(error: Throwable?)
     }
 
-    fun getBackButtonIcon(context: Activity): Drawable? {
+    open fun getBackButtonIcon(context: Activity): Drawable? {
         val isRTL = context.window.decorView.layoutDirection == View.LAYOUT_DIRECTION_RTL
         return ContextCompat.getDrawable(context, if (isRTL) R.drawable.ic_arrow_back_black_rtl_24dp else R.drawable.ic_arrow_back_black_24dp)
     }
 
-    fun loadIcon(context: Context, uri: String?): Drawable? {
+    open fun loadIcon(context: Context, uri: String?): Drawable? {
         if (uri == null) return null
         try {
             return getDrawable(context, uri)
@@ -39,7 +39,7 @@ class ImageLoader {
         return null
     }
 
-    fun loadIcon(context: Context, uri: String, listener: ImagesLoadingListener) {
+    open fun loadIcon(context: Context, uri: String, listener: ImagesLoadingListener) {
         try {
             listener.onComplete(getDrawable(context, uri))
         } catch (e: IOException) {
@@ -47,7 +47,7 @@ class ImageLoader {
         }
     }
 
-    fun loadIcons(context: Context, uris: List<String>, listener: ImagesLoadingListener) {
+    open fun loadIcons(context: Context, uris: List<String>, listener: ImagesLoadingListener) {
         try {
             val drawables: MutableList<Drawable> = ArrayList()
             for (uri in uris) {

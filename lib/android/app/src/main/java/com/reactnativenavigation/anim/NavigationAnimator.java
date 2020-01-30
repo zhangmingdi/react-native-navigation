@@ -53,6 +53,7 @@ public class NavigationAnimator extends BaseAnimator {
                         public void onAnimationCancel(Animator animation) {
                             isCancelled = true;
                             runningPushAnimations.remove(appearing.getView());
+                            onAnimationEnd.run();
                         }
 
                         @Override
