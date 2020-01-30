@@ -29,7 +29,7 @@ public abstract class NavigationReactNativeHost extends ReactNativeHost implemen
         }
     };
 
-    protected NavigationReactNativeHost(Application application) {
+    public NavigationReactNativeHost(Application application) {
         super(application);
     }
 
