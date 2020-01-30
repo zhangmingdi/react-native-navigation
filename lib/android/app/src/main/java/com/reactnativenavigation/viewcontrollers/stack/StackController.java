@@ -157,38 +157,32 @@ public class StackController extends ParentController<StackLayout> {
             NestedAnimationsOptions animation = resolvedOptions.animations.push;
             if (animation.enabled.isTrueOrUndefined()) {
                 if (animation.waitForRender.isTrue() || resolvedOptions.animations.push.sharedElements.hasValue()) {
-//                    child.getView().setAlpha(0);
-                    animator.push(child, toRemove, resolvedOptions, () -> {
-                        getView().removeView(toRemove.getView());
-                        listener.onSuccess(child.getId());
-                    });
-                    addChildToStack(child, child.getView(), resolvedOptions);
-//                    child.addOnAppearedListener(() -> animator.push(child.getView(), toRemove.getView(), resolvedOptions, () -> {
-//                        getView().removeView(toRemove.getView());
-//                        listener.onSuccess(child.getId());
-//                    }));
+                    animator.push(child, toRemove, resolvedOptions, () -> onPushAnimationComplete(child, toRemove, listener));
+                    addChildToStack(child, resolvedOptions);
                 } else {
-                    addChildToStack(child, child.getView(), resolvedOptions);
-                    animator.push(child, toRemove, resolvedOptions, () -> {
-                        if (!toRemove.equals(peek())) {
-                            getView().removeView(toRemove.getView());
-                        }
-                        listener.onSuccess(child.getId());
-                    });
+                    addChildToStack(child, resolvedOptions);
+                    animator.push(child, toRemove, resolvedOptions, () -> onPushAnimationComplete(child, toRemove, listener));
                 }
             } else {
+                addChildToStack(child, resolvedOptions);
                 getView().removeView(toRemove.getView());
                 listener.onSuccess(child.getId());
             }
         } else {
+            addChildToStack(child, resolvedOptions);
             listener.onSuccess(child.getId());
         }
     }
 
-    private void addChildToStack(ViewController child, View view, Options resolvedOptions) {
+    private void onPushAnimationComplete(ViewController toAdd, ViewController toRemove, CommandListener listener) {
+        if (!peek().equals(toRemove)) getView().removeView(toRemove.getView());
+        listener.onSuccess(toAdd.getId());
+    }
+
+    private void addChildToStack(ViewController child, Options resolvedOptions) {
         child.setWaitForRender(resolvedOptions.animations.push.waitForRender);
         if (size() == 1) presenter.applyInitialChildLayoutOptions(resolvedOptions);
-        getView().addView(view, getView().getChildCount() - 1, matchParentWithBehaviour(new StackBehaviour(this)));
+        getView().addView(child.getView(), getView().getChildCount() - 1, matchParentWithBehaviour(new StackBehaviour(this)));
     }
 
     public void setRoot(List<ViewController> children, CommandListener listener) {
@@ -207,7 +201,7 @@ public class StackController extends ParentController<StackLayout> {
         child.setParentController(this);
         stack.push(child.getId(), child);
         Options resolvedOptions = resolveCurrentOptions(presenter.getDefaultOptions());
-        addChildToStack(child, child.getView(), resolvedOptions);
+        addChildToStack(child, resolvedOptions);
 
         CommandListener listenerAdapter = new CommandListenerAdapter() {
             @Override
