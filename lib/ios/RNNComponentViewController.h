@@ -20,8 +20,6 @@ typedef void (^PreviewCallback)(UIViewController *vc);
 @property (nonatomic, strong) UIViewController* previewController;
 @property (nonatomic, copy) PreviewCallback previewCallback;
 
-@property (nonatomic) CGSize availableSize;
-
 - (instancetype)initWithLayoutInfo:(RNNLayoutInfo *)layoutInfo
 				   rootViewCreator:(id<RNNComponentViewCreator>)creator
 					  eventEmitter:(RNNEventEmitter*)eventEmitter
