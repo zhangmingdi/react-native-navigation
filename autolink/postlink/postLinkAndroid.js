@@ -9,5 +9,4 @@ module.exports = () => {
   new AppLinker().link();
   new ActivityLinker().link();
   new GradleLinker().link();
-  infon("react-native-navigation linked successfully");
 }
