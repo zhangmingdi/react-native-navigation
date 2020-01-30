@@ -15,7 +15,7 @@
 }
 
 - (void)loadView {
-	self.view = [UIView new];
+	self.view = [[UIView alloc] initWithFrame:UIScreen.mainScreen.bounds];
 }
 
 - (void)render {
