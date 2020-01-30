@@ -161,7 +161,6 @@ static NSString* const setDefaultOptions	= @"setDefaultOptions";
 		}
 	} else {
         newVc.waitForRender = newVc.resolveOptionsWithDefault.animations.push.shouldWaitForRender;
-        [(RNNComponentViewController *)newVc setAvailableSize:fromVC.navigationController.view.bounds.size];
         [newVc setReactViewReadyCallback:^{
             [self->_stackManager push:newVc onTop:fromVC animated:[newVc.resolveOptionsWithDefault.animations.push.enable getWithDefaultValue:YES] completion:^{
                 [self->_eventEmitter sendOnNavigationCommandCompletion:push commandId:commandId params:@{@"componentId": componentId}];
