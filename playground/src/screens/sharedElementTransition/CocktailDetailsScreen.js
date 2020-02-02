@@ -54,7 +54,8 @@ const styles = StyleSheet.create({
   header: {
     height: HEADER,
     width: '100%',
-    flexDirection: 'column-reverse'
+    flexDirection: 'column-reverse',
+    zIndex: 0
   },
   title: {
     fontSize: 32,
@@ -75,6 +76,7 @@ const styles = StyleSheet.create({
     width: SIZE,
     position: 'absolute',
     right: 24,
-    top: IMAGE_OFFSET
+    top: IMAGE_OFFSET,
+    zIndex: 1
   }
 });

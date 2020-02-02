@@ -4,7 +4,7 @@
 
 - (CGAffineTransform)animateWithProgress:(CGFloat)p {
     CGFloat y = [RNNInterpolator fromFloat:self.from toFloat:self.to precent:p interpolation:self.interpolation];
-    return CGAffineTransformMakeTranslation(0, y);
+    return CGAffineTransformMakeTranslation(0, y - self.to);
 }
 
 - (CGFloat)initialValue {

@@ -3,8 +3,8 @@
 @implementation ElementHorizontalTransition
 
 - (CGAffineTransform)animateWithProgress:(CGFloat)p {
-    CGFloat x = [RNNInterpolator fromFloat:self.from toFloat:self.to precent:p interpolation:self.interpolation];    
-    return CGAffineTransformMakeTranslation(x, 0);
+    CGFloat x = [RNNInterpolator fromFloat:self.from toFloat:self.to precent:p interpolation:self.interpolation];
+    return CGAffineTransformMakeTranslation(x - self.to, 0);
 }
 
 - (CGFloat)initialValue {
