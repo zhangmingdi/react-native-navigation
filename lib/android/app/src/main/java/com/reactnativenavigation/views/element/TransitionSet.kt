@@ -6,7 +6,7 @@ class TransitionSet {
     var validSharedElementTransitions: MutableList<SharedElementTransition> = ArrayList()
     var validElementTransitions: MutableList<ElementTransition> = ArrayList()
     val isEmpty: Boolean
-        get() = validSharedElementTransitions.isEmpty() && validElementTransitions.isEmpty()
+        get() = size() == 0
     val transitions: List<Transition>
         get() = validElementTransitions + validSharedElementTransitions
 
@@ -18,7 +18,5 @@ class TransitionSet {
         validElementTransitions.add(transition)
     }
 
-    fun size(): Int {
-        return validElementTransitions.size + validSharedElementTransitions.size
-    }
+    fun size(): Int = validElementTransitions.size + validSharedElementTransitions.size
 }

@@ -18,7 +18,7 @@ import java.util.*
 
 open class TransitionAnimatorCreator {
     fun create(fadeAnimation: AnimationOptions, transitions: TransitionSet): AnimatorSet {
-        if (transitions.size() == 0) return AnimatorSet()
+        if (transitions.isEmpty) return AnimatorSet()
         reparentViews(transitions)
         val animators = ArrayList<Animator>()
         animators.addAll(createSharedElementTransitionAnimators(transitions.validSharedElementTransitions))

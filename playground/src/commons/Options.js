@@ -20,7 +20,6 @@ const setDefaultOptions = () => Navigation.setDefaultOptions({
     selectedTextColor: Colors.primary
   },
   topBar: {
-    drawBehind: true,
     background: {
       drawBehind: true
     }
