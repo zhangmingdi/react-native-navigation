@@ -25,7 +25,7 @@ class YAnimator(transition: SharedElementTransition, from: View, to: View) : Pro
 
     override fun excludedViews() = listOf(ReactTextView::class.java)
 
-    override fun create(transition: SharedElementTransitionOptions): Animator {
-        return ObjectAnimator.ofFloat(to, TRANSLATION_Y, dy.toFloat(), 0f).setDuration(transition.getDuration())
+    override fun create(options: SharedElementTransitionOptions): Animator {
+        return ObjectAnimator.ofFloat(to, TRANSLATION_Y, dy.toFloat(), 0f).setDuration(options.getDuration())
     }
 }

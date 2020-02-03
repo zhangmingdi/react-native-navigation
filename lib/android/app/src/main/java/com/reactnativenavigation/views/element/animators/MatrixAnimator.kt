@@ -15,7 +15,7 @@ class MatrixAnimator(from: View, to: View) : PropertyAnimatorCreator<ReactImageV
         return !ViewUtils.areDimensionsEqual(from, to)
     }
 
-    override fun create(transition: SharedElementTransitionOptions): Animator {
+    override fun create(options: SharedElementTransitionOptions): Animator {
         with(to as ReactImageView) {
             hierarchy.actualImageScaleType = InterpolatingScaleType(
                     getScaleType(from),
@@ -29,7 +29,7 @@ class MatrixAnimator(from: View, to: View) : PropertyAnimatorCreator<ReactImageV
                     to.invalidate()
                 }
                 null
-            }, 0, 1).setDuration(transition.getDuration())
+            }, 0, 1).setDuration(options.getDuration())
         }
     }
 

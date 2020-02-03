@@ -20,7 +20,7 @@ abstract class PropertyAnimatorCreator<T : View> internal constructor(protected 
     protected abstract fun shouldAnimateProperty(fromChild: T, toChild: T): Boolean
     protected open fun excludedViews() = emptyList<Class<*>>()
 
-    abstract fun create(transition: SharedElementTransitionOptions): Animator
+    abstract fun create(options: SharedElementTransitionOptions): Animator
     private val childClass: Class<T>
         get() = (javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[0] as Class<T>
 

@@ -18,11 +18,11 @@ class BackgroundColorAnimator(from: View, to: View) : PropertyAnimatorCreator<Vi
 
     override fun excludedViews() = listOf(ReactTextView::class.java)
 
-    override fun create(transition: SharedElementTransitionOptions): Animator {
+    override fun create(options: SharedElementTransitionOptions): Animator {
         return ObjectAnimator.ofObject(
                 BackgroundColorEvaluator(to.background as ReactViewBackgroundDrawable),
                 ColorUtils.colorToLAB(ViewUtils.getBackgroundColor(from)),
                 ColorUtils.colorToLAB(ViewUtils.getBackgroundColor(to))
-        ).setDuration(transition.getDuration())
+        ).setDuration(options.getDuration())
     }
 }

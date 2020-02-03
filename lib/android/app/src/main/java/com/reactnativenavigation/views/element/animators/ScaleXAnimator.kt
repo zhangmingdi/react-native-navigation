@@ -14,9 +14,9 @@ class ScaleXAnimator(from: View, to: View) : PropertyAnimatorCreator<ViewGroup>(
 
     override fun excludedViews(): List<Class<*>> = listOf<Class<*>>(ReactTextView::class.java)
 
-    override fun create(transition: SharedElementTransitionOptions): Animator {
+    override fun create(options: SharedElementTransitionOptions): Animator {
         return ObjectAnimator
                 .ofFloat(to, View.SCALE_X, from.width.toFloat() / to.width, 1f)
-                .setDuration(transition.getDuration())
+                .setDuration(options.getDuration())
     }
 }

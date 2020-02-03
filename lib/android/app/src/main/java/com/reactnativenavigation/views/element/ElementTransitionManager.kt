@@ -8,7 +8,6 @@ import com.facebook.react.uimanager.util.ReactFindViewUtil.findView
 import com.reactnativenavigation.parse.AnimationOptions
 import com.reactnativenavigation.parse.NestedAnimationsOptions
 import com.reactnativenavigation.utils.Functions.Func1
-import com.reactnativenavigation.utils.ObjectUtils
 import com.reactnativenavigation.viewcontrollers.ViewController
 
 open class ElementTransitionManager {
@@ -43,11 +42,11 @@ open class ElementTransitionManager {
         }
         for (transitionOptions in elementTransitions.transitions) {
             val transition = ElementTransition(transitionOptions)
-            ObjectUtils.perform(findView(fromScreen.view, transition.id), { view: View? ->
-                transition.view = view!!
+            findView(fromScreen.view, transition.id)?.let {
+                transition.view = it
                 transition.viewController = fromScreen
                 transitionSet.add(transition)
-            })
+            }
             if (transition.isValid()) continue
             findView(toScreen.view, object : OnViewFoundListener {
                 override fun getNativeId(): String {

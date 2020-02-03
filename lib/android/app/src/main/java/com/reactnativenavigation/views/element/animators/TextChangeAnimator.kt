@@ -5,6 +5,7 @@ import android.graphics.Rect
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.view.updateMargins
 import com.facebook.react.views.text.ReactTextView
 import com.reactnativenavigation.parse.SharedElementTransitionOptions
 import com.reactnativenavigation.utils.TextViewUtils
@@ -20,8 +21,10 @@ class TextChangeAnimator(private val transition: SharedElementTransition, from: 
                 !fromXy.equals(toXy.x, toXy.y)
     }
 
-    override fun create(transition: SharedElementTransitionOptions): Animator {
-        (to.layoutParams as ViewGroup.MarginLayoutParams).topMargin += this.transition.topInset
+    override fun create(options: SharedElementTransitionOptions): Animator {
+        (to.layoutParams as ViewGroup.MarginLayoutParams).apply {
+            updateMargins(top = to.top + transition.topInset)
+        }
         return ReflowTextAnimatorHelper.Builder(from as TextView, to as TextView)
                 .calculateDuration(false)
                 .setBoundsCalculator { view: View ->
@@ -39,6 +42,6 @@ class TextChangeAnimator(private val transition: SharedElementTransition, from: 
                     TextViewUtils.getTextColor(it)
                 }
                 .buildAnimator()
-                .setDuration(transition.getDuration())
+                .setDuration(options.getDuration())
     }
 }

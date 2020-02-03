@@ -22,7 +22,7 @@ class XAnimator(from: View, to: View) : PropertyAnimatorCreator<View>(from, to) 
 
     override fun shouldAnimateProperty(fromChild: View, toChild: View) = dx != 0
 
-    override fun create(transition: SharedElementTransitionOptions): Animator {
-        return ObjectAnimator.ofFloat(to, TRANSLATION_X, dx.toFloat(), 0f).setDuration(transition.getDuration())
+    override fun create(options: SharedElementTransitionOptions): Animator {
+        return ObjectAnimator.ofFloat(to, TRANSLATION_X, dx.toFloat(), 0f).setDuration(options.getDuration())
     }
 }
