@@ -11,7 +11,7 @@ import com.reactnativenavigation.utils.Functions.Func1
 import com.reactnativenavigation.utils.ObjectUtils
 import com.reactnativenavigation.viewcontrollers.ViewController
 
-class ElementTransitionManager {
+open class ElementTransitionManager {
     private val animatorCreator: TransitionAnimatorCreator = TransitionAnimatorCreator()
 
     fun createTransitions(animation: NestedAnimationsOptions, fromScreen: ViewController<*>, toScreen: ViewController<*>, onAnimatorsCreated: Func1<TransitionSet?>) {
