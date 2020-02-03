@@ -1,3 +1,8 @@
+---
+id: stack-buttons
+title: Buttons
+sidebar_label: Buttons
+---
 
 Buttons can be added to the [right](#rightButtons) and [left](#leftButtons) areas of the TopBar. Buttons can have either an icon or a text. They are declared in the the options object and, as with any other option, can be updated dynamically with the `Navigation.mergeOptions` command.
 

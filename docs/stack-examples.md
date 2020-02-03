@@ -1,4 +1,9 @@
-## Examples
+---
+id: stack-examples
+title: Examples
+sidebar_label: Examples
+---
+
 ### Single child
 A stack declared with a single child.
 ```js

@@ -1,4 +1,8 @@
-# Showcases
+---
+id: showcases
+title: Showcases
+sidebar_label: Showcases
+---
 
 ## Apps
 ### Hekla for Hacker News

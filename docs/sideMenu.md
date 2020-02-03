@@ -21,7 +21,6 @@ class SideMenuCenterScreen extends React.Component {
       }
     };
   }
-
 }
 ```
 

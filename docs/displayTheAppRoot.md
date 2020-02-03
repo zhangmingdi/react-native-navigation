@@ -1,3 +1,9 @@
+---
+id: displayTheAppRoot
+title: Display the app root
+sidebar_label: Display the app root
+---
+
 # Update index.js file
 `index.js` is typically used as the entry point to the app. It's first parsed and executed by the JS engine, therefore we'll want to show our UI from there.
 
