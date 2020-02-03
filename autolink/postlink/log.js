@@ -27,5 +27,6 @@ module.exports = {
   info,
   infon,
   debug,
-  debugn
+  debugn,
+  errorn
 }
