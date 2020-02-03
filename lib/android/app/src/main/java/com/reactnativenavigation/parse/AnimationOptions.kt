@@ -78,6 +78,8 @@ open class AnimationOptions(json: JSONObject?) {
 
     open fun hasAnimation(): Boolean = valueOptions.isNotEmpty()
 
+    fun isFadeAnimation(): Boolean = valueOptions.size == 1 && valueOptions.find(ValueAnimationOptions::isAlpha) != null
+
     fun setValueDy(animation: Property<View?, Float?>?, fromDelta: Float, toDelta: Float) {
         CollectionUtils.first(valueOptions, { o: ValueAnimationOptions -> o.equals(animation) }) { param: ValueAnimationOptions ->
             param.setFromDelta(fromDelta)

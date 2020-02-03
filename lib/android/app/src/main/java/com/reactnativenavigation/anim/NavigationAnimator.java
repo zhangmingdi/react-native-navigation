@@ -45,11 +45,6 @@ public class NavigationAnimator extends BaseAnimator {
                         private boolean isCancelled;
 
                         @Override
-                        public void onAnimationStart(Animator animation) {
-                            appearing.getView().setAlpha(1);
-                        }
-
-                        @Override
                         public void onAnimationCancel(Animator animation) {
                             isCancelled = true;
                             runningPushAnimations.remove(appearing.getView());
@@ -68,18 +63,15 @@ public class NavigationAnimator extends BaseAnimator {
 
                     if (transitionSet.isEmpty()) {
                         set.playTogether(options.animations.push.content.getAnimation(appearing.getView(), getDefaultPushAnimation(appearing.getView())));
-                        set.start();
                     } else {
-                        appearing.addOnAppearedListener(() -> {
-                            AnimationOptions fade = new FadeAnimation().content;
-                            AnimatorSet transitions = transitionManager.createAnimators(fade, transitionSet);
-                            ArrayList<Animator.AnimatorListener> listeners = transitions.getListeners();
-                            set.playTogether(fade.getAnimation(appearing.getView()), transitions);
-                            forEach(listeners, set::addListener);
-                            transitions.removeAllListeners();
-                            set.start();
-                        });
+                        AnimationOptions fade = options.animations.push.content.isFadeAnimation() ? options.animations.push.content : new FadeAnimation().content;
+                        AnimatorSet transitions = transitionManager.createAnimators(fade, transitionSet);
+                        ArrayList<Animator.AnimatorListener> listeners = transitions.getListeners();
+                        set.playTogether(fade.getAnimation(appearing.getView()), transitions);
+                        forEach(listeners, set::addListener);
+                        transitions.removeAllListeners();
                     }
+                    set.start();
                 }
         );
     }

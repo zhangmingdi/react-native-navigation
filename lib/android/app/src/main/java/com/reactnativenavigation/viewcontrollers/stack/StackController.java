@@ -156,24 +156,21 @@ public class StackController extends ParentController<StackLayout> {
         child.setParentController(this);
         stack.push(child.getId(), child);
         Options resolvedOptions = resolveCurrentOptions(presenter.getDefaultOptions());
+        addChildToStack(child, resolvedOptions);
 
         if (toRemove != null) {
             NestedAnimationsOptions animation = resolvedOptions.animations.push;
             if (animation.enabled.isTrueOrUndefined()) {
                 if (animation.waitForRender.isTrue() || resolvedOptions.animations.push.sharedElements.hasValue()) {
                     animator.push(child, toRemove, resolvedOptions, () -> onPushAnimationComplete(child, toRemove, listener));
-                    addChildToStack(child, resolvedOptions);
                 } else {
-                    addChildToStack(child, resolvedOptions);
                     animator.push(child, toRemove, resolvedOptions, () -> onPushAnimationComplete(child, toRemove, listener));
                 }
             } else {
-                addChildToStack(child, resolvedOptions);
                 getView().removeView(toRemove.getView());
                 listener.onSuccess(child.getId());
             }
         } else {
-            addChildToStack(child, resolvedOptions);
             listener.onSuccess(child.getId());
         }
     }

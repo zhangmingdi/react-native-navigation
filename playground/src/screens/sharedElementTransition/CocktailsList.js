@@ -6,7 +6,7 @@ const { slice } = require('lodash');
 const Screens = require('../Screens')
 const data = require('../../assets/cocktails').default;
 const LONG_DURATION = 350 * 1
-const SHORT_DURATION = 120
+const SHORT_DURATION = 190
 
 class CocktailsList extends Component {
   static options() {
@@ -54,6 +54,13 @@ class CocktailsList extends Component {
             options: {
               animations: {
                 push: {
+                  content: {
+                    alpha: {
+                      from: 0,
+                      to: 1,
+                      duration: LONG_DURATION
+                    }
+                  },
                   sharedElementTransitions: [
                     {
                       fromId: `image${item.id}`,

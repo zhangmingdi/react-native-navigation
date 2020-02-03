@@ -69,6 +69,8 @@ class ValueAnimationOptions {
         return animProp.hashCode()
     }
 
+    fun isAlpha(): Boolean = animProp == View.ALPHA
+
     companion object {
         fun parse(json: JSONObject?, property: Triple<Property<View, Float>?, Int?, (View) -> Float>): ValueAnimationOptions {
             val options = ValueAnimationOptions()

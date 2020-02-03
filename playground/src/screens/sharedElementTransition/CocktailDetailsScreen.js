@@ -23,7 +23,7 @@ class CocktailDetailsScreen extends React.Component {
   render() {
     return (
       <SafeAreaView>
-        <View style={styles.root}>
+        <View>
           <View nativeID={'backdrop'} style={[styles.header, { backgroundColor: this.props.color }]}>
             <Text style={styles.title} nativeID={`title${this.props.id}Dest`}>{this.props.name}</Text>
           </View>
@@ -48,9 +48,6 @@ const SIZE = 120;
 const HEADER = 150;
 const IMAGE_OFFSET = 52
 const styles = StyleSheet.create({
-  root: {
-
-  },
   header: {
     height: HEADER,
     width: '100%',
