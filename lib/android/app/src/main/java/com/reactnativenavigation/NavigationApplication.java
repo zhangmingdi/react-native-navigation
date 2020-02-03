@@ -51,11 +51,6 @@ public abstract class NavigationApplication extends Application implements React
 
     }
 
-    @Deprecated
-    public boolean isDebug() {
-        return getReactNativeHost().getUseDeveloperSupport();
-    }
-
     /**
      * Register a native View which can be displayed using the given {@code name}
      * @param name Unique name used to register the native view
