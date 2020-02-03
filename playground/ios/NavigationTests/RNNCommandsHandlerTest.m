@@ -62,6 +62,7 @@
 
 - (void)setUp {
 	[super setUp];
+	self.sharedApplication = [OCMockObject mockForClass:[UIApplication class]];
 	self.creator = [OCMockObject partialMockForObject:[RNNTestRootViewCreator new]];
 	self.mainWindow = [OCMockObject partialMockForObject:[UIWindow new]];
 	self.eventEmmiter = [OCMockObject partialMockForObject:[RNNEventEmitter new]];
