@@ -17,15 +17,32 @@
         ]
       }
     ],
+    "Getting Started": [
+      "displayTheAppRoot",
+      "showcases"
+    ],
     "Layouts": [
       {
         "type": "subcategory",
         "label": "Stack",
         "ids": [
           "stack-api",
-          "stack-options"
+          "stack-examples",
+          "stack-options",
+          "stack-buttons"
         ]
-      }
+      },
+      {
+        "type": "subcategory",
+        "label": "BottomTabs",
+        "ids": [
+          "bottomTabs-selecting",
+          "bottomTabs-visibility",
+          "bottomTabs-dynamic-options",
+          "bottomTabs-options"
+        ]
+      },
+      "sideMenu"
     ]
   },
   "api": {

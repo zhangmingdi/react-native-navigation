@@ -11,9 +11,20 @@
       "app-launch": {
         "title": "app-launch"
       },
-      "bottomTabs": {
-        "title": "Bottom Tabs",
-        "sidebar_label": "Bottom Tabs"
+      "bottomTabs-dynamic-options": {
+        "title": "Updating tab options dynamically",
+        "sidebar_label": "Updating tab options dynamically"
+      },
+      "bottomTabs-options": {
+        "title": "Options"
+      },
+      "bottomTabs-selecting": {
+        "title": "Selecting Tabs Programmatically",
+        "sidebar_label": "Selecting Tabs Programmatically"
+      },
+      "bottomTabs-visibility": {
+        "title": "Changing BottomTabs visibility",
+        "sidebar_label": "Changing BottomTabs visibility"
       },
       "Commands": {
         "title": "Commands"
@@ -34,7 +45,8 @@
         "title": "constants"
       },
       "displayTheAppRoot": {
-        "title": "displayTheAppRoot"
+        "title": "Display the app root",
+        "sidebar_label": "Display the app root"
       },
       "Element": {
         "title": "Element"
@@ -101,7 +113,8 @@
         "title": "screen-api"
       },
       "showcases": {
-        "title": "showcases"
+        "title": "Showcases",
+        "sidebar_label": "Showcases"
       },
       "sideMenu": {
         "title": "Side Menu",
@@ -112,10 +125,12 @@
         "sidebar_label": "API"
       },
       "stack-buttons": {
-        "title": "stack-buttons"
+        "title": "Buttons",
+        "sidebar_label": "Buttons"
       },
       "stack-examples": {
-        "title": "stack-examples"
+        "title": "Examples",
+        "sidebar_label": "Examples"
       },
       "stack-options": {
         "title": "Options",
@@ -157,6 +172,7 @@
     },
     "categories": {
       "Installation": "Installation",
+      "Getting Started": "Getting Started",
       "Layouts": "Layouts",
       "API": "API"
     }
