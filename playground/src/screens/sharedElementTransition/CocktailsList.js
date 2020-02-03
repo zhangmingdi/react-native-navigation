@@ -5,7 +5,7 @@ const Navigation = require('../../services/Navigation');
 const { slice } = require('lodash');
 const Screens = require('../Screens')
 const data = require('../../assets/cocktails').default;
-const MULTIPLIER = 2
+const MULTIPLIER = 1.15
 const LONG_DURATION = 350 * MULTIPLIER
 const SHORT_DURATION = 190 * MULTIPLIER
 
