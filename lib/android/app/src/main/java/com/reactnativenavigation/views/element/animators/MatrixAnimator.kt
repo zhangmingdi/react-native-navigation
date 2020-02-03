@@ -5,17 +5,23 @@ import android.animation.ObjectAnimator
 import android.animation.TypeEvaluator
 import android.graphics.Rect
 import android.view.View
+import android.view.ViewGroup
+import androidx.core.view.updateMargins
 import com.facebook.drawee.drawable.ScalingUtils.InterpolatingScaleType
 import com.facebook.react.views.image.ReactImageView
 import com.reactnativenavigation.parse.SharedElementTransitionOptions
 import com.reactnativenavigation.utils.ViewUtils
+import com.reactnativenavigation.views.element.SharedElementTransition
 
-class MatrixAnimator(from: View, to: View) : PropertyAnimatorCreator<ReactImageView>(from, to) {
+class MatrixAnimator(private val transition: SharedElementTransition, from: View, to: View) : PropertyAnimatorCreator<ReactImageView>(from, to) {
     override fun shouldAnimateProperty(fromChild: ReactImageView, toChild: ReactImageView): Boolean {
         return !ViewUtils.areDimensionsEqual(from, to)
     }
 
     override fun create(options: SharedElementTransitionOptions): Animator {
+        (to.layoutParams as ViewGroup.MarginLayoutParams).apply {
+            updateMargins(top = to.top + transition.topInset)
+        }
         with(to as ReactImageView) {
             hierarchy.actualImageScaleType = InterpolatingScaleType(
                     getScaleType(from),
