@@ -87,10 +87,11 @@ public class Presenter {
     }
 
     private void applyStatusBarOptions(Options options) {
-        setStatusBarBackgroundColor(options.statusBar);
-        setTextColorScheme(options.statusBar.textColorScheme);
-        setTranslucent(options.statusBar);
-        setStatusBarVisible(options.statusBar.visible);
+        StatusBarOptions statusBar = options.copy().withDefaultOptions(defaultOptions).statusBar;
+        setStatusBarBackgroundColor(statusBar);
+        setTextColorScheme(statusBar.textColorScheme);
+        setTranslucent(statusBar);
+        setStatusBarVisible(statusBar.visible);
     }
 
     private void setTranslucent(StatusBarOptions options) {
