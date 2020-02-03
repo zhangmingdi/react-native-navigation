@@ -1,5 +1,5 @@
 const React = require('react');
-const {Image, Platform, SafeAreaView, StyleSheet, Text, View} = require('react-native');
+const { Image, Platform, SafeAreaView, StyleSheet, Text, View } = require('react-native');
 
 class CocktailDetailsScreen extends React.Component {
   static options() {
@@ -23,12 +23,7 @@ class CocktailDetailsScreen extends React.Component {
   render() {
     return (
       <SafeAreaView>
-        <View>
-          <View nativeID={'backdrop'} style={[styles.header, {backgroundColor: this.props.color}]}>
-            
-          </View>
-        </View>
-        <View style={styles.headerContainer}>
+        <View nativeID={'backdrop'} style={[styles.header, { backgroundColor: this.props.color }]}>
           <Image
             source={this.props.image}
             nativeID={`image${this.props.id}Dest`}
@@ -54,14 +49,15 @@ const styles = StyleSheet.create({
   header: {
     height: HEADER,
     width: '100%',
-    flexDirection: 'column-reverse',
+    flexDirection: 'row',
+    alignItems: 'flex-end',
     zIndex: 0
   },
   title: {
     fontSize: 32,
     color: 'whitesmoke',
-    marginLeft: 15,
-    marginTop: 45,
+    marginLeft: 16,
+    marginBottom: 16,
     zIndex: 2
   },
   description: {
@@ -71,15 +67,11 @@ const styles = StyleSheet.create({
     marginTop: 32,
     marginHorizontal: 24
   },
-  headerContainer: {
-    position: 'absolute',
-    left: 24,
-    top: IMAGE_OFFSET,
-    flexDirection: 'row'
-  },
   image: {
     height: SIZE,
     width: SIZE,
-    zIndex: 1
+    zIndex: 1,
+    marginLeft: 24,
+    marginBottom: -24
   }
 });

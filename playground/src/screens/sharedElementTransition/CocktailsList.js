@@ -5,8 +5,9 @@ const Navigation = require('../../services/Navigation');
 const { slice } = require('lodash');
 const Screens = require('../Screens')
 const data = require('../../assets/cocktails').default;
-const LONG_DURATION = 350 * 1
-const SHORT_DURATION = 190
+const MULTIPLIER = 2
+const LONG_DURATION = 350 * MULTIPLIER
+const SHORT_DURATION = 190 * MULTIPLIER
 
 class CocktailsList extends Component {
   static options() {
