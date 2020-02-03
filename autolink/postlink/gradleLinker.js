@@ -27,7 +27,7 @@ class GradleLinker {
       warnn('   Kotlin plugin already declared')
       return contents;
     }
-    var match = /classpath\s*["']com.android.tools.build:gradle:/.exec(contents);
+    var match = /classpath\s*\(*["']com\.android\.tools\.build:gradle:/.exec(contents);
     if (match) {
       debugn("   Adding Kotlin plugin");
       return this._insertString(contents, match.index, `classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${DEFAULT_KOTLIN_VERSION}"\n        `);
@@ -65,7 +65,7 @@ class GradleLinker {
     if (extensionVariableVersion && extensionVariableVersion.length > 0) {
       return extensionVariableVersion[0].replace("$", "");
     }
-    return DEFAULT_KOTLIN_VERSION;
+    return `"${DEFAULT_KOTLIN_VERSION}"`;
   }
 
   /**

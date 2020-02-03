@@ -13,7 +13,8 @@ const log = (text) => process.stdout.write(text);
 const logn = (text) => process.stdout.write(text + "\n");
 const warn = (text) => process.stdout.write(`${bColors.WARNING}${text}${bColors.ENDC}`)
 const warnn = (text) => warn(text + "\n");
-const errorn = (text) => process.stdout.write(`${bColors.FAIL}${text}${bColors.ENDC}`)
+const error = (text) => process.stdout.write(`${bColors.FAIL}${text}${bColors.ENDC}`)
+const errorn = (text) => error(text + "\n");
 const info = (text) => process.stdout.write(`${bColors.OKGREEN}${text}${bColors.ENDC}`)
 const infon = (text) => info(text + "\n");
 const debug = (text) => process.stdout.write(`${bColors.OKBLUE}${text}${bColors.ENDC}`)
