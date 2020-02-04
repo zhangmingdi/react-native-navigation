@@ -12,6 +12,10 @@ class ApplicationLinker {
     if (this.appDelegatePath) {
       logn("Linking AppDelegate...");
       var appDelegateContents = fs.readFileSync(this.appDelegatePath, "utf8");
+      if (this._doesBootstrapNavigation(appDelegateContents)) {
+        infon("AppDelegate already linked\n");
+        return;
+      }
       appDelegateContents = this._removeUnneededImports(appDelegateContents);
       appDelegateContents = this._importNavigation(appDelegateContents);
       appDelegateContents = this._bootstrapNavigation(appDelegateContents);
@@ -21,12 +25,16 @@ class ApplicationLinker {
     }
   }
 
+  _doesBootstrapNavigation(applicationContent) {
+    return /ReactNativeNavigation\s+bootstrap/.test(applicationContent);
+  }
+
   _removeUnneededImports(applicationContent) {
     const unneededImports = [/\#import\s+\<React\/RCTBridge.h>\s/, /#import\s+\<React\/RCTRootView.h>\s/];
     debugn("   Removing Unneeded imports");
     unneededImports.forEach(unneededImport => {
       if (unneededImport.test(applicationContent)) {
-        applicationContent = applicationContent.replace(element, "");
+        applicationContent = applicationContent.replace(unneededImport, "");
       }
     });
 
@@ -39,7 +47,7 @@ class ApplicationLinker {
       return applicationContent
         .replace(/#import\s+"AppDelegate.h"/, "#import \"AppDelegate.h\"\n#import <ReactNativeNavigation/ReactNativeNavigation.h>")
     }
-    warnn("   MainApplication already extends NavigationApplication");
+    warnn("   AppDelegate already imports Navigation");
     return applicationContent;
   }
 
@@ -64,34 +72,6 @@ class ApplicationLinker {
 
   _doesImportNavigation(applicationContent) {
     return /#import\s+\<ReactNativeNavigation\/ReactNativeNavigation.h>/.test(applicationContent);
-  }
-
-  _extendNavigationHost(applicationContent) {
-    if (this._doesExtendReactNativeHost(applicationContent)) {
-      debugn("   Changing host implementation to NavigationReactNativeHost");
-      return applicationContent
-        .replace(/\#import\s+\<React\/RCTBridge.h>((.|\n+))\#import\s+\<React\/RCTRootView.h>/, " #import <ReactNativeNavigation/ReactNativeNavigation.h>")
-        .replace("import com.facebook.react.ReactNativeHost;", "import com.facebook.react.ReactNativeHost;\nimport com.reactnativenavigation.react.NavigationReactNativeHost;")
-    }
-    warnn("   NavigationReactNativeHost is already used");
-    return applicationContent;
-  }
-
-  _removeSOLoaderInit(applicationContent) {
-    if (this._isSOLoaderInitCalled(applicationContent)) {
-      debugn("   Removing call to SOLoader.init()");
-      return applicationContent.replace(/SoLoader.init\(\s*this\s*,\s*[/* native exopackage */]*\s*false\s*\);/, "")
-    }
-    warnn("   SOLoader.init() is not called");
-    return applicationContent;
-  }
-
-  _isSOLoaderInitCalled(applicationContent) {
-    return /SoLoader.init\(this,\s*[/* native exopackage */]*\s*false\);/.test(applicationContent);
-  }
-
-  _doesExtendReactNativeHost(applicationContent) {
-    return /\s*new ReactNativeHost\(this\)\s*/.test(applicationContent);
   }
 }
 
