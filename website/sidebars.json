@@ -46,8 +46,23 @@
     ]
   },
   "api": {
-    "API": [
-      "styling"
+    "Commands": [
+      "root-api",
+      "stack-api",
+      "modals-api"
+    ],
+    "Layouts": [
+      "layout",
+      "container-layout",
+      "component",
+      "stack",
+      "bottomTabs",
+      "sideMenu"
+    ],
+    "Options": [
+      "bottomTabs-options",
+      "bottomTab-options",
+      "stack-options"
     ]
   }
 }

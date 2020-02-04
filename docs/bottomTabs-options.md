@@ -1,87 +1,101 @@
 ---
 id: bottomTabs-options
-title: Options
-sidebarlabel: Options
+title: Bottom Tabs Options
+sidebar_label: Bottom Tabs
 ---
 
-## BottomTabs
-### animate?: boolean
+```
+const options = {
+  bottomTabs: {
+
+  }
+}
+```
+
+## animate
 Controls wether toggling visibility states will be animated.
 
-### backgroundColor?: color
+| Type    | Required | Platform |
+| ------- | -------- | -------- |
+| boolean | No       | Both     |
+
+## backgroundColor
 Change the background color.
 
-### barStyle?: 'default' | 'black'
+| Type  | Required | Platform |
+| ----- | -------- | -------- |
+| color | No       | Both     |
+
+## barStyle
 Controls wether the BottomTabs use dark (black) or light (default) visual style. Requires `translucent: true`.
 
-### currentTabId?: number
+| Type                    | Required | Platform |
+| ----------------------- | -------- | -------- |
+| enum('default','black') | No       | Both     |
+
+## currentTabId: number
 Select a tab by the id (componentId) of a child contained in it. See [Selecting tabs programmatically](#selectingtabsprogrammatically) for details explanation.
 
-### currentTabIndex?: number
+| Type   | Required | Platform |
+| ------ | -------- | -------- |
+| number | No       | Both     |
 
-### drawBehind?: boolean
+## currentTabIndex
 
-### elevation?: number (Android specific)
+| Type   | Required | Platform |
+| ------ | -------- | -------- |
+| number | No       | Both     |
 
-### hideShadow?: boolean (iOS specific)
+## drawBehind
 
-### preferLargeIcons?: boolean (Android specific)
+| Type    | Required | Platform |
+| ------- | -------- | -------- |
+| boolean | No       | Both     |
 
-### tabsAttachMode?: 'together' | 'afterInitialTab' | 'onSwitchToTab' (Android specific)
+## elevation
 
-### testID?: string
+| Type   | Required | Platform |
+| ------ | -------- | -------- |
+| number | No       | Android  |
 
-### titleDisplayMode?: 'alwaysShow' | 'showWhenActive' | 'alwaysHide' (Android specific)
+## hideShadow
 
-### translucent?: boolean (iOS specific)
+| Type    | Required | Platform |
+| ------- | -------- | -------- |
+| boolean | No       | iOS      |
 
-### visible?: boolean
+## preferLargeIcons
 
-## BottomTab
-### badge?: string
+| Type    | Required | Platform |
+| ------- | -------- | -------- |
+| boolean | No       | Android  |
 
-### badgeColor?: Color
+## tabsAttachMode
 
-### disableIconTint?: boolean
+| Type                                               | Required | Platform |
+| -------------------------------------------------- | -------- | -------- |
+| enum('together','afterInitialTab','onSwitchToTab') | No       | Both     |
 
-### dotIndicator?: DotIndicator
+## testID
 
-### fontFamily?: string
+| Type   | Required | Platform |
+| ------ | -------- | -------- |
+| string | No       | Both     |
 
-### fontSize?: number
+## titleDisplayMode
 
-### icon: number
+| Type                                             | Required | Android |
+| ------------------------------------------------ | -------- | ------- |
+| enum('alwaysShow','showWhenActive','alwaysHide') | No       | Both    |
 
-### iconColor?: color
+## translucent
 
-### selectedFontSize?: number
+| Type    | Required | Platform |
+| ------- | -------- | -------- |
+| boolean | No       | iOS      |
 
-### selectedIcon?: number
+## visible
 
-### selectedIconColor?: color
-
-### iconInsets?: IconInsets
-
-### disableSelectedIconTint?: boolean
-
-### disableSelectedIconTint?: boolean
-
-### selectedTextColor?: color
-
-### testID?: string
-
-### text?: string
-
-### textColor?: color
-
-### DotIndicator
-##### color?: color
-##### size?: number
-##### visible?: boolean
-##### animate?: boolean
-
-### IconInsets
-##### top?: number
-##### left?: number
-##### right?: number
-##### bottom?: number
+| Type    | Required | Platform |
+| ------- | -------- | -------- |
+| boolean | No       | Both     |

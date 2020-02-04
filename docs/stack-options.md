@@ -1,56 +1,125 @@
 ---
 id: stack-options
-title: Options
-sidebar_label: Options
+title: Stack Options
+sidebar_label: Stack
 ---
 
 ## TopBar
-### `animate?: boolean`
+### `animate`
 Determines if changing the TopBar visibility will be animated or not.
 
+| Type    | Required | Platform |
+| ------- | -------- | -------- |
+| boolean | No       | Both     |
+
+### `title`
+Determines if changing the TopBar visibility will be animated or not.
+
+| Type             | Required | Platform |
+| ---------------- | -------- | -------- |
+| [Title](##title) | No       | Both     |
+
 ## BackButton
-### `color?: Color`
+### `color`
 Change the back button's color. This will change the text color as well.
-### `icon?: number`
+
+| Type  | Required | Platform |
+| ----- | -------- | -------- |
+| color | No       | Both     |
+
+### `icon`
 Change the default back button icon.
-### `showTitle?: boolean (iOS specific)`
+
+| Type   | Required | Platform |
+| ------ | -------- | -------- |
+| number | No       | Both     |
+
+### `showTitle`
 Show or hide the text displayed next to the back button.
-### `title?: string (iOS specific)`
+
+| Type   | Required | Platform |
+| ------ | -------- | -------- |
+| number | No       | iOS      |
+
+### `title`
 Change the text displayed next to the title. Usually the back button shows the title of the previous screen. 
-### `visible?: boolean`
+
+| Type   | Required | Platform |
+| ------ | -------- | -------- |
+| string | No       | iOS      |
+
+### `visible`
 Hide or show the back button.
+
+| Type    | Required | Platform |
+| ------- | -------- | -------- |
+| boolean | No       | Both     |
 
 ## Background
 ### `color?: Color`
 Set the background color. Ignored if a component is specified.
-### `component?: Component`
+
+| Type  | Required | Platform |
+| ----- | -------- | -------- |
+| color | No       | Both     |
+
+### `component`
 Set a react [component](#component) as the background. Useful for example to show a gradient as background.
 
-?> On Android, Setting an `id` to the Component will prevent the component from being recreated each time it's used by a screen. The component will be created once and whenever possible it will be reused.
+On Android, Setting an `id` to the Component will prevent the component from being recreated each time it's used by a screen. The component will be created once and whenever possible it will be reused.
 
-### `barStyle?: 'default' | 'black' (iOS specific)`
+| Type      | Required | Platform |
+| --------- | -------- | -------- |
+| Component | No       | Both     |
+
+### `barStyle`
 Control the TopBar blur style. Requires `translucent: true`.
 
-### `borderColor?: Color (iOS specific)`
+| Type                    | Required | Platform |
+| ----------------------- | -------- | -------- |
+| enum('default','black') | No       | iOS      |
+
+### `borderColor`
 Change the topBar border color.
 
-### `borderHeight?: number (Android specific)`
+| Type  | Required | Platform |
+| ----- | -------- | -------- |
+| color | No       | iOS      |
+
+### `borderHeight`
 Set the border height of the navbar in dp.
 
-### `drawBehind?: boolean`
+| Type   | Required | Platform |
+| ------ | -------- | -------- |
+| number | No       | Android  |
+
+### `drawBehind`
 Controls if the child should be drawn behind the TopBar or below it.
 
-### `elevation?: number (Android specific)`
+| Type    | Required | Platform |
+| ------- | -------- | -------- |
+| boolean | No       | Both     |
+
+### `elevation`
 Set the elevation of the TopBar in dp. This option changes how the shadow under the TopBar looks. Setting this value to 0 will remove the shadow completely.
 
-### `height?: number`
-The height of the TopBar in dp.
+| Type   | Required | Platform |
+| ------ | -------- | -------- |
+| number | No       | Android  |
 
-### `hideOnScroll?: boolean`
+### `hideOnScroll`
 Hide the TopBar when a scrolling layout is scrolled.
+
+| Type    | Required | Platform |
+| ------- | -------- | -------- |
+| boolean | No       | Both     |
 
 ### `hideNavBarOnFocusSearchBar?: boolean (iOS 11+ specific)`
 Indicates whether the navigation bar should be hidden when searching. True by default.
+
+| Type    | Required | Platform |
+| ------- | -------- | -------- |
+| boolean | No       | iOS 11+  |
 
 ### `LargeTitle (iOS specific)`
 Available on iOS 11 and above.

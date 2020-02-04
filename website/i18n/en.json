@@ -11,12 +11,17 @@
       "app-launch": {
         "title": "app-launch"
       },
+      "bottomTab-options": {
+        "title": "Bottom Tab Options",
+        "sidebar_label": "Bottom Tab"
+      },
       "bottomTabs-dynamic-options": {
         "title": "Updating tab options dynamically",
         "sidebar_label": "Updating tab options dynamically"
       },
       "bottomTabs-options": {
-        "title": "Options"
+        "title": "Bottom Tabs Options",
+        "sidebar_label": "Bottom Tabs"
       },
       "bottomTabs-selecting": {
         "title": "Selecting Tabs Programmatically",
@@ -26,11 +31,19 @@
         "title": "Changing BottomTabs visibility",
         "sidebar_label": "Changing BottomTabs visibility"
       },
+      "bottomTabs": {
+        "title": "Bottom Tabs",
+        "sidebar_label": "Bottom Tabs"
+      },
       "Commands": {
         "title": "Commands"
       },
       "CommandsObserver": {
         "title": "CommandsObserver"
+      },
+      "component": {
+        "title": "Component",
+        "sidebar_label": "Component"
       },
       "ComponentEventsObserver": {
         "title": "ComponentEventsObserver"
@@ -43,6 +56,10 @@
       },
       "constants": {
         "title": "constants"
+      },
+      "container-layout": {
+        "title": "ContainerLayout",
+        "sidebar_label": "ContainerLayout"
       },
       "displayTheAppRoot": {
         "title": "Display the app root",
@@ -79,6 +96,10 @@
       "layout-types": {
         "title": "layout-types"
       },
+      "layout": {
+        "title": "Layout",
+        "sidebar_label": "Layout"
+      },
       "LayoutTreeCrawler": {
         "title": "LayoutTreeCrawler"
       },
@@ -87,6 +108,10 @@
       },
       "LayoutType": {
         "title": "LayoutType"
+      },
+      "modals-api": {
+        "title": "Modal Commands",
+        "sidebar_label": "Modal"
       },
       "NativeCommandsSender": {
         "title": "NativeCommandsSender"
@@ -109,6 +134,10 @@
       "README": {
         "title": "README"
       },
+      "root-api": {
+        "title": "Root Commands",
+        "sidebar_label": "Root"
+      },
       "screen-api": {
         "title": "screen-api"
       },
@@ -121,8 +150,8 @@
         "sidebar_label": "Side Menu"
       },
       "stack-api": {
-        "title": "Stack API",
-        "sidebar_label": "API"
+        "title": "Stack Commands",
+        "sidebar_label": "Stack"
       },
       "stack-buttons": {
         "title": "Buttons",
@@ -133,8 +162,12 @@
         "sidebar_label": "Examples"
       },
       "stack-options": {
-        "title": "Options",
-        "sidebar_label": "Options"
+        "title": "Stack Options",
+        "sidebar_label": "Stack"
+      },
+      "stack": {
+        "title": "Stack",
+        "sidebar_label": "Stack"
       },
       "Store": {
         "title": "Store"
@@ -168,13 +201,15 @@
       }
     },
     "links": {
-      "Docs": "Docs"
+      "Docs": "Docs",
+      "API": "API"
     },
     "categories": {
       "Installation": "Installation",
       "Getting Started": "Getting Started",
       "Layouts": "Layouts",
-      "API": "API"
+      "Commands": "Commands",
+      "Options": "Options"
     }
   },
   "pages-strings": {
