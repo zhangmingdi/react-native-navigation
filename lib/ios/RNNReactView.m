@@ -11,7 +11,7 @@
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(contentDidAppear:) name:RCTContentDidAppearNotification object:nil];
 	 _reactViewReadyBlock = reactViewReadyBlock;
     _eventEmitter = eventEmitter;
-    
+    [bridge.uiManager setAvailableSize:UIScreen.mainScreen.bounds.size forRootView:self];
 	return self;
 }
 
