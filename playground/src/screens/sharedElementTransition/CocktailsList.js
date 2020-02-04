@@ -87,7 +87,7 @@ class CocktailsList extends Component {
                         duration: SHORT_DURATION
                       },
                       translationY: {
-                        from: 18,
+                        from: 16,
                         duration: SHORT_DURATION
                       }
                     }

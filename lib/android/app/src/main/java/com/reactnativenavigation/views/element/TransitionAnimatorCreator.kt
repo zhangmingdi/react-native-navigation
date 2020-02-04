@@ -13,12 +13,12 @@ import com.reactnativenavigation.R
 import com.reactnativenavigation.parse.AnimationOptions
 import com.reactnativenavigation.utils.ViewTags
 import com.reactnativenavigation.utils.ViewUtils
-import com.reactnativenavigation.viewcontrollers.ViewController
 import java.util.*
 
 open class TransitionAnimatorCreator {
     fun create(fadeAnimation: AnimationOptions, transitions: TransitionSet): AnimatorSet {
         if (transitions.isEmpty) return AnimatorSet()
+        recordIndices(transitions)
         reparentViews(transitions)
         val animators = ArrayList<Animator>()
         animators.addAll(createSharedElementTransitionAnimators(transitions.validSharedElementTransitions))
@@ -30,6 +30,12 @@ open class TransitionAnimatorCreator {
         set.doOnCancel { restoreViewsToOriginalState(transitions) }
         set.playTogether(animators)
         return set
+    }
+
+    private fun recordIndices(transitions: TransitionSet) {
+        transitions.forEach {
+            it.view.setTag(R.id.original_index_in_parent, ViewUtils.getIndexInParent(it.view))
+        }
     }
 
     private fun setAnimatorsDuration(animators: Collection<Animator>, fadeAnimation: AnimationOptions) {
@@ -46,7 +52,7 @@ open class TransitionAnimatorCreator {
         transitions.transitions
                 .sortedBy { ViewGroupManager.getViewZIndex(it.view) }
                 .forEach {
-                    reparent(it.viewController.requireParentController(), it.view)
+                    reparent(it)
                 }
     }
 
@@ -78,38 +84,43 @@ open class TransitionAnimatorCreator {
     }
 
     private fun restoreViewsToOriginalState(transitions: TransitionSet) {
-        val allTransitions = mutableListOf<Transition>()
-        allTransitions.addAll(transitions.validSharedElementTransitions)
-        allTransitions.addAll(transitions.validElementTransitions)
-        allTransitions.sortBy { ViewGroupManager.getViewZIndex(it.view) }
-        allTransitions.forEach {
-            it.viewController.requireParentController().removeOverlay(it.view)
-            returnToOriginalParent(it.view)
+        mutableListOf<Transition>().apply {
+            addAll(transitions.validSharedElementTransitions)
+            addAll(transitions.validElementTransitions)
+            sortBy { ViewGroupManager.getViewZIndex(it.view) }
+            sortBy { it.view.getTag(R.id.original_index_in_parent) as Int}
+            forEach {
+                it.viewController.requireParentController().removeOverlay(it.view)
+                returnToOriginalParent(it.view)
+            }
         }
         transitions.validSharedElementTransitions.forEach {
             it.from.alpha = 1f
         }
     }
 
-    private fun reparent(vc: ViewController<*>, element: View) {
-        val biologicalParent = element.parent as ViewGroup
-        element.setTag(R.id.original_parent, biologicalParent)
-        element.setTag(R.id.original_layout_params, element.layoutParams)
-        element.setTag(R.id.original_top, element.top)
-        element.setTag(R.id.original_bottom, element.bottom)
-        element.setTag(R.id.original_right, element.right)
-        element.setTag(R.id.original_left, element.left)
+    private fun reparent(transition: Transition) {
+        with(transition) {
+            val biologicalParent = view.parent as ViewGroup
+            view.setTag(R.id.original_parent, biologicalParent)
+            view.setTag(R.id.original_layout_params, view.layoutParams)
+            view.setTag(R.id.original_top, view.top)
+            view.setTag(R.id.original_bottom, view.bottom)
+            view.setTag(R.id.original_right, view.right)
+            view.setTag(R.id.original_left, view.left)
 
-        val loc = ViewUtils.getLocationOnScreen(element)
-        biologicalParent.removeView(element)
+            val loc = ViewUtils.getLocationOnScreen(view)
+            biologicalParent.removeView(view)
 
-        val lp = FrameLayout.LayoutParams(element.layoutParams)
-        lp.topMargin = loc.y
-        lp.leftMargin = loc.x
-        lp.width = element.width
-        lp.height = element.height
-        element.layoutParams = lp
-        vc.addOverlay(element)
+            val lp = FrameLayout.LayoutParams(view.layoutParams)
+            lp.topMargin = loc.y + viewController.topInset
+            lp.topMargin = loc.y
+            lp.leftMargin = loc.x
+            lp.width = view.width
+            lp.height = view.height
+            view.layoutParams = lp
+            transition.viewController.requireParentController().addOverlay(view)
+        }
     }
 
     private fun returnToOriginalParent(element: View) {
@@ -120,6 +131,7 @@ open class TransitionAnimatorCreator {
         element.left = ViewTags.get(element, R.id.original_left)
         val parent = ViewTags.get<ViewGroup>(element, R.id.original_parent)
         val lp = ViewTags.get<ViewGroup.LayoutParams>(element, R.id.original_layout_params)
-        parent.addView(element, lp)
+        val index = ViewTags.get<Int>(element, R.id.original_index_in_parent)
+        parent.addView(element, index, lp)
     }
 }

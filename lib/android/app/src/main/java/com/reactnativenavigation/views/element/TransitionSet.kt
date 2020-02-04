@@ -18,5 +18,10 @@ class TransitionSet {
         validElementTransitions.add(transition)
     }
 
+    fun forEach(action: ((Transition) -> Unit)) {
+        validSharedElementTransitions.forEach(action)
+        validElementTransitions.forEach(action)
+    }
+
     fun size(): Int = validElementTransitions.size + validSharedElementTransitions.size
 }

@@ -34,11 +34,11 @@ class SharedElementTransition(private val appearing: ViewController<*>, private 
         return listOf(
                 XAnimator(from, to),
                 YAnimator(this, from, to),
-                MatrixAnimator(this, from, to),
+                MatrixAnimator(from, to),
                 ScaleXAnimator(from, to),
                 ScaleYAnimator(from, to),
                 BackgroundColorAnimator(from, to),
-                TextChangeAnimator(this, from, to)
+                TextChangeAnimator(from, to)
         )
     }
 }

@@ -22,8 +22,9 @@ class CocktailDetailsScreen extends React.Component {
 
   render() {
     return (
-      <SafeAreaView>
-        <View nativeID={'backdrop'} style={[styles.header, { backgroundColor: this.props.color }]}>
+      <SafeAreaView style={styles.root}>
+        <View nativeID={'backdrop'} style={[styles.backdrop, { backgroundColor: this.props.color }]}/> 
+        <View style={styles.header}>
           <Image
             source={this.props.image}
             nativeID={`image${this.props.id}Dest`}
@@ -46,11 +47,18 @@ const SIZE = 120;
 const HEADER = 150;
 const IMAGE_OFFSET = 52
 const styles = StyleSheet.create({
+  root: {
+    marginTop: 0
+  },
   header: {
-    height: HEADER,
-    width: '100%',
+    marginTop: -HEADER,
     flexDirection: 'row',
     alignItems: 'flex-end',
+    height: HEADER,
+  },
+  backdrop: {
+    height: HEADER,
+    width: '100%',
     zIndex: 0
   },
   title: {
