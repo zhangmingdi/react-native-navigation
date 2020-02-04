@@ -89,7 +89,7 @@ public class TitleBarButtonController extends ViewController<TitleBarReactButton
 
     @Override
     public String getCurrentComponentName() {
-        return null;
+        return button.component.name.get();
     }
 
     @NonNull
