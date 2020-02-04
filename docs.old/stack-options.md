@@ -1,10 +1,22 @@
 ---
 id: stack-options
-title: Stack Options
-sidebar_label: Stack
+title: Top Bar Options
+sidebar_label: Top Bar
 ---
 
 ## TopBar
+```js
+const options = {
+  topBar: {
+    animate: true,
+    title: {},
+    subtitle: {},
+    backButton: {},
+    background: {},
+  }
+}
+```
+
 ### `animate`
 Determines if changing the TopBar visibility will be animated or not.
 
@@ -13,13 +25,34 @@ Determines if changing the TopBar visibility will be animated or not.
 | boolean | No       | Both     |
 
 ### `title`
-Determines if changing the TopBar visibility will be animated or not.
+Controls the top bar title.
 
-| Type             | Required | Platform |
-| ---------------- | -------- | -------- |
-| [Title](##title) | No       | Both     |
+| Type                   | Required | Platform |
+| ---------------------- | -------- | -------- |
+| [Title](#title-object) | No       | Both     |
 
-## BackButton
+### `subtitle`
+Controls the top bar subtitle.
+
+| Type                        | Required | Platform |
+| --------------------------- | -------- | -------- |
+| [Subitle](#subtitle-object) | No       | Both     |
+
+### `backButton`
+Controls the top bar back button.
+
+| Type                             | Required | Platform |
+| -------------------------------- | -------- | -------- |
+| [BackButton](#backButton-object) | No       | Both     |
+
+### `background`
+Controls the top bar background.
+
+| Type                             | Required | Platform |
+| -------------------------------- | -------- | -------- |
+| [Background](#background-object) | No       | Both     |
+
+## BackButton Options
 ### `color`
 Change the back button's color. This will change the text color as well.
 
@@ -179,7 +212,7 @@ The subtitle FontFamily.
 ### `testID?: string`
 Used to interact with the TopBar in e2e tests.
 
-## Title
+## Title object
 ### `text?: string`
 Set the title for the TopBar.
 ### `fontSize?: number`
