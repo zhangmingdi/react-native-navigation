@@ -125,6 +125,10 @@
       "options-migration": {
         "title": "options-migration"
       },
+      "options-root": {
+        "title": "OptionsRoot",
+        "sidebar_label": "OptionsRoot"
+      },
       "OptionsModalPresentationStyle": {
         "title": "OptionsModalPresentationStyle"
       },

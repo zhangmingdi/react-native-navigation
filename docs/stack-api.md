@@ -68,10 +68,10 @@ Navigation.push(this.props.componentId, {
 ## `pop()`
 Pop the top screen from the stack.
 #### Parameters
-| Name         | Required | Type    | Description                                                           |
-| ------------ | -------- | ------- | --------------------------------------------------------------------- |
-| componentId  | Yes      | string  | The componentId of a screen pushed into the stack, or the stack's id. |
-| mergeOptions | No       | Options | Optional options to be merged before popping the screen.              |
+| Name         | Required | Type                                | Description                                                           |
+| ------------ | -------- | ----------------------------------- | --------------------------------------------------------------------- |
+| componentId  | Yes      | string                              | The componentId of a screen pushed into the stack, or the stack's id. |
+| mergeOptions | No       | [Options](Options.md) | Optional options to be merged before popping the screen.              |
 
 ```js
 Navigation.pop(this.props.componentId);
@@ -84,7 +84,7 @@ Pop all screens pushed into the stack.
 | Name         | Required | Type    | Description                                                           |
 | ------------ | -------- | ------- | --------------------------------------------------------------------- |
 | componentId  | Yes      | string  | The componentId of a screen pushed into the stack, or the stack's id. |
-| mergeOptions | No       | Options | Optional options to be merged before popping the screen.              |
+| mergeOptions | No       | [Options](Options.md) | Optional options to be merged before popping the screen.              |
 ```
 Navigation.popToRoot(this.props.componentId);
 ```
@@ -93,10 +93,10 @@ Navigation.popToRoot(this.props.componentId);
 Pop the stack to a given component.
 
 #### Parameters
-| Name         | Required | Type    | Description                                              |
-| ------------ | -------- | ------- | -------------------------------------------------------- |
-| componentId  | Yes      | string  | The destination componentId                              |
-| mergeOptions | No       | Options | Optional options to be merged before popping the screen. |
+| Name         | Required | Type                  | Description                                              |
+| ------------ | -------- | --------------------- | -------------------------------------------------------- |
+| componentId  | Yes      | string                | The destination componentId                              |
+| mergeOptions | No       | [Options](Options.md) | Optional options to be merged before popping the screen. |
 
 ```js
 Navigation.popTo(componentId);
@@ -106,10 +106,10 @@ Navigation.popTo(componentId);
 Reset the stack to the given layout (accepts multiple children).
 
 #### Parameters
-| Name        | Required | Type   | Description                                                                                                                                                                                                      |
-| ----------- | -------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| componentId | Yes      | string | The componentId of a screen pushed into the stack, or the stack's id.                                                                                                                                            |
-| layout      | Yes      | [Component](Component.md) or [Component](Component.md)[] | A single Component or array of components. |
+| Name        | Required | Type                                                     | Description                                                           |
+| ----------- | -------- | -------------------------------------------------------- | --------------------------------------------------------------------- |
+| componentId | Yes      | string                                                   | The componentId of a screen pushed into the stack, or the stack's id. |
+| layout      | Yes      | [Component](Component.md) or [Component](Component.md)[] | A single Component or array of components.                            |
 
 #### Example
 <!--DOCUSAURUS_CODE_TABS-->
