@@ -16,8 +16,6 @@ class SharedElementTransition(private val appearing: ViewController<*>, private 
         get() = to
     override val topInset: Int
         get() = viewController.topInset
-    override val topInsetDelta: Int
-        get() = disappearing.topInset - appearing.topInset
 
     fun isValid(): Boolean = this::from.isInitialized
 
@@ -33,7 +31,7 @@ class SharedElementTransition(private val appearing: ViewController<*>, private 
     private fun animators(): List<PropertyAnimatorCreator<*>> {
         return listOf(
                 XAnimator(from, to),
-                YAnimator(this, from, to),
+                YAnimator(from, to),
                 MatrixAnimator(from, to),
                 ScaleXAnimator(from, to),
                 ScaleYAnimator(from, to),
