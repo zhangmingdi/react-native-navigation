@@ -115,7 +115,7 @@ open class ImageLoader {
         }
 
         @Throws(IOException::class)
-        private fun openStream(context: Context, uri: String): InputStream {
+        private fun openStream(context: Context, uri: String): InputStream? {
             return if (uri.contains("http")) remoteUrl(uri) else localFile(context, uri)
         }
 
@@ -125,7 +125,7 @@ open class ImageLoader {
         }
 
         @Throws(FileNotFoundException::class)
-        private fun localFile(context: Context, uri: String): InputStream {
+        private fun localFile(context: Context, uri: String): InputStream? {
             return context.contentResolver.openInputStream(Uri.parse(uri))
         }
     }
