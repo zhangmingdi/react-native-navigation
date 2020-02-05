@@ -13,11 +13,21 @@ class ActivityLinker {
     if (this.activityPath) {
       var activityContent = fs.readFileSync(this.activityPath, "utf8");
       activityContent = this._extendNavigationActivity(activityContent);
+      activityContent = this._removeGetMainComponentName(activityContent);
       fs.writeFileSync(this.activityPath, activityContent);
       infon("MainActivity linked successfully!\n");
     } else {
       warnn("   MainActivity not found!");
     }
+  }
+
+  _removeGetMainComponentName(contents) {
+    var match = /\/\*\*\s*\n([^\*]|(\*(?!\/)))*\*\/\s*@Override\s*protected\s*String\s*getMainComponentName\s*\(\)\s*{\s*return.+\s*\}/.exec(contents);
+    if (match) {
+      debugn("   Removing getMainComponentName function");
+      return contents.replace(/\/\*\*\s*\n([^\*]|(\*(?!\/)))*\*\/\s*@Override\s*protected\s*String\s*getMainComponentName\s*\(\)\s*{\s*return.+\s*\}/, "");
+    }
+    return contents;
   }
 
   _extendNavigationActivity(activityContent) {

@@ -2,6 +2,7 @@
 var path = require('./path');
 var fs = require('fs');
 var { warnn, errorn, logn, infon, debugn } = require('./log');
+var { insertString } = require('./stringUtils');
 var DEFAULT_KOTLIN_VERSION = '1.3.61';
 
 class GradleLinker {
@@ -30,7 +31,7 @@ class GradleLinker {
     var match = /classpath\s*\(*["']com\.android\.tools\.build:gradle:/.exec(contents);
     if (match) {
       debugn("   Adding Kotlin plugin");
-      return this._insertString(contents, match.index, `classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${DEFAULT_KOTLIN_VERSION}"\n        `);
+      return insertString(contents, match.index, `classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${DEFAULT_KOTLIN_VERSION}"\n        `);
     } else {
       errorn("   Could not add kotlin plugin dependency")
     }
@@ -87,15 +88,6 @@ class GradleLinker {
    */
   _isKotlinPluginDeclared(contents) {
     return /org.jetbrains.kotlin:kotlin-gradle-plugin:/.test(contents);
-  }
-
-  /**
-   * @param {string} to
-   * @param {number} fromIndex
-   * @param {string} what
-   */
-  _insertString(to, fromIndex, what) {
-    return to.substring(0, fromIndex) + what + to.substring(fromIndex, to.length);
   }
 }
 
