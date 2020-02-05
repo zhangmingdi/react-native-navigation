@@ -2,6 +2,7 @@ package com.reactnativenavigation.viewcontrollers.navigator;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.facebook.react.ReactInstanceManager;
@@ -54,6 +55,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 @Config(qualifiers = "xxhdpi")
@@ -115,6 +117,14 @@ public class NavigatorTest extends BaseTest {
 
         activityController.visible();
         activityController.postCreate(Bundle.EMPTY);
+    }
+
+    @Test
+    public void setContentLayout() {
+        ViewGroup contentLayout = Mockito.mock(ViewGroup.class);
+        uut.setContentLayout(contentLayout);
+
+        verify(overlayManager).setContentLayout(contentLayout);
     }
 
     @Test
