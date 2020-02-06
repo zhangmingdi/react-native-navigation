@@ -9,7 +9,6 @@ import { LayoutTreeParser } from './commands/LayoutTreeParser';
 import { LayoutTreeCrawler } from './commands/LayoutTreeCrawler';
 import { EventsRegistry } from './events/EventsRegistry';
 import { ComponentProvider } from 'react-native';
-import { SharedElement } from './adapters/SharedElement';
 import { CommandsObserver } from './events/CommandsObserver';
 import { Constants, NavigationConstants } from './adapters/Constants';
 import { ComponentEventsObserver } from './events/ComponentEventsObserver';
@@ -24,7 +23,6 @@ import { AppRegistryService } from './adapters/AppRegistryService';
 import { Deprecations } from './commands/Deprecations';
 
 export class NavigationRoot {
-  public readonly Element = SharedElement;
   public readonly TouchablePreview = TouchablePreview;
 
   private readonly store: Store;

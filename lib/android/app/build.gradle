@@ -106,7 +106,9 @@ String resolveFlavor() {
     Integer reactNativeMinorComponent = reactNativeVersionComponents[1].toInteger()
     Integer reactNativePatchComponent = reactNativeVersionComponents[2].toInteger()
 
-    if (reactNativeMinorComponent >= 60) {
+    if (reactNativeMinorComponent >= 62) {
+        return "reactNative62"
+    } else if (reactNativeMinorComponent >= 60) {
         return "reactNative60"
     } else if (reactNativeMinorComponent >= 57 && reactNativePatchComponent >= 5) {
         return "reactNative57_5"
@@ -138,7 +140,7 @@ List reactNativeVersionComponents(rnPackageJsonFile) {
     def reactNativePackageJson = packageSlurper.parseText(rnPackageJsonFile.text)
     def reactNativeVersion = reactNativePackageJson.version
 
-    return reactNativeVersion.tokenize('.')
+    return reactNativeVersion.tokenize('-')[0].tokenize('.')
 }
 
 allprojects { p ->

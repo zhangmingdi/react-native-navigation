@@ -13,10 +13,6 @@ import com.facebook.react.devsupport.interfaces.DevBundleDownloadListener;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-/**
- * Default implementation of {@link ReactNativeHost} that includes {@link NavigationPackage}
- * and user-defined additional packages.
- */
 public abstract class NavigationReactNativeHost extends ReactNativeHost implements BundleDownloadListenerProvider {
 
     private @Nullable NavigationDevBundleDownloadListener bundleListener;
