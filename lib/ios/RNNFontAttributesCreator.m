@@ -24,9 +24,9 @@
     UIFont* currentFont = attributesDictionary[NSFontAttributeName];
     
 	CGFloat resolvedFontSize = [self resolveFontSize:currentFont fontSize:fontSize];
-    if (color) {
-        titleTextAttributes[NSForegroundColorAttributeName] = color;
-    }
+    
+    titleTextAttributes[NSForegroundColorAttributeName] = color;
+    
     if (fontWeight) {
         titleTextAttributes[NSFontAttributeName] = [UIFont systemFontOfSize:resolvedFontSize weight:[RCTConvert UIFontWeight:fontWeight]];
     } else if (fontFamily){
