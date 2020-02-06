@@ -118,8 +118,8 @@ String resolveFlavor() {
         return "reactNative56"
     } else if (reactNativeMinorComponent >= 55) {
         return "reactNative55"
-    } else if (reactNativeMinorComponent >= 54) {
-        return "reactNative54"
+    } else if (reactNativeMinorComponent >= 51) {
+        return "reactNative51"
     }
 }
 
