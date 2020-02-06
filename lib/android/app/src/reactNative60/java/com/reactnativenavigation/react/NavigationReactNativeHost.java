@@ -25,6 +25,7 @@ public abstract class NavigationReactNativeHost extends ReactNativeHost implemen
         }
     };
 
+    @SuppressWarnings("WeakerAccess")
     public NavigationReactNativeHost(Application application) {
         super(application);
     }
@@ -59,7 +60,6 @@ public abstract class NavigationReactNativeHost extends ReactNativeHost implemen
         return builder.build();
     }
 
-    @SuppressWarnings("WeakerAccess")
     @NonNull
     protected DevBundleDownloadListener getDevBundleDownloadListener() {
         return bundleListenerMediator;
