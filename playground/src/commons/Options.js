@@ -19,11 +19,6 @@ const setDefaultOptions = () => Navigation.setDefaultOptions({
     selectedIconColor: Colors.primary,
     selectedTextColor: Colors.primary
   },
-  topBar: {
-    background: {
-      drawBehind: true
-    }
-  },
   animations: {
     ...useSlowOpenScreenAnimations ? slowOpenScreenAnimations : {}   
   },
