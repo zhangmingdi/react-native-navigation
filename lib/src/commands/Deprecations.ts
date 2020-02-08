@@ -9,7 +9,7 @@ export class Deprecations {
 
   public onProcessOptions(key: string, parentOptions: Record<string, any>) {
     if (isEqual(key, 'drawBehind') && Platform.OS === 'ios') {
-      this.deprecateDrawBehind(parentOptions)
+      this.deprecateDrawBehind(parentOptions);
     }
   }
 
