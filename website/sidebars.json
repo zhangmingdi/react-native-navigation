@@ -42,7 +42,14 @@
           "bottomTabs-options"
         ]
       },
-      "sideMenu"
+      {
+        "type": "subcategory",
+        "label": "SideMenu",
+        "ids": [
+          "sideMenu-openProgrammatically",
+          "sideMenu-disable"
+        ]
+      }
     ]
   },
   "api": {

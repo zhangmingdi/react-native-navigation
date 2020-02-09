@@ -149,6 +149,18 @@
         "title": "Showcases",
         "sidebar_label": "Showcases"
       },
+      "sideMenu-disable": {
+        "title": "Disable Open and Close gesture",
+        "sidebar_label": "Open and Close Gesture"
+      },
+      "sideMenu-doc": {
+        "title": "Side Menu",
+        "sidebar_label": "Side Menu"
+      },
+      "sideMenu-openProgrammatically": {
+        "title": "Opening the SideMenu Programmatically",
+        "sidebar_label": "Opening Programmatically"
+      },
       "sideMenu": {
         "title": "Side Menu",
         "sidebar_label": "Side Menu"
