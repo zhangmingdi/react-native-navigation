@@ -49,6 +49,15 @@
           "sideMenu-openProgrammatically",
           "sideMenu-disable"
         ]
+      },
+      {
+        "type": "subcategory",
+        "label": "ExternalComponent",
+        "ids": [
+          "externalComponent-viewGroup",
+          "externalComponent-fragment",
+          "externalComponent-viewController"
+        ]
       }
     ]
   },

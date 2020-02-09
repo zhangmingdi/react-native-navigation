@@ -77,6 +77,18 @@
       "EventSubscription": {
         "title": "EventSubscription"
       },
+      "externalComponent-fragment": {
+        "title": "Fragment",
+        "sidebar_label": "Fragment"
+      },
+      "externalComponent-viewController": {
+        "title": "ViewController",
+        "sidebar_label": "ViewController"
+      },
+      "externalComponent-viewGroup": {
+        "title": "ViewGroup",
+        "sidebar_label": "ViewGroup"
+      },
       "installing": {
         "title": "Installation",
         "sidebar_label": "Installation"
@@ -149,13 +161,13 @@
         "title": "Showcases",
         "sidebar_label": "Showcases"
       },
-      "sideMenu-disable": {
-        "title": "Disable Open and Close gesture",
-        "sidebar_label": "Open and Close Gesture"
-      },
       "sideMenu-doc": {
         "title": "Side Menu",
         "sidebar_label": "Side Menu"
+      },
+      "sideMenu-disable": {
+        "title": "Disable Open and Close gesture",
+        "sidebar_label": "Open and Close Gesture"
       },
       "sideMenu-openProgrammatically": {
         "title": "Opening the SideMenu Programmatically",
