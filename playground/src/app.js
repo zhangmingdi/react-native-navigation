@@ -7,6 +7,8 @@ const testIDs = require('./testIDs');
 const Screens = require('./screens/Screens');
 
 if (Platform.OS === 'android') {
+  const isHermes = () => global.HermesInternal != null;
+  console.log('IsHermes:', isHermes())
   alert = (title) => {
     Navigation.showOverlay({
       component: {

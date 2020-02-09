@@ -5,8 +5,12 @@ project.ext.react = [
         entryFile: "index.js",
         bundleAssetName: "index.android.bundle",
         bundleInAlpha: true,
-        bundleInBeta: true
+        bundleInBeta: true,
+        enableHermes: true,
+        hermesCommand: "../../../node_modules/hermes-engine/%OS-BIN%/hermes"
 ]
+
+println project.ext.react
 
 apply from: "../../../node_modules/react-native/react.gradle"
 
@@ -52,6 +56,10 @@ android {
 }
 
 dependencies {
+    def hermesPath = "../../../node_modules/hermes-engine/android/";
+
+    debugImplementation files(hermesPath + "hermes-debug.aar")
+    releaseImplementation files(hermesPath + "hermes-release.aar")
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'androidx.appcompat:appcompat:1.0.2'
@@ -59,7 +67,7 @@ dependencies {
     //noinspection GradleDynamicVersion
     implementation 'com.facebook.react:react-native:+'
     //noinspection GradleDynamicVersion
-    implementation 'org.webkit:android-jsc-intl:+'
+    //implementation 'org.webkit:android-jsc-intl:+'
     implementation project(':react-native-navigation')
     implementation project(':react-native-view-overflow')
 
