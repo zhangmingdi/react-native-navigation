@@ -20,7 +20,7 @@
 }
 
 + (NSDictionary *)createFromDictionary:(NSDictionary *)attributesDictionary fontFamily:(NSString *)fontFamily fontSize:(NSNumber *)fontSize fontWeight:(NSString *)fontWeight color:(UIColor *)color {
-	NSMutableDictionary* titleTextAttributes = [NSMutableDictionary dictionaryWithDictionary:attributesDictionary];\
+	NSMutableDictionary* titleTextAttributes = [NSMutableDictionary dictionaryWithDictionary:attributesDictionary];
     UIFont* currentFont = attributesDictionary[NSFontAttributeName];
     
 	CGFloat resolvedFontSize = [self resolveFontSize:currentFont fontSize:fontSize];
