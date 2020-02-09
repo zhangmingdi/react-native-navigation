@@ -4,11 +4,11 @@ const { Platform } = require('react-native');
 class RnnButton extends React.PureComponent {
   render() {
     return (
-      this.props.platform ? this.props.platform === Platform.OS : true &&
+      (this.props.platform ? this.props.platform === Platform.OS : true) ?
       <Button
         {...this.props}
         style={this.getStyle()}
-      />
+      /> : null
     )
   }
 
