@@ -41,7 +41,7 @@ class StackScreen extends React.Component {
         <Button label='Push Custom Back Button' testID={PUSH_CUSTOM_BACK_BTN} onPress={this.pushCustomBackButton} />
         <Button label='Set Stack Root' testID={SET_STACK_ROOT_BTN} onPress={this.setStackRoot} />
         <Button label='Set Stack Root With ID' testID={SET_STACK_ROOT_WITH_ID_BTN} onPress={this.setStackRootWithId} />
-        <Button label='Search' testID={SEARCH_BTN} onPress={this.search} platform='iOS'/>
+        <Button label='Search' testID={SEARCH_BTN} onPress={this.search} platform='ios'/>
       </Root>
     );
   }
