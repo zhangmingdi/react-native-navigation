@@ -23,10 +23,18 @@ export class OptionsProcessor {
   ) {}
 
   public processOptions(options: Options) {
-    this.processObject(options, clone(options));
+    this.processObject(options, clone(options), (key, parentOptions) => {
+      this.deprecations.onProcessOptions(key, parentOptions);
+    });
   }
 
-  private processObject(objectToProcess: object, parentOptions: object) {
+  public processDefaultOptions(options: Options) {
+    this.processObject(options, clone(options), (key, parentOptions) => {
+      this.deprecations.onProcessDefaultOptions(key, parentOptions);
+    });
+  }
+
+  private processObject(objectToProcess: object, parentOptions: object, onProcess: (key: string, parentOptions: object) => void) {
     forEach(objectToProcess, (value, key) => {
       this.processColor(key, value, objectToProcess);
 
@@ -37,11 +45,11 @@ export class OptionsProcessor {
       this.processComponent(key, value, objectToProcess);
       this.processImage(key, value, objectToProcess);
       this.processButtonsPassProps(key, value);
-      
-      this.deprecations.onProcessOptions(key, parentOptions);
+
+      onProcess(key, parentOptions);
 
       if (!isEqual(key, 'passProps') && (isObject(value) || isArray(value))) {
-        this.processObject(value, parentOptions);
+        this.processObject(value, parentOptions, onProcess);
       }
     });
   }
