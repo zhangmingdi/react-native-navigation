@@ -184,8 +184,11 @@
 
 - (UIStatusBarStyle)getStatusBarStyle:(RNNNavigationOptions *)resolvedOptions {
     RNNNavigationOptions *withDefault = [resolvedOptions withDefault:[self defaultOptions]];
-    if ([[withDefault.statusBar.style getWithDefaultValue:@"default"] isEqualToString:@"light"]) {
+    NSString* statusBarStyle = [withDefault.statusBar.style getWithDefaultValue:@"default"];
+    if ([statusBarStyle isEqualToString:@"light"]) {
         return UIStatusBarStyleLightContent;
+    } else if ([statusBarStyle isEqualToString:@"dark"]) {
+        return UIStatusBarStyleDarkContent;
     } else {
         return UIStatusBarStyleDefault;
     }
