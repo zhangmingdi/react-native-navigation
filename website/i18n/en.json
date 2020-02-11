@@ -154,6 +154,10 @@
         "title": "Root Commands",
         "sidebar_label": "Root"
       },
+      "root": {
+        "title": "Root",
+        "sidebar_label": "Root"
+      },
       "screen-api": {
         "title": "screen-api"
       },
@@ -236,6 +240,7 @@
       "Installation": "Installation",
       "Getting Started": "Getting Started",
       "Layouts": "Layouts",
+      "Hierarchy": "Hierarchy",
       "Commands": "Commands",
       "Options": "Options"
     }

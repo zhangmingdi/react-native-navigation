@@ -59,6 +59,9 @@
           "externalComponent-viewController"
         ]
       }
+    ],
+    "Hierarchy": [
+      "root"
     ]
   },
   "api": {
