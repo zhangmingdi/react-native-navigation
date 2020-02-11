@@ -16,8 +16,9 @@
         if (elapsed < animation.duration + animation.startDelay && elapsed > animation.startDelay) {
             CGFloat p = (elapsed-animation.startDelay)/(animation.duration-animation.startDelay);
             transform = CGAffineTransformConcat(transform, [animation animateWithProgress:p]);
-        } else if (elapsed > animation.duration + animation.startDelay) {
+        } else if (elapsed >= animation.duration + animation.startDelay) {
             transform = CGAffineTransformConcat(transform, [animation animateWithProgress:1]);
+            [animation end];
             [_mutableAnimations removeObject:animation];
         }
     }

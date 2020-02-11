@@ -24,21 +24,24 @@
         [transitions addObject:sharedElementAnimator];
     }
     
-    [self addSharedElementViews:transitions toContainerView:containerView];
+    NSArray<DisplayLinkAnimatorDelegate>* sortedTransitions = [self sortByZIndex:transitions];
+    [self addSharedElementViews:sortedTransitions toContainerView:containerView];
     
-    return transitions;
+    return sortedTransitions;
 }
 
 + (void)addSharedElementViews:(NSArray<BaseAnimator *> *)animators toContainerView:(UIView *)containerView {
-    NSMutableArray<AnimatedReactView *> * sharedElementViews = [NSMutableArray<AnimatedReactView *> new];
     for (BaseAnimator* animator in animators) {
-        [sharedElementViews addObject:(AnimatedReactView *)animator.view];
-    }
-    
-    for (UIView* sharedElementView in [sharedElementViews sortByPropertyName:@"reactZIndex"]) {
-        [containerView addSubview:sharedElementView];
+        [containerView addSubview:animator.view];
     }
 }
 
++ (NSArray<DisplayLinkAnimatorDelegate>*)sortByZIndex:(NSArray<DisplayLinkAnimatorDelegate> *)animators {
+    return (NSArray<DisplayLinkAnimatorDelegate>*)[animators sortedArrayUsingComparator:^NSComparisonResult(BaseAnimator * a, BaseAnimator* b) {
+        id first = [a.view valueForKey:@"reactZIndex"];
+        id second = [b.view valueForKey:@"reactZIndex"];
+        return [first compare:second];
+    }];
+}
 
 @end

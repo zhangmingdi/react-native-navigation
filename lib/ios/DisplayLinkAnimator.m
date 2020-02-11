@@ -2,6 +2,7 @@
 
 @implementation DisplayLinkAnimator {
     NSArray<id<DisplayLinkAnimatorDelegate>>* _animators;
+    NSMutableArray<id<DisplayLinkAnimatorDelegate>>* _activeAnimators;
     CADisplayLink* _displayLink;
     NSDate* _startDate;
     CGFloat _duration;
@@ -10,6 +11,7 @@
 - (instancetype)initWithDisplayLinkAnimators:(NSArray<id<DisplayLinkAnimatorDelegate>> *)displayLinkAnimators duration:(CGFloat)duration {
     self = [super init];
     _animators = displayLinkAnimators;
+    _activeAnimators = [NSMutableArray arrayWithArray:displayLinkAnimators];
     _duration = [self maxDuration:displayLinkAnimators];
     return self;
 }
@@ -38,8 +40,8 @@
 
 - (void)_displayLinkDidTick:(CADisplayLink*)displayLink {
 	NSTimeInterval elapsed = [NSDate.date timeIntervalSinceDate:_startDate];
-	if(elapsed > _duration) {
-		[self updateAnimations:_duration];
+	if (elapsed > _duration) {
+		[self updateAnimators:_duration];
         [self end];
 		[displayLink invalidate];
         if (_completion) {
@@ -49,19 +51,32 @@
 		return;
 	}
 	
-    [self updateAnimations:elapsed];
+    [self updateAnimators:elapsed];
 }
 
-- (void)updateAnimations:(NSTimeInterval)elapsed {
-	for (id<DisplayLinkAnimatorDelegate> animator in _animators) {
-        [animator updateAnimations:elapsed];
-	}
+- (void)updateAnimators:(NSTimeInterval)elapsed {
+    for (int i = 0; i < _activeAnimators.count; i++) {
+        id<DisplayLinkAnimatorDelegate> animator = _activeAnimators[i];
+        if (elapsed < animator.maxDuration) {
+            [animator updateAnimations:elapsed];
+        } else {
+            [self deactivateAnimator:animator];
+        }
+    }
+}
+
+- (void)deactivateAnimator:(id<DisplayLinkAnimatorDelegate>)animator {
+    [animator end];
+    [_activeAnimators removeObject:animator];
 }
 
 - (void)end {
-    for (id<DisplayLinkAnimatorDelegate> animator in _animators) {
+    for (int i = 0; i < _activeAnimators.count; i++) {
+        id<DisplayLinkAnimatorDelegate> animator = _activeAnimators[i];
         [animator end];
     }
+    
+    _activeAnimators = nil;
 }
 
 @end
