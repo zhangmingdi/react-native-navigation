@@ -13,10 +13,10 @@
     return self;
 }
 
-- (CGAffineTransform)animateWithProgress:(CGFloat)p {
+- (CATransform3D)animateWithProgress:(CGFloat)p {
     CGFloat x = [RNNInterpolator fromFloat:self.from.x toFloat:self.to.x precent:p interpolation:self.interpolation];
     CGFloat y = [RNNInterpolator fromFloat:self.from.y toFloat:self.to.y precent:p interpolation:self.interpolation];
-    return CGAffineTransformMakeTranslation(x - _initialPoint.x, y - _initialPoint.y);
+    return CATransform3DMakeTranslation(x - _initialPoint.x, y - _initialPoint.y, 0);
 }
 
 @end

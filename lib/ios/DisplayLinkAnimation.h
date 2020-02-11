@@ -5,7 +5,7 @@
 
 @required
 
-- (CGAffineTransform)animateWithProgress:(CGFloat)p;
+- (CATransform3D)animateWithProgress:(CGFloat)p;
 
 - (void)end;
 

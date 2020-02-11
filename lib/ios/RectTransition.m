@@ -9,10 +9,10 @@
     return self;
 }
 
-- (CGAffineTransform)animateWithProgress:(CGFloat)p {
+- (CATransform3D)animateWithProgress:(CGFloat)p {
     CGRect toFrame = [RNNInterpolator fromRect:self.from toRect:self.to precent:p interpolation:self.interpolation];
     self.view.frame = toFrame;
-    return CGAffineTransformIdentity;
+    return CATransform3DIdentity;
 }
 
 @end

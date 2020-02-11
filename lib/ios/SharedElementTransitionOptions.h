@@ -1,7 +1,7 @@
 #import <Foundation/Foundation.h>
-#import "TransitionOptions.h"
+#import "ElementTransitionOptions.h"
 
-@interface SharedElementTransitionOptions : TransitionOptions
+@interface SharedElementTransitionOptions : ElementTransitionOptions
 
 @property (nonatomic, strong) NSString* fromId;
 @property (nonatomic, strong) NSString* toId;

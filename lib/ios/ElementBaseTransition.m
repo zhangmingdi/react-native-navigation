@@ -28,8 +28,8 @@
     return _duration;
 }
 
-- (CGAffineTransform)animateWithProgress:(CGFloat)p {
-    return CGAffineTransformIdentity;
+- (CATransform3D)animateWithProgress:(CGFloat)p {
+    return CATransform3DIdentity;
 }
 
 - (RNNInterpolationOptions)interpolation {

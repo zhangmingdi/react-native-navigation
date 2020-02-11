@@ -28,14 +28,14 @@
     _toFont = [toAttributes attribute:NSFontAttributeName atIndex:0 longestEffectiveRange:&range1 inRange:NSMakeRange(0, _to.string.length)];
 }
 
-- (CGAffineTransform)animateWithProgress:(CGFloat)p {
+- (CATransform3D)animateWithProgress:(CGFloat)p {
     NSRange range = NSMakeRange(0, _from.string.length);
     UIColor* color = [RNNInterpolator fromColor:_fromColor toColor:_toColor precent:p];
     [_from addAttribute:NSForegroundColorAttributeName value:color range:range];
     CGFloat pointSize = [RNNInterpolator fromFloat:_fromFont.pointSize toFloat:_toFont.pointSize precent:p interpolation:self.interpolation];
     [_from addAttribute:NSFontAttributeName value:[_toFont fontWithSize:pointSize] range:range];
 	
-    return CGAffineTransformIdentity;
+    return CATransform3DIdentity;
 }
 
 - (void)end {

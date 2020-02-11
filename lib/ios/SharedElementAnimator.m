@@ -1,6 +1,7 @@
 #import "SharedElementAnimator.h"
 #import "AnimatedViewFactory.h"
 #import "RectTransition.h"
+#import "TransformRectTransition.h"
 #import "ColorTransition.h"
 #import "AnimatedTextView.h"
 #import "TextStorageTransition.h"
@@ -33,15 +34,17 @@
 }
 
 - (NSMutableArray<id<DisplayLinkAnimation>> *)createAnimations {
-    NSMutableArray* animations = [NSMutableArray new];
+    NSMutableArray* animations = [super createAnimations:_transitionOptions];
     CGFloat startDelay = [_transitionOptions.startDelay getWithDefaultValue:0];
     CGFloat duration = [_transitionOptions.duration getWithDefaultValue:300];
     Text* interpolation = [_transitionOptions.interpolation getWithDefaultValue:@"accelerateDecelerate"];
     
-    if (!CGSizeEqualToSize(self.view.location.fromFrame.size, self.view.location.toFrame.size)) {
-        [animations addObject:[[RectTransition alloc] initWithView:self.view from:self.view.location.fromFrame to:self.view.location.toFrame startDelay:startDelay duration:duration interpolation:interpolation]];
-    } else if (!CGPointEqualToPoint(self.view.location.fromFrame.origin, self.view.location.toFrame.origin)) {
-        [animations addObject:[[AnchorTransition alloc] initWithView:self.view from:self.view.location.fromFrame.origin to:self.view.location.toFrame.origin startDelay:startDelay duration:duration interpolation:interpolation]];
+    if (!CGRectEqualToRect(self.view.location.fromFrame, self.view.location.toFrame)) {
+        if ([self.view isKindOfClass:AnimatedTextView.class]) {
+            [animations addObject:[[RectTransition alloc] initWithView:self.view from:self.view.location.fromFrame to:self.view.location.toFrame startDelay:startDelay duration:duration interpolation:interpolation]];
+        } else {
+            [animations addObject:[[TransformRectTransition alloc] initWithView:self.view from:self.view.location.fromFrame to:self.view.location.toFrame startDelay:startDelay duration:duration interpolation:interpolation]];
+        }
     }
     
     if (![_fromView.backgroundColor isEqual:_toView.backgroundColor]) {

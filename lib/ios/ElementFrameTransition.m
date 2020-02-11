@@ -2,9 +2,9 @@
 
 @implementation ElementFrameTransition
 
-- (CGAffineTransform)animateWithProgress:(CGFloat)p {
+- (CATransform3D)animateWithProgress:(CGFloat)p {
     self.view.frame = [RNNInterpolator fromRect:self.from toRect:self.to precent:p interpolation:self.interpolation];
-    return CGAffineTransformIdentity;
+    return CATransform3DIdentity;
 }
 
 @end

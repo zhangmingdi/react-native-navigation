@@ -17,6 +17,7 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     _fromTextContainer.size = self.bounds.size;
+    self.reactView.frame = self.bounds;
 }
 
 - (void)reset {

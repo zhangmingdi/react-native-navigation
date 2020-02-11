@@ -228,6 +228,8 @@
 		506F630F216A5AD700AD0D0A /* RNNComponentPresenterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 506F630E216A5AD700AD0D0A /* RNNComponentPresenterTest.m */; };
 		50706E6D20CE7CA5003345C3 /* UIImage+tint.h in Headers */ = {isa = PBXBuildFile; fileRef = 50706E6B20CE7CA5003345C3 /* UIImage+tint.h */; };
 		50706E6E20CE7CA5003345C3 /* UIImage+tint.m in Sources */ = {isa = PBXBuildFile; fileRef = 50706E6C20CE7CA5003345C3 /* UIImage+tint.m */; };
+		507ACAFF23F3013900829911 /* TransformRectTransition.h in Headers */ = {isa = PBXBuildFile; fileRef = 507ACAFD23F3013800829911 /* TransformRectTransition.h */; };
+		507ACB0023F3013900829911 /* TransformRectTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 507ACAFE23F3013900829911 /* TransformRectTransition.m */; };
 		507E7D57201DDD3000444E6C /* RNNSharedElementAnimationOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = 507E7D55201DDD3000444E6C /* RNNSharedElementAnimationOptions.h */; };
 		507E7D58201DDD3000444E6C /* RNNSharedElementAnimationOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 507E7D56201DDD3000444E6C /* RNNSharedElementAnimationOptions.m */; };
 		507F43C51FF4F17C00D9425B /* RNNTopTabsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 507F43C31FF4F17C00D9425B /* RNNTopTabsViewController.h */; };
@@ -689,6 +691,8 @@
 		506F630E216A5AD700AD0D0A /* RNNComponentPresenterTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNNComponentPresenterTest.m; sourceTree = "<group>"; };
 		50706E6B20CE7CA5003345C3 /* UIImage+tint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+tint.h"; sourceTree = "<group>"; };
 		50706E6C20CE7CA5003345C3 /* UIImage+tint.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+tint.m"; sourceTree = "<group>"; };
+		507ACAFD23F3013800829911 /* TransformRectTransition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransformRectTransition.h; sourceTree = "<group>"; };
+		507ACAFE23F3013900829911 /* TransformRectTransition.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TransformRectTransition.m; sourceTree = "<group>"; };
 		507E7D55201DDD3000444E6C /* RNNSharedElementAnimationOptions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNNSharedElementAnimationOptions.h; sourceTree = "<group>"; };
 		507E7D56201DDD3000444E6C /* RNNSharedElementAnimationOptions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNNSharedElementAnimationOptions.m; sourceTree = "<group>"; };
 		507F43C31FF4F17C00D9425B /* RNNTopTabsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNNTopTabsViewController.h; sourceTree = "<group>"; };
@@ -1245,6 +1249,8 @@
 				50BCB27C23F2A1EE00D6C8E5 /* FloatTransition.m */,
 				50BCB27F23F2AADF00D6C8E5 /* RectTransition.h */,
 				50BCB28023F2AADF00D6C8E5 /* RectTransition.m */,
+				507ACAFD23F3013800829911 /* TransformRectTransition.h */,
+				507ACAFE23F3013900829911 /* TransformRectTransition.m */,
 				50BCB28723F2B4DE00D6C8E5 /* ColorTransition.h */,
 				50BCB28823F2B4DE00D6C8E5 /* ColorTransition.m */,
 				50BCB28F23F2C7CD00D6C8E5 /* AnchorTransition.h */,
@@ -1684,6 +1690,7 @@
 				50DE2E45238EA14E005CD5F4 /* NSArray+utils.h in Headers */,
 				E8367B801F7A8A4700675C05 /* VICMAImageView.h in Headers */,
 				50AD288823CDB71C00FF3134 /* ElementHorizontalTransition.h in Headers */,
+				507ACAFF23F3013900829911 /* TransformRectTransition.h in Headers */,
 				263905E61E4CAC950023D7D3 /* RNNSideMenuChildVC.h in Headers */,
 				50588B8C23AAC2FF001F6A5E /* DisplayLinkAnimation.h in Headers */,
 				50F5DFC51F407AA0001A00BC /* RNNStackController.h in Headers */,
@@ -1928,6 +1935,7 @@
 				50AB0B1D2255F8640039DAED /* UIViewController+LayoutProtocol.m in Sources */,
 				263905B41E4C6F440023D7D3 /* MMDrawerVisualState.m in Sources */,
 				5012240B21735959000F5F98 /* RNNSideMenuPresenter.m in Sources */,
+				507ACB0023F3013900829911 /* TransformRectTransition.m in Sources */,
 				502CB46F20CD1DDA0019B2FE /* RNNBackButtonOptions.m in Sources */,
 				50E5F78E223F9FAF002AFEAD /* ElementTransitionOptions.m in Sources */,
 				7365071221E4B16F004E020F /* RCTConvert+UIBarButtonSystemItem.m in Sources */,

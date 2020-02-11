@@ -10,9 +10,9 @@
     return self;
 }
 
-- (CGAffineTransform)animateWithProgress:(CGFloat)p {
+- (CATransform3D)animateWithProgress:(CGFloat)p {
     self.view.backgroundColor = [RNNInterpolator fromColor:_from toColor:_to precent:p];
-    return CGAffineTransformIdentity;
+    return CATransform3DIdentity;
 }
 
 @end
