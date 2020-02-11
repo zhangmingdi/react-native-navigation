@@ -39,7 +39,6 @@
 }
 
 - (void)end {
-    [self.view reset];
     NSRange range = NSMakeRange(0, _from.string.length);
     [_from addAttribute:NSFontAttributeName value:_fromFont range:range];
     [_from addAttribute:NSForegroundColorAttributeName value:_fromColor range:range];
