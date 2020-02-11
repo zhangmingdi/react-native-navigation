@@ -1,5 +1,5 @@
-#import "ElementBaseTransition.h"
+#import "FloatTransition.h"
 
-@interface ElementAlphaTransition : ElementBaseTransition <DisplayLinkAnimation>
+@interface ElementAlphaTransition : FloatTransition
 
 @end

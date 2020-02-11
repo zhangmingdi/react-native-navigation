@@ -3,4 +3,7 @@
 
 @interface AnimatedTextView : AnimatedReactView
 
+@property (nonatomic, strong) NSTextStorage* fromTextStorage;
+@property (nonatomic, strong) NSTextStorage* toTextStorage;
+
 @end

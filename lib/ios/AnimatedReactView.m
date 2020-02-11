@@ -6,7 +6,6 @@
     CGRect _originalFrame;
     UIView* _toElement;
     UIColor* _fromColor;
-    UIColor* _toColor;
     NSInteger _zIndex;
     SharedElementTransitionOptions* _transitionOptions;
 }
@@ -18,11 +17,15 @@
     _toElement = toElement;
     _toElement.hidden = YES;
     _fromColor = element.backgroundColor;
-    _toColor = toElement.backgroundColor;
     _zIndex = toElement.reactZIndex;
     [self hijackReactElement:element];
     
     return self;
+}
+
+- (void)setBackgroundColor:(UIColor *)backgroundColor {
+    [super setBackgroundColor:backgroundColor];
+    _reactView.backgroundColor = backgroundColor;
 }
 
 - (NSNumber *)reactZIndex {
@@ -33,36 +36,17 @@
     _reactView = element;
     _originalFrame = _reactView.frame;
     self.frame = self.location.fromFrame;
-    _reactView.backgroundColor = _fromColor;
     _originalParent = _reactView.superview;
     _reactView.frame = self.bounds;
     [self addSubview:_reactView];
 }
 
-- (CGAffineTransform)animateWithProgress:(CGFloat)p {
-    self.frame = [RNNInterpolator fromRect:self.location.fromFrame toRect:self.location.toFrame precent:p interpolation:self.interpolation];
-    _reactView.backgroundColor = [RNNInterpolator fromColor:_fromColor toColor:_toColor precent:p];
-    return CGAffineTransformIdentity;
-}
-
-- (void)end {
+- (void)reset {
     _reactView.frame = _originalFrame;
     [_originalParent addSubview:_reactView];
     _toElement.hidden = NO;
     _reactView.backgroundColor = _fromColor;
     [self removeFromSuperview];
-}
-
-- (NSTimeInterval)duration {
-    return [_transitionOptions.duration getWithDefaultValue:0.7];
-}
-
-- (NSTimeInterval)startDelay {
-    return [_transitionOptions.startDelay getWithDefaultValue:0.0];
-}
-
-- (RNNInterpolationOptions)interpolation {
-    return [RCTConvert RNNInterpolationOptions:[_transitionOptions.interpolation getWithDefaultValue:@"accelerateDecelerate"]];
 }
 
 - (void)layoutSubviews {

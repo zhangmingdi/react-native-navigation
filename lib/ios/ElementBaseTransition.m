@@ -1,33 +1,23 @@
 #import "ElementBaseTransition.h"
 
-@implementation ElementBaseTransition
+@implementation ElementBaseTransition {
+    Text* _interpolation;
+}
 
 @synthesize duration = _duration;
 @synthesize startDelay = _startDelay;
-@synthesize initialValue = _initialValue;
 
-- (instancetype)initWithView:(UIView *)view transitionDetails:(TransitionDetailsOptions *)transitionDetails {
+- (instancetype)initWithView:(UIView *)view startDelay:(NSTimeInterval)startDelay duration:(NSTimeInterval)duration interpolation:(Text *)interpolation {
     self = [super init];
     _view = view;
-    _transitionDetails = transitionDetails;
-    _startDelay = [transitionDetails.startDelay getWithDefaultValue:0];
-    _duration = [transitionDetails.duration getWithDefaultValue:[self defaultDuration]];
-    _initialValue = self.initialValue;
-    _from = [self calculateFrom];
-    _to = [self calculateTo];
+    _startDelay = startDelay;
+    _duration = duration;
+    _interpolation = interpolation;
     return self;
 }
 
 - (CGFloat)defaultDuration {
     return 300;
-}
-
-- (CGFloat)calculateFrom {
-    return _transitionDetails.from.hasValue ? _transitionDetails.from.get : _initialValue;
-}
-
-- (CGFloat)calculateTo {
-    return _transitionDetails.to.hasValue ? _transitionDetails.to.get : _initialValue;
 }
 
 - (NSTimeInterval)startDelay {
@@ -43,7 +33,7 @@
 }
 
 - (RNNInterpolationOptions)interpolation {
-    return [RCTConvert RNNInterpolationOptions:[_transitionDetails.interpolation getWithDefaultValue:@"accelerateDecelerate"]];
+    return [RCTConvert RNNInterpolationOptions:_interpolation];
 }
 
 - (void)end { 

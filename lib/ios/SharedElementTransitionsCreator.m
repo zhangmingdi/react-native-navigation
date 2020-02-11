@@ -3,23 +3,28 @@
 #import "AnimatedViewFactory.h"
 #import "BaseAnimator.h"
 #import "NSArray+utils.h"
+#import "SharedElementAnimator.h"
 
 @implementation SharedElementTransitionsCreator
 
 + (NSArray<DisplayLinkAnimatorDelegate>*)create:(NSArray<SharedElementTransitionOptions *>*)sharedElementTransitions
-                                                           fromVC:(UIViewController *)fromVC
-                                                             toVC:(UIViewController *)toVC
-                                                    containerView:(UIView *)containerView {
+                                         fromVC:(UIViewController *)fromVC
+                                           toVC:(UIViewController *)toVC
+                                  containerView:(UIView *)containerView {
     NSMutableArray<DisplayLinkAnimatorDelegate>* transitions = [NSMutableArray<DisplayLinkAnimatorDelegate> new];
     for (SharedElementTransitionOptions* transitionOptions in sharedElementTransitions) {
-        AnimatedReactView* animatedView = [self createAnimatedView:transitionOptions fromVC:fromVC toVC:toVC];
-        BaseAnimator* animator = [[BaseAnimator alloc] init];
-        animator.animations = [NSMutableArray arrayWithArray:@[animatedView]];
-        animator.view = animatedView;
-        [transitions addObject:animator];
+        UIView *fromView = [RNNElementFinder findElementForId:transitionOptions.fromId inView:fromVC.view];
+        UIView *toView = [RNNElementFinder findElementForId:transitionOptions.toId inView:toVC.view];
+        SharedElementAnimator* sharedElementAnimator = [[SharedElementAnimator alloc] initWithTransitionOptions:transitionOptions
+                                                                                                       fromView:fromView
+                                                                                                         toView:toView
+                                                                                                         fromVC:fromVC
+                                                                                                           toVC:toVC
+                                                                                                  containerView:containerView];
+        [transitions addObject:sharedElementAnimator];
     }
-	
-	[self addSharedElementViews:transitions toContainerView:containerView];
+    
+    [self addSharedElementViews:transitions toContainerView:containerView];
     
     return transitions;
 }
@@ -33,12 +38,6 @@
     for (UIView* sharedElementView in [sharedElementViews sortByPropertyName:@"reactZIndex"]) {
         [containerView addSubview:sharedElementView];
     }
-}
-
-+ (AnimatedReactView *)createAnimatedView:(SharedElementTransitionOptions *)transitionOptions fromVC:(UIViewController *)fromVC toVC:(UIViewController *)toVC {
-    UIView *fromElement = [RNNElementFinder findElementForId:transitionOptions.fromId inView:fromVC.view];
-    UIView *toElement = [RNNElementFinder findElementForId:transitionOptions.toId inView:toVC.view];
-    return [AnimatedViewFactory createFromElement:fromElement toElement:toElement transitionOptions:transitionOptions];
 }
 
 

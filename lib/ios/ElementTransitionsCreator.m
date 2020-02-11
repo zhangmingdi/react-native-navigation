@@ -7,21 +7,25 @@
     NSMutableArray<DisplayLinkAnimatorDelegate>* transitions = [NSMutableArray<DisplayLinkAnimatorDelegate> new];
     for (ElementTransitionOptions* transitionOptions in elementTransitions) {
         UIView* element = [self findElementById:transitionOptions.elementId fromVC:fromVC toVC:toVC];
-        ElementTransition* elementTransition = [self createTransition:transitionOptions view:element fromVC:fromVC toVC:toVC containerView:containerView];
-        [transitions addObject:elementTransition];
+        ElementAnimator* elementAnimator = [[ElementAnimator alloc] initWithTransitionOptions:transitionOptions
+                                                                                         view:element
+                                                                                       fromVC:fromVC
+                                                                                         toVC:toVC
+                                                                                containerView:containerView];
+        [transitions addObject:elementAnimator];
     }
     
     return transitions;
 }
 
 + (id<DisplayLinkAnimatorDelegate>)createTransition:(ElementTransitionOptions *)transitionOptions view:(UIView *)view fromVC:(UIViewController *)fromVC toVC:(UIViewController *)toVC containerView:(UIView *)containerView {
-    ElementTransition* elementTransition = [[ElementTransition alloc] initWithTransitionOptions:transitionOptions
-                                                                                           view:view
-                                                                                         fromVC:fromVC
-                                                                                           toVC:toVC
-                                                                                  containerView:containerView];
+    ElementAnimator* elementAnimator = [[ElementAnimator alloc] initWithTransitionOptions:transitionOptions
+                                                                                     view:view
+                                                                                   fromVC:fromVC
+                                                                                     toVC:toVC
+                                                                            containerView:containerView];
     
-    return elementTransition;
+    return elementAnimator;
 }
 
 + (UIView *)findElementById:(NSString *)elementId fromVC:(UIViewController *)fromVC toVC:(UIViewController *)toVC {

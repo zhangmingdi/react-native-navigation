@@ -1,17 +1,24 @@
 #import "BaseAnimator.h"
 
-@implementation BaseAnimator
+@implementation BaseAnimator {
+    NSMutableArray* _mutableAnimations;
+}
+
+- (void)setAnimations:(NSArray<id<DisplayLinkAnimation>> *)animations {
+    _animations = animations;
+    _mutableAnimations = [NSMutableArray arrayWithArray:animations];
+}
 
 - (void)updateAnimations:(NSTimeInterval)elapsed {
     CGAffineTransform transform = CGAffineTransformIdentity;
-    for (int i = 0; i < _animations.count; i++) {
-        id<DisplayLinkAnimation> animation = _animations[i];
+    for (int i = 0; i < _mutableAnimations.count; i++) {
+        id<DisplayLinkAnimation> animation = _mutableAnimations[i];
         if (elapsed < animation.duration + animation.startDelay && elapsed > animation.startDelay) {
             CGFloat p = (elapsed-animation.startDelay)/(animation.duration-animation.startDelay);
             transform = CGAffineTransformConcat(transform, [animation animateWithProgress:p]);
         } else if (elapsed > animation.duration + animation.startDelay) {
             transform = CGAffineTransformConcat(transform, [animation animateWithProgress:1]);
-            [_animations removeObject:animation];
+            [_mutableAnimations removeObject:animation];
         }
     }
     

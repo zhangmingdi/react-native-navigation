@@ -1,5 +1,5 @@
-#import "ElementBaseTransition.h"
+#import "FloatTransition.h"
 
-@interface VerticalRotationTransition : ElementBaseTransition
+@interface VerticalRotationTransition : FloatTransition
 
 @end

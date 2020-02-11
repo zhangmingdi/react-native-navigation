@@ -1,6 +1,6 @@
 #import <Foundation/Foundation.h>
 #import "SharedElementTransitionOptions.h"
-#import "ElementTransition.h"
+#import "ElementAnimator.h"
 #import "DisplayLinkAnimatorDelegate.h"
 
 @interface ElementTransitionsCreator : NSObject

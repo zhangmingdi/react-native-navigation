@@ -1,4 +1,4 @@
-#import "ElementTransition.h"
+#import "ElementAnimator.h"
 #import "ElementAlphaTransition.h"
 #import "ElementVerticalTransition.h"
 #import "ElementHorizontalTransition.h"
@@ -8,7 +8,7 @@
 #import "RNNElementFinder.h"
 #import "VerticalRotationTransition.h"
 
-@implementation ElementTransition {
+@implementation ElementAnimator {
     ElementTransitionOptions* _transitionOptions;
     UIViewController* _toVC;
     UIViewController* _fromVC;

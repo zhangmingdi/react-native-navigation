@@ -1,6 +1,6 @@
 #import <Foundation/Foundation.h>
-#import "ElementBaseTransition.h"
+#import "FloatTransition.h"
 
-@interface ElementVerticalTransition : ElementBaseTransition
+@interface ElementVerticalTransition : FloatTransition
 
 @end
