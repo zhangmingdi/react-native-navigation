@@ -187,8 +187,12 @@
     NSString* statusBarStyle = [withDefault.statusBar.style getWithDefaultValue:@"default"];
     if ([statusBarStyle isEqualToString:@"light"]) {
         return UIStatusBarStyleLightContent;
-    } else if (@available(iOS 13.0, *) && [statusBarStyle isEqualToString:@"dark"]) {
-        return UIStatusBarStyleDarkContent;
+    } else if (@available(iOS 13.0, *)) {
+        if ([statusBarStyle isEqualToString:@"dark"]) {
+            return UIStatusBarStyleDarkContent;
+        } else {
+            return UIStatusBarStyleDefault;
+        }
     } else {
         return UIStatusBarStyleDefault;
     }
