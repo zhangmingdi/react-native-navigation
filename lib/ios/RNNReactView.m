@@ -1,6 +1,4 @@
 #import "RNNReactView.h"
-#import "RCTHelpers.h"
-#import <React/RCTUIManager.h>
 
 @implementation RNNReactView {
     BOOL _isAppeared;
@@ -11,15 +9,8 @@
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(contentDidAppear:) name:RCTContentDidAppearNotification object:nil];
 	 _reactViewReadyBlock = reactViewReadyBlock;
     _eventEmitter = eventEmitter;
-    [bridge.uiManager setAvailableSize:UIScreen.mainScreen.bounds.size forRootView:self];
+    
 	return self;
-}
-
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    #ifdef DEBUG
-        [RCTHelpers removeYellowBox:self];
-    #endif
 }
 
 - (void)contentDidAppear:(NSNotification *)notification {
@@ -59,7 +50,7 @@
 }
 
 - (NSString *)componentType {
-    return ComponentTypeScreen;
+    @throw [NSException exceptionWithName:@"componentType not implemented" reason:@"Should always subclass RNNReactView" userInfo:nil];
 }
 
 @end

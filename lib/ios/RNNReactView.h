@@ -2,6 +2,7 @@
 #import <React/RCTRootViewDelegate.h>
 #import "UIView+Utils.h"
 #import "RNNEventEmitter.h"
+#import <React/RCTUIManager.h>
 
 #define ComponentTypeScreen @"Component"
 #define ComponentTypeTitle @"TopBarTitle"
