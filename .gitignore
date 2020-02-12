@@ -2,6 +2,10 @@ dist
 .vscode/
 package-lock.json
 
+# Docusaurus
+.docusaurus
+.cache-loader
+
 ############
 # Node
 ############
@@ -227,3 +231,4 @@ lib/android/app/.settings/
 playground/android/.settings/
 playground/android/app/.settings/
 AndroidE2E/.settings/
+website/yarn.lock
