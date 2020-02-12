@@ -91,7 +91,11 @@ module.exports = {
           'iconInsets-options',
           'largeTitle-options'
         ]
-      }
+      },
+      'statusBar-options',
+      'layout-options',
+      'sideMenu-options',
+      'sideMenuSide-options'
     ]
   }
 };

@@ -14,56 +14,133 @@ const options = {
   overlay,
   modal,
   preview
-}
+};
 ```
 
 ## `bottomTab`
+
 Controls the bottom tab icon, font, color and more.
 
-| Type                                     |
-| ---------------------------------------- |
-| [BottomTabOptions](bottomTab-options.mdx) |
+| Type                                  |
+| ------------------------------------- |
+| [BottomTabOptions](bottomTab-options) |
 
 ## `bottomTabs`
+
 Controls the bottom tabs container.
 
-| Type                                       |
-| ------------------------------------------ |
-| [BottomTabsOptions](bottomTabs-options.mdx) |
+| Type                                    |
+| --------------------------------------- |
+| [BottomTabsOptions](bottomTabs-options) |
 
 ## `topBar`
+
 Controls the Stack top bar styling.
 
-| Type                               |
-| ---------------------------------- |
-| [TopBarOptions](topBar-options.mdx) |
+| Type                           |
+| ------------------------------ |
+| [TopBarOptions](stack-options) |
+
+## `statusBar`
+
+Controls the system's status bar styling.
+
+| Type                                  |
+| ------------------------------------- |
+| [StatusBarOptions](statusBar-options) |
 
 ## `layout`
 
-| Type                               |
-| ---------------------------------- |
-| [LayoutOptions](layout-options.mdx) |
+| Type                            |
+| ------------------------------- |
+| [LayoutOptions](layout-options) |
 
 ## `sideMenu`
 
-| Type                                       |
-| ------------------------------------------ |
-| [SideMenuOptions](sideMenu-options.mdx) |
+| Type                                |
+| ----------------------------------- |
+| [SideMenuOptions](sideMenu-options) |
 
 ## `overlay`
 
-| Type                                       |
-| ------------------------------------------ |
-| [OverlayOptions](overlay-options.mdx) |
+| Type                              |
+| --------------------------------- |
+| [OverlayOptions](overlay-options) |
+
+## `animations`
+
+| Type                                    |
+| --------------------------------------- |
+| [AnimationsOptions](animations-options) |
 
 ## `modal`
 
-| Type                                       |
-| ------------------------------------------ |
-| [ModalOptions](modal-options.mdx) |
+| Type                          |
+| ----------------------------- |
+| [ModalOptions](modal-options) |
 
 ## `preview`
 
-| Type                                       |
-| ------------------------------------------ |
-| [PreviewOptions](preview-options.mdx) |
+| Type                              |
+| --------------------------------- |
+| [PreviewOptions](preview-options) |
+
+## `splitView`
+
+| Type                                  |
+| ------------------------------------- |
+| [SplitViewOptions](splitView-options) |
+
+## `fab`
+
+| Type               |
+| ------------------ |
+| [Fab](fab-options) |
+
+## `modalPresentationStyle`
+
+Configure the presentation style of the modal.
+
+| Type                                                                                                    | Required | Platform |
+| ------------------------------------------------------------------------------------------------------- | -------- | -------- |
+| enum('formSheet', 'pageSheet', 'fullScreen', 'overFullScreen', 'overCurrentContext', 'popOver', 'none') | No       | Both     |
+
+## `modalTransitionStyle`
+
+Configure the transition style of the modal.
+
+| Type                                                                    | Required | Platform |
+| ----------------------------------------------------------------------- | -------- | -------- |
+| enum('coverVertical', 'crossDissolve', 'flipHorizontal', 'partialCurl') | No       | Both     |
+
+## `popGesture`
+
+Enable or disable swipe back to pop gesture.
+
+| Type    | Required | Platform |
+| ------- | -------- | -------- |
+| boolean | No       | iOS      |
+
+## `backgroundImage`
+
+Background image for the screen.
+
+| Type  | Required | Platform |
+| ----- | -------- | -------- |
+| Image | No       | iOS      |
+
+## `rootBackgroundImage`
+
+Background image for the Navigation View.
+
+| Type  | Required | Platform |
+| ----- | -------- | -------- |
+| Image | No       | Android  |
+
+## `blurOnUnmount`
+
+Enable or disable automatically blurring focused input, dismissing keyboard on unmount.
+
+| Type    | Required | Platform | Default |
+| ------- | -------- | -------- | ------- |
+| boolean | No       | Android  | false   |
