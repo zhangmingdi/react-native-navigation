@@ -67,20 +67,33 @@ module.exports = {
       'stack-api',
       'modal-api'
     ],
-    // Layouts: [
-    //   'layout',
-    //   'container-layout',
-    //   'component',
-    //   'stack',
-    //   'bottomTabs',
-    //   'sideMenu'
-    // ],
-    // Options: [
-    //   'options-root',
-    //   'bottomTabs-options',
-    //   'bottomTab-options',
-    //   'stack-options'
-    // ]
+    Layouts: [
+      'layout',
+      'container-layout',
+      'component',
+      'stack',
+      'bottomTabs',
+      'sideMenu'
+    ],
+    Options: [
+      'options-root',
+      'bottomTabs-options',
+      'bottomTab-options',
+      {
+        'type': 'category',
+        'label': 'Stack',
+        'items': [
+          'stack-options',
+          'title-options',
+          'subtitle-options',
+          'background-options',
+          'backButton-options',
+          'button-options',
+          'iconInsets-options',
+          'largeTitle-options'
+        ]
+      }
+    ]
   }
 };
 
