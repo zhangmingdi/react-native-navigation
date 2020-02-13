@@ -26,10 +26,11 @@ module.exports = {
         'type': 'category',
         'label': 'Stack',
         'items': [
-          'stack-api',
-          'stack-examples',
-          'stack-options',
-          'stack-buttons'
+          'stack-programmatically',
+          'stack-buttons',
+          'stack-backButton',
+          'stack-backNavigation',
+          'stack-examples'
         ]
       },
       {
@@ -59,6 +60,9 @@ module.exports = {
           'externalComponent-viewController'
         ]
       }
+    ],
+    'Hierarchy': [
+      'root'
     ]
   },
   API: {

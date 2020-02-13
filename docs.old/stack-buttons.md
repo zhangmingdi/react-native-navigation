@@ -6,7 +6,7 @@ sidebar_label: Buttons
 
 Buttons can be added to the [right](#rightButtons) and [left](#leftButtons) areas of the TopBar. Buttons can have either an icon or a text. They are declared in the the options object and, as with any other option, can be updated dynamically with the `Navigation.mergeOptions` command.
 
-?> When using an icon button on **Android**, you should always pass a title as well. The title is used when the button is collapsed to the overflow menu and as a tooltip when the button is long pressed.
+> When using an icon button on **Android**, you should always pass a title as well. The title is used when the button is collapsed to the overflow menu and as a tooltip when the button is long pressed.
 
 ### Overflow menu
 It's common practice to group less important actions in a menu or an action sheet.
