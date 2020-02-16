@@ -22,7 +22,7 @@ open class ElementTransitionManager {
         }
         val transitionSet = TransitionSet()
         for (transitionOptions in sharedElements.get()) {
-            val transition = SharedElementTransition(toScreen, fromScreen, transitionOptions!!)
+            val transition = SharedElementTransition(toScreen, transitionOptions!!)
             findView(fromScreen.view, transition.fromId)?.let { transition.from = it }
             findView(toScreen.view, object : OnViewFoundListener {
                 override fun getNativeId(): String {

@@ -6,7 +6,7 @@ import com.reactnativenavigation.parse.SharedElementTransitionOptions
 import com.reactnativenavigation.viewcontrollers.ViewController
 import com.reactnativenavigation.views.element.animators.*
 
-class SharedElementTransition(private val appearing: ViewController<*>, private val disappearing: ViewController<*>, private val options: SharedElementTransitionOptions) : Transition() {
+class SharedElementTransition(appearing: ViewController<*>, private val options: SharedElementTransitionOptions) : Transition() {
     val fromId: String = options.fromId.get()
     val toId: String = options.toId.get()
     lateinit var from: View
