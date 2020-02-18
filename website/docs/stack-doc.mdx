@@ -60,7 +60,9 @@ const stack = {
 ## TopBar Buttons
 Buttons can be added to the [right](#rightButtons) and [left](#leftButtons) areas of the TopBar. Buttons can have either an icon or a text. They are declared in the the options object and, as with any other option, can be updated dynamically with the `Navigation.mergeOptions` command.
 
-> When using an icon button on **Android**, you should always pass a title as well. The title is used when the button is collapsed to the overflow menu and as a tooltip when the button is long pressed.
+:::tip Always asign titles to buttons!
+When using an icon button on **Android**, you should always pass a title as well. The title is used when the button is collapsed to the overflow menu and as a tooltip when the button is long pressed.
+:::
 
 ### Overflow menu
 It's common practice to group less important actions in a menu or an action sheet.
@@ -75,7 +77,9 @@ Left buttons behave like right buttons with two caveats on Android:
 * Textual left button isn't supported
 
 ### Using a react component in a button
-> ⚠️At the moment, Android only supports using custom buttons in `rightButtons`.
+:::caution
+At the moment, custom buttons in `rightButtons` are supported only on iOS.
+:::
 
 Sometimes we require more from our buttons. In order to support every product need React Components can be used as custom views of buttons.
 To do so, you'll first need to register the view with Navigation, just like you register your components used as screens:
