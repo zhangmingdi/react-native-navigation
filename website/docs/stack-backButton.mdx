@@ -4,6 +4,8 @@ title: The Back button
 sidebar_label: Back button
 ---
 
+The back button is added automatically when two or more screens are pushed into the stack.
+
 ## Styling the back button
 The back button's style can be customised by declaring a backButton options object. This configuration can be part of a screen's static options, or default options.
 
@@ -33,3 +35,6 @@ Navigation.mergeOptions(this.props.componentId, {
   }
 });
 ```
+
+## Handling the back button
+Handling the back button is not possible. However, you can set a left button with a chevron and handle it like you'd handle any other button and calling `Navigation.pop` when desired.

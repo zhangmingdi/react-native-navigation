@@ -22,6 +22,7 @@ module.exports = {
       'showcases'
     ],
     Layouts: [
+      'stack-doc',
       {
         'type': 'category',
         'label': 'Stack',
@@ -39,8 +40,7 @@ module.exports = {
         'items': [
           'bottomTabs-selecting',
           'bottomTabs-visibility',
-          'bottomTabs-dynamic-options',
-          'bottomTabs-options'
+          'bottomTabs-dynamic-options'
         ]
       },
       {
