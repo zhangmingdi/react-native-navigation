@@ -25,17 +25,6 @@ module.exports = {
       'stack-doc',
       {
         'type': 'category',
-        'label': 'Stack',
-        'items': [
-          'stack-programmatically',
-          'stack-buttons',
-          'stack-backButton',
-          'stack-backNavigation',
-          'stack-examples'
-        ]
-      },
-      {
-        'type': 'category',
         'label': 'BottomTabs',
         'items': [
           'bottomTabs-selecting',
@@ -62,7 +51,9 @@ module.exports = {
       }
     ],
     'Hierarchy': [
-      'root'
+      'root',
+      'modal-docs',
+      'overlay-docs'
     ]
   },
   API: {
