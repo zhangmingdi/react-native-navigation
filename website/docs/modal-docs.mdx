@@ -61,3 +61,16 @@ To configure this behaviour, we'll need to change the `modalPresentationStyle` o
 ```
 
 ## Preventing a Modal from being dismissed
+Preventing a modal from being dismissed is done differently for each platform. While preventing the user from dismissing the modal is possible,
+the modal could still be dismissed programmatically by calling `Navigation.dismissModal()`
+
+If the modal has a dismiss button, of course you'll need to handle it your self and avoid calling `Navigation.dismissModal()`
+when the button is pressed.
+
+### Android
+On Android, modals can be dismissed with the hardware back button. You can handle the back press your self by
+adding a [BackHandler](https://facebook.github.io/react-native/docs/backhandler)
+
+### iOS
+While iOS devices don't have a hardware back button, PageSheet modals can be dismissed by swipe gesture
+from the top of the screen. To disable it, set [swipeToDismiss]() option to false.
