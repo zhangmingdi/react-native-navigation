@@ -6,8 +6,10 @@ sidebar_label: Overlay
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Overlays are used to layout content ontop of all other layout heirarchys. The contents displayed in an Overlay can either be non obtrusive,
-like Toasts and Snackbars for example, or Alerts that block all interactions with the content behind the Alert.
+Overlays are used to layout content ontop of all other layout heirarchys and fits the screen bounds.
+The contents displayed in an Overlay can either be non obtrusive, like Toasts and Snackbars, or an Alert that
+blocks all interactions with the content behind it. The view contained within it should be aligned either with absolute
+position, flex, or margins acording to your needs.
 
 ## Handling touch events outside of the view
 When showing views like an Alert or Toast in an Overlay, you'll want to configure if the user can

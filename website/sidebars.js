@@ -50,10 +50,14 @@ module.exports = {
         ]
       }
     ],
-    'Hierarchy': [
+    Hierarchy: [
       'root',
       'modal-docs',
       'overlay-docs'
+    ],
+    Fundamentals: [
+      'navigating-the-app',
+      'screen-lifecycle'
     ]
   },
   API: {
