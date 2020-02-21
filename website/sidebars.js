@@ -57,7 +57,8 @@ module.exports = {
     ],
     Fundamentals: [
       'navigating-the-app',
-      'screen-lifecycle'
+      'screen-lifecycle',
+      'updating-props'
     ]
   },
   API: [
