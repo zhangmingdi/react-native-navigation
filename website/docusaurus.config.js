@@ -23,6 +23,7 @@ module.exports = {
         },
       ],
     },
+    sidebarCollapsible: false,
     footer: {
       style: 'dark',
       links: [
