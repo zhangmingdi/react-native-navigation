@@ -68,7 +68,7 @@ Navigation.setRoot({
       ]
     }
   }
-})
+});
 ```
 
 </TabItem>
@@ -79,5 +79,9 @@ Navigation.setRoot({
 Changing orientation dynamically through `Navigation.mergeOption()` is supported only on Android.
 
 ```js
-Navigation
+Navigation.mergeOptions(this.props.componentId, {
+  layout: {
+    orientation: ['landscape']
+  }
+});
 ```
