@@ -60,44 +60,57 @@ module.exports = {
       'screen-lifecycle'
     ]
   },
-  API: {
-    Commands: [
-      'root-api',
-      'stack-api',
-      'modal-api'
-    ],
-    Layouts: [
-      'layout',
-      'container-layout',
-      'component',
-      'stack',
-      'bottomTabs',
-      'sideMenu'
-    ],
-    Options: [
-      'options-root',
-      'bottomTabs-options',
-      'bottomTab-options',
-      {
-        'type': 'category',
-        'label': 'Stack',
-        'items': [
-          'stack-options',
-          'title-options',
-          'subtitle-options',
-          'background-options',
-          'backButton-options',
-          'button-options',
-          'iconInsets-options',
-          'largeTitle-options'
-        ]
-      },
-      'statusBar-options',
-      'layout-options',
-      'sideMenu-options',
-      'sideMenuSide-options'
-    ]
-  }
+  API: [
+    {
+      type: 'category',
+      label: 'Commands',
+      items: [
+        'root-api',
+        'stack-api',
+        'modal-api'
+      ]
+    },
+    {
+      type: 'category',
+      label: 'Layouts',
+      items: [
+        'layout',
+        'container-layout',
+        'component',
+        'stack',
+        'bottomTabs',
+        'sideMenu'
+      ]
+    },
+    {
+      type: 'category',
+      label: 'Options',
+      items: [
+        'options-root',
+        'bottomTabs-options',
+        'bottomTab-options',
+        {
+          'type': 'category',
+          'label': 'Stack',
+          'items': [
+            'stack-options',
+            'title-options',
+            'subtitle-options',
+            'background-options',
+            'backButton-options',
+            'button-options',
+            'iconInsets-options',
+            'largeTitle-options'
+          ]
+        },
+        'statusBar-options',
+        'layout-options',
+        'sideMenu-options',
+        'sideMenuSide-options'
+      ]
+    },
+    'events-api'
+  ]
 };
 
 // {
