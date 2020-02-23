@@ -3,6 +3,10 @@ id: stack-api
 title: Stack Commands
 sidebar_label: Stack
 ---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 ## `push()`
 Push a screen into the stack and updates the display according to the screen's options.
 #### Parameters
@@ -12,9 +16,17 @@ Push a screen into the stack and updates the display according to the screen's o
 | layout      | No       | Layout | The layout being pushed into the stack. Any type of layout (except stack) can be pushed into stacks. Typically, Component layout is pushed into stacks but it's possible to push SideMenu or BottomTabs as well. |
 
 #### Example
-<!--DOCUSAURUS_CODE_TABS-->
-<!--Component-->
-<br />
+
+<Tabs
+  defaultValue='component'
+  values={[
+    { label: 'Component', value: 'component', },
+    { label: 'Update options on push', value: 'push', },
+    { label: 'Push other layouts', value: 'otherLayout', },
+  ]
+}>
+
+<TabItem value='component'>
 The most common use case - push a single react component.
 
 ```js
@@ -25,8 +37,9 @@ Navigation.push(this.props.componentId, {
 });
 ```
 
-<!--Update options on push-->
-<br />
+</TabItem>
+
+<TabItem value='push'>
 Options are applied when screen becomes visible.
 
 ```js
@@ -44,8 +57,9 @@ Navigation.push(this.props.componentId, {
 });
 ```
 
-<!--Push other layouts-->
-<br />
+</TabItem>
+
+<TabItem value='otherLayout'>
 Any layout type can be pushed. In this example we push a SideMenu layout.
 
 ```js
@@ -65,7 +79,9 @@ Navigation.push(this.props.componentId, {
 });
 ```
 
-<!--END_DOCUSAURUS_CODE_TABS-->
+</TabItem>
+
+</Tabs>
 
 ## `pop()`
 Pop the top screen from the stack.
@@ -115,8 +131,17 @@ Reset the stack to the given layout (accepts multiple children).
 | layout      | Yes      | [Component](component) or [Component](component)[] | A single Component or array of components.                            |
 
 #### Example
-<!--DOCUSAURUS_CODE_TABS-->
-<!--Single child-->
+
+
+<Tabs
+  defaultValue='single'
+  values={[
+    { label: 'Single child', value: 'single' },
+    { label: 'Multiple children', value: 'multiple' }
+  ]
+}>
+
+<TabItem value='single'>
 
 ```js
 Navigation.setStackRoot(this.props.componentId, {
@@ -126,8 +151,9 @@ Navigation.setStackRoot(this.props.componentId, {
 });
 ```
 
-<!--Multiple children-->
-<br />
+</TabItem>
+
+<TabItem value='multiple'>
 In the example below we reset the stack with two components. The first one will be the root component and the second (`PushedScreen`) will be displayed. Pressing the back button (either hardware or software) will pop it, revealing the root component - `NewRootScreen`.
 
 ```js
@@ -144,5 +170,6 @@ Navigation.setStackRoot(this.props.componentId, [
   }
 ]);
 ```
+</TabItem>
 
-<!--END_DOCUSAURUS_CODE_TABS-->
+</Tabs>

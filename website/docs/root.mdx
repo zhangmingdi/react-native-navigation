@@ -4,6 +4,9 @@ title: Root
 sidebar_label: Root
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 The root is where the application's layout structure is defined. It is typically the first ui element the user interacts with. The root can be changed multiple times during the lifespan of the application. For example, if an app requires users to login to the app, it's common to use a stack based root and transition to either tabs or SideMenu based root if the login is successful.
 
 ## Setting root on app launch
@@ -36,10 +39,19 @@ Navigation.events().registerAppLaunchedListener(() => {
 ```
 
 ## Common root structures
-<!--DOCUSAURUS_CODE_TABS-->
 
-<!--Stack Root -->
+<Tabs
+  defaultValue='stack'
+  values={[
+    { label: 'Stack root', value: 'stack' },
+    { label: 'BottomTabs root', value: 'bottomTabs' },
+    { label: 'SideMenu root', value: 'sideMenu' }
+  ]
+}>
+
+<TabItem value='stack'>
 Stacks are usually used as root for small scale apps or for short lived flows within a big app, for example a login flow.
+
 ```js
 Navigation.setRoot({
   root: {
@@ -56,8 +68,11 @@ Navigation.setRoot({
 });
 ```
 
-<!--BottomTabs Root-->
+</TabItem>
+
+<TabItem value='bottomTabs'>
 Typically, stacks are used as the direct children of BottomTabs and each child is an independent root. This lets users to seamlessly switch between tabs as each tab has its own navigation hierarchy. 
+
 ```js
 Navigation.setRoot({
   root: {
@@ -96,7 +111,9 @@ Navigation.setRoot({
 });
 ```
 
-<!--SideMenu Root-->
+</TabItem>
+
+<TabItem value='sideMenu'>
 When a SideMenu layout is used as root, the center screen would typically be a stack. The center stack should be treated as a root - you can push child screens into it, or replace it all together by calling `setStackRoot`.
 
 ```js
@@ -119,4 +136,6 @@ Navigation.setRoot({
   }
 });
 ```
-<!--END_DOCUSAURUS_CODE_TABS-->
+
+</TabItem>
+</Tabs>

@@ -4,6 +4,9 @@ title: Root Commands
 sidebar_label: Root
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 ## `setRoot()`
 So as to make the navigation API as consistent and homogenous as possible, we begin with a single, unifying function -- setRoot. `setRoot` receives properties for any kind of layout, whether tabs or stacks.
 
@@ -13,8 +16,17 @@ So as to make the navigation API as consistent and homogenous as possible, we be
 | layout | Yes      | [Layout](layout) | Any type of layout. [BottomTabs](bottomTabs), [Stack](stack), [SideMenu](sideMenu), [Component](component) |
 
 #### Example
-<!--DOCUSAURUS_CODE_TABS-->
-<!--With Stack layout-->
+
+<Tabs
+  defaultValue='stack'
+  values={[
+    { label: 'With Stack layout', value: 'stack' },
+    { label: 'With BottomTabs layout', value: 'bottomTabs' }
+  ]
+}>
+
+<TabItem value='stack'>
+
 ```js
 Navigation.setRoot({
   root: {
@@ -38,7 +50,11 @@ Navigation.setRoot({
   }
 });
 ```
-<!--With BottomTabs layout-->
+
+</TabItem>
+
+<TabItem value='bottomTabs'>
+
 ```js
 Navigation.setRoot({
   root: {
@@ -81,7 +97,10 @@ Navigation.setRoot({
   }
 });
 ```
-<!--END_DOCUSAURUS_CODE_TABS-->
+
+</TabItem>
+
+</Tabs>
 
 ## `showOverlay()`
 Shows a component as an overlay.
