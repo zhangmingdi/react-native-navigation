@@ -60,7 +60,7 @@ module.exports = {
       'screen-lifecycle',
       'updating-props'
     ],
-    Customizations: [
+    Styling: [
       'orientation'
     ]
   },
