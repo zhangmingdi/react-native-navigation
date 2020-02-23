@@ -63,11 +63,12 @@ module.exports = {
   API: [
     {
       type: 'category',
-      label: 'Commands',
+      label: 'Navigation',
       items: [
         'root-api',
         'stack-api',
-        'modal-api'
+        'modal-api',
+        'overlay-api'
       ]
     },
     {
@@ -86,6 +87,7 @@ module.exports = {
       type: 'category',
       label: 'Options',
       items: [
+        'options-api',
         'options-root',
         'bottomTabs-options',
         'bottomTab-options',
