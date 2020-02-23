@@ -59,6 +59,9 @@ module.exports = {
       'navigating-the-app',
       'screen-lifecycle',
       'updating-props'
+    ],
+    Customizations: [
+      'orientation'
     ]
   },
   API: [
