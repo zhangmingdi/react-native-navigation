@@ -4,7 +4,7 @@ title: Stack
 sidebar_label: Stack
 ---
 
-Extends [ContainerLayout](ContainerLayout.md)
+Extends [ContainerLayout](container-layout)
 
 A stack is a container layout promoting a hierarchical navigation. It is used for navigating between screens at consecutive levels of hierarchy, steps in a flow or across an app.
 
@@ -28,5 +28,20 @@ The stack manages the TopBar at the top of the stack. The TopBar displays the cu
 }
 ```
 
-## `children: Layout[]`
-Children layouts of any kind. A stack can be initialised with more than one screen, in which case the last screen will be presented at the top of the stack.
+## `id`
+
+| Type   | Required | Description                                                                                                                                                    |
+| ------ | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| string | No       | Unique id used when interacting with the view with the Navigation api, usually `Navigation.mergeOptions` which accepts the componentId as it's first argument. |
+
+## `children`
+
+| Type               | Required | Description                   |
+| ------------------ | -------- | ----------------------------- |
+| [Layout[]](layout) | YES      | Children layouts of any kind. |
+
+## `options`
+
+| Type                    | Required | Description                                              |
+| ----------------------- | -------- | -------------------------------------------------------- |
+| [Options](options-root) | No       | dynamic options which will apply to all screens in stack |

@@ -4,7 +4,7 @@ title: Bottom Tabs
 sidebar_label: Bottom Tabs
 ---
 
-Extends [ContainerLayout](ContainerLayout.md)
+Extends [ContainerLayout](container-layout)
 
 A container view that manages a radio-style selection interface, where the selection determines which child view controller to display.
 
@@ -33,8 +33,20 @@ A container view that manages a radio-style selection interface, where the selec
 }
 ```
 
-## `id?: string`
-Unique id used when interacting with the view with the Navigation api, usually `Navigation.mergeOptions` which accepts the componentId as it's first argument.
-## `children: Layout[]`
-Children layouts of any kind.
-## `options?: Options`
+## `id`
+
+| Type   | Required | Description                                                                                                                                                    |
+| ------ | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| string | No       | Unique id used when interacting with the view with the Navigation api, usually `Navigation.mergeOptions` which accepts the componentId as it's first argument. |
+
+## `children`
+
+| Type               | Required | Description                   |
+| ------------------ | -------- | ----------------------------- |
+| [Layout[]](layout) | YES      | Children layouts of any kind. |
+
+## `options`
+
+| Type                    | Required | Description                                                   |
+| ----------------------- | -------- | ------------------------------------------------------------- |
+| [Options](options-root) | No       | dynamic options which will apply to all screens in bottomTabs |
