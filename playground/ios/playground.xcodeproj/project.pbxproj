@@ -13,8 +13,10 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		501C86B9239FE9C400E0B631 /* UIImage+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 501C86B8239FE9C400E0B631 /* UIImage+Utils.m */; };
 		50451D35204451A900695F00 /* RNNCustomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50451D34204451A800695F00 /* RNNCustomViewController.m */; };
+		50647FE323E3196800B92025 /* RNNExternalViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 50647FE223E3196800B92025 /* RNNExternalViewControllerTests.m */; };
 		50996C6823AA477400008F89 /* RNNRootViewControllerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 50996C6723AA477400008F89 /* RNNRootViewControllerTest.m */; };
 		50996C6923AA487800008F89 /* RNNTestRootViewCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = E58D263D2385888C003F36BA /* RNNTestRootViewCreator.m */; };
+		50BCB27623F1A2B100D6C8E5 /* TopBarAppearancePresenterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 50BCB27523F1A26600D6C8E5 /* TopBarAppearancePresenterTest.m */; };
 		67C681D42B662A53F29C19DA /* Pods_NavigationIOS12Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEE0B5D45FD34FBABC6586CF /* Pods_NavigationIOS12Tests.framework */; };
 		9D204F3DC4FBCD81583BF99F /* Pods_playground.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A3340545EAAF11C1F146864 /* Pods_playground.framework */; };
 		E5046080227748EA00212BD8 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E504607F227748EA00212BD8 /* JavaScriptCore.framework */; };
@@ -83,9 +85,11 @@
 		50364D6B238E7F0A000E62A2 /* ReactNativeNavigation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ReactNativeNavigation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		50451D33204451A800695F00 /* RNNCustomViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RNNCustomViewController.h; path = ../../../lib/ios/RNNCustomViewController.h; sourceTree = "<group>"; };
 		50451D34204451A800695F00 /* RNNCustomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RNNCustomViewController.m; path = ../../../lib/ios/RNNCustomViewController.m; sourceTree = "<group>"; };
+		50647FE223E3196800B92025 /* RNNExternalViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNNExternalViewControllerTests.m; sourceTree = "<group>"; };
 		50996C5D23AA46DD00008F89 /* NavigationIOS12Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NavigationIOS12Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		50996C6123AA46DD00008F89 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		50996C6723AA477400008F89 /* RNNRootViewControllerTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNNRootViewControllerTest.m; sourceTree = "<group>"; };
+		50BCB27523F1A26600D6C8E5 /* TopBarAppearancePresenterTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TopBarAppearancePresenterTest.m; sourceTree = "<group>"; };
 		7F8E255E2E08F6ECE7DF6FE3 /* Pods-playground.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-playground.release.xcconfig"; path = "Target Support Files/Pods-playground/Pods-playground.release.xcconfig"; sourceTree = "<group>"; };
 		84E32151E3A71C2B7328BCB4 /* Pods_NavigationTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NavigationTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B484A10A046B0046B98A76B5 /* Pods-playground.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-playground.debug.xcconfig"; path = "Target Support Files/Pods-playground/Pods-playground.debug.xcconfig"; sourceTree = "<group>"; };
@@ -245,6 +249,7 @@
 			children = (
 				E58D26442385888C003F36BA /* Options */,
 				E58D26422385888C003F36BA /* RNNBasePresenterTest.m */,
+				50BCB27523F1A26600D6C8E5 /* TopBarAppearancePresenterTest.m */,
 				E58D26412385888C003F36BA /* RNNCommandsHandlerTest.m */,
 				E58D26352385888B003F36BA /* RNNComponentPresenterTest.m */,
 				E58D26402385888C003F36BA /* RNNControllerFactoryTest.m */,
@@ -271,6 +276,7 @@
 				E58D263B2385888C003F36BA /* UITabBarController+RNNOptionsTest.m */,
 				E58D26252385888B003F36BA /* UIViewController+LayoutProtocolTest.m */,
 				E58D263E2385888C003F36BA /* UIViewController+RNNOptionsTest.m */,
+				50647FE223E3196800B92025 /* RNNExternalViewControllerTests.m */,
 				E58D262E2385888B003F36BA /* utils */,
 				E58D261F238587F4003F36BA /* Info.plist */,
 			);
@@ -370,7 +376,8 @@
 				ORGANIZATIONNAME = Wix;
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
-						ProvisioningStyle = Manual;
+						DevelopmentTeam = XPHGA2FMQQ;
+						ProvisioningStyle = Automatic;
 					};
 					50996C5C23AA46DD00008F89 = {
 						CreatedOnToolsVersion = 11.2.1;
@@ -735,6 +742,8 @@
 			files = (
 				E58D265B2385888C003F36BA /* UIViewController+RNNOptionsTest.m in Sources */,
 				E58D26532385888C003F36BA /* RNNSideMenuPresenterTest.m in Sources */,
+				50BCB27623F1A2B100D6C8E5 /* TopBarAppearancePresenterTest.m in Sources */,
+				50647FE323E3196800B92025 /* RNNExternalViewControllerTests.m in Sources */,
 				E58D264D2385888C003F36BA /* RNNOverlayManagerTest.m in Sources */,
 				501C86B9239FE9C400E0B631 /* UIImage+Utils.m in Sources */,
 				E58D265F2385888C003F36BA /* RNNBasePresenterTest.m in Sources */,
@@ -796,10 +805,11 @@
 			baseConfigurationReference = B484A10A046B0046B98A76B5 /* Pods-playground.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = XPHGA2FMQQ;
 				INFOPLIST_FILE = playground/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -807,7 +817,7 @@
 					"-ObjC",
 					"-l\"c++\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.reactnativenavigation.playground;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rnn.playground;
 				PRODUCT_NAME = playground;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -819,9 +829,10 @@
 			baseConfigurationReference = 7F8E255E2E08F6ECE7DF6FE3 /* Pods-playground.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = XPHGA2FMQQ;
 				INFOPLIST_FILE = playground/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -829,7 +840,7 @@
 					"-ObjC",
 					"-l\"c++\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.reactnativenavigation.playground;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rnn.playground;
 				PRODUCT_NAME = playground;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -5,6 +5,7 @@ import { Options, OptionsModalPresentationStyle } from '../interfaces/Options';
 import { mock, when, anyString, instance, anyNumber, verify } from 'ts-mockito';
 import { ColorService } from '../adapters/ColorService';
 import { AssetService } from '../adapters/AssetResolver';
+import { Deprecations } from './Deprecations';
 
 describe('navigation options', () => {
   let uut: OptionsProcessor;
@@ -25,7 +26,7 @@ describe('navigation options', () => {
     when(mockedColorService.toNativeColor(anyString())).thenReturn(666);
     const colorService = instance(mockedColorService);
 
-    uut = new OptionsProcessor(store, new UniqueIdProvider(), colorService, assetService);
+    uut = new OptionsProcessor(store, new UniqueIdProvider(), colorService, assetService, new Deprecations());
   });
 
   it('keeps original values if values were not processed', () => {
