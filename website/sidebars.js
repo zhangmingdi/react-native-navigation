@@ -1,25 +1,7 @@
 module.exports = {
   docs: {
-    Installation: [
-      {
-        type: 'category',
-        label: 'iOS',
-        items: [
-          'iosManual',
-          'iosCocoaPods'
-        ]
-      },
-      {
-        'type': 'category',
-        'label': 'Android',
-        'items': [
-          'installingAndroid'
-        ]
-      }
-    ],
     'Getting Started': [
-      'displayTheAppRoot',
-      'showcases'
+      'installing'
     ],
     Layouts: [
       'stack-doc',
