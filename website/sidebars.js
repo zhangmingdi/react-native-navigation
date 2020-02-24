@@ -61,7 +61,8 @@ module.exports = {
       'updating-props'
     ],
     Styling: [
-      'orientation'
+      'orientation',
+      'screen-animations'
     ]
   },
   API: [
