@@ -84,7 +84,8 @@ module.exports = {
         'component',
         'stack',
         'bottomTabs',
-        'sideMenu'
+        'sideMenu',
+        'splitView'
       ]
     },
     {
