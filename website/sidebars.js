@@ -113,7 +113,8 @@ module.exports = {
         'statusBar-options',
         'layout-options',
         'sideMenu-options',
-        'sideMenuSide-options'
+        'sideMenuSide-options',
+        'splitView-options'
       ]
     },
     'events-api'
