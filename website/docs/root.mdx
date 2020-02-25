@@ -24,7 +24,9 @@ Navigation.events().registerAppLaunchedListener(() => {
 });
 ```
 
-> registerAppLaunchedListener() must be called as soon as the bundle is executed. Otherwise the event, which is emitted from native to JS, won't be handled when appropriate.
+:::important
+registerAppLaunchedListener() must be called as soon as the bundle is executed. Otherwise the event, which is emitted from native to JS, won't be handled when appropriate.
+::::
 
 ## Conditional initial root
 A common use case is to set the initial root according to some condition. For example; if a user is logged in, show the applications main root, otherwise show a login screen. To do this, simply set the appropriate root according to your needs.

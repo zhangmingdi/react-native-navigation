@@ -62,7 +62,8 @@ module.exports = {
     ],
     Styling: [
       'orientation',
-      'screen-animations'
+      'screen-animations',
+      'fonts'
     ]
   },
   API: [
