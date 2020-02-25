@@ -7,7 +7,7 @@ sidebar_label: Stack
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Layout Exmaples
+# Layout Examples
 <Tabs
   defaultValue="single"
   values={[
@@ -60,7 +60,7 @@ const stack = {
 ## TopBar Buttons
 Buttons can be added to the [right](#rightButtons) and [left](#leftButtons) areas of the TopBar. Buttons can have either an icon or a text. They are declared in the the options object and, as with any other option, can be updated dynamically with the `Navigation.mergeOptions` command.
 
-:::tip Always asign titles to buttons!
+:::tip Always assign titles to buttons!
 When using an icon button on **Android**, you should always pass a title as well. The title is used when the button is collapsed to the overflow menu and as a tooltip when the button is long pressed.
 :::
 
@@ -73,7 +73,7 @@ On Android, use the [showAsAction](#showasaction) options to control when the bu
 
 ### Left button
 Left buttons behave like right buttons with two caveats on Android:
-* Only a single left button is alowed
+* Only a single left button is allowed
 * Textual left button isn't supported
 
 ### Using a react component in a button
@@ -88,7 +88,7 @@ To do so, you'll first need to register the view with Navigation, just like you 
 Navigation.registerComponent('ButtonComponent', () => require('./ButtonComponent'));
 ```
 
-Now you can create buttons which use the component registered with `'ButtonComponent'` as thier custom view:
+Now you can create buttons which use the component registered with `'ButtonComponent'` as their custom view:
 
 ```js
 topBar: {
@@ -104,9 +104,9 @@ topBar: {
 ```
 
 ### Updating props of custom buttons
-To update props of a mounted compoennt used as a button, you'll first need to assign it a unique id, then call the `Navigation.updateProps()` command with the id.
+To update props of a mounted component used as a button, you'll first need to assign it a unique id, then call the `Navigation.updateProps()` command with the id.
 
-Calling the updateProps command will trigger React's component lifecycle methods related to [props update](https://reactjs.org/docs/react-component.html#updating)
+Calling the updateProps command will trigger Reacts component lifecycle methods related to [props update](https://reactjs.org/docs/react-component.html#updating)
 ```js
 // Declare the button and assign it a unique id
 topBar: {
@@ -161,7 +161,7 @@ Navigation.mergeOptions(this.props.componentId, {
 The back button is added automatically when two or more screens are pushed into the stack.
 
 ### Styling the back button
-The back button's style can be customised by declaring a backButton options object. This configuration can be part of a screen's static options, or default options.
+The back button's style can be customized by declaring a backButton options object. This configuration can be part of a screen's static options, or default options.
 
 ```js
 backButton: {
@@ -170,8 +170,8 @@ backButton: {
 }
 ```
 
-### Controling visibility
-The back buttons visbility can be controlled with the visible property.
+### Controlling visibility
+The back buttons visibility can be controlled with the visible property.
 
 ```js
 backButton: {
@@ -179,7 +179,7 @@ backButton: {
 }
 ```
 
-### Changing visbility programmatically
+### Changing visibility programmatically
 Back button visibility can be changed dynamically using the mergeOptions command. When using a screen's componentId, the change will affect only that specific screen. But when using the stack's id, the change will affect all screens pushed into the stack.
 
 ```js
