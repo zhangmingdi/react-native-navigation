@@ -45,8 +45,10 @@ module.exports = {
       'overlay-docs'
     ],
     Styling: [
+      'theme',
       'orientation',
-      'screen-animations'
+      'screen-animations',
+      'fonts'
     ]
   },
   API: [
