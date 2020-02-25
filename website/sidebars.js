@@ -1,7 +1,3 @@
- // Minimal setup
- // Fundamentals
- // Showcases
-
 module.exports = {
   docs: {
     'Getting Started': [
