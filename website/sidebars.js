@@ -7,7 +7,8 @@ module.exports = {
     ],
     'XXX': [
       'fundamentals',
-      'app-launch'
+      'app-launch',
+      'navigating'
     ],
     Layouts: [
       'stack-doc',
