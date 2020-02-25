@@ -1,8 +1,10 @@
 ---
-id: bottomTabs-selecting
-title: Selecting Tabs Programmatically
-sidebar_label: Selecting Tabs Programmatically
+id: bottom-tabs
+title: Bottom tabs
+sidebar_label: Bottom tabs
 ---
+
+## Selecting Tabs Programmatically
 
 https://developer.apple.com/documentation/uikit/uitabbarcontroller
 https://material.io/develop/android/components/bottom-navigation-view/
@@ -68,5 +70,44 @@ Navigation.mergeOptions(this.props.componentId, {
   bottomTabs: {
     currentTabId: this.props.componentId
   }
+});
+```
+
+## Changing BottomTabs visibility
+
+The `visible` property is used to control the BottomTab visibility. Visibility can be toggled dynamically using the `mergeOptions` command.
+```js
+Navigation.mergeOptions(componentId, {
+  bottomTabs: {
+    visible: false
+  },
+});
+```
+
+Visibility can also be changed when pushing screens.
+```js
+Navigation.push(componentId, {
+  component: {
+    name: 'pushedScreen',
+    options: {
+      bottomTabs: {
+        visible: false
+      }
+    }
+  }
+});
+```
+
+## Updating tab options dynamically
+
+To update a tab option, like icon, text or color, simply call `mergeOptions` with the new options using the id of a component or layout contained in the tab we wish to update.
+
+The following snippet demonstrate how to update the color of a specific tab.
+```js
+Navigation.mergeOptions(componentId, {
+  bottomTab: {
+    iconColor: 'red',
+    textColor: 'red'
+  },
 });
 ```

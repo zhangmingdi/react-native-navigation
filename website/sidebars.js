@@ -8,15 +8,16 @@ module.exports = {
     ],
     Layouts: [
       'stack-doc',
-      {
-        'type': 'category',
-        'label': 'BottomTabs',
-        'items': [
-          'bottomTabs-selecting',
-          'bottomTabs-visibility',
-          'bottomTabs-dynamic-options'
-        ]
-      },
+      'bottom-tabs',
+      // {
+      //   'type': 'category',
+      //   'label': 'BottomTabs',
+      //   'items': [
+      //     'bottomTabs-selecting',
+      //     'bottomTabs-visibility',
+      //     'bottomTabs-dynamic-options'
+      //   ]
+      // },
       {
         'type': 'category',
         'label': 'SideMenu',
