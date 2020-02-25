@@ -4,7 +4,10 @@ module.exports = {
       'installing',
       'minimalSetup',
       'fundamentals',
+      'app-launch',
+      'displayTheAppRoot',
       'showcases',
+      'showcases'
     ],
     Layouts: [
       'stack-doc',

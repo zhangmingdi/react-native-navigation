@@ -1,13 +1,21 @@
-# App Launch
+---
+id: app-launch
+title: Launching the app
+sidebar_label: Launching the app
+---
+
 When your app is launched for the first time, the bundle is parsed and executed. At this point you need to show your UI. To do so, Listen to the `appLaunched` event and call `Navigation.setRoot` when the event is received.
 
 ```js
 Navigation.events().registerAppLaunchedListener(() => {
-  // Each time the event is received we should call Navigation.setRoot
+  // Each time the event is received you should call Navigation.setRoot
 });
 ```
 
-!> Register the listener with `registerAppLaunchedListener` as soon as possible - it should be one of the first lines in your `index.js` file.
+:::important
+Register the app launched listener as soon as possible - it should be one of the first lines in your `index.js` file.
+:::
+
 If you're observing a "white screen" or a hanging splash screen after relaunching your app, it probably means `Navigation.setRoot` isn't called once the app has launched. Perhaps the listener was registered too late.
 
 ## The difference between the platforms
