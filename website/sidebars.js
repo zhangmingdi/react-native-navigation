@@ -5,42 +5,17 @@ module.exports = {
       'minimalSetup',
       'showcases'
     ],
-    'XXX': [
-      'fundamentals',
+    'Using the app': [
       'app-launch',
-      'navigating'
+      'navigating-the-app',
+      'screen-lifecycle',
+      'passing-data-to-components',
     ],
     Layouts: [
       'stack-doc',
       'bottom-tabs',
       'side-menu',
       'external-component',
-      // {
-      //   'type': 'category',
-      //   'label': 'BottomTabs',
-      //   'items': [
-      //     'bottomTabs-selecting',
-      //     'bottomTabs-visibility',
-      //     'bottomTabs-dynamic-options'
-      //   ]
-      // },
-      // {
-      //   'type': 'category',
-      //   'label': 'SideMenu',
-      //   'items': [
-      //     'sideMenu-openProgrammatically',
-      //     'sideMenu-disable'
-      //   ]
-      // },
-      // {
-      //   'type': 'category',
-      //   'label': 'ExternalComponent',
-      //   'items': [
-      //     'externalComponent-viewGroup',
-      //     'externalComponent-fragment',
-      //     'externalComponent-viewController'
-      //   ]
-      // }
     ],
     Hierarchy: [
       'root',

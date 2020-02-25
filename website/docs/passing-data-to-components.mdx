@@ -1,0 +1,43 @@
+---
+id: passing-data-to-components
+title: Passing data to components
+sidebar_label: Passing data to components
+---
+
+### Initial props
+
+React components use [props](https://facebook.github.io/react-native/docs/props) to recieve data when they are
+created. When displaying [component]() layout, you can pass initial props to the component with the `passProps`
+property.
+
+In this example, we push a screen, the `UserProfile` screen, and pass two initial props to it:
+
+```js
+Navigation.push(this.props.componentId, {
+  component: {
+    name: 'UserProfile',
+    id: 'PROFILE_SCREEEN_ID'
+    passProps: {
+      name: 'John Doe',
+      status: 'online'
+    }
+  }
+});
+```
+
+:::tip Serialization
+passProps don't need to be serializable. You can use this mechanism to pass lambda functions or even React Components.
+:::
+
+### Updating props
+
+To update a component's props, use the [Navigation.updateProps()]() command. Updating props triggers
+the component lifecycle methods related to [updating](https://reactjs.org/docs/react-component.html#updating).
+
+Notice that we're using the component's id in order to update props of this specific instance of the component.
+
+```js
+Navigation.updateProps('PROFILE_SCREEEN_ID', {
+  status: 'offline'
+});
+```
