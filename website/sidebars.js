@@ -61,6 +61,7 @@ module.exports = {
       'updating-props'
     ],
     Styling: [
+      'theme',
       'orientation',
       'screen-animations',
       'fonts'
