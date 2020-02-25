@@ -13,6 +13,8 @@ module.exports = {
     Layouts: [
       'stack-doc',
       'bottom-tabs',
+      'side-menu',
+      'external-component',
       // {
       //   'type': 'category',
       //   'label': 'BottomTabs',
@@ -22,23 +24,23 @@ module.exports = {
       //     'bottomTabs-dynamic-options'
       //   ]
       // },
-      {
-        'type': 'category',
-        'label': 'SideMenu',
-        'items': [
-          'sideMenu-openProgrammatically',
-          'sideMenu-disable'
-        ]
-      },
-      {
-        'type': 'category',
-        'label': 'ExternalComponent',
-        'items': [
-          'externalComponent-viewGroup',
-          'externalComponent-fragment',
-          'externalComponent-viewController'
-        ]
-      }
+      // {
+      //   'type': 'category',
+      //   'label': 'SideMenu',
+      //   'items': [
+      //     'sideMenu-openProgrammatically',
+      //     'sideMenu-disable'
+      //   ]
+      // },
+      // {
+      //   'type': 'category',
+      //   'label': 'ExternalComponent',
+      //   'items': [
+      //     'externalComponent-viewGroup',
+      //     'externalComponent-fragment',
+      //     'externalComponent-viewController'
+      //   ]
+      // }
     ],
     Hierarchy: [
       'root',

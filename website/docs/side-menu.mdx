@@ -1,8 +1,10 @@
 ---
-id: sideMenu-openProgrammatically
-title: Opening the SideMenu Programmatically
-sidebar_label: Opening Programmatically
+id: side-menu
+title: Side Menu
+sidebar_label: Side Menu
 ---
+
+## Opening programmatically
 
 To open the side menu programmatically, you'll need to update the visible property of the side menu you'd like to open.
 
@@ -17,7 +19,7 @@ Navigation.mergeOptions(componentId, {
 });
 ```
 
-## Open by pressing on the hamburger menu
+## Opening via the hamburger menu
 The most common use case is to open the side menu by pressing the hamburger button at the TopBar. To achieve this, listen to the press event of the burger button, and open the side menu as shown above.
 
 ```jsx
