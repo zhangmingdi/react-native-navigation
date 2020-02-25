@@ -1,25 +1,14 @@
+ // Minimal setup
+ // Fundamentals
+ // Showcases
+
 module.exports = {
   docs: {
-    Installation: [
-      {
-        type: 'category',
-        label: 'iOS',
-        items: [
-          'iosManual',
-          'iosCocoaPods'
-        ]
-      },
-      {
-        'type': 'category',
-        'label': 'Android',
-        'items': [
-          'installingAndroid'
-        ]
-      }
-    ],
     'Getting Started': [
-      'displayTheAppRoot',
-      'showcases'
+      'installing',
+      'minimalSetup',
+      'fundamentals',
+      'showcases',
     ],
     Layouts: [
       'stack-doc',
@@ -54,11 +43,6 @@ module.exports = {
       'root',
       'modal-docs',
       'overlay-docs'
-    ],
-    Fundamentals: [
-      'navigating-the-app',
-      'screen-lifecycle',
-      'updating-props'
     ],
     Styling: [
       'orientation',

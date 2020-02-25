@@ -14,8 +14,8 @@ module.exports = {
         src: 'img/logo.png',
       },
       links: [
-        {to: 'docs/iosManual', label: 'Docs', position: 'left'},
-        {to: 'docs/root-api', label: 'API', position: 'left'},
+        {to: 'docs/installing', label: 'Docs', position: 'left'},
+        {to: 'docs/modal-api', label: 'API', position: 'left'},
         {
           href: 'https://github.com/wix/react-native-navigation',
           label: 'GitHub',
@@ -23,6 +23,7 @@ module.exports = {
         },
       ],
     },
+    sidebarCollapsible: false,
     footer: {
       style: 'dark',
       links: [
