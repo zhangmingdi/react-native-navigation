@@ -3,11 +3,11 @@ module.exports = {
     'Getting Started': [
       'installing',
       'minimalSetup',
-      'fundamentals',
-      'app-launch',
-      'displayTheAppRoot',
-      'showcases',
       'showcases'
+    ],
+    'XXX': [
+      'fundamentals',
+      'app-launch'
     ],
     Layouts: [
       'stack-doc',
