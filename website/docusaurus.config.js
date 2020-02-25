@@ -14,7 +14,7 @@ module.exports = {
         src: 'img/logo.png',
       },
       links: [
-        {to: 'docs/iosManual', label: 'Docs', position: 'left'},
+        {to: 'docs/installing', label: 'Docs', position: 'left'},
         {to: 'docs/modal-api', label: 'API', position: 'left'},
         {
           href: 'https://github.com/facebook/docusaurus',
