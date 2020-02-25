@@ -1,0 +1,41 @@
+---
+id: navigating
+title: Navigating the app
+sidebar_label: Navigating the app
+---
+
+A mobile app consists of various destinations which display content to the user. Users explore the app by navigating between these destinations. React-native-navigation provides ways for you to layout your content on
+screen in a logical and performant manner.
+
+React Native Navigation's stack layout lets you push screens and navigate back to previous screens.Screens pushed into the stack hide the previous screen in the stack, making the user focus on a single screen at a time. We'll now demonstrate how to use the stack layout to provide basic navigation for your app.
+
+```js
+// In index.js in a new project
+
+import { Navigation } from 'react-native-navigation';
+
+function HomeScreen() {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>Home Screen</Text>
+    </View>
+  );
+}
+
+const Stack = createStackNavigator();
+
+function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={HomeScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+
+export default App;
+```
+
+
+If this sounds familiar to you, it's because this layout resembles navigation in web pages where the users navigates to pages by clicking on links and navigates back by clicking the back button.
