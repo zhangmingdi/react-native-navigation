@@ -1,41 +1,332 @@
 ---
-id: navigating
+id: navigating-the-app
 title: Navigating the app
 sidebar_label: Navigating the app
 ---
+
+import useBaseUrl from '@docusaurus/useBaseUrl';
 
 A mobile app consists of various destinations which display content to the user. Users explore the app by navigating between these destinations. React-native-navigation provides ways for you to layout your content on
 screen in a logical and performant manner.
 
 React Native Navigation's stack layout lets you push screens and navigate back to previous screens.Screens pushed into the stack hide the previous screen in the stack, making the user focus on a single screen at a time. We'll now demonstrate how to use the stack layout to provide basic navigation for your app.
 
-```js
-// In index.js in a new project
+## Creating a stack
 
-import { Navigation } from 'react-native-navigation';
+```jsx
+// In index.js of a new project
+const { Navigation } = require('react-native-navigation');
+const React = require('react');
+const { View, Text, StyleSheet } = require('react-native');
 
-function HomeScreen() {
+const HomeScreen = (props) => {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+    <View style={styles.home}>
       <Text>Home Screen</Text>
+    </View>
+  );
+};
+Navigation.registerComponent('Home', () => HomeScreen);
+
+Navigation.events().registerAppLaunchedListener(async () => {
+  Navigation.setRoot({
+    root: {
+      stack: {
+        children: [
+          {
+            component: {
+              name: 'Home'
+            }
+          }
+        ]
+      }
+    }
+  });
+});
+
+const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'whitesmoke'
+  }
+});
+```
+
+If you run this code, you will see a screen with an empty TopBar and your HomeScreen component (shown below). The TopBar is part of the stack layout, we'll see how to configure it later.
+
+<img width="40%" src={useBaseUrl('img/stack1.png')} />
+
+## Specifying options
+Each layout (Stack, component pushed into a stack etc) can specify options to configure various parameters like the TopBar title or color. Lets spice things up by changing the TopBar color and while we're at it, lets move the title to the TopBar.
+
+Lets change the Home screen declaration to the following and reload the app to view the changes.
+```jsx
+const HomeScreen = (props) => {
+  return (
+    <View style={styles.home}>
+      <Text>Hello React Native Navigation 👋</Text>
+    </View>
+  );
+};
+HomeScreen.options = {
+  topBar: {
+    title: {
+      text: 'Home',
+      color: 'white'
+    },
+    background: {
+      color: '#4d089a'
+    }
+  }
+}
+```
+
+Our app should now look like this:
+<img width="40%" src={useBaseUrl('img/stackOptions.png')} />
+
+## Navigating in a stack
+
+In the previous section we've created a stack and initialized it with a single child. We'll now learn how to add another child to the stack. From now on, we'll call the action of adding a children to the stack 'push', and removing children - 'pop'.
+
+In order to push another screen to the stack, we will add a button to the home screen and call `Navigation.push`. The 'push' command accepts two parameters, the first is the id used to indicate into which stack to push the screen and the second is the screen we're pushing. After pushing a screen, a back button is added automatically to the TopBar so the users can navigate easily back to the previous screen.
+
+You can read more about the stack layout [here](stack-doc) or dive right into the API [here](stack-api).
+
+:::info componentId
+Each React component registered with `Navigation.registerComponent` is assigned a unique `componentId` by Navigation. This unique id is used with Navigation commands (like the push command) to indicate into which stack we'd like to push. In this case, by using the Home screen's componentId, we are telling Navigation to push into the stack containing the Home screen.
+:::
+
+```js
+Navigation.push(props.componentId, {
+  component: {
+    name: 'Settings', // Push the screen registered with the 'Settings' key
+    options: { // Optional options object to configure the screen
+      topBar: {
+        title: {
+          text: 'Settings' // Set the TopBar title of the new Screen
+        }
+      }
+    }
+  }
+});
+```
+
+Lets change our code to the following snippet below and reload the app. Now our Home screen contains a button which pushes a new screen into the stack. We've successfully navigated to a new screen! 👏
+
+```jsx
+// In index.js of a new project
+const { Navigation } = require('react-native-navigation');
+const React = require('react');
+const { View, Text, Button, StyleSheet } = require('react-native');
+
+
+// Settings screen declaration - this is the screen we'll be pushing into the stack
+const SettingsScreen = () => {
+  return (
+    <View style={[styles.root, styles.settings]}>
+      <Text>Settings Screen</Text>
+    </View>
+  );
+};
+
+// Home screen declaration
+const HomeScreen = (props) => {
+  return (
+    <View style={styles.root}>
+      <Text>Hello React Native Navigation 👋</Text>
+      <Button
+        title='Push Settings Screen'
+        color='#710ce3'
+        onPress={() => Navigation.push(props.componentId, {
+          component: {
+            name: 'Settings',
+            options: {
+              topBar: {
+                title: {
+                  text: 'Settings'
+                }
+              }
+            }
+          }
+        })}/>
+    </View>
+  );
+};
+HomeScreen.options = {
+  topBar: {
+    title: {
+      text: 'Home',
+      color: 'white'
+    },
+    background: {
+      color: '#4d089a'
+    }
+  }
+};
+
+const SettingsScreen = () => {
+  return (
+    <View style={styles.root}>
+      <Text>Settings Screen</Text>
     </View>
   );
 }
 
-const Stack = createStackNavigator();
+Navigation.registerComponent('Home', () => HomeScreen);
+Navigation.registerComponent('Settings', () => SettingsScreen);
 
-function App() {
+Navigation.events().registerAppLaunchedListener(async () => {
+  Navigation.setRoot({
+    root: {
+      stack: {
+        children: [
+          {
+            component: {
+              name: 'Home'
+            }
+          }
+        ]
+      }
+    }
+  });
+});
+
+const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'whitesmoke'
+  }
+});
+```
+
+<img width="40%" src={useBaseUrl('img/stack2.gif')} />
+
+## App theme
+
+Our app is growing and already contains two screens. This introduces a new problem - while the home screen has a nice purple TopBar, our settings screen seems pretty dull as it still uses the default system loom and feel.
+Our style declaration applies only to the Home screen, lets apply them to all of our screens by using `Navigation.setDefaultOptions`.
+
+```js
+Navigation.setDefaultOptions({
+  statusBar: {
+    backgroundColor: '#4d089a'
+  },
+  topBar: {
+    title: {
+      color: 'white'
+    },
+    backButton: {
+      color: 'white'
+    },
+    background: {
+      color: '#4d089a'
+    }
+  }
+});
+```
+
+We'll add this snippet before registering the `registerAppLaunchedListener`. This way we ensure our theme is applied when our root is set. Our code should now look like this:
+
+```jsx
+// In index.js of a new project
+const { Navigation } = require('react-native-navigation');
+const React = require('react');
+const { View, Text, Button, StyleSheet } = require('react-native');
+
+
+// Settings screen declaration - this is the screen we'll be pushing into the stack
+const SettingsScreen = () => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <View style={[styles.root, styles.settings]}>
+      <Text>Settings Screen</Text>
+    </View>
+  );
+};
+
+// Home screen declaration
+const HomeScreen = (props) => {
+  return (
+    <View style={styles.root}>
+      <Text>Hello React Native Navigation 👋</Text>
+      <Button
+        title='Push Settings Screen'
+        color='#710ce3'
+        onPress={() => Navigation.push(props.componentId, {
+          component: {
+            name: 'Settings',
+            options: {
+              topBar: {
+                title: {
+                  text: 'Settings'
+                }
+              }
+            }
+          }
+        })}/>
+    </View>
+  );
+};
+HomeScreen.options = {
+  topBar: {
+    title: {
+      text: 'Home',
+    }
+  }
+};
+
+const SettingsScreen = () => {
+  return (
+    <View style={styles.root}>
+      <Text>Settings Screen</Text>
+    </View>
   );
 }
 
-export default App;
-```
+Navigation.registerComponent('Home', () => HomeScreen);
+Navigation.registerComponent('Settings', () => SettingsScreen);
 
 
-If this sounds familiar to you, it's because this layout resembles navigation in web pages where the users navigates to pages by clicking on links and navigates back by clicking the back button.
+Navigation.setDefaultOptions({
+  statusBar: {
+    backgroundColor: '#4d089a'
+  },
+  topBar: {
+    title: {
+      color: 'white'
+    },
+    backButton: {
+      color: 'white'
+    },
+    background: {
+      color: '#4d089a'
+    }
+  }
+});
+Navigation.events().registerAppLaunchedListener(async () => {
+  Navigation.setRoot({
+    root: {
+      stack: {
+        children: [
+          {
+            component: {
+              name: 'Home'
+            }
+          }
+        ]
+      }
+    }
+  });
+});
+
+const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'whitesmoke'
+  }
+});
