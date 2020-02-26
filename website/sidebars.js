@@ -1,6 +1,7 @@
 module.exports = {
   docs: {
     'Getting Started': [
+      'before-you-start',
       'installing',
       'minimalSetup',
       'showcases'
