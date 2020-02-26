@@ -1,16 +1,16 @@
 module.exports = {
   title: 'React Native Navigation',
-  tagline: 'The tagline of my site',
+  tagline: '',
   url: 'https://your-docusaurus-test-site.com',
   baseUrl: '/',
   favicon: 'img/favicon.ico',
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  organizationName: 'wix', // Usually your GitHub org/user name.
+  projectName: 'react-native-navigation', // Usually your repo name.
   themeConfig: {
     navbar: {
       title: 'React Native Navigation',
       logo: {
-        alt: 'My Site Logo',
+        alt: 'React Native Navigation Logo',
         src: 'img/logo.png',
       },
       links: [
