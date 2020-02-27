@@ -7,7 +7,8 @@ module.exports = {
     ],
     'Using the app': [
       'app-launch',
-      'navigating-the-app',
+      'basic-navigation',
+      'advance-navigation',
       'screen-lifecycle',
       'passing-data-to-components',
     ],
