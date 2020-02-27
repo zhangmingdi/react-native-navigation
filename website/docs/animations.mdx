@@ -4,34 +4,38 @@ title: Screen Animations
 sidebar_label: Screen Animations
 ---
 
+TODO:
+- The `:::caution ..... :::` section speaks about future plans - is there a related issue people could track (because that would be cool)?
+- starting from Shared element transitions, things get **very** confusing, maybe we need to add more visual examples or move things around or correct H1, H2, H3, etc. hierarchy.
+
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 
-Our animation framework alows you to animate various elements in your UI by declaring animation options.
-You can change the default animations of various commands like push and pop and even animate elements in
+Our animation framework allows you to animate various elements in your UI by declaring animation options.
+You can change the default animations for various commands, like push and pop, and even animate elements in
 your screens during screen transitions.
 
 ## Animation properties
-The following properties can be animated with our animation framwork:
+The following properties can be animated with our animation framework:
 
 * **x** - Translate the view to a coordinate along the x axis.
 * **y** - Translate the view to a coordinate along the y axis.
-* **translationX** - Translates the view along the x axis relative to its current x position.
-* **translationY** - Translates the view along the y axis relative to its current y position.
-* **alpha** - Applies alpha animation on the view. A value of 0 means the view is not visible, 1 means it's visible.
+* **translationX** - Translate the view along the x axis relative to its current x position.
+* **translationY** - Translate the view along the y axis relative to its current y position.
+* **alpha** - Apply alpha animation to the view. A value of 0 means the view is not visible, 1 means it's visible.
 * **scaleX** - Scale the view on the x axis. A value of 1 means that no scaling is applied.
 * **scaleY** - Scale the view on the y axis. A value of 1 means that no scaling is applied.
-* **rotationX** - Applies a rotation around the x axis.
-* **rotationY** - Applies a rotation around the y axis.
+* **rotationX** - Applies rotation around the x axis (in degrees, passed as a float).
+* **rotationY** - Applies rotation around the y axis (in degrees, passed as a float).
 * **rotation** - Rotates the view on all axis. Positive values result in clockwise rotation.
 
 ## Stack animations
-When animating screens in and out of a stack, you can animate three elements
+When animating screens in and out of a stack, there are three elements you can work with: 
 
-1. **content** - the screen being pushed or popped
-2. **topBar** - the stack's TopBar
-3. **bottomTabs** - If the stack is a child of a bottomTabs layout, we can control the hide and show animations of the bottomTabs
+1. **content** - screen being pushed or popped
+2. **topBar** - stack's TopBar
+3. **bottomTabs** - if stack is a child of a bottomTabs layout, we can control the `hide` and `show` animations of the bottomTabs.
 
 <Tabs
   defaultValue="push"
@@ -85,8 +89,7 @@ options: {
 </Tabs>
 
 ## Modal animations
-Modal animations are declared similarly to stack animations, only this time we animte the entire view and not only
-part of the UI (content).
+Modal animations are declared similarly to stack animations, only this time we animate the entire view and not only part of the UI (content).
 
 <Tabs
   defaultValue="show"
@@ -131,46 +134,45 @@ options: {
 </TabItem>
 </Tabs>
 
-## Shared element transition
+## Shared element transitions
 
-Shared element transitions allows us to provide visual continuity when navigating between destinations. It also
-focuses the user's attention on a significant element which gives the user better context when transitioning to
-another destination.
+Shared element transitions allow us to provide visual continuity when navigating between destinations. This also focuses user attention on a particular significant element, which then also gives such user better context when transitioning to some other destination.
 
 :::caution
-At the moment, the transition is available on iOS for push and pop while on Android it's available only for push commands.
-We will soon add parity and expand the supported commands to show/dismiss modal and changing BottomTabs.
+At the moment, the transition is available on iOS for push and pop while on Android it's available only for push commands. We are working on adding parity and expanding supported commands to show/dismiss modal and change BottomTabs.
 :::
 
-### Example
 In the sections below we will use the following example from the playground app:
-* [Source screen](https://github.com/wix/react-native-navigation/blob/master/playground/src/screens/sharedElementTransition/CocktailsList.js)
-* [Destination screen](https://github.com/wix/react-native-navigation/blob/master/playground/src/screens/sharedElementTransition/CocktailDetailsScreen.js)
 
-<img alt="Shared Element Transition" src={useBaseUrl('img/sharedElement.gif')} />
+> [Source screen](https://github.com/wix/react-native-navigation/blob/master/playground/src/screens/sharedElementTransition/CocktailsList.js) and the [Destination screen](https://github.com/wix/react-native-navigation/blob/master/playground/src/screens/sharedElementTransition/CocktailDetailsScreen.js)
 
-#### Transition breakdown
-Four elements are animated in this example.
 
-* **image** - the item's image is animated to the next screen.
-  * Image scale (resizeMode)
+<p align="center">
+  <img alt="Shared Element Transition" src={useBaseUrl('img/sharedElement.gif')} />
+</p>
+
+### Transition breakdown
+Four elements are animated in the example above:
+
+* **image** - the item image is animated to the next screen.
+  * image scale (resizeMode)
   * position on screen
 
 * **image background** - each item has a "shadow" view which transitions to the next screen and turns into a colorful header.
   * scale
   * position on screen
 
-* **title** - the item's title is animated to the next screen.
+* **title** - the item title is animated to the next screen.
   * font size
   * font color
   * position on screen
 
-* **Description** - the item's description in the destination screen.
+* **Description** - the item description in the destination screen.
   * fade-in
   * translation y
 
+### Recreating transitions on your own
 
-### API
 #### Step 1 - set a nativeID prop to elements in the source screen
 In order for RNN to be able to detect the corresponding native views of the elements,
 each element must include a unique `nativeID` prop.
@@ -216,14 +218,9 @@ Navigation.push(this.props.componentId, {
 ```
 
 ## Element Transitions
-Element transitions allow you to animate elements during shared element transitions.
+Besides being stand-alone, element transitions also allow you to animate elements during shared element transitions.
 
-### Example
-In the sections below we will use the following example from the playground app:
-* [Source screen](https://github.com/wix/react-native-navigation/blob/master/playground/src/screens/sharedElementTransition/CocktailsList.js)
-* [Destination screen](https://github.com/wix/react-native-navigation/blob/master/playground/src/screens/sharedElementTransition/CocktailDetailsScreen.js)
-
-### API
+### Recreating
 #### Step 1 - set a nativeID prop to elements either source or destination screens
 
 ```jsx
@@ -266,10 +263,10 @@ Navigation.push(this.props.componentId, {
 
 ## Peek and Pop (iOS 11.4+)
 
-react-native-navigation supports the [Peek and pop](
+react-native-navigation supports [Peek and pop](
 https://developer.apple.com/library/content/documentation/UserExperience/Conceptual/Adopting3DTouchOniPhone/#//apple_ref/doc/uid/TP40016543-CH1-SW3) feature in iOS 11.4 and newer.
 
-This works by passing a ref a componentent you would want to transform into a peek view. We have included a handly component to handle all the touches and ref for you.
+This works by passing a ref to a component you want to transform into peek view. We have included a handy component to handle all the touches and ref for you:
 
 ```jsx
 const handlePress ({ reactTag }) => {
