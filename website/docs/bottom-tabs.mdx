@@ -4,11 +4,17 @@ title: Bottom tabs
 sidebar_label: Bottom tabs
 ---
 
+Bottom tabs refferes to a row of links, displayed at the bottom of the screen, and is reffered to as "Tab Bar" in iOS and as "Bottom Navigation Bars" on Android. Usually these are intended to be used to switch between top-level content views with a single tap.
+
+## Creating bottom tabs
+
+TODO:
+- Write this section:
+  - explain basic setup for bottom tabs
+  - show screenshot examples
+  - maybe talk about styling?
+
 ## Selecting Tabs Programmatically
-
-https://developer.apple.com/documentation/uikit/uitabbarcontroller
-https://material.io/develop/android/components/bottom-navigation-view/
-
 Tabs can be selected programmatically by updating the `currentTabIndex` or `currentTabId` options.
 
 We'll use the following BottomTabs layout to demonstrate programmatic tab selection.
@@ -64,7 +70,8 @@ Navigation.mergeOptions('BOTTOM_TABS_LAYOUT', {
 
 ### Selecting a tab by id
 Tabs can also be selected by id (`componentId`). This is particularly useful in cases where you don't know in which tab a screen is contained.
-For example, if invoked from one of the child components; `HOME_SCREEN` or `SETTINGS_SCREEN`, the following merge command will select the tab containing the child.
+For example, if invoked from one of the child components, `HOME_SCREEN` or `SETTINGS_SCREEN`, the following merge command will select the tab containing the child.
+
 ```js
 Navigation.mergeOptions(this.props.componentId, {
   bottomTabs: {
@@ -100,9 +107,9 @@ Navigation.push(componentId, {
 
 ## Updating tab options dynamically
 
-To update a tab option, like icon, text or color, simply call `mergeOptions` with the new options using the id of a component or layout contained in the tab we wish to update.
+To update a tab option, like an icon, text or color, simply call `mergeOptions` with new options using the id of a component or layout contained in the tab you wish to update.
 
-The following snippet demonstrate how to update the color of a specific tab.
+For instance, in the example below we update the color of a specific tab:
 ```js
 Navigation.mergeOptions(componentId, {
   bottomTab: {
