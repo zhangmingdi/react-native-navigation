@@ -6,10 +6,9 @@ sidebar_label: Basic navigation
 
 import useBaseUrl from '@docusaurus/useBaseUrl';
 
-A mobile app consists of various destinations which display content to the user. Users explore the app by navigating between these destinations. React-native-navigation provides ways for you to layout your content on
-screen in a logical and performant manner.
+Generally, any mobile app consists of various destinations which display some content to the user. And in vast majority of cases using an app means navigating between these destinations. React-native-navigation provides ways for you to layout your content on user screen in a logical and performant manner.
 
-React Native Navigation's stack layout lets you push screens and navigate back to previous screens.Screens pushed into the stack hide the previous screen in the stack, making the user focus on a single screen at a time. We'll now demonstrate how to use the stack layout to provide basic navigation for your app.
+React Native Navigation's stack layout lets you push screens, and also navigate back to previous screens. Screens pushed into the stack hide the previous screen in the stack, making the user focus on a single screen at a time. Let's look at a stack layout that provides basic navigation for an app.
 
 ## Creating a stack
 
@@ -54,14 +53,15 @@ const styles = StyleSheet.create({
 });
 ```
 
-If you run this code, you will see a screen with an empty TopBar and your HomeScreen component (shown below). The TopBar is part of the stack layout, we'll see how to configure it later.
+Running this code will render a screen with an empty TopBar and your HomeScreen component (shown below). The TopBar is part of the stack layout, we'll work on configuring it later.
 
 <img width="40%" src={useBaseUrl('img/stack1.png')} />
 
 ## Specifying options
-Each layout (Stack, component pushed into a stack etc) can specify options to configure various parameters like the TopBar title or color. Lets spice things up by changing the TopBar color and while we're at it, lets move the title to the TopBar.
 
-Lets change the Home screen declaration to the following and reload the app to view the changes.
+You can specify options of each layout (Stack, component pushed into a stack, etc.) to configure various parameters like the TopBar title or color. Lets spice things up by changing the TopBar color and while we're at it, also move the title to the TopBar.
+
+Lets change the Home screen declaration to the following and reload the app to see the changes.
 ```jsx
 const HomeScreen = (props) => {
   return (
@@ -88,14 +88,14 @@ Our app should now look like this:
 
 ## Navigating in a stack
 
-In the previous section we've created a stack and initialized it with a single child. We'll now learn how to add another child to the stack. From now on, we'll call the action of adding a children to the stack 'push', and removing children - 'pop'.
+In the previous section we created a stack and initialized it with a single child. We'll now learn how to add another child to the stack. From now on, we'll call the action of adding children to the stack 'push', and removing children - 'pop'.
 
 In order to push another screen to the stack, we will add a button to the home screen and call `Navigation.push`. The 'push' command accepts two parameters, the first is the id used to indicate into which stack to push the screen and the second is the screen we're pushing. After pushing a screen, a back button is added automatically to the TopBar so the users can navigate easily back to the previous screen.
 
 You can read more about the stack layout [here](stack-doc) or dive right into the API [here](stack-api).
 
 :::info componentId
-Each React component registered with `Navigation.registerComponent` is assigned a unique `componentId` by Navigation. This unique id is used with Navigation commands (like the push command) to indicate into which stack we'd like to push. In this case, by using the Home screen's componentId, we are telling Navigation to push into the stack containing the Home screen.
+Each React component registered with `Navigation.registerComponent` is assigned a unique `componentId` by Navigation. This unique id is used with Navigation commands (like the push command) to indicate into which stack we'd like to push. In this case, by using the componentId of the Home screen, we are telling Navigation to push into the stack containing the Home screen.
 :::
 
 ```js
@@ -113,7 +113,7 @@ Navigation.push(props.componentId, {
 });
 ```
 
-Lets change our code to the following snippet below and reload the app. Now our Home screen contains a button which pushes a new screen into the stack. We've successfully navigated to a new screen! 👏
+Lets change our code to the following snippet below and reload the app. Now our Home should contain a button which when pressed, pushes a new screen into the stack. We've successfully navigated to a new screen! 👏
 
 ```jsx
 // In index.js of a new project
@@ -207,8 +207,9 @@ const styles = StyleSheet.create({
 
 ## App theme
 
-Our app is growing and already contains two screens. This introduces a new problem - while the home screen has a nice purple TopBar, our settings screen seems pretty dull as it still uses the default system loom and feel.
-Our style declaration applies only to the Home screen, lets apply them to all of our screens by using `Navigation.setDefaultOptions`.
+Our app is growing and already contains two screens. This introduces a new problem - while the home screen has a nice purple TopBar, our settings screen seems pretty dull as it still uses the default system look and feel.
+
+Currently, our style declaration applies only to the Home screen, so lets apply it to all of our screens by using `Navigation.setDefaultOptions`.
 
 ```js
 Navigation.setDefaultOptions({
@@ -229,7 +230,7 @@ Navigation.setDefaultOptions({
 });
 ```
 
-We'll add this snippet before registering the `registerAppLaunchedListener`. This way we ensure our theme is applied when our root is set. Our code should now look like this:
+We need to add this snippet before registering the `registerAppLaunchedListener`. This way we ensure our theme is applied when our root is set. Our code should now look like this:
 
 ```jsx
 // In index.js of a new project
@@ -332,6 +333,6 @@ const styles = StyleSheet.create({
 });
 ```
 
-Lets run our code again, now our design is consistent across both screens.
+Lets run our code again - now our design is consistent across both screens.
 
 <img width="40%" src={useBaseUrl('img/stack3.gif')} />
