@@ -7,6 +7,9 @@ module.exports = {
   organizationName: 'wix', // Usually your GitHub org/user name.
   projectName: 'react-native-navigation', // Usually your repo name.
   themeConfig: {
+    prism: {
+      theme: require('prism-react-renderer/themes/vsDark'),
+    },
     navbar: {
       title: 'React Native Navigation',
       logo: {
