@@ -279,3 +279,17 @@ const styles = StyleSheet.create({
   }
 });
 ```
+
+## Conditional roots
+
+Now that our initial root is the Login root, we're facing a new problem - how should we show the Login root only if the user is not logged in? Since out initial root is determined in the `registerAppLaunchedListener` callback, we'll check if the user is logged in there and set the appropriate root accordingly.
+
+```jsx
+Navigation.events().registerAppLaunchedListener(async () => {
+  Navigation.setRoot(isLoggedIn() ? mainRoot : loginRoot);
+});
+
+function isLoggedIn() {
+  // TODO: your business logic goes here
+}
+```
