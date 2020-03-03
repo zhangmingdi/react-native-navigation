@@ -26,6 +26,7 @@ module.exports = {
     ],
     Styling: [
       'theme',
+      'statusBar-docs',
       'orientation',
       'screen-animations',
       'fonts'
