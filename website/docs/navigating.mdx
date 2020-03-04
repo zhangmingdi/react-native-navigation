@@ -336,3 +336,16 @@ const styles = StyleSheet.create({
 Lets run our code again - now our design is consistent across both screens.
 
 <img width="40%" src={useBaseUrl('img/stack3.gif')} />
+
+## Summary
+
+We've learned the basics of navigation with React Native Navigation by implementing a stack and pushing screens into it.
+We've also learned of a few methods to apply styles to our screens and layouts with the Options mechanism.
+
+* Navigation.setRoot() sets the root layout of our app. The initial root has to be set from an `AppLaunchedEvent` callback.
+* Options can be applied directly to components
+* Screens can be added to a stack with the `Navigation.push()` command
+* Components registered with `Navigation.registerComponent()` are injected with a `componentId` which is used when navigating.
+* Themes are applied with the `Navigation.setDefaultOptions()` command.
+
+In the next section we'll explore a more advance navigation patters using BottomTabs layout and also see how, and why, multiple roots are set.

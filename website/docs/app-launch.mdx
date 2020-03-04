@@ -32,5 +32,6 @@ An Android application is typically bound to two contexts:
 
 React's JS Context is executed on and bound to the Application context. This means that even when the Activity context (and thus the UI) is destroyed, React's JS Context remains active until the Application (and your process) are destroyed by the system.
 
-> **IMPORTANT** Because of this, when your app returns to foreground, JS Context might still exist on Android, even when the Activity and UI contexts have been destroyed - meaning you might not need to initialise all of your app logic; instead, you'll only need to call `Navigation.setRoot` to repopulate the UI context. This circumstance can easily be determined by setting a flag on your app's first `appLaunched` event, and checking the value of that flag on subsequent `appLaunched` events -- if the flag is true in your `appLaunched` callback, you need to call `Navigation.setRoot` to repopulate the UI.
-
+:::caution
+Because of this, when your app returns to foreground, JS Context might still exist on Android, even when the Activity and UI contexts have been destroyed - meaning you might not need to initialise all of your app logic; instead, you'll only need to call `Navigation.setRoot` to repopulate the UI context. This circumstance can easily be determined by setting a flag on your app's first `appLaunched` event, and checking the value of that flag on subsequent `appLaunched` events -- if the flag is true in your `appLaunched` callback, you need to call `Navigation.setRoot` to repopulate the UI.
+:::
