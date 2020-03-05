@@ -1,10 +1,10 @@
 ---
-id: bottom-tabs
+id: bottomTabs-docs
 title: Bottom tabs
 sidebar_label: Bottom tabs
 ---
 
-Bottom tabs refferes to a row of links, displayed at the bottom of the screen, and is reffered to as "Tab Bar" in iOS and as "Bottom Navigation Bars" on Android. Usually these are intended to be used to switch between top-level content views with a single tap.
+Bottom tabs referees to a row of links, displayed at the bottom of the screen, and is refereed to as "Tab Bar" in iOS and as "Bottom Navigation Bars" on Android. Usually these are intended to be used to switch between top-level content views with a single tap.
 
 ## Creating bottom tabs
 
@@ -118,3 +118,13 @@ Navigation.mergeOptions(componentId, {
   },
 });
 ```
+
+## Controlling tab loading
+
+By default, all tabs are mounted at the same time. This can have a negative impact on performance since screens which are not visible to the user are mounted.
+
+The order in which tabs are mounted can be configured with the `tabsAttachMode` option:
+
+* `together` - all tabs are mounted at the same time, this is the default behavior.
+* `afterInitialTab` - After the initial tab is mounted, other tabs are mounted.
+* `onSwitchToTab` - Initial tab is mounted, other tabs are mounted when the user navigates to them for the first time.

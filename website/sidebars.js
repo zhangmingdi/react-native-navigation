@@ -15,7 +15,7 @@ module.exports = {
     ],
     Layouts: [
       'stack-doc',
-      'bottom-tabs',
+      'bottomTabs-docs',
       'side-menu',
       'external-component',
     ],
@@ -29,7 +29,8 @@ module.exports = {
       'statusBar-docs',
       'orientation',
       'screen-animations',
-      'fonts'
+      'fonts',
+      'constants-docs'
     ]
   },
   API: [
