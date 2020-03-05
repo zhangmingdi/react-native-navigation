@@ -34,3 +34,15 @@ Navigation.mergeOptions(this.props.componentId, {
   }
 });
 ```
+
+## How keep current StatusBar color when displaying screens
+
+When screens are displayed the StatusBar color always changes to the color associated with the current screen. If a screen does not specify a color for the StatusBar, the default (System default or from defaultOptions) color is used. Sometimes keeping the current StatusBar color is desired, for example when displaying an alert or a toast. To keep StatusBar color unchanged when displaying screen, use `null` as StatusBar color.
+
+```js
+options: {
+  statusBar: {
+    backgroundColor: null
+  }
+}
+```
