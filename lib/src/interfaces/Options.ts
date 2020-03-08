@@ -545,6 +545,7 @@ export interface OptionsFab {
   hideOnScroll?: boolean;
   size?: number;
   customSize?: number;
+  useCompatPadding?: boolean;
 }
 
 export interface OptionsBottomTabs {

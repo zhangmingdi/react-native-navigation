@@ -5,6 +5,7 @@ import com.reactnativenavigation.parse.params.Bool;
 import com.reactnativenavigation.parse.params.Colour;
 import com.reactnativenavigation.parse.params.NullBool;
 import com.reactnativenavigation.parse.params.NullColor;
+import com.reactnativenavigation.parse.params.Number;
 import com.reactnativenavigation.parse.params.NullNumber;
 import com.reactnativenavigation.parse.params.NullText;
 import com.reactnativenavigation.parse.params.Text;
@@ -40,7 +41,7 @@ public class FabOptions {
         options.alignHorizontally = TextParser.parse(json, "alignHorizontally");
         options.hideOnScroll = BoolParser.parse(json, "hideOnScroll");
         options.size = TextParser.parse(json, "size");
-        options.customSize = TextParser.parse(json, "customSize");
+        options.customSize = NumberParser.parse(json, "customSize");
 
         return options;
     }
@@ -55,7 +56,8 @@ public class FabOptions {
     public Text alignHorizontally = new NullText();
     public Bool hideOnScroll = new NullBool();
     public Text size = new NullText();
-    public Text customSize = new NullText();
+    public Number customSize = new NullNumber();
+    public Bool useCompatPadding = new NullBool();
 
     void mergeWith(final FabOptions other) {
         if (other.id.hasValue()) {
@@ -92,6 +94,10 @@ public class FabOptions {
         if (other.customSize.hasValue()) {
             customSize = other.customSize;
         }
+
+        if (other.useCompatPadding.hasValue()) {
+            useCompatPadding = other.useCompatPadding;
+        }
     }
 
     void mergeWithDefault(FabOptions defaultOptions) {
@@ -127,6 +133,10 @@ public class FabOptions {
         }
         if (!customSize.hasValue()) {
             customSize = defaultOptions.customSize;
+        }
+
+        if (!useCompatPadding.hasValue()) {
+            useCompatPadding = defaultOptions.useCompatPadding;
         }
     }
 

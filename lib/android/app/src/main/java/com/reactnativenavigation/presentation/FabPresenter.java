@@ -167,7 +167,12 @@ public class FabPresenter {
             fab.disableCollapse();
         }
         if (options.customSize.hasValue()) {
-            fab.setCustomSize(Integer.parseInt(options.customSize.get()));
+            if (options.customSize.get() >= 50) {
+                fab.setCustomSize(options.customSize.get());
+            }
+        }
+        if (options.useCompatPadding.hasValue()) {
+            fab.setUseCompatPadding(options.useCompatPadding.get());
         }
     }
 
@@ -190,14 +195,19 @@ public class FabPresenter {
         if (options.size.hasValue()) {
             fab.setSize("mini".equals(options.size.get()) ? SIZE_MINI : SIZE_NORMAL);
         }
-        if (options.hideOnScroll.isTrue()) {
+        if (options.hideOnScroll.isTrue() && options.visible.isTrueOrUndefined()) {
             fab.enableCollapse(component.getScrollEventListener());
         }
         if (options.hideOnScroll.isFalse()) {
             fab.disableCollapse();
         }
         if (options.customSize.hasValue()) {
-            fab.setCustomSize(Integer.parseInt(options.customSize.get()));
+             if (options.customSize.get() >= 50) {
+                fab.setCustomSize(options.customSize.get());
+            }
+        }
+        if (options.useCompatPadding.hasValue()) {
+            fab.setUseCompatPadding(options.useCompatPadding.get());
         }
     }
 //
