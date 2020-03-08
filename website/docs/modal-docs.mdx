@@ -91,7 +91,7 @@ class ModalScreen extends React.Component {
 
 ## Transparent modals
 Showing transparent modals is a nice technique to increase immersiveness while keeping the user in the same context.
-When a modal is displayed the content behind it (either root or modal) is removed from heirarchy. While this behavior improves performance, it's undesired when
+When a modal is displayed the content behind it (either root or modal) is removed from hierarchy. While this behavior improves performance, it's undesired when
 showing transparent modals as we need to see the content behind it.
 
 To configure this behaviour, we'll need to change the `modalPresentationStyle` option to `overCurrentContext` and change the layout background color to `'transparent'`.
@@ -119,3 +119,7 @@ adding a [BackHandler](https://facebook.github.io/react-native/docs/backhandler)
 ### iOS
 While iOS devices don't have a hardware back button, PageSheet modals can be dismissed by swipe gesture
 from the top of the screen. To disable it, set [swipeToDismiss]() option to false.
+
+## Presentation Style
+
+The [presentation style](options-root#modalpresentationstyle) determines the look and feel of a screen displayed as modal.
