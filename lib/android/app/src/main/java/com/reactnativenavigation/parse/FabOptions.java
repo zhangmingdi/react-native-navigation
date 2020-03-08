@@ -5,13 +5,14 @@ import com.reactnativenavigation.parse.params.Bool;
 import com.reactnativenavigation.parse.params.Colour;
 import com.reactnativenavigation.parse.params.NullBool;
 import com.reactnativenavigation.parse.params.NullColor;
+import com.reactnativenavigation.parse.params.NullNumber;
 import com.reactnativenavigation.parse.params.NullText;
 import com.reactnativenavigation.parse.params.Text;
 import com.reactnativenavigation.parse.parsers.BoolParser;
 import com.reactnativenavigation.parse.parsers.ColorParser;
+import com.reactnativenavigation.parse.parsers.NumberParser;
 import com.reactnativenavigation.parse.parsers.TextParser;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -39,6 +40,7 @@ public class FabOptions {
         options.alignHorizontally = TextParser.parse(json, "alignHorizontally");
         options.hideOnScroll = BoolParser.parse(json, "hideOnScroll");
         options.size = TextParser.parse(json, "size");
+        options.customSize = TextParser.parse(json, "customSize");
 
         return options;
     }
@@ -53,6 +55,7 @@ public class FabOptions {
     public Text alignHorizontally = new NullText();
     public Bool hideOnScroll = new NullBool();
     public Text size = new NullText();
+    public Text customSize = new NullText();
 
     void mergeWith(final FabOptions other) {
         if (other.id.hasValue()) {
@@ -84,6 +87,10 @@ public class FabOptions {
         }
         if (other.size.hasValue()) {
             size = other.size;
+        }
+
+        if (other.customSize.hasValue()) {
+            customSize = other.customSize;
         }
     }
 
@@ -117,6 +124,9 @@ public class FabOptions {
         }
         if (!size.hasValue()) {
             size = defaultOptions.size;
+        }
+        if (!customSize.hasValue()) {
+            customSize = defaultOptions.customSize;
         }
     }
 

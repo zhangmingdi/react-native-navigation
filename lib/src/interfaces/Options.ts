@@ -544,6 +544,7 @@ export interface OptionsFab {
   alignHorizontally?: 'left' | 'right';
   hideOnScroll?: boolean;
   size?: number;
+  customSize?: number;
 }
 
 export interface OptionsBottomTabs {
