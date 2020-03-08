@@ -166,10 +166,8 @@ public class FabPresenter {
         if (options.hideOnScroll.isFalseOrUndefined()) {
             fab.disableCollapse();
         }
-        if (options.customSize.hasValue()) {
-            if (options.customSize.get() >= 50) {
-                fab.setCustomSize(options.customSize.get());
-            }
+        if (options.customSize.hasValue() && options.customSize.get() >= 50) {
+            fab.setCustomSize(options.customSize.get());
         }
         if (options.useCompatPadding.hasValue()) {
             fab.setUseCompatPadding(options.useCompatPadding.get());
@@ -201,10 +199,8 @@ public class FabPresenter {
         if (options.hideOnScroll.isFalse()) {
             fab.disableCollapse();
         }
-        if (options.customSize.hasValue()) {
-             if (options.customSize.get() >= 50) {
-                fab.setCustomSize(options.customSize.get());
-            }
+        if (options.customSize.hasValue() && options.customSize.get() >= 50) {
+            fab.setCustomSize(options.customSize.get());
         }
         if (options.useCompatPadding.hasValue()) {
             fab.setUseCompatPadding(options.useCompatPadding.get());

@@ -90,11 +90,9 @@ public class FabOptions {
         if (other.size.hasValue()) {
             size = other.size;
         }
-
         if (other.customSize.hasValue()) {
             customSize = other.customSize;
         }
-
         if (other.useCompatPadding.hasValue()) {
             useCompatPadding = other.useCompatPadding;
         }
@@ -134,7 +132,6 @@ public class FabOptions {
         if (!customSize.hasValue()) {
             customSize = defaultOptions.customSize;
         }
-
         if (!useCompatPadding.hasValue()) {
             useCompatPadding = defaultOptions.useCompatPadding;
         }
