@@ -2,6 +2,7 @@ package com.reactnativenavigation.parse;
 
 import android.graphics.Color;
 import android.graphics.Typeface;
+
 import androidx.annotation.NonNull;
 
 import com.reactnativenavigation.BaseTest;
@@ -28,11 +29,9 @@ public class OptionsTest extends BaseTest {
     private static final Number TITLE_HEIGHT = new Number(100);
     private static final String FAB_ID = "FAB";
     private static final String FAB_ALIGN_HORIZONTALLY = "right";
-    private static final String FAB_ALIGN_VERTICALLY = "bottom";
     private static final int TOP_BAR_BACKGROUND_COLOR = 0xff123456;
     private static final int FAB_BACKGROUND_COLOR = android.graphics.Color.BLUE;
     private static final int FAB_CLICK_COLOR = android.graphics.Color.RED;
-    private static final int FAB_RIPPLE_COLOR = android.graphics.Color.GREEN;
     private static final Boolean FAB_VISIBLE = true;
     private static final Boolean FAB_HIDE_ON_SCROLL = true;
     private static final int TOP_BAR_TEXT_COLOR = 0xff123456;
@@ -51,6 +50,8 @@ public class OptionsTest extends BaseTest {
     private static final Bool BOTTOM_TABS_ANIMATE = new Bool(true);
     private static final Bool BOTTOM_TABS_VISIBLE = new Bool(true);
     private static final String BOTTOM_TABS_BADGE = "3";
+    private static final int CUSTOM_SIZE = 120;
+    private static final Boolean USE_COMPAT_PADDING = true;
     private static final String BOTTOM_TABS_CURRENT_TAB_ID = "ComponentId";
     private static final Number BOTTOM_TABS_CURRENT_TAB_INDEX = new Number(1);
     private TypefaceLoader mockLoader;
@@ -77,6 +78,7 @@ public class OptionsTest extends BaseTest {
                 .put("fab", createFab())
                 .put("bottomTabs", createBottomTabs())
                 .put("layout", layout);
+
         Options result = Options.parse(mockLoader, json);
         assertResult(result);
     }
@@ -100,12 +102,12 @@ public class OptionsTest extends BaseTest {
         assertThat(result.fabOptions.id.get()).isEqualTo(FAB_ID);
         assertThat(result.fabOptions.backgroundColor.get()).isEqualTo(FAB_BACKGROUND_COLOR);
         assertThat(result.fabOptions.clickColor.get()).isEqualTo(FAB_CLICK_COLOR);
-        assertThat(result.fabOptions.rippleColor.get()).isEqualTo(FAB_RIPPLE_COLOR);
         assertThat(result.fabOptions.visible.get()).isEqualTo(FAB_VISIBLE);
         assertThat(result.fabOptions.hideOnScroll.get()).isEqualTo(FAB_HIDE_ON_SCROLL);
-        assertThat(result.fabOptions.alignVertically.get()).isEqualTo(FAB_ALIGN_VERTICALLY);
         assertThat(result.fabOptions.alignHorizontally.get()).isEqualTo(FAB_ALIGN_HORIZONTALLY);
         assertThat(result.layout.backgroundColor.get()).isEqualTo(SCREEN_BACKGROUND_COLOR);
+        assertThat(result.fabOptions.customSize.get()).isEqualTo(CUSTOM_SIZE);
+        assertThat(result.fabOptions.useCompatPadding.get()).isEqualTo(USE_COMPAT_PADDING);
     }
 
     @NonNull
@@ -157,10 +159,10 @@ public class OptionsTest extends BaseTest {
                 .put("id", FAB_ID)
                 .put("backgroundColor", FAB_BACKGROUND_COLOR)
                 .put("clickColor", FAB_CLICK_COLOR)
-                .put("rippleColor", FAB_RIPPLE_COLOR)
                 .put("alignHorizontally", FAB_ALIGN_HORIZONTALLY)
-                .put("alignVertically", FAB_ALIGN_VERTICALLY)
                 .put("hideOnScroll", FAB_HIDE_ON_SCROLL)
+                .put("customSize", CUSTOM_SIZE)
+                .put("useCompatPadding", USE_COMPAT_PADDING)
                 .put("visible", FAB_VISIBLE);
     }
 
@@ -170,10 +172,10 @@ public class OptionsTest extends BaseTest {
                 .put("id", "FAB")
                 .put("backgroundColor", FAB_BACKGROUND_COLOR)
                 .put("clickColor", FAB_CLICK_COLOR)
-                .put("rippleColor", FAB_RIPPLE_COLOR)
                 .put("alignHorizontally", FAB_ALIGN_HORIZONTALLY)
-                .put("alignVertically", FAB_ALIGN_VERTICALLY)
                 .put("hideOnScroll", FAB_HIDE_ON_SCROLL)
+                .put("customSize", CUSTOM_SIZE)
+                .put("useCompatPadding", USE_COMPAT_PADDING)
                 .put("visible", FAB_VISIBLE);
     }
 

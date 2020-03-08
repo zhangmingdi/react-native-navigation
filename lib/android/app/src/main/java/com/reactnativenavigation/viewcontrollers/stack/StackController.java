@@ -21,7 +21,6 @@ import com.reactnativenavigation.viewcontrollers.ViewController;
 import com.reactnativenavigation.viewcontrollers.topbar.TopBarController;
 import com.reactnativenavigation.views.Component;
 import com.reactnativenavigation.views.Fab;
-import com.reactnativenavigation.views.FabMenu;
 import com.reactnativenavigation.views.StackLayout;
 import com.reactnativenavigation.views.stack.StackBehaviour;
 import com.reactnativenavigation.views.topbar.TopBar;
@@ -397,7 +396,7 @@ public class StackController extends ParentController<StackLayout> {
     public boolean onDependentViewChanged(CoordinatorLayout parent, ViewGroup child, View dependency) {
         perform(findController(child), controller -> {
             if (dependency instanceof TopBar) presenter.applyTopInsets(this, controller);
-            if (dependency instanceof Fab || dependency instanceof FabMenu) updateBottomMargin(dependency, getBottomInset());
+            if (dependency instanceof Fab) updateBottomMargin(dependency, getBottomInset());
         });
         return false;
     }

@@ -16,8 +16,6 @@ import com.reactnativenavigation.parse.parsers.TextParser;
 
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-
 public class FabOptions {
 
     public static FabOptions parse(JSONObject json) {
@@ -32,16 +30,11 @@ public class FabOptions {
             options.icon = TextParser.parse(json.optJSONObject("icon"), "uri");
         }
         options.iconColor = ColorParser.parse(json, "iconColor");
-//        if (json.has("actions")) {
-//            JSONArray fabsArray = json.optJSONArray("actions");
-//            for (int i = 0; i < fabsArray.length(); i++) {
-//                options.actionsArray.add(FabOptions.parse(fabsArray.optJSONObject(i)));
-//            }
-//        }
         options.alignHorizontally = TextParser.parse(json, "alignHorizontally");
         options.hideOnScroll = BoolParser.parse(json, "hideOnScroll");
         options.size = TextParser.parse(json, "size");
         options.customSize = NumberParser.parse(json, "customSize");
+        options.useCompatPadding = BoolParser.parse(json, "useCompatPadding");
 
         return options;
     }
@@ -52,7 +45,6 @@ public class FabOptions {
     public Text icon = new NullText();
     public Colour iconColor = new NullColor();
     public Bool visible = new NullBool();
-    public ArrayList<FabOptions> actionsArray = new ArrayList<>();
     public Text alignHorizontally = new NullText();
     public Bool hideOnScroll = new NullBool();
     public Text size = new NullText();
@@ -77,9 +69,6 @@ public class FabOptions {
         }
         if (other.iconColor.hasValue()) {
             iconColor = other.iconColor;
-        }
-        if (other.actionsArray.size() > 0) {
-            actionsArray = other.actionsArray;
         }
         if (other.alignHorizontally.hasValue()) {
             alignHorizontally = other.alignHorizontally;
@@ -116,9 +105,6 @@ public class FabOptions {
         }
         if (!iconColor.hasValue()) {
             iconColor = defaultOptions.iconColor;
-        }
-        if (actionsArray.size() == 0) {
-            actionsArray = defaultOptions.actionsArray;
         }
         if (!alignHorizontally.hasValue()) {
             alignHorizontally = defaultOptions.alignHorizontally;

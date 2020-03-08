@@ -23,18 +23,12 @@ public class FabPresenter {
     private ViewController component;
 
     private Fab fab;
-    //private FabMenu fabMenu;
 
     public void applyOptions(FabOptions options, @NonNull ViewController component, @NonNull ViewGroup viewGroup) {
         this.viewGroup = viewGroup;
         this.component = component;
 
         if (options.id.hasValue()) {
-//            if (fabMenu != null && fabMenu.getFabId().equals(options.id.get())) {
-//                fabMenu.bringToFront();
-//                //applyFabMenuOptions(fabMenu, options);
-//                setParams(fabMenu, options);
-//            } else
             if (fab != null && fab.getFabId().equals(options.id.get())) {
                 fab.bringToFront();
                 applyFabOptions(fab, options);
@@ -45,7 +39,6 @@ public class FabPresenter {
             }
         } else {
             removeFab();
-            //removeFabMenu();
         }
     }
 
@@ -53,11 +46,6 @@ public class FabPresenter {
         this.viewGroup = viewGroup;
         this.component = component;
         if (options.id.hasValue()) {
-//            if (fabMenu != null && fabMenu.getFabId().equals(options.id.get())) {
-//                mergeParams(fabMenu, options);
-//                fabMenu.bringToFront();
-//                mergeFabMenuOptions(fabMenu, options);
-//            } else
             if (fab != null && fab.getFabId().equals(options.id.get())) {
                 mergeParams(fab, options);
                 fab.bringToFront();
@@ -70,27 +58,12 @@ public class FabPresenter {
     }
 
     private void createFab(FabOptions options) {
-//        if (options.actionsArray.size() > 0) {
-//            fabMenu = new FabMenu(viewGroup.getContext(), options.id.get());
-//            setParams(fabMenu, options);
-//            //applyFabMenuOptions(fabMenu, options);
-//            viewGroup.addView(fabMenu);
-//        } else {
-            fab = new Fab(viewGroup.getContext(), options.id.get());
-            setParams(fab, options);
-            applyFabOptions(fab, options);
-            fab.setOnClickListener(v -> component.sendOnNavigationButtonPressed(options.id.get()));
-            viewGroup.addView(fab);
-        //}
+        fab = new Fab(viewGroup.getContext(), options.id.get());
+        setParams(fab, options);
+        applyFabOptions(fab, options);
+        fab.setOnClickListener(v -> component.sendOnNavigationButtonPressed(options.id.get()));
+        viewGroup.addView(fab);
     }
-
-//    private void removeFabMenu() {
-//        if (fabMenu != null) {
-//            fabMenu.hideMenuButton(true);
-//            viewGroup.removeView(fabMenu);
-//            fabMenu = null;
-//        }
-//    }
 
     private void removeFab() {
         if (fab != null) {
@@ -206,74 +179,4 @@ public class FabPresenter {
             fab.setUseCompatPadding(options.useCompatPadding.get());
         }
     }
-//
-//    private void applyFabMenuOptions(FabMenu fabMenu, FabOptions options) {
-//        if (options.visible.isTrueOrUndefined()) {
-//            fabMenu.showMenuButton(true);
-//        }
-//        if (options.visible.isFalse()) {
-//            fabMenu.hideMenuButton(true);
-//        }
-//
-//        if (options.backgroundColor.hasValue()) {
-//            fabMenu.setMenuButtonColorNormal(options.backgroundColor.get());
-//        }
-//        if (options.clickColor.hasValue()) {
-//            fabMenu.setMenuButtonColorPressed(options.clickColor.get());
-//        }
-//        for (Fab fabStored : fabMenu.getActions()) {
-//            fabMenu.removeMenuButton(fabStored);
-//        }
-//        fabMenu.getActions().clear();
-//        for (FabOptions fabOption : options.actionsArray) {
-//            Fab fab = new Fab(viewGroup.getContext(), fabOption.id.get());
-//            applyFabOptions(fab, fabOption);
-//            fab.setOnClickListener(v -> component.sendOnNavigationButtonPressed(options.id.get()));
-//
-//            fabMenu.getActions().add(fab);
-//            fabMenu.addMenuButton(fab);
-//        }
-//        if (options.hideOnScroll.isTrue()) {
-//            fabMenu.enableCollapse(component.getScrollEventListener());
-//        }
-//        if (options.hideOnScroll.isFalseOrUndefined()) {
-//            fabMenu.disableCollapse();
-//        }
-//    }
-//
-//    private void mergeFabMenuOptions(FabMenu fabMenu, FabOptions options) {
-//        if (options.visible.isTrue()) {
-//            fabMenu.showMenuButton(true);
-//        }
-//        if (options.visible.isFalse()) {
-//            fabMenu.hideMenuButton(true);
-//        }
-//
-//        if (options.backgroundColor.hasValue()) {
-//            fabMenu.setMenuButtonColorNormal(options.backgroundColor.get());
-//        }
-//        if (options.clickColor.hasValue()) {
-//            fabMenu.setMenuButtonColorPressed(options.clickColor.get());
-//        }
-//        if (options.actionsArray.size() > 0) {
-//            for (Fab fabStored : fabMenu.getActions()) {
-//                fabMenu.removeMenuButton(fabStored);
-//            }
-//            fabMenu.getActions().clear();
-//            for (FabOptions fabOption : options.actionsArray) {
-//                Fab fab = new Fab(viewGroup.getContext(), fabOption.id.get());
-//                applyFabOptions(fab, fabOption);
-//                fab.setOnClickListener(v -> component.sendOnNavigationButtonPressed(options.id.get()));
-//
-//                fabMenu.getActions().add(fab);
-//                fabMenu.addMenuButton(fab);
-//            }
-//        }
-//        if (options.hideOnScroll.isTrue()) {
-//            fabMenu.enableCollapse(component.getScrollEventListener());
-//        }
-//        if (options.hideOnScroll.isFalse()) {
-//            fabMenu.disableCollapse();
-//        }
-//    }
 }
