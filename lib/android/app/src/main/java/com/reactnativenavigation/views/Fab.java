@@ -5,7 +5,7 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
 
-import com.github.clans.fab.FloatingActionButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.reactnativenavigation.anim.FabAnimator;
 import com.reactnativenavigation.anim.FabCollapseBehaviour;
 import com.reactnativenavigation.interfaces.ScrollEventListener;
@@ -58,16 +58,6 @@ public class Fab extends FloatingActionButton implements FabAnimator {
     @Override
     public int hashCode() {
         return id.hashCode();
-    }
-
-    @Override
-    public void show() {
-        show(true);
-    }
-
-    @Override
-    public void hide() {
-        hide(true);
     }
 
     public void enableCollapse(@NonNull ScrollEventListener scrollEventListener) {

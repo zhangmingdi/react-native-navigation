@@ -15,8 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
-import static com.github.clans.fab.FloatingActionButton.SIZE_MINI;
-import static com.github.clans.fab.FloatingActionButton.SIZE_NORMAL;
+import static com.google.android.material.floatingactionbutton.FloatingActionButton.SIZE_MINI;
+import static com.google.android.material.floatingactionbutton.FloatingActionButton.SIZE_NORMAL;
 import static com.reactnativenavigation.utils.ObjectUtils.perform;
 
 public class FabPresenter {
@@ -93,7 +93,7 @@ public class FabPresenter {
 
     private void removeFab() {
         if (fab != null) {
-            fab.hide(true);
+            fab.hide();
             viewGroup.removeView(fab);
             fab = null;
         }
@@ -142,25 +142,25 @@ public class FabPresenter {
 
     private void applyFabOptions(Fab fab, FabOptions options) {
         if (options.visible.isTrueOrUndefined()) {
-            fab.show(true);
+            fab.show();
         }
         if (options.visible.isFalse()) {
-            fab.hide(true);
+            fab.hide();
         }
         if (options.backgroundColor.hasValue()) {
-            fab.setColorNormal(options.backgroundColor.get());
+            fab.setBackgroundColor(options.backgroundColor.get());
         }
         if (options.clickColor.hasValue()) {
-            fab.setColorPressed(options.clickColor.get());
+            fab.setRippleColor(options.clickColor.get());
         }
         if (options.rippleColor.hasValue()) {
-            fab.setColorRipple(options.rippleColor.get());
+            fab.setRippleColor(options.rippleColor.get());
         }
         if (options.icon.hasValue()) {
             fab.applyIcon(options.icon.get(), options.iconColor);
         }
         if (options.size.hasValue()) {
-            fab.setButtonSize("mini".equals(options.size.get()) ? SIZE_MINI : SIZE_NORMAL);
+            fab.setSize("mini".equals(options.size.get()) ? SIZE_MINI : SIZE_NORMAL);
         }
         if (options.hideOnScroll.isTrue()) {
             fab.enableCollapse(component.getScrollEventListener());
@@ -172,25 +172,25 @@ public class FabPresenter {
 
     private void mergeFabOptions(Fab fab, FabOptions options) {
         if (options.visible.isTrue()) {
-            fab.show(true);
+            fab.show();
         }
         if (options.visible.isFalse()) {
-            fab.hide(true);
+            fab.hide();
         }
         if (options.backgroundColor.hasValue()) {
-            fab.setColorNormal(options.backgroundColor.get());
+            fab.setBackgroundColor(options.backgroundColor.get());
         }
         if (options.clickColor.hasValue()) {
-            fab.setColorPressed(options.clickColor.get());
+            fab.setRippleColor(options.clickColor.get());
         }
         if (options.rippleColor.hasValue()) {
-            fab.setColorRipple(options.rippleColor.get());
+            fab.setRippleColor(options.rippleColor.get());
         }
         if (options.icon.hasValue()) {
             fab.applyIcon(options.icon.get(), options.iconColor);
         }
         if (options.size.hasValue()) {
-            fab.setButtonSize("mini".equals(options.size.get()) ? SIZE_MINI : SIZE_NORMAL);
+            fab.setSize("mini".equals(options.size.get()) ? SIZE_MINI : SIZE_NORMAL);
         }
         if (options.hideOnScroll.isTrue()) {
             fab.enableCollapse(component.getScrollEventListener());
@@ -217,17 +217,17 @@ public class FabPresenter {
         if (options.rippleColor.hasValue()) {
             fabMenu.setMenuButtonColorRipple(options.rippleColor.get());
         }
-        for (Fab fabStored : fabMenu.getActions()) {
-            fabMenu.removeMenuButton(fabStored);
-        }
+//        for (Fab fabStored : fabMenu.getActions()) {
+//            fabMenu.removeMenuButton(fabStored);
+//        }
         fabMenu.getActions().clear();
         for (FabOptions fabOption : options.actionsArray) {
             Fab fab = new Fab(viewGroup.getContext(), fabOption.id.get());
             applyFabOptions(fab, fabOption);
             fab.setOnClickListener(v -> component.sendOnNavigationButtonPressed(options.id.get()));
 
-            fabMenu.getActions().add(fab);
-            fabMenu.addMenuButton(fab);
+//            fabMenu.getActions().add(fab);
+//            fabMenu.addMenuButton(fab);
         }
         if (options.hideOnScroll.isTrue()) {
             fabMenu.enableCollapse(component.getScrollEventListener());
@@ -255,17 +255,17 @@ public class FabPresenter {
             fabMenu.setMenuButtonColorRipple(options.rippleColor.get());
         }
         if (options.actionsArray.size() > 0) {
-            for (Fab fabStored : fabMenu.getActions()) {
-                fabMenu.removeMenuButton(fabStored);
-            }
+//            for (Fab fabStored : fabMenu.getActions()) {
+//                fabMenu.removeMenuButton(fabStored);
+//            }
             fabMenu.getActions().clear();
             for (FabOptions fabOption : options.actionsArray) {
                 Fab fab = new Fab(viewGroup.getContext(), fabOption.id.get());
                 applyFabOptions(fab, fabOption);
                 fab.setOnClickListener(v -> component.sendOnNavigationButtonPressed(options.id.get()));
 
-                fabMenu.getActions().add(fab);
-                fabMenu.addMenuButton(fab);
+//                fabMenu.getActions().add(fab);
+//                fabMenu.addMenuButton(fab);
             }
         }
         if (options.hideOnScroll.isTrue()) {
