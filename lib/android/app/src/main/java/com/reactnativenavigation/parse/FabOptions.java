@@ -25,20 +25,18 @@ public class FabOptions {
         options.id = TextParser.parse(json, "id");
         options.backgroundColor = ColorParser.parse(json, "backgroundColor");
         options.clickColor = ColorParser.parse(json, "clickColor");
-        options.rippleColor = ColorParser.parse(json, "rippleColor");
         options.visible = BoolParser.parse(json, "visible");
         if (json.has("icon")) {
             options.icon = TextParser.parse(json.optJSONObject("icon"), "uri");
         }
         options.iconColor = ColorParser.parse(json, "iconColor");
-        if (json.has("actions")) {
-            JSONArray fabsArray = json.optJSONArray("actions");
-            for (int i = 0; i < fabsArray.length(); i++) {
-                options.actionsArray.add(FabOptions.parse(fabsArray.optJSONObject(i)));
-            }
-        }
+//        if (json.has("actions")) {
+//            JSONArray fabsArray = json.optJSONArray("actions");
+//            for (int i = 0; i < fabsArray.length(); i++) {
+//                options.actionsArray.add(FabOptions.parse(fabsArray.optJSONObject(i)));
+//            }
+//        }
         options.alignHorizontally = TextParser.parse(json, "alignHorizontally");
-        options.alignVertically = TextParser.parse(json, "alignVertically");
         options.hideOnScroll = BoolParser.parse(json, "hideOnScroll");
         options.size = TextParser.parse(json, "size");
 
@@ -48,13 +46,11 @@ public class FabOptions {
     public Text id = new NullText();
     public Colour backgroundColor = new NullColor();
     public Colour clickColor = new NullColor();
-    public Colour rippleColor = new NullColor();
     public Text icon = new NullText();
     public Colour iconColor = new NullColor();
     public Bool visible = new NullBool();
     public ArrayList<FabOptions> actionsArray = new ArrayList<>();
     public Text alignHorizontally = new NullText();
-    public Text alignVertically = new NullText();
     public Bool hideOnScroll = new NullBool();
     public Text size = new NullText();
 
@@ -68,9 +64,6 @@ public class FabOptions {
         if (other.clickColor.hasValue()) {
             clickColor = other.clickColor;
         }
-        if (other.rippleColor.hasValue()) {
-            rippleColor = other.rippleColor;
-        }
         if (other.visible.hasValue()) {
             visible = other.visible;
         }
@@ -82,9 +75,6 @@ public class FabOptions {
         }
         if (other.actionsArray.size() > 0) {
             actionsArray = other.actionsArray;
-        }
-        if (other.alignVertically.hasValue()) {
-            alignVertically = other.alignVertically;
         }
         if (other.alignHorizontally.hasValue()) {
             alignHorizontally = other.alignHorizontally;
@@ -107,9 +97,6 @@ public class FabOptions {
         if (!clickColor.hasValue()) {
             clickColor = defaultOptions.clickColor;
         }
-        if (!rippleColor.hasValue()) {
-            rippleColor = defaultOptions.rippleColor;
-        }
         if (!visible.hasValue()) {
             visible = defaultOptions.visible;
         }
@@ -124,9 +111,6 @@ public class FabOptions {
         }
         if (!alignHorizontally.hasValue()) {
             alignHorizontally = defaultOptions.alignHorizontally;
-        }
-        if (!alignVertically.hasValue()) {
-            alignVertically = defaultOptions.alignVertically;
         }
         if (!hideOnScroll.hasValue()) {
             hideOnScroll = defaultOptions.hideOnScroll;

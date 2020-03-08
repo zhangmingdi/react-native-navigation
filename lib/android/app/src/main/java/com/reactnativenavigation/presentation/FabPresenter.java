@@ -132,7 +132,7 @@ public class FabPresenter {
                 lp.gravity |= Gravity.RIGHT;
             }
             if ("left".equals(options.alignHorizontally.get())) {
-                lp.gravity |= Gravity.RIGHT;
+                lp.gravity |= Gravity.LEFT;
             }
         } else {
             lp.gravity |= Gravity.RIGHT;
@@ -153,16 +153,13 @@ public class FabPresenter {
         if (options.clickColor.hasValue()) {
             fab.setRippleColor(options.clickColor.get());
         }
-        if (options.rippleColor.hasValue()) {
-            fab.setRippleColor(options.rippleColor.get());
-        }
         if (options.icon.hasValue()) {
             fab.applyIcon(options.icon.get(), options.iconColor);
         }
         if (options.size.hasValue()) {
             fab.setSize("mini".equals(options.size.get()) ? SIZE_MINI : SIZE_NORMAL);
         }
-        if (options.hideOnScroll.isTrue()) {
+        if (options.hideOnScroll.isTrue() && options.visible.isTrueOrUndefined()) {
             fab.enableCollapse(component.getScrollEventListener());
         }
         if (options.hideOnScroll.isFalseOrUndefined()) {
@@ -182,9 +179,6 @@ public class FabPresenter {
         }
         if (options.clickColor.hasValue()) {
             fab.setRippleColor(options.clickColor.get());
-        }
-        if (options.rippleColor.hasValue()) {
-            fab.setRippleColor(options.rippleColor.get());
         }
         if (options.icon.hasValue()) {
             fab.applyIcon(options.icon.get(), options.iconColor);
@@ -214,21 +208,18 @@ public class FabPresenter {
         if (options.clickColor.hasValue()) {
             fabMenu.setMenuButtonColorPressed(options.clickColor.get());
         }
-        if (options.rippleColor.hasValue()) {
-            fabMenu.setMenuButtonColorRipple(options.rippleColor.get());
-        }
 //        for (Fab fabStored : fabMenu.getActions()) {
 //            fabMenu.removeMenuButton(fabStored);
 //        }
-        fabMenu.getActions().clear();
-        for (FabOptions fabOption : options.actionsArray) {
-            Fab fab = new Fab(viewGroup.getContext(), fabOption.id.get());
-            applyFabOptions(fab, fabOption);
-            fab.setOnClickListener(v -> component.sendOnNavigationButtonPressed(options.id.get()));
-
+//        fabMenu.getActions().clear();
+//        for (FabOptions fabOption : options.actionsArray) {
+//            Fab fab = new Fab(viewGroup.getContext(), fabOption.id.get());
+//            applyFabOptions(fab, fabOption);
+//            fab.setOnClickListener(v -> component.sendOnNavigationButtonPressed(options.id.get()));
+//
 //            fabMenu.getActions().add(fab);
 //            fabMenu.addMenuButton(fab);
-        }
+//        }
         if (options.hideOnScroll.isTrue()) {
             fabMenu.enableCollapse(component.getScrollEventListener());
         }
@@ -251,23 +242,20 @@ public class FabPresenter {
         if (options.clickColor.hasValue()) {
             fabMenu.setMenuButtonColorPressed(options.clickColor.get());
         }
-        if (options.rippleColor.hasValue()) {
-            fabMenu.setMenuButtonColorRipple(options.rippleColor.get());
-        }
-        if (options.actionsArray.size() > 0) {
+//        if (options.actionsArray.size() > 0) {
 //            for (Fab fabStored : fabMenu.getActions()) {
 //                fabMenu.removeMenuButton(fabStored);
 //            }
-            fabMenu.getActions().clear();
-            for (FabOptions fabOption : options.actionsArray) {
-                Fab fab = new Fab(viewGroup.getContext(), fabOption.id.get());
-                applyFabOptions(fab, fabOption);
-                fab.setOnClickListener(v -> component.sendOnNavigationButtonPressed(options.id.get()));
-
+//            fabMenu.getActions().clear();
+//            for (FabOptions fabOption : options.actionsArray) {
+//                Fab fab = new Fab(viewGroup.getContext(), fabOption.id.get());
+//                applyFabOptions(fab, fabOption);
+//                fab.setOnClickListener(v -> component.sendOnNavigationButtonPressed(options.id.get()));
+//
 //                fabMenu.getActions().add(fab);
 //                fabMenu.addMenuButton(fab);
-            }
-        }
+//            }
+//        }
         if (options.hideOnScroll.isTrue()) {
             fabMenu.enableCollapse(component.getScrollEventListener());
         }

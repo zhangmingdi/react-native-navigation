@@ -538,15 +538,12 @@ export interface OptionsFab {
   id: string;
   backgroundColor?: Color;
   clickColor?: Color;
-  rippleColor?: Color;
   visible?: boolean;
   icon?: ImageRequireSource;
   iconColor?: Color;
   alignHorizontally?: 'left' | 'right';
-  alignVertically?: 'top' | 'bottom';
   hideOnScroll?: boolean;
   size?: number;
-  actions?: OptionsFab[];
 }
 
 export interface OptionsBottomTabs {
