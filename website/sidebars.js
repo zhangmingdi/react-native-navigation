@@ -81,6 +81,7 @@ module.exports = {
         },
         'statusBar-options',
         'layout-options',
+        'overlay-options',
         'sideMenu-options',
         'sideMenuSide-options',
         'splitView-options'
