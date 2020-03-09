@@ -34,7 +34,6 @@ public class FabOptions {
         options.hideOnScroll = BoolParser.parse(json, "hideOnScroll");
         options.size = TextParser.parse(json, "size");
         options.customSize = NumberParser.parse(json, "customSize");
-        options.useCompatPadding = BoolParser.parse(json, "useCompatPadding");
 
         return options;
     }
@@ -49,7 +48,6 @@ public class FabOptions {
     public Bool hideOnScroll = new NullBool();
     public Text size = new NullText();
     public Number customSize = new NullNumber();
-    public Bool useCompatPadding = new NullBool();
 
     void mergeWith(final FabOptions other) {
         if (other.id.hasValue()) {
@@ -81,9 +79,6 @@ public class FabOptions {
         }
         if (other.customSize.hasValue()) {
             customSize = other.customSize;
-        }
-        if (other.useCompatPadding.hasValue()) {
-            useCompatPadding = other.useCompatPadding;
         }
     }
 
@@ -117,9 +112,6 @@ public class FabOptions {
         }
         if (!customSize.hasValue()) {
             customSize = defaultOptions.customSize;
-        }
-        if (!useCompatPadding.hasValue()) {
-            useCompatPadding = defaultOptions.useCompatPadding;
         }
     }
 

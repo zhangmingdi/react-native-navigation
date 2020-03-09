@@ -51,7 +51,6 @@ public class OptionsTest extends BaseTest {
     private static final Bool BOTTOM_TABS_VISIBLE = new Bool(true);
     private static final String BOTTOM_TABS_BADGE = "3";
     private static final int CUSTOM_SIZE = 120;
-    private static final Boolean USE_COMPAT_PADDING = true;
     private static final String BOTTOM_TABS_CURRENT_TAB_ID = "ComponentId";
     private static final Number BOTTOM_TABS_CURRENT_TAB_INDEX = new Number(1);
     private TypefaceLoader mockLoader;
@@ -107,7 +106,6 @@ public class OptionsTest extends BaseTest {
         assertThat(result.fabOptions.alignHorizontally.get()).isEqualTo(FAB_ALIGN_HORIZONTALLY);
         assertThat(result.layout.backgroundColor.get()).isEqualTo(SCREEN_BACKGROUND_COLOR);
         assertThat(result.fabOptions.customSize.get()).isEqualTo(CUSTOM_SIZE);
-        assertThat(result.fabOptions.useCompatPadding.get()).isEqualTo(USE_COMPAT_PADDING);
     }
 
     @NonNull
@@ -162,7 +160,6 @@ public class OptionsTest extends BaseTest {
                 .put("alignHorizontally", FAB_ALIGN_HORIZONTALLY)
                 .put("hideOnScroll", FAB_HIDE_ON_SCROLL)
                 .put("customSize", CUSTOM_SIZE)
-                .put("useCompatPadding", USE_COMPAT_PADDING)
                 .put("visible", FAB_VISIBLE);
     }
 
@@ -175,7 +172,6 @@ public class OptionsTest extends BaseTest {
                 .put("alignHorizontally", FAB_ALIGN_HORIZONTALLY)
                 .put("hideOnScroll", FAB_HIDE_ON_SCROLL)
                 .put("customSize", CUSTOM_SIZE)
-                .put("useCompatPadding", USE_COMPAT_PADDING)
                 .put("visible", FAB_VISIBLE);
     }
 

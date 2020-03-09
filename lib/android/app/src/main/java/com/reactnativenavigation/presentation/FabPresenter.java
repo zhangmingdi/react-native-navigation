@@ -142,9 +142,6 @@ public class FabPresenter {
         if (options.customSize.hasValue() && options.customSize.get() >= 50) {
             fab.setCustomSize(options.customSize.get());
         }
-        if (options.useCompatPadding.hasValue()) {
-            fab.setUseCompatPadding(options.useCompatPadding.get());
-        }
     }
 
     private void mergeFabOptions(Fab fab, FabOptions options) {
@@ -174,9 +171,6 @@ public class FabPresenter {
         }
         if (options.customSize.hasValue() && options.customSize.get() >= 50) {
             fab.setCustomSize(options.customSize.get());
-        }
-        if (options.useCompatPadding.hasValue()) {
-            fab.setUseCompatPadding(options.useCompatPadding.get());
         }
     }
 }
