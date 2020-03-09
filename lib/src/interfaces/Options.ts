@@ -545,6 +545,8 @@ export interface OptionsFab {
   hideOnScroll?: boolean;
   size?: number;
   customSize?: number;
+  text?: string;
+  setExtended?: boolean;
 }
 
 export interface OptionsBottomTabs {

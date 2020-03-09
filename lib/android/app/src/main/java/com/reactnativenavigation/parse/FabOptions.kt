@@ -29,6 +29,11 @@ class FabOptions {
     var size: Text = NullText()
     @JvmField
     var customSize: Number = NullNumber()
+    @JvmField
+    var text: Text = NullText()
+    @JvmField
+    var setExtended: Bool = NullBool()
+
     fun mergeWith(other: FabOptions) {
         if (other.id.hasValue()) {
             id = other.id
@@ -59,6 +64,12 @@ class FabOptions {
         }
         if (other.customSize.hasValue()) {
             customSize = other.customSize
+        }
+        if (other.text.hasValue()) {
+            text = other.text
+        }
+        if (other.setExtended.hasValue()) {
+            setExtended = other.setExtended
         }
     }
 
@@ -93,6 +104,12 @@ class FabOptions {
         if (!customSize.hasValue()) {
             customSize = defaultOptions.customSize
         }
+        if (!text.hasValue()) {
+            text = defaultOptions.text
+        }
+        if (!setExtended.hasValue()) {
+            setExtended = defaultOptions.setExtended
+        }
     }
 
     fun hasValue(): Boolean {
@@ -116,6 +133,8 @@ class FabOptions {
             options.hideOnScroll = BoolParser.parse(json, "hideOnScroll")
             options.size = TextParser.parse(json, "size")
             options.customSize = NumberParser.parse(json, "customSize")
+            options.text = TextParser.parse(json, "text")
+            options.setExtended = BoolParser.parse(json, "setExtended")
             return options
         }
     }
