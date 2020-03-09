@@ -38,6 +38,7 @@ module.exports = {
       type: 'category',
       label: 'Navigation',
       items: [
+        'component-api',
         'root-api',
         'stack-api',
         'modal-api',
