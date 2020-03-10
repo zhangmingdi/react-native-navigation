@@ -14,12 +14,26 @@ Every screen component in your app must be registered with a unique name. The co
 | Name   | Required | Type                | Description                                                                                                            |
 | ------ | -------- | ------------------- | ---------------------------------------------------------------------------------------------------------------------- |
 | componentName | Yes      | string | Unique component name - not to be confused with **componentId** |
-| generator | Yes      | Function | An anonymous function which returns the react component |
+| componentProvider | Yes      | Function | Anonymous function which returns the react component to register, **OR** the component wrapped with Providers|
+| concreteComponentProvider | No      | Function | Anonymous function which returns the concrete react component. If your component is wrapped with Providers, this must an instance of the concrete component|
 
-#### Example
-
+#### Examples
+##### Registering a component
 ```js
 Navigation.registerComponent(`navigation.playground.WelcomeScreen`, () => WelcomeScreen);
+```
+
+##### Registering a component wrapped with Providers
+```js
+import { Provider } from 'react-redux';
+const store = createStore();
+
+Navigation.registerComponent(`navigation.playground.MyScreen`, () => (props) =>
+  <Provider store={store}>
+    <MyScreen {...props} />
+  </Provider>,
+  () => MyScreen)
+);
 ```
 
 ## `updateProps`
