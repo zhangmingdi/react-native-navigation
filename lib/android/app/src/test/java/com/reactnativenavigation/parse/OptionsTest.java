@@ -53,6 +53,8 @@ public class OptionsTest extends BaseTest {
     private static final int CUSTOM_SIZE = 120;
     private static final String BOTTOM_TABS_CURRENT_TAB_ID = "ComponentId";
     private static final Number BOTTOM_TABS_CURRENT_TAB_INDEX = new Number(1);
+    private static final String TEXT= "hello world";
+    private static final Boolean EXTENDED = true;
     private TypefaceLoader mockLoader;
 
     @Override
@@ -75,6 +77,7 @@ public class OptionsTest extends BaseTest {
         JSONObject json = new JSONObject()
                 .put("topBar", createTopBar(TOP_BAR_VISIBLE.get()))
                 .put("fab", createFab())
+                .put("extendedFab", createFab())
                 .put("bottomTabs", createBottomTabs())
                 .put("layout", layout);
 
@@ -106,6 +109,8 @@ public class OptionsTest extends BaseTest {
         assertThat(result.fabOptions.alignHorizontally.get()).isEqualTo(FAB_ALIGN_HORIZONTALLY);
         assertThat(result.layout.backgroundColor.get()).isEqualTo(SCREEN_BACKGROUND_COLOR);
         assertThat(result.fabOptions.customSize.get()).isEqualTo(CUSTOM_SIZE);
+        assertThat(result.fabOptions.text.get()).isEqualTo(TEXT);
+        assertThat(result.fabOptions.setExtended.get()).isEqualTo(EXTENDED);
     }
 
     @NonNull
@@ -160,7 +165,9 @@ public class OptionsTest extends BaseTest {
                 .put("alignHorizontally", FAB_ALIGN_HORIZONTALLY)
                 .put("hideOnScroll", FAB_HIDE_ON_SCROLL)
                 .put("customSize", CUSTOM_SIZE)
-                .put("visible", FAB_VISIBLE);
+                .put("visible", FAB_VISIBLE)
+                .put("text", TEXT)
+                .put("setExtended", EXTENDED);
     }
 
     @NonNull
@@ -172,7 +179,8 @@ public class OptionsTest extends BaseTest {
                 .put("alignHorizontally", FAB_ALIGN_HORIZONTALLY)
                 .put("hideOnScroll", FAB_HIDE_ON_SCROLL)
                 .put("customSize", CUSTOM_SIZE)
-                .put("visible", FAB_VISIBLE);
+                .put("visible", FAB_VISIBLE).put("text", TEXT)
+                .put("setExtended", EXTENDED);
     }
 
     @NonNull
@@ -292,4 +300,5 @@ public class OptionsTest extends BaseTest {
         uut.clearTopTabOptions();
         assertThat(uut.topTabOptions.title.hasValue()).isFalse();
     }
+
 }

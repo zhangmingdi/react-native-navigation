@@ -103,7 +103,7 @@ public class StackController extends ParentController<StackLayout> {
     public void applyChildOptions(Options options, ViewController child) {
         super.applyChildOptions(options, child);
         presenter.applyChildOptions(resolveCurrentOptions(), this, child);
-        fabOptionsPresenter.applyOptions(this.options.fabOptions, child, getView());
+        fabOptionsPresenter.applyOptions(options, child, getView());
         performOnParentController(parent ->
                 parent.applyChildOptions(
                         this.options.copy()
@@ -123,7 +123,7 @@ public class StackController extends ParentController<StackLayout> {
         if (child.isViewShown() && peek() == child) {
             presenter.mergeChildOptions(options, resolveCurrentOptions(), this, child);
             if (options.fabOptions.hasValue()) {
-                fabOptionsPresenter.mergeOptions(options.fabOptions, child, getView());
+                fabOptionsPresenter.mergeOptions(options, child, getView());
             }
         }
         performOnParentController(parent ->

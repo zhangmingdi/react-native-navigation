@@ -10,6 +10,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton.SIZ
 import com.reactnativenavigation.R
 import com.reactnativenavigation.interfaces.FloatingButton
 import com.reactnativenavigation.parse.FabOptions
+import com.reactnativenavigation.parse.Options
 import com.reactnativenavigation.utils.ObjectUtils
 import com.reactnativenavigation.viewcontrollers.ViewController
 import com.reactnativenavigation.views.ExtendedFab
@@ -21,45 +22,55 @@ class FabPresenter {
     private var component: ViewController<*>? = null
     private var fab:FloatingButton? = null
 
-    fun applyOptions(options: FabOptions, component: ViewController<*>, viewGroup: ViewGroup) {
-        this.viewGroup = viewGroup
-        this.component = component
-        if (options.id.hasValue()) {
-            if (fab != null && fab!!.fabId == options.id.get()) {
-                fab!!.bringToFront()
-                applyFabOptions(fab!!, options)
-                setParams(fab!! as View, options)
-                fab!!.setOnClickListener { _: View? -> component.sendOnNavigationButtonPressed(options.id.get()) }
-            } else {
-                createFab(options)
-            }
+    private fun createFab(options: Options) {
+        if (options.extendedFabOptions.hasValue()) {
+            fab = ExtendedFab(viewGroup!!.context, options.fabOptionsType.id.get())
         } else {
-            removeFab()
+            fab = Fab(viewGroup!!.context, options.fabOptionsType.id.get())
         }
+        with(options.fabOptionsType) {
+            setParams(fab!! as View, this)
+            applyFabOptions(fab!!, this)
+            fab!!.setOnClickListener { _: View? -> component!!.sendOnNavigationButtonPressed(this.id.get()) }
+        }
+
+        viewGroup!!.addView(fab as View)
     }
 
-    fun mergeOptions(options: FabOptions, component: ViewController<*>, viewGroup: ViewGroup) {
+    fun applyOptions(options: Options, component: ViewController<*>, viewGroup: ViewGroup) {
         this.viewGroup = viewGroup
         this.component = component
-        if (options.id.hasValue()) {
-            if (fab != null && fab!!.fabId == options.id.get()) {
-                mergeParams(fab!! as View, options)
-                fab!!.bringToFront()
-                mergeFabOptions(fab!!, options)
-                fab!!.setOnClickListener { _: View? -> component.sendOnNavigationButtonPressed(options.id.get()) }
+        with(options.fabOptionsType) {
+            if (this.id.hasValue()) {
+                if (fab != null && fab!!.fabId == this.id.get()) {
+                    fab!!.bringToFront()
+                    applyFabOptions(fab!!, this)
+                    setParams(fab!! as View, this)
+                    fab!!.setOnClickListener { _: View? -> component.sendOnNavigationButtonPressed(this.id.get()) }
+                } else {
+                    createFab(options)
+                }
             } else {
-                createFab(options)
+                removeFab()
             }
         }
     }
 
-    private fun createFab(options: FabOptions) {
-        fab = Fab(viewGroup!!.context, options.id.get())
-//        fab = ExtendedFab(viewGroup!!.context, options.id.get())
-        setParams(fab!! as View, options)
-        applyFabOptions(fab!!, options)
-        fab!!.setOnClickListener { _: View? -> component!!.sendOnNavigationButtonPressed(options.id.get()) }
-        viewGroup!!.addView(fab as View)
+    fun mergeOptions(options: Options, component: ViewController<*>, viewGroup: ViewGroup) {
+        this.viewGroup = viewGroup
+        this.component = component
+        with(options.fabOptionsType) {
+            if (this.id.hasValue()) {
+                if (fab != null && fab!!.fabId == this.id.get()) {
+                    mergeParams(fab!! as View, this)
+                    fab!!.bringToFront()
+                    mergeFabOptions(fab!!, this)
+                    fab!!.setOnClickListener { _: View? -> component.sendOnNavigationButtonPressed(this.id.get()) }
+                } else {
+                    createFab(options)
+                }
+            }
+        }
     }
 
     private fun removeFab() {
