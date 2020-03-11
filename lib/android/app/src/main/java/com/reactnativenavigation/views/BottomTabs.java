@@ -2,45 +2,34 @@ package com.reactnativenavigation.views;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.view.MenuItem;
 import android.widget.LinearLayout;
 
-import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
-import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
+import androidx.core.view.ViewCompat;
+import androidx.interpolator.view.animation.LinearOutSlowInInterpolator;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.bottomnavigation.LabelVisibilityMode;
 import com.reactnativenavigation.R;
 import com.reactnativenavigation.parse.LayoutDirection;
-
-import androidx.annotation.IntRange;
+import com.reactnativenavigation.parse.params.Text;
+import com.reactnativenavigation.parse.params.TitleDisplayMode;
 
 import static com.reactnativenavigation.utils.ViewUtils.findChildByClass;
 
 @SuppressLint("ViewConstructor")
-public class BottomTabs extends AHBottomNavigation {
-    private boolean itemsCreationEnabled = true;
-    private boolean shouldCreateItems = true;
+public class BottomTabs extends BottomNavigationView {
+
+    private ColorStateList itemTextColors;
+    private ColorStateList itemIconColors;
 
     public BottomTabs(Context context) {
         super(context);
         setId(R.id.bottomTabs);
-        setBehaviorTranslationEnabled(false);
-    }
-
-    public void disableItemsCreation() {
-        itemsCreationEnabled = false;
-    }
-
-    public void enableItemsCreation() {
-        itemsCreationEnabled = true;
-        if (shouldCreateItems) createItems();
-    }
-
-    @Override
-    protected void createItems() {
-        if (itemsCreationEnabled) {
-            superCreateItems();
-        } else {
-            shouldCreateItems = true;
-        }
+        setItemHorizontalTranslationEnabled(false);
     }
 
     @Override
@@ -48,52 +37,63 @@ public class BottomTabs extends AHBottomNavigation {
         // NOOP - don't recreate views on size change
     }
 
-    public void superCreateItems() {
-        super.createItems();
-    }
-
-    @Override
-    public void setCurrentItem(@IntRange(from = 0) int position) {
-        super.setCurrentItem(position);
-    }
-
-    @Override
-    public void setTitleState(TitleState titleState) {
-        if (getTitleState() != titleState) super.setTitleState(titleState);
-    }
-
-    @Override
-    public void setBackgroundColor(int color) {
-        super.setBackgroundColor(color);
-        if (getDefaultBackgroundColor() != color) setDefaultBackgroundColor(color);
+    public void setTitleState(Text titleState) {
+        switch(titleState.get()) {
+            case "alwaysHide":
+                this.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_UNLABELED);
+                break;
+            case "alwaysShow":
+                this.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
+                break;
+            case "showWhenActive":
+                this.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_SELECTED);
+                break;
+            default:
+                break;
+        }
     }
 
     public void setText(int index, String text) {
-        AHBottomNavigationItem item = getItem(index);
-        if (!item.getTitle(getContext()).equals(text)) {
+        MenuItem item = getMenu().getItem(index);
+        if (!item.getTitle().equals(text)) {
             item.setTitle(text);
-            refresh();
         }
     }
 
     public void setIcon(int index, Drawable icon) {
-        AHBottomNavigationItem item = getItem(index);
-        if (!item.getDrawable(getContext()).equals(icon)) {
+        MenuItem item = getMenu().getItem(index);
+        if (!item.getIcon().equals(icon)) {
             item.setIcon(icon);
-            refresh();
         }
     }
 
     public void setSelectedIcon(int index, Drawable icon) {
-        AHBottomNavigationItem item = getItem(index);
-        if (!item.getDrawable(getContext()).equals(icon)) {
-            item.setSelectedIcon(icon);
-            refresh();
+        MenuItem item = getMenu().getItem(index);
+        if (!item.getIcon().equals(icon)) {
+            item.setIcon(icon);
         }
     }
 
     public void setLayoutDirection(LayoutDirection direction) {
          LinearLayout tabsContainer = findChildByClass(this, LinearLayout.class);
         if (tabsContainer != null) tabsContainer.setLayoutDirection(direction.get());
+    }
+
+    public void show() {
+            // Show bottom navigation
+            ViewCompat.animate(this)
+                    .translationY(0)
+                    .setInterpolator(new LinearOutSlowInInterpolator())
+                    .setDuration(300)
+                    .start();
+    }
+
+    public void hide() {
+            // Hide bottom navigation
+            ViewCompat.animate(this)
+                    .translationY(this.getHeight())
+                    .setInterpolator(new LinearOutSlowInInterpolator())
+                    .setDuration(300)
+                    .start();
     }
 }
