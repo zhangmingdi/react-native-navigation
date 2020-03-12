@@ -543,7 +543,7 @@ export interface OptionsFab {
   iconColor?: Color;
   alignHorizontally?: 'left' | 'right';
   hideOnScroll?: boolean;
-  size?: number;
+  size?: 'mini' | 'default';
   customSize?: number;
   text?: string;
   setExtended?: boolean;
