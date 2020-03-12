@@ -1,7 +1,6 @@
 package com.reactnativenavigation.presentation;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -11,20 +10,14 @@ import android.text.SpannableString;
 import android.text.style.StyleSpan;
 import android.util.TypedValue;
 import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.AppCompatImageView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
-import com.google.android.material.bottomnavigation.BottomNavigationMenu;
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.internal.BaselineLayout;
 import com.reactnativenavigation.parse.BottomTabOptions;
 import com.reactnativenavigation.parse.Options;
 import com.reactnativenavigation.parse.params.Param;
@@ -68,50 +61,18 @@ public class BottomTabPresenter {
 
     public void applyOptions() {
         bottomTabs.perform(bottomTabs -> {
-            for (int i = 0; i < tabs.size(); i++) {
-                BottomTabOptions tab = tabs.get(i).resolveCurrentOptions(defaultOptions).bottomTabOptions;
-
-//                BottomNavigationMenuView bottomNavigationMenuView =
-//                        (BottomNavigationMenuView) bottomTabs.getChildAt(0);
-//                BottomNavigationItemView item = (BottomNavigationItemView) bottomNavigationMenuView.getChildAt(i);
-//                View itemTitle = item.getChildAt(1);
-//                ((TextView) ((BaselineLayout) itemTitle).getChildAt(0)).setTypeface(tab.fontFamily);
-//                ((TextView) ((BaselineLayout) itemTitle).getChildAt(1)).setTypeface(tab.fontFamily);
-//
-//                int unselectedIconColor = Color.GREEN;
-//                int selectedIconColor = Color.BLUE;
-//
-//                if (tab.iconColor.hasValue()) unselectedIconColor = tab.iconColor.get();
-//                if (tab.selectedIconColor.hasValue()) selectedIconColor = tab.selectedIconColor.get();
-//
-//                ColorStateList iconsColorStates = new ColorStateList(
-//                        new int[][]{
-//                                new int[]{-android.R.attr.state_checked},
-//                                new int[]{android.R.attr.state_checked}
-//                        },
-//                        new int[]{
-//                                unselectedIconColor,
-//                                selectedIconColor
-//                        });
-//
-//                ColorStateList textColorStates = new ColorStateList(
-//                        new int[][]{
-//                                new int[]{android.R.attr.state_checked}
-//                        },
-//                        new int[]{
-//                                tab.textColor.get()
-//                        });
-//
-//                bottomTabs.setItemTextColor(textColorStates);
-//                bottomTabs.setItemIconTintList(iconsColorStates);
-
-//                if (tab.selectedIconColor.canApplyValue()) bottomTabs.setIconActiveColor(i, tab.selectedIconColor.get(null));
-//                if (tab.iconColor.canApplyValue()) bottomTabs.setIconInactiveColor(i, tab.iconColor.get(null));
-//                bottomTabs.setItemTextAppearanceInactive(tab.textColor.get(null));
+            for (int index = 0; index < tabs.size(); index++) {
+                BottomTabOptions tab = tabs.get(index).resolveCurrentOptions(defaultOptions).bottomTabOptions;
+                if (tab.fontFamily != null) bottomTabs.setItemTypeface(tab.fontFamily, index);
+                if (tab.iconColor.hasValue()) bottomTabs.setIconUnselectedColor(tab.iconColor.get(), index);
+                if (tab.selectedIconColor.hasValue()) bottomTabs.setIconSelectedColor(tab.selectedIconColor.get(), index);
+                if (tab.selectedTextColor.hasValue()) bottomTabs.setItemTextColorSelected(tab.selectedTextColor.get());
+                if (tab.textColor.hasValue()) bottomTabs.setItemTextColor(tab.textColor.get());
+                if (tab.text.hasValue()) bottomTabs.setText(index, tab.text.get());
 //                bottomTabs.setTitleInactiveTextSizeInSp(i, tab.fontSize.hasValue() ? Float.valueOf(tab.fontSize.get()) : null);
 //                bottomTabs.setTitleActiveTextSizeInSp(i, tab.selectedFontSize.hasValue() ? Float.valueOf(tab.selectedFontSize.get()) : null);
-//                if (tab.testId.hasValue()) bottomTabs.setTag(i, tab.testId.get());
-//                if (shouldApplyDot(tab)) applyDotIndicator(i, tab.dotIndicator); else applyBadge(i, tab);
+                if (tab.testId.hasValue()) bottomTabs.setTag(index, tab.testId.get());
+                if (shouldApplyDot(tab)) mergeDotIndicator(index, tab); else mergeBadge(index, tab);
             }
         });
     }
@@ -127,13 +88,11 @@ public class BottomTabPresenter {
             int index = bottomTabFinder.findByControllerId(child.getId());
             if (index >= 0) {
                 BottomTabOptions tab = options.bottomTabOptions;
-//                if (tab.fontFamily != null) bottomTabs.setTitleTypeface(index, tab.fontFamily);
-//                if (canMerge(tab.selectedIconColor)) bottomTabs.setIconActiveColor(index, tab.selectedIconColor.get());
-//                if (canMerge(tab.iconColor)) bottomTabs.setIconInactiveColor(index, tab.iconColor.get());
-//                if (tab.selectedTextColor.hasValue()) bottomTabs.setTitleActiveColor(index, tab.selectedTextColor.get());
-//                if (tab.textColor.hasValue()) bottomTabs.setTitleInactiveColor(index, tab.textColor.get());
-                if (tab.selectedTextColor.hasValue()) bottomTabs.setItemTextAppearanceActive(tab.selectedTextColor.get(null));
-                if (tab.textColor.hasValue()) bottomTabs.setItemTextAppearanceInactive(tab.textColor.get(null));
+                if (tab.fontFamily != null) bottomTabs.setItemTypeface(tab.fontFamily, index);
+                if (canMerge(tab.selectedIconColor)) bottomTabs.setIconSelectedColor(tab.selectedIconColor.get(), index);
+                if (canMerge(tab.iconColor)) bottomTabs.setIconUnselectedColor(tab.iconColor.get(), index);
+                if (tab.selectedTextColor.hasValue()) bottomTabs.setItemTextColorSelected(tab.selectedTextColor.get());
+                if (tab.textColor.hasValue()) bottomTabs.setItemTextColor(tab.textColor.get());
                 if (tab.text.hasValue()) bottomTabs.setText(index, tab.text.get());
                 if (tab.icon.hasValue()) imageLoader.loadIcon(context, tab.icon.get(), new ImageLoadingListenerAdapter() {
                     @Override

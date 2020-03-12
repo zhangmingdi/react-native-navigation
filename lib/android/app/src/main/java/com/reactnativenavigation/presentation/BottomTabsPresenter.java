@@ -7,7 +7,6 @@ import com.reactnativenavigation.parse.AnimationsOptions;
 import com.reactnativenavigation.parse.BottomTabsOptions;
 import com.reactnativenavigation.parse.Options;
 import com.reactnativenavigation.parse.params.Text;
-import com.reactnativenavigation.parse.params.TitleDisplayMode;
 import com.reactnativenavigation.viewcontrollers.ViewController;
 import com.reactnativenavigation.viewcontrollers.bottomtabs.BottomTabFinder;
 import com.reactnativenavigation.viewcontrollers.bottomtabs.TabSelector;
