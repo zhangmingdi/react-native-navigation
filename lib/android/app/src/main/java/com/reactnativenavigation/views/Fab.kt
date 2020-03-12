@@ -1,7 +1,6 @@
 package com.reactnativenavigation.views
 
 import android.content.Context
-import android.content.res.ColorStateList
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.graphics.drawable.Drawable
@@ -16,8 +15,8 @@ import com.reactnativenavigation.utils.ImageLoader
 import com.reactnativenavigation.utils.ImageLoadingListenerAdapter
 
 class Fab(context: Context?, id: String) : FloatingActionButton(context!!), FabAnimator, FloatingButton {
-    override var fabId = ""
-    private val collapseBehaviour: FabCollapseBehaviour
+    override var fabId = id
+    private val collapseBehaviour: FabCollapseBehaviour = FabCollapseBehaviour(this)
 
     override fun applyIcon(icon: String, color: Colour) {
         ImageLoader().loadIcons(context, listOf(icon), object : ImageLoadingListenerAdapter() {
@@ -39,10 +38,6 @@ class Fab(context: Context?, id: String) : FloatingActionButton(context!!), FabA
         return fabId == fab.fabId
     }
 
-    override fun bringToFront() {
-        super<FloatingActionButton>.bringToFront()
-    }
-
     override fun hashCode(): Int {
         return fabId.hashCode()
     }
@@ -56,30 +51,6 @@ class Fab(context: Context?, id: String) : FloatingActionButton(context!!), FabA
         collapseBehaviour.disableCollapse()
     }
 
-    override fun setCustomSize(get: Int) {
-        super<FloatingActionButton>.setCustomSize(get);
-    }
-
-    override fun show() {
-        super<FloatingActionButton>.show()
-    }
-
-    override fun setRippleColor(color: ColorStateList?) {
-        super<FloatingActionButton>.setRippleColor(color)
-    }
-
-    override fun hide() {
-        super<FloatingActionButton>.hide()
-    }
-
-    override fun setSize(size: Int) {
-        super<FloatingActionButton>.setSize(size)
-    }
-
-    override fun setBackgroundColor(get: Int) {
-        super<FloatingActionButton>.setBackgroundColor(get)
-    }
-
     override fun setText(string: String?) {
 
     }
@@ -89,11 +60,6 @@ class Fab(context: Context?, id: String) : FloatingActionButton(context!!), FabA
     }
 
     override fun setOnClickListener(function: (View?) -> Unit) {
-        super<FloatingActionButton>.setOnClickListener(function)
-    }
-
-    init {
-        collapseBehaviour = FabCollapseBehaviour(this)
-        fabId = id
+        super.setOnClickListener(function)
     }
 }

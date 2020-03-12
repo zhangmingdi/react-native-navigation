@@ -1,7 +1,6 @@
 package com.reactnativenavigation.views
 
 import android.content.Context
-import android.content.res.ColorStateList
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.graphics.drawable.Drawable
@@ -16,8 +15,8 @@ import com.reactnativenavigation.utils.ImageLoader
 import com.reactnativenavigation.utils.ImageLoadingListenerAdapter
 
 class ExtendedFab(context: Context?, id: String) : ExtendedFloatingActionButton(context!!), FabAnimator, FloatingButton {
-    override var fabId = ""
-    private val collapseBehaviour: FabCollapseBehaviour
+    override var fabId = id
+    private val collapseBehaviour: FabCollapseBehaviour = FabCollapseBehaviour(this)
     override fun applyIcon(icon: String, color: Colour) {
         ImageLoader().loadIcons(context, listOf(icon), object : ImageLoadingListenerAdapter() {
             override fun onComplete(drawable: List<Drawable>) {
@@ -31,27 +30,11 @@ class ExtendedFab(context: Context?, id: String) : ExtendedFloatingActionButton(
         })
     }
 
-    override fun show() {
-        super<ExtendedFloatingActionButton>.show()
-    }
-
-    override fun bringToFront() {
-        super<ExtendedFloatingActionButton>.bringToFront()
-    }
-
-    override fun setRippleColor(color: ColorStateList?) {
-        super<ExtendedFloatingActionButton>.setRippleColor(color)
-    }
-
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null || javaClass != other.javaClass) return false
         val fab = other as Fab
         return fabId == fab.fabId
-    }
-
-    override fun hide() {
-        super<ExtendedFloatingActionButton>.hide()
     }
 
     override fun hashCode(): Int {
@@ -66,32 +49,19 @@ class ExtendedFab(context: Context?, id: String) : ExtendedFloatingActionButton(
 
     }
 
-    override fun disableCollapse() {
-        collapseBehaviour.disableCollapse()
-    }
-
     override fun setCustomSize(get: Int) {
 
     }
 
-    override fun setBackgroundColor(get: Int) {
-        super<ExtendedFloatingActionButton>.setBackgroundColor(get)
-    }
-
-    override fun setText(string: String?) {
-        super<ExtendedFloatingActionButton>.setText(string)
-    }
-
-    override fun setExtended(status : Boolean) {
-        super<ExtendedFloatingActionButton>.setExtended(status)
+    override fun disableCollapse() {
+        collapseBehaviour.disableCollapse()
     }
 
     override fun setOnClickListener(function: (View?) -> Unit) {
-        super<ExtendedFloatingActionButton>.setOnClickListener(function)
+        super.setOnClickListener(function)
     }
 
-    init {
-        collapseBehaviour = FabCollapseBehaviour(this)
-        fabId = id
+    override fun setText(string: String?) {
+        super.setText(string)
     }
 }
