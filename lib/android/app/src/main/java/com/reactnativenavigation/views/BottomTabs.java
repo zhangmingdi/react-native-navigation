@@ -31,10 +31,10 @@ import static com.reactnativenavigation.utils.ViewUtils.findChildByClass;
 @SuppressLint("ViewConstructor")
 public class BottomTabs extends BottomNavigationView {
 
-    private int textStateUnselected = Color.GREEN;
-    private int textStateSelected = Color.GREEN;
-    private int unselectedIconColor = Color.GREEN;
-    private int selectedIconColor = Color.GREEN;
+    private int textStateUnselected = Color.GRAY;
+    private int textStateSelected = Color.BLACK;
+    private int unselectedIconColor = Color.GRAY;
+    private int selectedIconColor = Color.BLACK;
     private boolean isHidden = false;
 
     public BottomTabs(Context context) {

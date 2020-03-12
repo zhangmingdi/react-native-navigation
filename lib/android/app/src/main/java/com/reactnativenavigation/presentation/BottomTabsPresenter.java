@@ -66,7 +66,6 @@ public class BottomTabsPresenter {
         BottomTabsOptions bottomTabsOptions = options.bottomTabsOptions;
 
         if (options.layout.direction.hasValue()) bottomTabs.setLayoutDirection(options.layout.direction);
-        //if (bottomTabsOptions.preferLargeIcons.hasValue()) bottomTabs.setPreferLargeIcons(bottomTabsOptions.preferLargeIcons.get());
        if (bottomTabsOptions.titleDisplayMode.hasValue()) {
             bottomTabs.setTitleState(bottomTabsOptions.titleDisplayMode);
         }
@@ -111,7 +110,6 @@ public class BottomTabsPresenter {
         AnimationsOptions animationsOptions = options.animations;
 
         bottomTabs.setLayoutDirection(options.layout.direction);
-//        bottomTabs.setPreferLargeIcons(options.bottomTabsOptions.preferLargeIcons.get(false));
         bottomTabs.setTitleState(new Text(bottomTabsOptions.titleDisplayMode.get(getDefaultTitleState())));
         bottomTabs.setBackgroundColor(bottomTabsOptions.backgroundColor.get(Color.WHITE));
         if (bottomTabsOptions.currentTabIndex.hasValue()) {
