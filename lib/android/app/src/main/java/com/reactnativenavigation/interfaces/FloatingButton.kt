@@ -5,58 +5,18 @@ import android.view.View
 import com.reactnativenavigation.parse.params.Colour
 
 interface FloatingButton {
-
     val fabId: Any
-
-    fun setBackgroundColor(get: Int) {
-        TODO("Not yet implemented")
-    }
-
-    fun disableCollapse() {
-        TODO("Not yet implemented")
-    }
-
-    fun setCustomSize(get: Int?) {
-        TODO("Not yet implemented")
-    }
-
-    fun setOnClickListener(function: (View?) -> Unit) {
-        TODO("Not yet implemented")
-    }
-
-    fun show() {
-        TODO("Not yet implemented")
-    }
-
-    fun hide() {
-        TODO("Not yet implemented")
-    }
-
-    fun setRippleColor(color : ColorStateList? ) {
-        TODO("Not yet implemented")
-    }
-
-    fun applyIcon(icon: String, color: Colour) {
-        TODO("Not yet implemented")
-    }
-
-    fun enableCollapse(scrollEventListener: ScrollEventListener) {
-        TODO("Not yet implemented")
-    }
-
-    fun setSize(size: Int) {
-        TODO("Not yet implemented")
-    }
-
-    fun bringToFront() {
-        TODO("Not yet implemented")
-    }
-
-    fun setText(string: String?) {
-        TODO("Not yet implemented")
-    }
-
-    fun setExtended(status : Boolean) {
-        TODO("Not yet implemented")
-    }
+    fun setBackgroundColor(get: Int)
+    fun disableCollapse()
+    fun setCustomSize(get: Int)
+    fun setOnClickListener(function: (View?) -> Unit)
+    fun show()
+    fun hide()
+    fun setRippleColor(color : ColorStateList? )
+    fun applyIcon(icon: String, color: Colour)
+    fun enableCollapse(scrollEventListener: ScrollEventListener)
+    fun setSize(size: Int)
+    fun bringToFront()
+    fun setText(string: String?)
+    fun setExtended(status : Boolean)
 }

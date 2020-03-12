@@ -62,8 +62,16 @@ class ExtendedFab(context: Context?, id: String) : ExtendedFloatingActionButton(
         collapseBehaviour.enableCollapse(scrollEventListener)
     }
 
+    override fun setSize(size: Int) {
+
+    }
+
     override fun disableCollapse() {
         collapseBehaviour.disableCollapse()
+    }
+
+    override fun setCustomSize(get: Int) {
+
     }
 
     override fun setBackgroundColor(get: Int) {

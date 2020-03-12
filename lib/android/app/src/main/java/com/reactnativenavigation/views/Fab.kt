@@ -56,6 +56,10 @@ class Fab(context: Context?, id: String) : FloatingActionButton(context!!), FabA
         collapseBehaviour.disableCollapse()
     }
 
+    override fun setCustomSize(get: Int) {
+        super<FloatingActionButton>.setCustomSize(get);
+    }
+
     override fun show() {
         super<FloatingActionButton>.show()
     }
