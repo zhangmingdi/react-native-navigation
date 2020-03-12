@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -25,6 +24,7 @@ import com.google.android.material.internal.BaselineLayout;
 import com.reactnativenavigation.R;
 import com.reactnativenavigation.parse.LayoutDirection;
 import com.reactnativenavigation.parse.params.Text;
+import com.reactnativenavigation.parse.params.TitleDisplayMode;
 
 import static com.reactnativenavigation.utils.ViewUtils.findChildByClass;
 
@@ -35,6 +35,7 @@ public class BottomTabs extends BottomNavigationView {
     private int textStateSelected = Color.GREEN;
     private int unselectedIconColor = Color.GREEN;
     private int selectedIconColor = Color.GREEN;
+    private boolean isHidden = false;
 
     public BottomTabs(Context context) {
         super(context);
@@ -50,17 +51,36 @@ public class BottomTabs extends BottomNavigationView {
     public void setTitleState(Text titleState) {
         switch(titleState.get()) {
             case "alwaysHide":
-                this.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_UNLABELED);
+                setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_UNLABELED);
                 break;
             case "alwaysShow":
-                this.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
+                setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
                 break;
             case "showWhenActive":
-                this.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_SELECTED);
+                setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_SELECTED);
                 break;
             default:
                 break;
         }
+    }
+
+    public TitleDisplayMode getTitleState() {
+        switch (super.getLabelVisibilityMode()) {
+            case LabelVisibilityMode.LABEL_VISIBILITY_UNLABELED:
+                return TitleDisplayMode.ALWAYS_HIDE;
+            case LabelVisibilityMode.LABEL_VISIBILITY_LABELED:
+                return TitleDisplayMode.ALWAYS_SHOW;
+            case LabelVisibilityMode.LABEL_VISIBILITY_SELECTED:
+                return TitleDisplayMode.SHOW_WHEN_ACTIVE;
+            case LabelVisibilityMode.LABEL_VISIBILITY_AUTO:
+                return TitleDisplayMode.ALWAYS_SHOW;
+            default:
+                return TitleDisplayMode.UNDEFINED;
+        }
+    }
+
+    public boolean isHidden() {
+        return isHidden;
     }
 
     public void setText(int index, String text) {
@@ -90,6 +110,9 @@ public class BottomTabs extends BottomNavigationView {
     }
 
     public void show() {
+
+        isHidden = false;
+
         // Show bottom navigation
         ViewCompat.animate(this)
                 .translationY(0)
@@ -99,6 +122,9 @@ public class BottomTabs extends BottomNavigationView {
     }
 
     public void hide() {
+
+        isHidden = true;
+
         // Hide bottom navigation
         ViewCompat.animate(this)
                 .translationY(this.getHeight())

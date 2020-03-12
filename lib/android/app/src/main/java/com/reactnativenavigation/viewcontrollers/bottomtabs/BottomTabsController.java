@@ -155,7 +155,7 @@ public class BottomTabsController extends ParentController<BottomTabsLayout> imp
 	}
 
     int getSelectedIndex() {
-		return bottomTabs.getMenu().getItem(bottomTabs.getSelectedItemId()).getOrder();
+		return getItemIndex(bottomTabs.getMenu().findItem(bottomTabs.getSelectedItemId()));
 	}
 
     @Override
@@ -226,7 +226,7 @@ public class BottomTabsController extends ParentController<BottomTabsLayout> imp
 
         BottomTabOptions options = tabs.get(index).resolveCurrentOptions().bottomTabOptions;
         if (options.selectTabOnPress.get(true)){
-            eventEmitter.emitBottomTabSelected(bottomTabs.getSelectedItemId(), index);
+            eventEmitter.emitBottomTabSelected(getSelectedIndex(), index);
             selectTab(index);
         }
 

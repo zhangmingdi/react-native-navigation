@@ -71,7 +71,7 @@ public class BottomTabPresenter {
                 if (tab.text.hasValue()) bottomTabs.setText(index, tab.text.get());
 //                bottomTabs.setTitleInactiveTextSizeInSp(i, tab.fontSize.hasValue() ? Float.valueOf(tab.fontSize.get()) : null);
 //                bottomTabs.setTitleActiveTextSizeInSp(i, tab.selectedFontSize.hasValue() ? Float.valueOf(tab.selectedFontSize.get()) : null);
-                if (tab.testId.hasValue()) bottomTabs.setTag(index, tab.testId.get());
+//                if (tab.testId.hasValue()) bottomTabs.setTag(index, tab.testId.get());
                 if (shouldApplyDot(tab)) mergeDotIndicator(index, tab); else mergeBadge(index, tab);
             }
         });
@@ -106,7 +106,7 @@ public class BottomTabPresenter {
                         bottomTabs.setSelectedIcon(index, drawable);
                     }
                 });
-                if (tab.testId.hasValue()) bottomTabs.setTag(index, tab.testId.get());
+//                if (tab.testId.hasValue()) bottomTabs.setTag(index, tab.testId.get());
                 if (shouldApplyDot(tab)) mergeDotIndicator(index, tab); else mergeBadge(index, tab);
             }
         });
