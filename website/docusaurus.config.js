@@ -8,7 +8,9 @@ module.exports = {
   projectName: 'react-native-navigation', // Usually your repo name.
   themeConfig: {
     prism: {
-      theme: require('prism-react-renderer/themes/vsDark'),
+      // theme: require('prism-react-renderer/themes/vsDark'),
+      theme: require('prism-react-renderer/themes/nightOwl'),
+      // theme: require('prism-react-renderer/themes/dracula'),
     },
     navbar: {
       title: 'React Native Navigation',
