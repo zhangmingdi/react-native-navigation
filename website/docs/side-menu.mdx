@@ -67,3 +67,39 @@ class SideMenuCenterScreen extends React.Component {
   }
 }
 ```
+
+## Pushing to the center layout from a menu
+A common use case when using SideMenus is to interact with the center layout e.g. pushing a screen to a stack in the center layout when user clicks on a button in one of the menus.
+
+In order to interact with the stack, we'll first assign it a predefined id. For example:
+
+```js
+sideMenu: {
+  center: {
+    stack: {
+      id: 'CenterStack',
+      children: []
+    }
+  },
+  left: {
+    ...
+  }
+}
+```
+
+Now that we've defined an `id` for out stack, we can go ahead and push our screen to it. If we're pushing while the SideMenu is open, we'll need to make sure we close it by updating the visibility option of the relevant menu (left or right).
+
+```js
+Navigation.push('CenterStack', {
+  component: {
+    name: Screens.Pushed,
+    options: {
+      sideMenu: {
+        left: {
+          visible: false
+        }
+      }
+    }
+  }
+});
+```
