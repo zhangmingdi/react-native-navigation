@@ -1,0 +1,101 @@
+---
+id: contributing
+title: Contributing
+sidebar_label: Contributing
+---
+
+Thank you for showing interest in contributing to React-Native-Navigation! This project is developed and maintained by Wix in collaboration with the community.
+
+There are various way in which you can contribute to the library, not all require knowledge or expertise in the native domains. We've listed below all you need to know to help you get started with your first contribution.
+
+## Stack Overflow
+
+Stack Overflow is used by developers to find answers and trouble shoot code. Users are encouraged to post questions on SO and tag them with the [wix-react-native-navigation](https://stackoverflow.com/questions/tagged/wix-react-native-navigation) tag. Answering issus on SO is very helpful and beneficial to the community, only this time, there's a personal angle - You can boost your SO rank and rack up points quickly.
+
+## Discord
+
+Another popular communication channel is our [Discord channel](https://discord.gg/DhkZjq2) where users post questions and consult with each other. Your welcome to join the discussions and answer questions. This is also a great place to meet other community members and the maintainers.
+
+## Github Issues
+
+### Open issues
+Found a bug? Missing feature? go ahead and open an issue! Make sure to add all details mentioned in the issue template. If your interested in submitting a big change, please speak to one of the admins on [Discord](#discord) to coordinate your effort.
+
+### Respond to issues
+The issue tracker is used solely for bug reports, but issues are frequently opened for questions or to request assistance. As the project grows in popularity, more issues remain unanswered for long periods of time.
+
+Some issues can be trivial and easy to pin point; a missing import statement or apostrophe, wrong layout structure etc. If you're an experienced user, helping out new comers is very satisfying and allows maintainers to focus on features and bug fixes.
+
+Some issues are tagged as ["looking for contributors"](https://github.com/wix/react-native-navigation/labels/user%3A%20looking%20for%20contributors). These issues have been recognized by the team, but won't be prioritized by Wix developers due to lack of time. We leave these issues to our community and you're more then welcome to take a crack at them. If you'd like to submit a PR, see the [instructions below](#running-the-project) on how to run the project locally.
+
+### Provide reproductions
+Reproducing bugs takes time. Lots of time. Usually it's because an issue was lacking important information which causes a lot of back and forth communication between maintainers and users. Help us address more bugs and issues by providing reproductions.
+
+Providing reproductions improves the chances of an issue being prioritized by maintainers!
+
+If an issue is reproduced with a specific combination of options, posting these options will usually suffice. If a specific layout structure is involved or specific actions in certain order - then we ask that you fork the project and push a branch with a reproduction to the Playground app.
+
+Check out the [list of issue require a reproductions](https://github.com/wix/react-native-navigation/labels/user%3A%20requires%20reproduction).
+
+### Submitting PR's
+So you've fixed a bug or added a feature and you're ready to submit a pull request 🎉🎊 Make sure the title is clear and describes the reason for the PR. Please include any information you can which will help us understand the reasons for the PR, what it fixes and what it changes. Please include before/after pictures/gifs when appropriate.
+
+## Running The Project
+Got your environment set up? Go ahead and clone the repo. (Fork it first so you can open a PR when you're ready.)
+
+Then:
+
+1. Install dependencies `npm install`
+2. Run the playground project on Android and iOS
+    - `npm run start` to get the packager running in a terminal, leave it open
+    - **iOS**: open `./playground/ios` in Xcode and run it
+    - **Android**: open `./playground/android` in Android Studio and run it
+3. Run the tests (using the scripts below). Before you start changing things, make sure everything works.
+	- To easily run all tests in parallel `npm run test-all`
+
+### Workflow
+This project is driven by tests. Before implementing any feature or fixing any bug, a failing test (e2e or unit or both) should be added, depending on the environment of where the fix should be implemented. For example, for an API change, a failing e2e should be written. For a small bug fix in Android, for example, a unit test in Android should be added.
+
+This will ensure good quality throughout the life of the project and will avoid unexpected breakages.
+
+No PR will be accepted without adequate test coverage.
+
+### The Playground app
+The Playground app is used for e2e tests and reproductions. If your change requires an e2e, add it to the playground app to the appropriate screen.
+
+:::tip
+If a screen contains too many buttons, e2e tests might fail if the button is positioned out of screen bounds because Detox matchers detect it's invisible.
+:::
+
+### Folder Structure
+
+| Folder | Description |
+| ------ | ----------- |
+| `lib` | The project itself composed of: |
+| `lib/android` | android sources and unit tests |
+| `lib/ios` | iOS sources and unit tests |
+| `lib/src` | TypeScript sources and unit tests |
+| `lib/dist` | compiled javascript sources and unit tests |
+| `lib/dist/index.js` | the entry point for `import Navigation from 'react-native-navigation'` |
+| `e2e` | [detox](https://github.com/wix/detox) e2e tests on both Android and iOS |
+| `playground` | The end-user project all e2e tests run against. Contains its own `src`, `android` and `ios`. Does not have its own package.json, depends on the local `<root>/lib` for faster local development (no need to `npm install` locally). |
+| `integration` | misc javascript integration tests, proving integration with other libraries like redux |
+| `scripts` | all scripts |
+
+### Scripts
+
+| Command | Description |
+| ------- | ----------- |
+| `npm install` | installs dependencies |
+| `npm run build` | compiles TypeScript sources `./lib/src` into javascript `./lib/dist` |
+| `npm run clean` | cleans all build directories, stops packager, fixes flakiness by removing watchman cache, etc. |
+| `npm run start` | starts the react-native packager for local debugging |
+| `npm run xcode` | for convenience, opens xcode in this project |
+| `npm run install-android`  |  builds playground debug/release version and installs on running android devices/emulators. <br></br> **Options:** `-- --release` |
+| `npm run uninstall-android` | uninstalls playground from running android devices/simulators |
+| `npm run test-js` | runs javascript tests and coverage report |
+| `npm run test-unit-ios` | runs ios unit tests in debug/release <br></br> **Options:** `-- --release` |
+| `npm run test-unit-android` | runs android unit tests in debug/release <br></br> **Options:** `-- --release` |
+| `npm run test-e2e-ios` | runs the ios e2e tests using [detox](https://github.com/wix/detox) in debug/release <br></br> **Options:** `-- --release`|
+| `npm run test-e2e-android` | runs the android e2e tests using [detox](https://github.com/wix/detox) in debug/release <br></br> **Options:** `-- --release` |
+| `npm run test-all` | runs all tests in parallel |

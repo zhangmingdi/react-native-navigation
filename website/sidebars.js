@@ -31,6 +31,9 @@ module.exports = {
       'screen-animations',
       'fonts',
       'constants-docs'
+    ],
+    Meta: [
+      'contributing'
     ]
   },
   API: [
@@ -91,88 +94,3 @@ module.exports = {
     'events-api'
   ]
 };
-
-// {
-//   'docs': {
-//     'Installation': [
-//       {
-//         'type': 'subcategory',
-//         'label': 'iOS',
-//         'ids': [
-//           'iosManual',
-//           'iosCocoaPods'
-//         ]
-//       },
-//       {
-//         'type': 'subcategory',
-//         'label': 'Android',
-//         'ids': [
-//           'installingAndroid'
-//         ]
-//       }
-//     ],
-//     'Getting Started': [
-//       'displayTheAppRoot',
-//       'showcases'
-//     ],
-//     'Layouts2': {
-//       'type': 'category',
-//       'label': 'Layouts2',
-//       'items': [
-//         {
-//           'type': 'category',
-//           'label': 'Stack',
-//           'items': [
-//             'stack-api',
-//             'stack-examples',
-//             'stack-options',
-//             'stack-buttons'
-//           ]
-//         }
-//       ]
-//     },
-//     'Layouts': [
-//       {
-//         'type': 'category',
-//         'label': 'Stack',
-//         'items': [
-//           'stack-api',
-//           'stack-examples',
-//           'stack-options',
-//           'stack-buttons'
-//         ]
-//       },
-//       {
-//         'type': 'subcategory',
-//         'label': 'BottomTabs',
-//         'ids': [
-//           'bottomTabs-selecting',
-//           'bottomTabs-visibility',
-//           'bottomTabs-dynamic-options',
-//           'bottomTabs-options'
-//         ]
-//       },
-//       {
-//         'type': 'subcategory',
-//         'label': 'SideMenu',
-//         'ids': [
-//           'sideMenu-openProgrammatically',
-//           'sideMenu-disable'
-//         ]
-//       },
-//       {
-//         'type': 'subcategory',
-//         'label': 'ExternalComponent',
-//         'ids': [
-//           'externalComponent-viewGroup',
-//           'externalComponent-fragment',
-//           'externalComponent-viewController'
-//         ]
-//       }
-//     ],
-//     'Hierarchy': [
-//       'root'
-//     ]
-//   },
-
-// }
