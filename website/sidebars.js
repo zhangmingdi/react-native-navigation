@@ -53,7 +53,6 @@ module.exports = {
       label: 'Layouts',
       items: [
         'layout',
-        'container-layout',
         'component',
         'stack',
         'bottomTabs',
