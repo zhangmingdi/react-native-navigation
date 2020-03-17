@@ -28,6 +28,11 @@ module.exports = {
         },
       ],
     },
+    algolia: {
+      appId: '1SHXNOQYNQ',
+      apiKey: '185e6a838e4ddf712a214e740ebb2a0d',
+      indexName: 'react-native-navigation'
+    },
     sidebarCollapsible: false,
     footer: {
       style: 'dark',
