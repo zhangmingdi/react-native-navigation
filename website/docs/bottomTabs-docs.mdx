@@ -1,23 +1,21 @@
 ---
-id: bottom-tabs
+id: bottomTabs-docs
 title: Bottom tabs
 sidebar_label: Bottom tabs
 ---
+import useBaseUrl from '@docusaurus/useBaseUrl';
 
-Bottom tabs refferes to a row of links, displayed at the bottom of the screen, and is reffered to as "Tab Bar" in iOS and as "Bottom Navigation Bars" on Android. Usually these are intended to be used to switch between top-level content views with a single tap.
+Bottom tabs refers to a row of links, displayed at the bottom of the screen, and is referred to as "Tab Bar" in iOS and as "Bottom Navigation Bar" on Android. Usually these are intended to be used to switch between top-level content views with a single tap.
 
 ## Creating bottom tabs
 
-TODO:
-- Write this section:
-  - explain basic setup for bottom tabs
-  - show screenshot examples
-  - maybe talk about styling?
+BottomTabs provide flat navigation and access, to up to five, equally important top-level root destinations. While any type of layout can be displayed in a tab, typically, [Stacks]() are used since they allow for vertical navigation withing a tab.
 
-## Selecting Tabs Programmatically
-Tabs can be selected programmatically by updating the `currentTabIndex` or `currentTabId` options.
-
-We'll use the following BottomTabs layout to demonstrate programmatic tab selection.
+### Example
+Lets see how to create a simple BottomTabs layout. There are a few things to notice here:
+1. Each child represents a tab on the screen.
+2. The root layout for each tab is a stack to allow for vertical navigation within the tab.
+3. Each stack declares `bottomTab` options to configure the tab's text, icon, color etc.
 
 ```js
 bottomTabs: {
@@ -33,7 +31,12 @@ bottomTabs: {
               name: 'HomeScreen'
             }
           }
-        ]
+        ],
+        options: {
+          bottomTab: {
+            icon: require('./home.png')
+          }
+        }
       }
     },
     stack: {
@@ -44,18 +47,25 @@ bottomTabs: {
             id: 'PROFILE_SCREEN',
             name: 'ProfileScreen'
           }
-        },
-        {
-          component: {
-            id: 'SETTINGS_SCREEN',
-            name: 'SettingsScreen'
-          }
         }
-      ]
+      ],
+      options: {
+        bottomTab: {
+          icon: require('./profile.png')
+        }
+      }
     }
   ]
 }
 ```
+
+Once we run this code, our BottomTabs should look like this:
+<img width="40%" src={useBaseUrl('img/bottomTabs.png')} />
+
+## Selecting Tabs Programmatically
+Tabs can be selected programmatically by updating the `currentTabIndex` or `currentTabId` options.
+
+We'll use the BottomTabs layout showcased [above](bottomTabs-docs#example) to demonstrate programmatic tab selection.
 
 ### Selecting a tab by index
 The following mergeOptions command will select the second tab. We're passing the id of our BottomTabs layout, but we could also use the id of any of the child components, for example `PROFILE_TAB` or `PROFILE_SCREEN`.
@@ -118,3 +128,13 @@ Navigation.mergeOptions(componentId, {
   },
 });
 ```
+
+## Controlling tab loading
+
+By default, all tabs are mounted at the same time. This can have a negative impact on performance since screens which are not visible to the user are mounted.
+
+The order in which tabs are mounted can be configured with the `tabsAttachMode` option:
+
+* `together` - all tabs are mounted at the same time, this is the default behavior.
+* `afterInitialTab` - After the initial tab is mounted, other tabs are mounted.
+* `onSwitchToTab` - Initial tab is mounted, other tabs are mounted when the user navigates to them for the first time.

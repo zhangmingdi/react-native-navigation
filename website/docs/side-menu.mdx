@@ -4,10 +4,7 @@ title: Side Menu
 sidebar_label: Side Menu
 ---
 
-TODO:
-
-Write a section on creating and/or populating the side menu with content (like actual nav links) 
-
+SideMenu provides access to destinations in the app from an easy to access menu which is accessible to the user via horizontal swipe gesture or a menu button.
 
 ## Opening programmatically
 
@@ -69,4 +66,40 @@ class SideMenuCenterScreen extends React.Component {
     }
   }
 }
+```
+
+## Pushing to the center layout from a menu
+A common use case when using SideMenus is to interact with the center layout e.g. pushing a screen to a stack in the center layout when user clicks on a button in one of the menus.
+
+In order to interact with the stack, we'll first assign it a predefined id. For example:
+
+```js
+sideMenu: {
+  center: {
+    stack: {
+      id: 'CenterStack',
+      children: []
+    }
+  },
+  left: {
+    ...
+  }
+}
+```
+
+Now that we've defined an `id` for out stack, we can go ahead and push our screen to it. If we're pushing while the SideMenu is open, we'll need to make sure we close it by updating the visibility option of the relevant menu (left or right).
+
+```js
+Navigation.push('CenterStack', {
+  component: {
+    name: Screens.Pushed,
+    options: {
+      sideMenu: {
+        left: {
+          visible: false
+        }
+      }
+    }
+  }
+});
 ```

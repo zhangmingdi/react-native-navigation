@@ -49,7 +49,9 @@ Navigation.showModal({
 });
 ```
 
->⚠️ Important: props passed to external component are sent over the bridge and therefore must be serializable.
+:::caution
+props passed to external components are sent over the bridge and therefore must be serializable.
+:::
 
 ## Fragment
 
@@ -88,4 +90,6 @@ public class FragmentComponent implements ExternalComponent {
 
 ## ViewController
 
-TODO - ViewController
+:::warning
+This section is a work in progress. [PRs are welcome](https://github.com/wix/react-native-navigation/issues/5399).
+:::

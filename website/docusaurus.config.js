@@ -8,7 +8,9 @@ module.exports = {
   projectName: 'react-native-navigation', // Usually your repo name.
   themeConfig: {
     prism: {
-      theme: require('prism-react-renderer/themes/vsDark'),
+      // theme: require('prism-react-renderer/themes/vsDark'),
+      theme: require('prism-react-renderer/themes/nightOwl'),
+      // theme: require('prism-react-renderer/themes/dracula'),
     },
     navbar: {
       title: 'React Native Navigation',
@@ -25,6 +27,11 @@ module.exports = {
           position: 'right',
         },
       ],
+    },
+    algolia: {
+      appId: '1SHXNOQYNQ',
+      apiKey: '185e6a838e4ddf712a214e740ebb2a0d',
+      indexName: 'react-native-navigation'
     },
     sidebarCollapsible: false,
     footer: {

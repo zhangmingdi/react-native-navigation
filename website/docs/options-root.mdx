@@ -21,81 +21,81 @@ const options = {
 
 Controls the bottom tab icon, font, color and more.
 
-| Type                                  |
-| ------------------------------------- |
-| [BottomTabOptions](bottomTab-options) |
+| Type                                  | Required | Platform |
+| ------------------------------------- | -------- | -------- |
+| [BottomTabOptions](bottomTab-options) | No       | Both     |
 
 ## `bottomTabs`
 
 Controls the bottom tabs container.
 
-| Type                                    |
-| --------------------------------------- |
-| [BottomTabsOptions](bottomTabs-options) |
+| Type                                    | Required | Platform |
+| --------------------------------------- | -------- | -------- |
+| [BottomTabsOptions](bottomTabs-options) | No       | Both     |
 
 ## `topBar`
 
 Controls the Stack top bar styling.
 
-| Type                           |
-| ------------------------------ |
-| [TopBarOptions](stack-options) |
+| Type                           | Required | Platform |
+| ------------------------------ | -------- | -------- |
+| [TopBarOptions](stack-options) |          | No       |
 
 ## `statusBar`
 
 Controls the system's status bar styling.
 
-| Type                                  |
-| ------------------------------------- |
-| [StatusBarOptions](statusBar-options) |
+| Type                                  | Required | Platform |
+| ------------------------------------- | -------- | -------- |
+| [StatusBarOptions](statusBar-options) | No       | Both     |
 
 ## `layout`
 
-| Type                            |
-| ------------------------------- |
-| [LayoutOptions](layout-options) |
+| Type                            | Required | Platform |
+| ------------------------------- | -------- | -------- |
+| [LayoutOptions](layout-options) | No       | Both     |
 
 ## `sideMenu`
 
-| Type                                |
-| ----------------------------------- |
-| [SideMenuOptions](sideMenu-options) |
+| Type                                | Required | Platform |
+| ----------------------------------- | -------- | -------- |
+| [SideMenuOptions](sideMenu-options) | No       | Both     |
 
 ## `overlay`
 
-| Type                              |
-| --------------------------------- |
-| [OverlayOptions](overlay-options) |
+| Type                              | Required | Platform |
+| --------------------------------- | -------- | -------- |
+| [OverlayOptions](overlay-options) | No       | Both     |
 
 ## `animations`
 
-| Type                                    |
-| --------------------------------------- |
-| [AnimationsOptions](animations-options) |
+| Type                                    | Required | Platform |
+| --------------------------------------- | -------- | -------- |
+| [AnimationsOptions](animations-options) | No       | Both     |
 
 ## `modal`
 
-| Type                          |
-| ----------------------------- |
-| [ModalOptions](modal-options) |
+| Type                          | Required | Platform |
+| ----------------------------- | -------- | -------- |
+| [ModalOptions](modal-options) | No       | Both     |
 
 ## `preview`
 
-| Type                              |
-| --------------------------------- |
-| [PreviewOptions](preview-options) |
+| Type                              | Required | Platform |
+| --------------------------------- | -------- | -------- |
+| [PreviewOptions](preview-options) | No       | iOS      |
 
 ## `splitView`
 
-| Type                                  |
-| ------------------------------------- |
-| [SplitViewOptions](splitView-options) |
+| Type                                  | Required | Platform |
+| ------------------------------------- | -------- | -------- |
+| [SplitViewOptions](splitView-options) | No       | iOS      |
 
 ## `fab`
 
-| Type               |
-| ------------------ |
-| [Fab](fab-options) |
+| Type               | Required | Platform |
+| ------------------ | -------- | -------- |
+| [Fab](fab-options) | No       | Android  |
 
 ## `modalPresentationStyle`
 
@@ -104,6 +104,24 @@ Configure the presentation style of the modal.
 | Type                                                                                                    | Required | Platform |
 | ------------------------------------------------------------------------------------------------------- | -------- | -------- |
 | enum('formSheet', 'pageSheet', 'fullScreen', 'overFullScreen', 'overCurrentContext', 'popOver', 'none') | No       | Both     |
+
+#### Styles supported on both platforms
+
+- **overCurrentContext** - Display the modal in and does not remove previous content when the show animation ends.
+- **none** - the default system presentation style
+
+#### Styles supported only on iOS
+
+- **formSheet** - display the content centered in the screen.
+- **pageSheet** - partially cover the underlying content
+- **overFullScreen** - Display the modal in full screen mode and does not remove previous content when the show animation ends.
+- **popOver** - Center the content on screen and dim the content behind it.
+
+The default presentation style is different for each platform.
+
+| iOS                                                                                      | Android      |
+| ---------------------------------------------------------------------------------------- | ------------ |
+| <ul><li>iOS 12 and below - `fullScreen`</li><li>iOS 13 and above - `pageSheet`</li></ul> | `fullScreen` |
 
 ## `modalTransitionStyle`
 
