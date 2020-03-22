@@ -41,16 +41,16 @@ module.exports = {
           title: 'Docs',
           items: [
             {
-              label: 'Before you start',
-              to: 'docs/before-you-start',
-            },
-            {
-              label: 'Launching the app',
-              to: 'docs/app-launch',
+              label: 'Installation',
+              to: 'docs/installing',
             },
             {
               label: 'Basic Navigation',
               to: 'docs/basic-navigation',
+            },
+            {
+              label: 'Contributing',
+              to: 'docs/contributing',
             }
           ],
         },
