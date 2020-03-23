@@ -1,7 +1,7 @@
 module.exports = {
   title: 'React Native Navigation',
   tagline: '',
-  url: 'https://your-docusaurus-test-site.com',
+  url: 'https://wix.github.io/react-native-navigation',
   baseUrl: '/',
   favicon: 'img/favicon.ico',
   organizationName: 'wix', // Usually your GitHub org/user name.
@@ -94,7 +94,7 @@ module.exports = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           editUrl:
-            'https://github.com/facebook/docusaurus/edit/master/website/',
+            'https://github.com/wix/react-native-navigation/edit/master/website/docs'
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
