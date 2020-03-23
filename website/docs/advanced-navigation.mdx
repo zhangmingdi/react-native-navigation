@@ -282,7 +282,7 @@ const styles = StyleSheet.create({
 
 ## Conditional roots
 
-Now that our initial root is the Login root, we're facing a new problem - how do we show the Login root only to users that are not logged in? Since out initial root is determined in the `registerAppLaunchedListener` callback, we'll check if a user is logged in there and set the appropriate root accordingly.
+Now that our initial root is the Login root, we're facing a new problem - how do we show the Login root only to users that are not logged in? Since our initial root is determined in the `registerAppLaunchedListener` callback, we'll check if a user is logged in there and set the appropriate root accordingly.
 
 ```jsx
 Navigation.events().registerAppLaunchedListener(async () => {
