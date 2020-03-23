@@ -3,7 +3,7 @@ module.exports = {
     'Getting Started': [
       'before-you-start',
       'installing',
-      'minimalSetup',
+      'playground-app',
       'showcases'
     ],
     'Using the app': [
