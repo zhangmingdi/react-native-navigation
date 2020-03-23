@@ -3,7 +3,6 @@ module.exports = {
     'Getting Started': [
       'before-you-start',
       'installing',
-      'minimalSetup',
       'showcases'
     ],
     'Using the app': [
@@ -14,15 +13,15 @@ module.exports = {
       'passing-data-to-components',
     ],
     Layouts: [
-      'stack-doc',
-      'bottomTabs-docs',
-      'side-menu',
-      'external-component',
+      'docs-stack',
+      'docs-bottomTabs',
+      'docs-sideMenu',
+      'docs-externalComponent',
     ],
     Hierarchy: [
-      'root',
-      'modal-docs',
-      'overlay-docs'
+      'docs-root',
+      'docs-modal',
+      'docs-overlay'
     ],
     Styling: [
       'theme',
@@ -33,10 +32,10 @@ module.exports = {
       'constants-docs'
     ],
     Meta: [
-      'contributing'
+      'meta-contributing'
     ]
   },
-  API: [
+  api: [
     {
       type: 'category',
       label: 'Navigation',
@@ -53,10 +52,10 @@ module.exports = {
       label: 'Layouts',
       items: [
         'layout',
-        'component',
-        'stack',
-        'bottomTabs',
-        'sideMenu',
+        'component-layout',
+        'stack-layout',
+        'bottomTabs-layout',
+        'sideMenu-layout',
         'splitView'
       ]
     },
