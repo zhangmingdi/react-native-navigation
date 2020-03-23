@@ -94,7 +94,7 @@ module.exports = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           editUrl:
-            'https://github.com/wix/react-native-navigation/edit/master/docs/docs/'
+            'https://github.com/wix/react-native-navigation/edit/master/website/docs'
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
