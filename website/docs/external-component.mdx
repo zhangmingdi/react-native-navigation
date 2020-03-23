@@ -6,7 +6,7 @@ sidebar_label: ExternalComponent
 
 ## ViewGroup
 
-The ExternalComponent layout allows you to display any native view as a screen. Like JS components, to use the External Component we'll need to register it with a string name. This name is then used when declaring layouts in JS.
+The ExternalComponent layout allows you to display any native view as a screen. Like with other JS components, to use the External Component we'll need to register it with a string name. This name is then used when declaring layouts in JS.
 
 ### Declaring the native component
 ```java
@@ -36,8 +36,9 @@ public class MainApplication extends NavigationApplication {
 ```
 
 ### Using the component from JS
+
 Once you've registered the external component in native, you can use it in your layout declarations.
-For example, to show an external component modally:
+For example, to show an external component via a modal:
 ```js
 Navigation.showModal({
   externalComponent: {

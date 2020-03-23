@@ -9,13 +9,13 @@ Bottom tabs refers to a row of links, displayed at the bottom of the screen, and
 
 ## Creating bottom tabs
 
-BottomTabs provide flat navigation and access, to up to five, equally important top-level root destinations. While any type of layout can be displayed in a tab, typically, [Stacks]() are used since they allow for vertical navigation withing a tab.
+BottomTabs provide flat navigation and access to up to five equally important top-level root destinations. While any type of layout can be displayed in a tab, typically, [Stacks]() are used, since they allow for vertical navigation within a tab.
 
 ### Example
 Lets see how to create a simple BottomTabs layout. There are a few things to notice here:
 1. Each child represents a tab on the screen.
 2. The root layout for each tab is a stack to allow for vertical navigation within the tab.
-3. Each stack declares `bottomTab` options to configure the tab's text, icon, color etc.
+3. Each stack declares `bottomTab` options which are used to configure the tab's text, icon, color etc.
 
 ```js
 bottomTabs: {
@@ -136,5 +136,5 @@ By default, all tabs are mounted at the same time. This can have a negative impa
 The order in which tabs are mounted can be configured with the `tabsAttachMode` option:
 
 * `together` - all tabs are mounted at the same time, this is the default behavior.
-* `afterInitialTab` - After the initial tab is mounted, other tabs are mounted.
-* `onSwitchToTab` - Initial tab is mounted, other tabs are mounted when the user navigates to them for the first time.
+* `afterInitialTab` - after initial tab is mounted, other tabs are mounted.
+* `onSwitchToTab` - initial tab is mounted, other tabs are mounted when the user navigates to them for the first time.

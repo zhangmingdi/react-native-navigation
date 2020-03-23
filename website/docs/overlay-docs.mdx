@@ -8,10 +8,9 @@ import TabItem from '@theme/TabItem';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 
 Overlays are used to layout content on top of all other layout hierarchies, while fitting the screen bounds.
-The contents displayed in an Overlay can either be non-obtrusive, like Toasts and Snackbars, or an Alert that
-blocks all interactions with any content behind it. The view contained within it should be aligned either with absolute position, flex, or with margins according to your needs.
+The contents displayed in an Overlay can either be non-obtrusive, like Toasts and Snackbars, or an Alert that blocks all interactions with any content behind it. The view contained within it should be aligned either with absolute position, flex, or with margins, all according to your needs.
 
-## Handling touch events outside of the view
+## Handling touch events outside the view
 When showing views like Alert or Toast in an Overlay, you would want to configure if you want to allow users to interact with content behind the alert. This is done via the [interceptTouchOutside]() option.
 
 ## Overlay examples
@@ -24,7 +23,8 @@ When showing views like Alert or Toast in an Overlay, you would want to configur
   ]
 }>
 <TabItem value='alert'>
-The example below demonstrates how to create a simple alert dialog using an Overlay. Touch events outside the alert will be blocked and won't pass through to the content behind the alert since we're specifying `interceptTouchOutside: true` in the Alert's static options.
+
+The example below demonstrates how to create a simple alert dialog using an Overlay. Touch events outside the alert will be blocked and won't pass through to the content behind the alert since we're specifying `interceptTouchOutside: true` in the static options of the Alert.
 
 [screenshot](/img/alert_android.png)
 
@@ -83,7 +83,8 @@ module.exports = Alert;
 
 </TabItem>
 <TabItem value='toast'>
-The example below demonstrates how to show a toast using an Overlay. The user can interact with the content behind the toast since we've declared `interceptTouchOutside: false` in the Alert's static options.
+
+The example below demonstrates how to show a Toast using an Overlay. A user can interact with the content behind the toast since we've declared `interceptTouchOutside: false` in the static options of the Alert.
 
 [screenshot](/img/toast_android.png)
 
