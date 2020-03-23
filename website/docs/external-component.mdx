@@ -1,14 +1,16 @@
 ---
 id: external-component
-title: ExternalComponent
-sidebar_label: ExternalComponent
+title: External Component
+sidebar_label: External Component
 ---
 
-## ViewGroup
+The ExternalComponent layout allows you to display any native view as a screen. To use the External Component we'll need to register it with a string name. This name is then used when declaring layouts in JS.
 
-The ExternalComponent layout allows you to display any native view as a screen. Like JS components, to use the External Component we'll need to register it with a string name. This name is then used when declaring layouts in JS.
+## Android
+### Implementing the native component
+When it comes to implementing an external component on Android, you have two choices. We recommend you use a base class extending `View`. If you're required to use Fragments, you'll find an basic example below.
 
-### Declaring the native component
+#### ViewGroup
 ```java
 public class ViewGroupComponent implements ExternalComponent {
     private final FrameLayout content;
@@ -24,36 +26,7 @@ public class ViewGroupComponent implements ExternalComponent {
 }
 ```
 
-### Registering the component
-```java
-public class MainApplication extends NavigationApplication {
-  @Override
-    public void onCreate() {
-        super.onCreate();
-        registerExternalComponent("MyExternalComponent", new FragmentCreator());
-    }
-}
-```
-
-### Using the component from JS
-Once you've registered the external component in native, you can use it in your layout declarations.
-For example, to show an external component modally:
-```js
-Navigation.showModal({
-  externalComponent: {
-    name: 'MyExternalComponent',
-    passProps: {
-      text: "Text from JS"
-    }
-  }
-});
-```
-
-:::caution
-props passed to external components are sent over the bridge and therefore must be serializable.
-:::
-
-## Fragment
+#### Fragment
 
 Using a Fragment as an external component is done by attaching the Fragment to a FrameLayout, and returning the FrameLayout from the `asView()` method of the ExternalComponent.
 
@@ -88,9 +61,19 @@ public class FragmentComponent implements ExternalComponent {
 }
 ```
 
-## ViewController
+### Registering the component
+```java
+public class MainApplication extends NavigationApplication {
+  @Override
+    public void onCreate() {
+        super.onCreate();
+        registerExternalComponent("MyExternalComponent", new FragmentCreator());
+    }
+}
+```
 
-### Registering the ViewController
+## iOS
+### ViewController registration
 
 ```objectivec
 [ReactNativeNavigation registerExternalComponent:@"MyExternalComponent" callback:^UIViewController *(NSDictionary *props, RCTBridge *bridge) {
@@ -98,8 +81,8 @@ public class FragmentComponent implements ExternalComponent {
 }];
 
 ```
-### Using the ViewController from JS
-Once you've registered the external ViewController in native, you can use it in your layout declarations.
+## Using the component from JS
+Once you've registered the external component in native, you can use it in your layout declarations.
 For example, to show an external component modally:
 ```js
 Navigation.showModal({
@@ -111,3 +94,7 @@ Navigation.showModal({
   }
 });
 ```
+
+:::caution
+props passed to external components are sent over the bridge and therefore must be serializable.
+:::
