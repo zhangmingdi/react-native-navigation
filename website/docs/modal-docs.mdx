@@ -8,9 +8,9 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 
-In human-centered design, when we speak about a modal (or modality), we often refer to a set of techniques, aimed at bringing user attention to a specific event / screen / action / etc. which often require user input. A pop-up on a website, a file deletion confirmation dialogue on a Mac, or an alert asking you to enable location service on your phone - these can all be considered modals.
+In human-centered design, when we speak about a modal (or modality), we often refer to a set of techniques, aimed at bringing user attention to a specific event / screen / action / etc. Those often require user input. A pop-up on a website, a file deletion confirmation dialogue on your computer, or an alert asking you to enable location service on your phone - these can all be considered modals.
 
-Modal is a term used in native iOS world ([full description here](https://developer.apple.com/design/human-interface-guidelines/ios/app-architecture/modality/)), while on Android, [dialogs](https://developer.android.com/guide/topics/ui/dialogs) are often used to create similar or identical behavior, alongside other techniques.
+A modal is a term used in native iOS world ([full description here](https://developer.apple.com/design/human-interface-guidelines/ios/app-architecture/modality/)), while on Android, [dialogs](https://developer.android.com/guide/topics/ui/dialogs) are often used to create similar or identical behavior, alongside other techniques.
 
 ## Presenting modals
 Modal can be displayed by invoking the `Navigation.showModal()` command, as shown in the example below:
@@ -37,13 +37,14 @@ Navigation.showModal({
 ```
 
 Here's how the Modal looks on both platforms.
+
+<center>
 <Tabs
   defaultValue="ios"
   values={[
     { label: 'iOS', value: 'ios', },
     { label: 'Android', value: 'android', }
-  ]
-}>
+  ]}>
   <TabItem value="ios">
     <img width="40%"  src={useBaseUrl('img/modal_ios.gif')} />
   </TabItem>
@@ -51,9 +52,11 @@ Here's how the Modal looks on both platforms.
     <img width="40%" src={useBaseUrl('img/modal_android.gif')} />
   </TabItem>
 </Tabs>
+</center>
 
 ## Adding a dismiss button
 Modals should always have a dismiss button, on left-to-right devices it's typically placed as a left button in the TopBar.
+
 After we've added our dismiss button, we need to dismiss the modal when the button is pressed.
 
 :::note
