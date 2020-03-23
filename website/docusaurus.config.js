@@ -41,47 +41,50 @@ module.exports = {
           title: 'Docs',
           items: [
             {
-              label: 'Style Guide',
-              to: 'docs/doc1',
+              label: 'Installation',
+              to: 'docs/installing',
             },
             {
-              label: 'Second Doc',
-              to: 'docs/doc2',
+              label: 'Basic Navigation',
+              to: 'docs/basic-navigation',
             },
+            {
+              label: 'Contributing',
+              to: 'docs/contributing',
+            }
           ],
         },
         {
-          title: 'Community',
+          title: 'Support',
           items: [
             {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
+              label: 'Ask a question on Stack Overflow',
+              href: 'https://stackoverflow.com/questions/tagged/wix-react-native-navigation',
             },
             {
-              label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus',
+              label: 'Community chat on Discord',
+              href: 'https://discord.gg/DhkZjq2',
             },
+            {
+              label: 'Submit on issue on GitHub',
+              href: 'https://github.com/wix/react-native-navigation/issues/new/choose',
+            }
           ],
         },
         {
           title: 'Social',
           items: [
             {
-              label: 'Blog',
-              to: 'blog',
-            },
-            {
               label: 'GitHub',
-              href: 'https://github.com/facebook/docusaurus',
+              href: 'https://github.com/wix/react-native-navigation',
             },
-            {
-              label: 'Twitter',
-              href: 'https://twitter.com/docusaurus',
-            },
+            // {
+            //   label: 'Twitter',
+            //   href: 'https://twitter.com/docusaurus',
+            // },
           ],
         },
-      ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+      ]
     },
   },
   presets: [
