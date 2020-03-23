@@ -90,6 +90,24 @@ public class FragmentComponent implements ExternalComponent {
 
 ## ViewController
 
-:::warning
-This section is a work in progress. [PRs are welcome](https://github.com/wix/react-native-navigation/issues/5399).
-:::
+### Registering the ViewController
+
+```objectivec
+[ReactNativeNavigation registerExternalComponent:@"MyExternalComponent" callback:^UIViewController *(NSDictionary *props, RCTBridge *bridge) {
+	return [[ExternalViewController alloc] initWithProps:props];
+}];
+
+```
+### Using the ViewController from JS
+Once you've registered the external ViewController in native, you can use it in your layout declarations.
+For example, to show an external component modally:
+```js
+Navigation.showModal({
+  externalComponent: {
+    name: 'MyExternalComponent',
+    passProps: {
+      text: "Text from JS"
+    }
+  }
+});
+```
