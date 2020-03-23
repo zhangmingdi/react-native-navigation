@@ -58,15 +58,15 @@ module.exports = {
           title: 'Support',
           items: [
             {
-              label: 'Get help on Stack Overflow',
+              label: 'Ask a question on Stack Overflow',
               href: 'https://stackoverflow.com/questions/tagged/wix-react-native-navigation',
             },
             {
-              label: 'Chat in our Discord channel',
+              label: 'Community chat on Discord',
               href: 'https://discord.gg/DhkZjq2',
             },
             {
-              label: 'Report a bug on Github',
+              label: 'Submit on issue on GitHub',
               href: 'https://github.com/wix/react-native-navigation/issues/new/choose',
             }
           ],
