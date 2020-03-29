@@ -1,22 +1,18 @@
 ---
-id: screen-animations
-title: Screen Animations
-sidebar_label: Screen Animations
+id: docs-animations
+title: Animations
+sidebar_label: Animations
 ---
-
-TODO:
-- The `:::caution ..... :::` section speaks about future plans - is there a related issue people could track (because that would be cool)?
-- starting from Shared element transitions, things get **very** confusing, maybe we need to add more visual examples or move things around or correct H1, H2, H3, etc. hierarchy.
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 
-Our animation framework allows you to animate various elements in your UI by declaring animation options.
+Various UI elements can be animated by declaring animation options.
 You can change the default animations for various commands, like push and pop, and even animate elements in
 your screens during screen transitions.
 
-## Animation properties
+#### Animation properties
 The following properties can be animated with our animation framework:
 
 * **x** - Translate the view to a coordinate along the x axis.
@@ -30,12 +26,16 @@ The following properties can be animated with our animation framework:
 * **rotationY** - Applies rotation around the y axis (in degrees, passed as a float).
 * **rotation** - Rotates the view on all axis. Positive values result in clockwise rotation.
 
-## Stack animations
+## Layout animations
+
+### Stack animations
 When animating screens in and out of a stack, there are three elements you can work with: 
 
 1. **content** - screen being pushed or popped
 2. **topBar** - stack's TopBar
 3. **bottomTabs** - if stack is a child of a bottomTabs layout, we can control the `hide` and `show` animations of the bottomTabs.
+
+The following example demonstrates how to replace the default push and pop animations with slide animations.
 
 <Tabs
   defaultValue="push"
@@ -45,8 +45,6 @@ When animating screens in and out of a stack, there are three elements you can w
   ]
 }>
 <TabItem value="push">
-
-The following example demonstrates how to declare a slide-in animation for pushed screens.
 
 ```js
 options: {
@@ -67,8 +65,6 @@ options: {
 </TabItem>
 <TabItem value="pop">
 
-The following example demonstrates how to declare a side-out animation for popped screens.
-
 ```js
 options: {
   animations: {
@@ -88,7 +84,7 @@ options: {
 </TabItem>
 </Tabs>
 
-## Modal animations
+### Modal animations
 Modal animations are declared similarly to stack animations, only this time we animate the entire view and not only part of the UI (content).
 
 <Tabs
@@ -142,7 +138,9 @@ Shared element transitions allow us to provide visual continuity when navigating
 At the moment, the transition is available on iOS for push and pop while on Android it's available only for push commands. We are working on adding parity and expanding supported commands to show/dismiss modal and change BottomTabs.
 :::
 
-In the sections below we will use the following example from the playground app:
+### Transition breakdown
+
+Lets take a more in-depth look at the following example, which you can find in the playground app:
 
 > [Source screen](https://github.com/wix/react-native-navigation/blob/master/playground/src/screens/sharedElementTransition/CocktailsList.js) and the [Destination screen](https://github.com/wix/react-native-navigation/blob/master/playground/src/screens/sharedElementTransition/CocktailDetailsScreen.js)
 
@@ -151,8 +149,7 @@ In the sections below we will use the following example from the playground app:
   <img alt="Shared Element Transition" src={useBaseUrl('img/sharedElement.gif')} />
 </p>
 
-### Transition breakdown
-Four elements are animated in the example above:
+Four elements are animated in this example. Lets list the elements involved in the transition and note which properties are being animated.
 
 * **image** - the item image is animated to the next screen.
   * image scale (resizeMode)
@@ -161,17 +158,18 @@ Four elements are animated in the example above:
 * **image background** - each item has a "shadow" view which transitions to the next screen and turns into a colorful header.
   * scale
   * position on screen
+  * color
 
-* **title** - the item title is animated to the next screen.
+* **title** - the item's title is animated to the next screen.
   * font size
   * font color
   * position on screen
 
-* **Description** - the item description in the destination screen.
+* **Description** - the item's description in the destination screen.
   * fade-in
   * translation y
 
-### Recreating transitions on your own
+### Implementing shared element transitions
 
 #### Step 1 - set a nativeID prop to elements in the source screen
 In order for RNN to be able to detect the corresponding native views of the elements,
@@ -218,10 +216,10 @@ Navigation.push(this.props.componentId, {
 ```
 
 ## Element Transitions
-Besides being stand-alone, element transitions also allow you to animate elements during shared element transitions.
+Element transitions also allow you to animate elements during shared element transitions.
 
 ### Recreating
-#### Step 1 - set a nativeID prop to elements either source or destination screens
+#### Step 1 - Set a nativeID prop to elements either source or destination screens
 
 ```jsx
 <Text
