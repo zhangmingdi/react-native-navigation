@@ -6,7 +6,7 @@ sidebar_label: Events
 
 ## onAppLaunched
 
-Called once the app is launched. This event is used to set the Application's initial layout - after which the app is ready for user interaction.
+Called once the app is launched. Used to set the initial layout of the Application - after that the app is ready for user interaction.
 
 ```js
 const appLaunchedListener = Navigation.events().registerAppLaunchedListener(
@@ -16,7 +16,7 @@ const appLaunchedListener = Navigation.events().registerAppLaunchedListener(
 
 RNN automatically unsubscribes components when they unmount, therefore unsubscribing isn't actually mandatory if you subscribed in `componentDidMount`.
 
-But you can use the following method to unsubscribe manually.
+But you can use the following method to unsubscribe manually:
 
 ```js
 appLaunchedListener.remove();
@@ -24,7 +24,7 @@ appLaunchedListener.remove();
 
 ## componentDidAppear
 
-Called each time this component appears on screen (attached to the view hierarchy)
+Called each time this component appears on the screen (attached to the view hierarchy).
 
 ```js
 class MyComponent extends Component {
@@ -63,7 +63,7 @@ screenEventListener.remove();
 
 ## componentDidDisappear
 
-Called each time this component disappears from screen (detached from the view hierarchy)
+Called each time this component disappears from the screen (detached from the view hierarchy).
 
 ```js
 class MyComponent extends Component {
@@ -116,7 +116,7 @@ commandListener.remove();
 | Parameter  | Description                                                                                                                                                                                                                                  |
 | :--------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 |  **name**  | The name of the command that was invoked. For example `push`                                                                                                                                                                                 |
-| **params** | `commandId`: Each command is assigned a unique Id<br />`componentId`: Optional, the componentId passed to the command<br />`layout`: Optional, If the command invoked created a screen. Slim representation of the component and its options |
+| **params** | `commandId`: Each command is assigned a unique Id<br />`componentId`: Optional, the componentId passed to the command<br />`layout`: Optional, if the command invoked created a screen. Slim representation of the component and its options |
 
 ## registerCommandCompletedListener
 
@@ -139,7 +139,7 @@ commandCompletedListener.remove();
 
 ## registerModalDismissedListener
 
-Invoked when modal dismissed.
+Invoked when a modal is dismissed.
 
 ```js
 // Subscribe
@@ -153,7 +153,7 @@ modalDismissedListener.remove();
 
 ## registerModalAttemptedToDismissListener(iOS 13+ only)
 
-Invoked only on iOS pageSheet modal when swipeToDismiss flag is set to true and modal swiped down to dismiss.
+Invoked only on iOS pageSheet modal when `swipeToDismiss` flag is set to true and modal was swiped down to dismiss.
 
 ```js
 // Subscribe
@@ -167,11 +167,11 @@ modalDismissedListener.remove();
 
 |    Parameter    | Description                      |
 | :-------------: | :------------------------------- |
-| **componentId** | Id of the modal tried to dismiss |
+| **componentId** | Id of the modal a user is attempting to dismiss |
 
 ## registerScreenPoppedListener
 
-Invoked when screen is popped.
+Invoked when the screen is popped.
 
 ```js
 // Subscribe
@@ -186,11 +186,11 @@ screenPoppedListener.remove();
 |      Parameter      | Description                          |
 | :-----------------: | :----------------------------------- |
 |   **componentId**   | Id of the modal                      |
-| **modalsDismissed** | Number of modal which were dismissed |
+| **modalsDismissed** | Number of modals that were dismissed |
 
 ## registerBottomTabSelectedListener
 
-Invoked when a BottomTab is selected by the user.
+Invoked when BottomTab is selected by a user.
 
 ```js
 // Subscribe
@@ -204,7 +204,7 @@ bottomTabEventListener.remove();
 
 ## registerBottomTabLongPressedListener
 
-Invoked when a BottomTab is long pressed by the user.
+Invoked when BottomTab is long pressed by a user.
 
 ```js
 // Subscribe
@@ -216,14 +216,14 @@ const bottomTabEventListener = Navigation.events().registerBottomTabLongPressedL
 bottomTabEventListener.remove();
 ```
 
-|       Parameter        | Description                              |
-| :--------------------: | :--------------------------------------- |
-|  **selectedTabIndex**  | The index of the newly selected tab      |
-| **unselectedTabIndex** | The index of the previously selected tab |
+|       Parameter        | Description                          |
+| :--------------------: | :------------------------------------|
+|  **selectedTabIndex**  | Index of the newly selected tab      |
+| **unselectedTabIndex** | Index of the previously selected tab |
 
 ## navigationButtonPressed event
 
-This event is emitted whenever a TopBar button is pressed by the user.
+This event is emitted whenever a TopBar button is pressed by a user.
 
 ```js
 class MyComponent extends Component {
@@ -260,7 +260,7 @@ navigationButtonEventListener.remove();
 
 ## searchBarUpdated (iOS 11+ only)
 
-Called when a SearchBar from NavigationBar gets updated.
+Called whenever the SearchBar of NavigationBar is updated.
 
 ```js
 class MyComponent extends Component {
@@ -281,7 +281,7 @@ class MyComponent extends Component {
 
 ## searchBarCancelPressed (iOS 11+ only)
 
-Called when the cancel button on the SearchBar from NavigationBar gets pressed.
+Called when the cancel button of the SearchBar from NavigationBar is pressed.
 
 ```js
 class MyComponent extends Component {
@@ -302,7 +302,7 @@ class MyComponent extends Component {
 
 ## previewCompleted (iOS 11.4+ only)
 
-Called when preview peek is completed
+Called when preview peek is completed.
 
 ```js
 class MyComponent extends Component {

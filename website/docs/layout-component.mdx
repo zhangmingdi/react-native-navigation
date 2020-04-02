@@ -14,13 +14,13 @@ sidebar_label: Component
 
 | Type   | Required | Description                                                                      |
 | ------ | -------- | -------------------------------------------------------------------------------- |
-| string | Yes      | The key used when registering the component with `Navigation.registerComponent`. |
+| string | Yes      | Key used when registering the component with `Navigation.registerComponent`. |
 
 ## `id`
 
 | Type   | Required | Description                                                                                                                                                    |
 | ------ | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| string | No       | Unique id used when interacting with the view with the Navigation api, usually `Navigation.mergeOptions` which accepts the componentId as it's first argument. |
+| string | No       | Unique id used to interact with the view via the Navigation api, usually `Navigation.mergeOptions` which accepts the componentId as it's first argument. |
 
 ## `options`
 
@@ -32,7 +32,7 @@ sidebar_label: Component
 
 | Type                   | Required | Description                                                                                                                                                                                                                                                                         |
 | ---------------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| enum('center', 'fill') | No       | This option is relevant only to title components. `fill` will make the component stretch and consume all available space in the TopBar while `center` will center it in the middle of the TopBar. ?> `center` is the default option on iOS while `fill` is the default for Android. |
+| enum('center', 'fill') | No       | This option is relevant only to title components. `fill` will make the component stretch and consume all available space in the TopBar while `center` will center it in the middle of the TopBar. `center` is the default option in iOS while `fill` is the default for Android. |
 
 ## `waitForRender`
 
@@ -45,8 +45,12 @@ This option is useful for ensuring that both a child screen pushed into the stac
 To enable this option, `waitForRender` in the relevant screen animation option needs to be enabled as well.
 
 :::caution
-While this option improves ux, it might introduce delays when pushing screens.
+While this option improves UX, it might introduce delays when pushing screens.
 :::
+
+TODO - just a thought, ignore me if this is irrelevant:
+Since UX stands for User Experience and since delays increase user wait times (right?), which is
+one of the aspects of UX, wouldn't then introducing delays actually harm UX, not improve it? Again, my knowledge here is VERY limited, so feel free to ignore me if this makes no sense.
 
 ## `passProps`
 

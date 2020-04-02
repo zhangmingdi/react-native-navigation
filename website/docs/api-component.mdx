@@ -8,14 +8,14 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 ## `registerComponent`
-Every screen component in your app must be registered with a unique name. The component itself is a traditional React component extending `React.Component` or `React.PureComponent`. It can also be a HOC to provide context (or a Redux store) or a functional component. Analogous to React Native's `AppRegistry.registerComponent`.
+Every screen component in your app must be registered with a unique name. The component itself is a traditional React component extending `React.Component` or `React.PureComponent`. It can also be a HOC to provide context (or a Redux store) or a functional component. Similar to React Native's `AppRegistry.registerComponent`.
 
 #### Parameters
 | Name   | Required | Type                | Description                                                                                                            |
 | ------ | -------- | ------------------- | ---------------------------------------------------------------------------------------------------------------------- |
 | componentName | Yes      | string | Unique component name - not to be confused with **componentId** |
-| componentProvider | Yes      | Function | Anonymous function which returns the react component to register, **OR** the component wrapped with Providers|
-| concreteComponentProvider | No      | Function | Anonymous function which returns the concrete react component. If your component is wrapped with Providers, this must be an instance of the concrete component.|
+| componentProvider | Yes      | Function | Anonymous function that returns the React component to register, **OR** the component wrapped with Providers|
+| concreteComponentProvider | No      | Function | Anonymous function that returns the concrete React component. If your component is wrapped with Providers, this must be an instance of the concrete component.|
 
 #### Examples
 ##### Registering a component
