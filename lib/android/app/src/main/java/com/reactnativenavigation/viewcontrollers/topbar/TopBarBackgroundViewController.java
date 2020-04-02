@@ -4,9 +4,11 @@ import android.app.Activity;
 
 import com.reactnativenavigation.parse.Component;
 import com.reactnativenavigation.parse.Options;
+import com.reactnativenavigation.react.events.ComponentType;
 import com.reactnativenavigation.utils.CompatUtils;
 import com.reactnativenavigation.viewcontrollers.ViewController;
 import com.reactnativenavigation.viewcontrollers.YellowBoxDelegate;
+import com.reactnativenavigation.viewcontrollers.viewcontrolleroverlay.ViewControllerOverlay;
 import com.reactnativenavigation.views.topbar.TopBarBackgroundView;
 import com.reactnativenavigation.views.topbar.TopBarBackgroundViewCreator;
 
@@ -16,7 +18,7 @@ public class TopBarBackgroundViewController extends ViewController<TopBarBackgro
     private Component component;
 
     public TopBarBackgroundViewController(Activity activity, TopBarBackgroundViewCreator viewCreator) {
-        super(activity, CompatUtils.generateViewId() + "", new YellowBoxDelegate(), new Options());
+        super(activity, CompatUtils.generateViewId() + "", new YellowBoxDelegate(), new Options(), new ViewControllerOverlay(activity));
         this.viewCreator = viewCreator;
     }
 
@@ -28,18 +30,23 @@ public class TopBarBackgroundViewController extends ViewController<TopBarBackgro
     @Override
     public void onViewAppeared() {
         super.onViewAppeared();
-        getView().sendComponentStart();
+        getView().sendComponentStart(ComponentType.Background);
     }
 
     @Override
     public void onViewDisappear() {
-        getView().sendComponentStop();
+        getView().sendComponentStop(ComponentType.Background);
         super.onViewDisappear();
     }
 
     @Override
     public void sendOnNavigationButtonPressed(String buttonId) {
 
+    }
+
+    @Override
+    public String getCurrentComponentName() {
+        return component.name.get();
     }
 
     public void setComponent(Component component) {

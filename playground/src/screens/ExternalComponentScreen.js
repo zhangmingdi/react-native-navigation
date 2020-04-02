@@ -6,7 +6,8 @@ const Navigation = require('../services/Navigation');
 const { stack } = require('../commons/Layouts');
 const {
   PUSH_BTN,
-  MODAL_BTN
+  MODAL_BTN,
+  REGISTER_MODAL_DISMISS_EVENT_BTN
 } = require('../testIDs');
 
 class ExternalComponentScreen extends React.Component {
@@ -25,9 +26,14 @@ class ExternalComponentScreen extends React.Component {
       <Root componentId={this.props.componentId}>
         <Button label='Push' testID={PUSH_BTN} onPress={this.push} />
         <Button label='Show Modal' testID={MODAL_BTN} onPress={this.modal} />
+        <Button label='Register modal dismiss event' testID={REGISTER_MODAL_DISMISS_EVENT_BTN} onPress={this.registerModalDismissEvent} platform='ios'/>
       </Root>
     );
   }
+
+  registerModalDismissEvent = () => Navigation.events().registerModalDismissedListener(() => {
+    
+  });
 
   push = () => Navigation.push(this, {
     externalComponent: {
@@ -45,6 +51,13 @@ class ExternalComponentScreen extends React.Component {
           name: Screens.NativeScreen,
           passProps: {
             text: 'External component in deep stack'
+          },
+          options: {
+            topBar: {
+              title: {
+                text: 'External Component'
+              }
+            }
           }
         }
       }

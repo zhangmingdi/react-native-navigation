@@ -8,7 +8,7 @@ import com.reactnativenavigation.parse.Options;
 import com.reactnativenavigation.presentation.OverlayManager;
 import com.reactnativenavigation.presentation.Presenter;
 import com.reactnativenavigation.presentation.RootPresenter;
-import com.reactnativenavigation.react.EventEmitter;
+import com.reactnativenavigation.react.events.EventEmitter;
 import com.reactnativenavigation.utils.CommandListener;
 import com.reactnativenavigation.utils.CommandListenerAdapter;
 import com.reactnativenavigation.utils.CompatUtils;
@@ -34,9 +34,7 @@ public class Navigator extends ParentController {
     private final OverlayManager overlayManager;
     private final RootPresenter rootPresenter;
     private ViewController root;
-
     private ViewController previousRoot;
-
     private final CoordinatorLayout rootLayout;
     private final CoordinatorLayout modalsLayout;
     private final CoordinatorLayout overlaysLayout;
@@ -117,7 +115,7 @@ public class Navigator extends ParentController {
 
     public void destroyViews() {
         modalStack.destroy();
-        overlayManager.destroy();
+        overlayManager.destroy(overlaysLayout);
         destroyRoot();
     }
 
@@ -205,7 +203,7 @@ public class Navigator extends ParentController {
     }
 
     public void dismissOverlay(final String componentId, CommandListener listener) {
-        overlayManager.dismiss(componentId, listener);
+        overlayManager.dismiss(overlaysLayout, componentId, listener);
     }
 
     @Nullable
@@ -241,5 +239,10 @@ public class Navigator extends ParentController {
     @RestrictTo(RestrictTo.Scope.TESTS)
     CoordinatorLayout getModalsLayout() {
         return modalsLayout;
+    }
+
+    @RestrictTo(RestrictTo.Scope.TESTS)
+    CoordinatorLayout getOverlaysLayout() {
+        return overlaysLayout;
     }
 }

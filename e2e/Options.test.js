@@ -27,31 +27,6 @@ describe('Options', () => {
     await expect(elementById(TestIDs.TOP_BAR)).toBeVisible();
   });
 
-  it('sets right buttons', async () => {
-    await expect(elementById(TestIDs.BUTTON_ONE)).toBeVisible();
-    await expect(elementById(TestIDs.ROUND_BUTTON)).toBeVisible();
-  });
-
-  it('set left buttons', async () => {
-    await expect(elementById(TestIDs.LEFT_BUTTON)).toBeVisible();
-  });
-
-  it('pass props to custom button component', async () => {
-    await expect(elementByLabel('Two')).toExist();
-  });
-
-  it('pass props to custom button component should exist after push pop', async () => {
-    await expect(elementByLabel('Two')).toExist();
-    await elementById(TestIDs.PUSH_BTN).tap();
-    await elementById(TestIDs.POP_BTN).tap();
-    await expect(elementByLabel('Two')).toExist();
-  });
-
-  it('custom button is clickable', async () => {
-    await elementByLabel('Two').tap();
-    await expect(elementByLabel('Thanks for that :)')).toExist();
-  });
-
   it('default options should apply to all screens in stack', async () => {
     await elementById(TestIDs.HIDE_TOPBAR_DEFAULT_OPTIONS).tap();
     await expect(elementById(TestIDs.TOP_BAR)).toBeVisible();
@@ -86,6 +61,19 @@ describe('Options', () => {
     await elementById(TestIDs.PUSH_BTN).tap();
     await elementById(TestIDs.POP_BTN).tap();
     await expect(elementByLabel('Styling Options')).toBeVisible();
+  });
+
+  it('Merging options to invisible component in stack should not affect current component', async () => {
+    await elementById(TestIDs.PUSH_BTN).tap();
+    await elementById(TestIDs.HIDE_PREVIOUS_SCREEN_TOP_BAR).tap();
+    await expect(elementByLabel('Pushed Screen')).toBeVisible();
+  });
+
+  it('Merging options to invisible component should affect the invisible component', async () => {
+    await elementById(TestIDs.PUSH_BTN).tap();
+    await elementById(TestIDs.HIDE_PREVIOUS_SCREEN_TOP_BAR).tap();
+    await elementById(TestIDs.POP_BTN).tap();
+    await expect(elementByLabel('Styling Options')).toBeNotVisible();
   });
 
   xit('hides topBar onScroll down and shows it on scroll up', async () => {

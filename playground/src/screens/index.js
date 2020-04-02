@@ -1,8 +1,6 @@
 const React = require('react');
 const { Navigation } = require('react-native-navigation');
 const ScrollViewScreen = require('./ScrollViewScreen');
-const CustomTransitionOrigin = require('./CustomTransitionOrigin');
-const CustomTransitionDestination = require('./CustomTransitionDestination');
 const CustomDialogWithScroll = require('./complexlayouts/CustomDialogWithScroll');
 const TopTabScreen = require('./TopTabScreen');
 const TopTabOptionsScreen = require('./TopTabOptionsScreen');
@@ -12,6 +10,8 @@ const Screens = require('./Screens');
 
 function registerScreens() {
   Navigation.registerComponent(Screens.Alert, () => require('./Alert'));
+  Navigation.registerComponent(Screens.CocktailDetailsScreen, () => require('./sharedElementTransition/CocktailDetailsScreen'));
+  Navigation.registerComponent(Screens.CocktailsListScreen, () => require('./sharedElementTransition/CocktailsList'));
   Navigation.registerComponent(Screens.EventsOverlay, () => require('./StaticLifecycleOverlay'));
   Navigation.registerComponent(Screens.EventsScreen, () => require('./StaticEventsScreen'));
   Navigation.registerComponent(Screens.ExternalComponent, () => require('./ExternalComponentScreen'));
@@ -23,11 +23,14 @@ function registerScreens() {
   Navigation.registerComponent(Screens.FullScreenModal, () => require('./FullScreenModalScreen'))
   Navigation.registerComponent(Screens.Navigation, () => require('./NavigationScreen'));
   Navigation.registerComponent(Screens.Options, () => require('./OptionsScreen'));
+  Navigation.registerComponent(Screens.Buttons, () => require('./ButtonsScreen'));
   Navigation.registerComponent(Screens.Orientation, () => require('./OrientationScreen'));
   Navigation.registerComponent(Screens.OrientationDetect, () => require('./OrientationDetectScreen'));
   Navigation.registerComponent(Screens.Overlay, () => require('./OverlayScreen'));
   Navigation.registerComponent(Screens.OverlayAlert, () => require('./OverlayAlert'));
   Navigation.registerComponent(Screens.Pushed, () => require('./PushedScreen'));
+  Navigation.registerComponent(Screens.ScrollViewOverlay, () => require('./ScrollViewOverlay'));
+  Navigation.registerComponent(Screens.LifecycleButton, () => require('./LifecycleButton'));
   Navigation.registerComponent(Screens.ReactTitleView, () => require('./CustomTopBar'));
   Navigation.registerComponent(Screens.RoundButton, () => require('./RoundedButton'));
   Navigation.registerComponent(Screens.ScrollViewOverlay, () => require('./ScrollViewOverlay'));
@@ -41,6 +44,7 @@ function registerScreens() {
   Navigation.registerComponent(Screens.StatusBarOptions, () => require('./StatusBarOptionsScreen'));
   Navigation.registerComponent(Screens.StatusBarFirstTab, () => require('./StatusBarFirstTab'));
   Navigation.registerComponent(Screens.TopBarBackground, () => require('../components/TopBarBackground'));
+  Navigation.registerComponent(Screens.Toast, () => require('./Toast'));
 
   const { ContextProvider } = require('../context');
   const ContextScreen = require('./ContextScreen');
@@ -50,8 +54,6 @@ function registerScreens() {
     </ContextProvider>,
     () => ContextScreen);
 
-  Navigation.registerComponent(`navigation.playground.CustomTransitionDestination`, () => CustomTransitionDestination);
-  Navigation.registerComponent(`navigation.playground.CustomTransitionOrigin`, () => CustomTransitionOrigin);
   Navigation.registerComponent(`navigation.playground.ScrollViewScreen`, () => ScrollViewScreen);
 
   Navigation.registerComponent('navigation.playground.CustomDialog', () => CustomDialog);

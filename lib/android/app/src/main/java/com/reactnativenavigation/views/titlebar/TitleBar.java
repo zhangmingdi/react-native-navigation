@@ -6,9 +6,8 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import androidx.appcompat.widget.ActionMenuView;
-import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -20,11 +19,18 @@ import com.reactnativenavigation.utils.UiUtils;
 import com.reactnativenavigation.utils.ViewUtils;
 import com.reactnativenavigation.viewcontrollers.TitleBarButtonController;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Nullable;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.ActionMenuView;
+import androidx.appcompat.widget.Toolbar;
 
+import static com.reactnativenavigation.utils.ObjectUtils.perform;
 import static com.reactnativenavigation.utils.UiUtils.runOnPreDrawOnce;
+import static com.reactnativenavigation.utils.ViewUtils.findChildByClass;
+import static com.reactnativenavigation.utils.ViewUtils.findChildrenByClass;
+import static com.reactnativenavigation.utils.ViewUtils.removeFromParent;
 
 @SuppressLint("ViewConstructor")
 public class TitleBar extends Toolbar {
@@ -36,6 +42,22 @@ public class TitleBar extends Toolbar {
     private Alignment subtitleAlignment;
     private Boolean isTitleChanged = false;
     private Boolean isSubtitleChanged = false;
+
+    public MenuItem getRightButton(int index) {
+        return getMenu().getItem(index);
+    }
+
+    public int getRightButtonsCount() {
+        return getMenu().size();
+    }
+
+    public List<MenuItem> getRightButtons() {
+        List<MenuItem> items = new ArrayList<>();
+        for (int i = 0; i < getRightButtonsCount(); i++) {
+            items.add(i, getRightButton(i));
+        }
+        return items;
+    }
 
     public TitleBar(Context context) {
         super(context);
@@ -66,6 +88,7 @@ public class TitleBar extends Toolbar {
     }
 
     public void setComponent(View component) {
+        if (this.component == component) return;
         clearTitle();
         clearSubtitle();
         this.component = component;
@@ -104,14 +127,19 @@ public class TitleBar extends Toolbar {
         subtitleAlignment = alignment;
     }
 
+    public boolean containsRightButton(@Nullable MenuItem menuItem, int order) {
+        return menuItem != null &&
+               getMenu().findItem(menuItem.getItemId()) != null &&
+               menuItem.getOrder() == order;
+    }
+
     public void alignTextView(Alignment alignment, TextView view) {
         if (StringUtils.isEmpty(view.getText())) return;
-        Integer direction = view.getParent().getLayoutDirection();
+        int direction = view.getParent().getLayoutDirection();
         boolean isRTL = direction == View.LAYOUT_DIRECTION_RTL;
 
         if (alignment == Alignment.Center) {
-            //noinspection IntegerDivisionInFloatingPointContext
-            view.setX((getWidth() - view.getWidth()) / 2);
+            view.setX((getWidth() - view.getWidth()) / 2f);
         } else if (leftButtonController != null) {
             view.setX(isRTL ? (getWidth() - view.getWidth()) - getContentInsetStartWithNavigation() : getContentInsetStartWithNavigation());
         } else {
@@ -123,32 +151,34 @@ public class TitleBar extends Toolbar {
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         super.onLayout(changed, l, t, r, b);
 
-        if(changed || isTitleChanged) {
+        if (changed || isTitleChanged) {
             TextView title = findTitleTextView();
-            if (title != null) {
-                this.alignTextView(titleAlignment, title);
-            }
+            if (title != null) this.alignTextView(titleAlignment, title);
             isTitleChanged = false;
         }
 
-        if(changed || isSubtitleChanged) {
+        if (changed || isSubtitleChanged) {
             TextView subtitle = findSubtitleTextView();
-            if (subtitle != null) {
-                this.alignTextView(subtitleAlignment, subtitle);
-            }
+            if (subtitle != null) this.alignTextView(subtitleAlignment, subtitle);
             isSubtitleChanged = false;
         }
     }
 
+    @Override
+    public void setLayoutDirection(int layoutDirection) {
+        super.setLayoutDirection(layoutDirection);
+        perform(findChildByClass(this, ActionMenuView.class), buttonsContainer -> buttonsContainer.setLayoutDirection(layoutDirection));
+    }
+
     @Nullable
     public TextView findTitleTextView() {
-        List<TextView> children = ViewUtils.findChildrenByClass(this, TextView.class, textView -> textView.getText().equals(getTitle()));
+        List<TextView> children = findChildrenByClass(this, TextView.class, textView -> textView.getText().equals(getTitle()));
         return children.isEmpty() ? null : children.get(0);
     }
 
     @Nullable
     public TextView findSubtitleTextView() {
-        List<TextView> children = ViewUtils.findChildrenByClass(this, TextView.class, textView -> textView.getText().equals(getSubtitle()));
+        List<TextView> children = findChildrenByClass(this, TextView.class, textView -> textView.getText().equals(getSubtitle()));
         return children.isEmpty() ? null : children.get(0);
     }
 
@@ -170,7 +200,7 @@ public class TitleBar extends Toolbar {
 
     private void clearComponent() {
         if (component != null) {
-            removeView(component);
+            removeFromParent(component);
             component = null;
         }
     }
@@ -183,7 +213,7 @@ public class TitleBar extends Toolbar {
         }
     }
 
-    private void clearRightButtons() {
+    public void clearRightButtons() {
         if (getMenu().size() > 0) getMenu().clear();
     }
 
@@ -207,14 +237,6 @@ public class TitleBar extends Toolbar {
         leftButtonController = button;
         runOnPreDrawOnce(findTitleTextView(), title -> alignTextView(titleAlignment, title));
         button.applyNavigationIcon(this);
-    }
-
-    public void setRightButtons(List<TitleBarButtonController> rightButtons) {
-        if (rightButtons == null) return;
-        clearRightButtons();
-        for (int i = 0; i < rightButtons.size(); i++) {
-            rightButtons.get(i).addToMenu(this, rightButtons.size() - i - 1);
-        }
     }
 
     public void setHeight(int height) {
@@ -249,5 +271,13 @@ public class TitleBar extends Toolbar {
         if (child instanceof ActionMenuView) {
             ((ViewGroup) child).setClipChildren(false);
         }
+    }
+
+    public void removeRightButton(int buttonId) {
+        getMenu().removeItem(buttonId);
+    }
+
+    public boolean containsRightButton(TitleBarButtonController button) {
+        return getMenu().findItem(button.getButtonIntId()) != null;
     }
 }

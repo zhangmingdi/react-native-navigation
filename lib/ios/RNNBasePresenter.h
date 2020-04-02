@@ -1,18 +1,21 @@
 #import "RNNNavigationOptions.h"
+#import "RNNReactComponentRegistry.h"
 
 typedef void (^RNNReactViewReadyCompletionBlock)(void);
 
 @interface RNNBasePresenter : NSObject
 
-@property(nonatomic, weak) id boundViewController;
+@property(nonatomic, weak, setter=bindViewController:) UIViewController* boundViewController;
 
 @property(nonatomic, strong) NSString *boundComponentId;
 
-@property(nonatomic, strong) RNNNavigationOptions * defaultOptions;
+@property(nonatomic, strong) RNNNavigationOptions* defaultOptions;
+
+@property(nonatomic, strong) RNNReactComponentRegistry* componentRegistry;
 
 - (instancetype)initWithDefaultOptions:(RNNNavigationOptions *)defaultOptions;
 
-- (void)bindViewController:(UIViewController *)boundViewController;
+- (instancetype)initWithComponentRegistry:(RNNReactComponentRegistry *)componentRegistry defaultOptions:(RNNNavigationOptions *)defaultOptions;
 
 - (void)setDefaultOptions:(RNNNavigationOptions *)defaultOptions;
 
@@ -24,11 +27,26 @@ typedef void (^RNNReactViewReadyCompletionBlock)(void);
 
 - (void)applyOptionsOnWillMoveToParentViewController:(RNNNavigationOptions *)options;
 
-- (void)applyDotIndicator:(UIViewController *)child;
-
-- (void)mergeOptions:(RNNNavigationOptions *)newOptions currentOptions:(RNNNavigationOptions *)currentOptions;
+- (void)mergeOptions:(RNNNavigationOptions *)options resolvedOptions:(RNNNavigationOptions *)resolvedOptions;
 
 - (void)renderComponents:(RNNNavigationOptions *)options perform:(RNNReactViewReadyCompletionBlock)readyBlock;
 
 - (void)viewDidLayoutSubviews;
+
+- (void)componentDidAppear;
+
+- (void)componentDidDisappear;
+
+- (UINavigationItem *)currentNavigationItem;
+
+- (void)willMoveToParentViewController:(UIViewController *)parent;
+
+- (UIStatusBarStyle)getStatusBarStyle;
+
+- (UIInterfaceOrientationMask)getOrientation;
+
+- (BOOL)getStatusBarVisibility;
+
+- (BOOL)hidesBottomBarWhenPushed;
+
 @end

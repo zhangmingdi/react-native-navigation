@@ -1,9 +1,6 @@
 package com.reactnativenavigation.viewcontrollers;
 
 import android.app.Activity;
-import androidx.annotation.CallSuper;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -11,7 +8,12 @@ import com.reactnativenavigation.parse.Options;
 import com.reactnativenavigation.presentation.Presenter;
 import com.reactnativenavigation.utils.StatusBarUtils;
 import com.reactnativenavigation.viewcontrollers.navigator.Navigator;
+import com.reactnativenavigation.viewcontrollers.viewcontrolleroverlay.ViewControllerOverlay;
 import com.reactnativenavigation.views.Component;
+
+import androidx.annotation.CallSuper;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 public abstract class ChildController<T extends ViewGroup> extends ViewController<T>  {
     private final Presenter presenter;
@@ -22,7 +24,7 @@ public abstract class ChildController<T extends ViewGroup> extends ViewControlle
     }
 
     public ChildController(Activity activity, ChildControllersRegistry childRegistry, String id, Presenter presenter, Options initialOptions) {
-        super(activity, id, new NoOpYellowBoxDelegate(), initialOptions);
+        super(activity, id, new NoOpYellowBoxDelegate(), initialOptions, new ViewControllerOverlay(activity));
         this.presenter = presenter;
         this.childRegistry = childRegistry;
     }
@@ -71,6 +73,7 @@ public abstract class ChildController<T extends ViewGroup> extends ViewControlle
         if (options == Options.EMPTY) return;
         if (isViewShown()) presenter.mergeOptions(getView(), options);
         super.mergeOptions(options);
+        performOnParentController(parentController -> parentController.mergeChildOptions(options, this));
     }
 
     @Override

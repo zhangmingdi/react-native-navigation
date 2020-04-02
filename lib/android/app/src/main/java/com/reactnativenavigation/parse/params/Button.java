@@ -1,15 +1,15 @@
 package com.reactnativenavigation.parse.params;
 
 import android.graphics.Typeface;
-import androidx.annotation.Nullable;
 import android.view.MenuItem;
 
 import com.reactnativenavigation.parse.Component;
 import com.reactnativenavigation.parse.parsers.BoolParser;
 import com.reactnativenavigation.parse.parsers.ColorParser;
-import com.reactnativenavigation.parse.parsers.NumberParser;
+import com.reactnativenavigation.parse.parsers.FractionParser;
 import com.reactnativenavigation.parse.parsers.TextParser;
 import com.reactnativenavigation.utils.CompatUtils;
+import com.reactnativenavigation.utils.IdFactory;
 import com.reactnativenavigation.utils.TypefaceLoader;
 
 import org.json.JSONArray;
@@ -18,17 +18,22 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import androidx.annotation.Nullable;
+
+import static com.reactnativenavigation.utils.ObjectUtils.take;
+
 public class Button {
     public String instanceId = "btn" + CompatUtils.generateViewId();
 
-    @Nullable public String id;
+    public String id = "btn" + CompatUtils.generateViewId();
+    public Text accessibilityLabel = new NullText();
     public Text text = new NullText();
     public Bool enabled = new NullBool();
     public Bool disableIconTint = new NullBool();
     public Number showAsAction = new NullNumber();
     public Colour color = new NullColor();
     public Colour disabledColor = new NullColor();
-    public Number fontSize = new NullNumber();
+    public Fraction fontSize = new NullFraction();
     private Text fontWeight = new NullText();
     @Nullable public Typeface fontFamily;
     public Text icon = new NullText();
@@ -37,6 +42,7 @@ public class Button {
 
     public boolean equals(Button other) {
         return Objects.equals(id, other.id) &&
+               accessibilityLabel.equals(other.accessibilityLabel) &&
                text.equals(other.text) &&
                enabled.equals(other.enabled) &&
                disableIconTint.equals(other.disableIconTint) &&
@@ -53,14 +59,15 @@ public class Button {
 
     private static Button parseJson(JSONObject json, TypefaceLoader typefaceManager) {
         Button button = new Button();
-        button.id = json.optString("id");
+        button.id = take(json.optString("id"), "btn" + CompatUtils.generateViewId());
+        button.accessibilityLabel = TextParser.parse(json, "accessibilityLabel");
         button.text = TextParser.parse(json, "text");
         button.enabled = BoolParser.parse(json, "enabled");
         button.disableIconTint = BoolParser.parse(json, "disableIconTint");
         button.showAsAction = parseShowAsAction(json);
         button.color = ColorParser.parse(json, "color");
         button.disabledColor = ColorParser.parse(json, "disabledColor");
-        button.fontSize = NumberParser.parse(json, "fontSize");
+        button.fontSize = FractionParser.parse(json, "fontSize");
         button.fontFamily = typefaceManager.getTypeFace(json.optString("fontFamily", ""));
         button.fontWeight = TextParser.parse(json, "fontWeight");
         button.testId = TextParser.parse(json, "testID");
@@ -112,6 +119,10 @@ public class Button {
         return icon.hasValue();
     }
 
+    public int getIntId() {
+        return IdFactory.Companion.get(component.componentId.get(id));
+    }
+
     private static Number parseShowAsAction(JSONObject json) {
         final Text showAsAction = TextParser.parse(json, "showAsAction");
         if (!showAsAction.hasValue()) {
@@ -133,6 +144,7 @@ public class Button {
 
     public void mergeWith(Button other) {
         if (other.text.hasValue()) text = other.text;
+        if (other.accessibilityLabel.hasValue()) accessibilityLabel = other.accessibilityLabel;
         if (other.enabled.hasValue()) enabled = other.enabled;
         if (other.disableIconTint.hasValue()) disableIconTint = other.disableIconTint;
         if (other.color.hasValue()) color = other.color;
@@ -150,6 +162,7 @@ public class Button {
 
     public void mergeWithDefault(Button defaultOptions) {
         if (!text.hasValue()) text = defaultOptions.text;
+        if (!accessibilityLabel.hasValue()) accessibilityLabel = defaultOptions.accessibilityLabel;
         if (!enabled.hasValue()) enabled = defaultOptions.enabled;
         if (!disableIconTint.hasValue()) disableIconTint = defaultOptions.disableIconTint;
         if (!color.hasValue()) color = defaultOptions.color;

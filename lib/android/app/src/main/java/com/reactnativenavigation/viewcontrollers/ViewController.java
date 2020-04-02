@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.view.ViewManager;
 import android.view.ViewTreeObserver;
 
+import com.reactnativenavigation.interfaces.ScrollEventListener;
 import com.reactnativenavigation.parse.Options;
 import com.reactnativenavigation.parse.params.Bool;
 import com.reactnativenavigation.parse.params.NullBool;
@@ -16,13 +17,12 @@ import com.reactnativenavigation.utils.StringUtils;
 import com.reactnativenavigation.utils.UiThread;
 import com.reactnativenavigation.utils.UiUtils;
 import com.reactnativenavigation.viewcontrollers.stack.StackController;
+import com.reactnativenavigation.viewcontrollers.viewcontrolleroverlay.ViewControllerOverlay;
 import com.reactnativenavigation.views.BehaviourAdapter;
 import com.reactnativenavigation.views.Component;
 import com.reactnativenavigation.views.Renderable;
-import com.reactnativenavigation.views.element.Element;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import androidx.annotation.CallSuper;
@@ -37,9 +37,9 @@ import static com.reactnativenavigation.utils.ObjectUtils.perform;
 
 public abstract class ViewController<T extends ViewGroup> implements ViewTreeObserver.OnGlobalLayoutListener,
         ViewGroup.OnHierarchyChangeListener,
-        BehaviourAdapter<T> {
+        BehaviourAdapter {
 
-    private final List<Runnable> onAppearedListeners = new ArrayList();
+    private final List<Runnable> onAppearedListeners = new ArrayList<>();
     private boolean appearEventPosted;
     private boolean isFirstLayout = true;
     private Bool waitForRender = new NullBool();
@@ -68,17 +68,20 @@ public abstract class ViewController<T extends ViewGroup> implements ViewTreeObs
     private boolean isDestroyed;
     private ViewVisibilityListener viewVisibilityListener = new ViewVisibilityListenerAdapter();
     protected FabPresenter fabOptionsPresenter;
+    private ViewControllerOverlay overlay;
+    @Nullable public abstract String getCurrentComponentName();
 
     public boolean isDestroyed() {
         return isDestroyed;
     }
 
-    public ViewController(Activity activity, String id, YellowBoxDelegate yellowBoxDelegate, Options initialOptions) {
+    public ViewController(Activity activity, String id, YellowBoxDelegate yellowBoxDelegate, Options initialOptions, ViewControllerOverlay overlay) {
         this.activity = activity;
         this.id = id;
         this.yellowBoxDelegate = yellowBoxDelegate;
         fabOptionsPresenter = new FabPresenter();
         this.initialOptions = initialOptions;
+        this.overlay = overlay;
         options = initialOptions.copy();
     }
 
@@ -86,8 +89,16 @@ public abstract class ViewController<T extends ViewGroup> implements ViewTreeObs
         this.waitForRender = waitForRender;
     }
 
+    public ScrollEventListener getScrollEventListener() {
+        return null;
+    }
+
     public void addOnAppearedListener(Runnable onAppearedListener) {
-        onAppearedListeners.add(onAppearedListener);
+        if (isShown) {
+            onAppearedListener.run();
+        } else {
+            onAppearedListeners.add(onAppearedListener);
+        }
     }
 
     public void removeOnAppearedListener(Runnable onAppearedListener) {
@@ -107,6 +118,14 @@ public abstract class ViewController<T extends ViewGroup> implements ViewTreeObs
 
     public boolean handleBack(CommandListener listener) {
         return false;
+    }
+
+    public void addOverlay(View v) {
+        perform(view, view -> overlay.add(view, v));
+    }
+
+    public void removeOverlay(View view) {
+        overlay.remove(view);
     }
 
     @CheckResult
@@ -135,7 +154,7 @@ public abstract class ViewController<T extends ViewGroup> implements ViewTreeObs
     }
 
     public void setDefaultOptions(Options defaultOptions) {
-        
+
     }
 
     public Activity getActivity() {
@@ -146,12 +165,16 @@ public abstract class ViewController<T extends ViewGroup> implements ViewTreeObs
         if (view != null) task.run(view);
     }
 
-    protected void performOnParentController(Func1<ParentController> task) {
+    public void performOnParentController(Func1<ParentController> task) {
         if (parentController != null) task.run(parentController);
     }
 
     @VisibleForTesting(otherwise = VisibleForTesting.PROTECTED)
     public ParentController getParentController() {
+        return parentController;
+    }
+
+    public ParentController requireParentController() {
         return parentController;
     }
 
@@ -296,7 +319,7 @@ public abstract class ViewController<T extends ViewGroup> implements ViewTreeObs
     }
 
     void runOnPreDraw(Func1<T> task) {
-        UiUtils.runOnPreDrawOnce(getView(), () -> task.run(getView()));
+        if (!isDestroyed) UiUtils.runOnPreDrawOnce(getView(), task);
     }
 
     public abstract void sendOnNavigationButtonPressed(String buttonId);
@@ -320,19 +343,15 @@ public abstract class ViewController<T extends ViewGroup> implements ViewTreeObs
         if (controller != null) task.run(controller);
     }
 
-    public List<Element> getElements() {
-        return getView() instanceof IReactView && view != null? ((IReactView) view).getElements() : Collections.EMPTY_LIST;
-    }
-
     @Override
     @CallSuper
-    public boolean onMeasureChild(CoordinatorLayout parent, T child, int parentWidthMeasureSpec, int widthUsed, int parentHeightMeasureSpec, int heightUsed) {
+    public boolean onMeasureChild(CoordinatorLayout parent, ViewGroup child, int parentWidthMeasureSpec, int widthUsed, int parentHeightMeasureSpec, int heightUsed) {
         perform(findController(child), ViewController::applyTopInset);
         return false;
     }
 
     @Override
-    public boolean onDependentViewChanged(CoordinatorLayout parent, T child, View dependency) {
+    public boolean onDependentViewChanged(CoordinatorLayout parent, ViewGroup child, View dependency) {
         return false;
     }
 

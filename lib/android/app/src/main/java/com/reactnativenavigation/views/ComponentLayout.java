@@ -8,12 +8,10 @@ import android.view.View;
 import com.reactnativenavigation.interfaces.ScrollEventListener;
 import com.reactnativenavigation.parse.Options;
 import com.reactnativenavigation.parse.params.Bool;
-import com.reactnativenavigation.viewcontrollers.IReactView;
+import com.reactnativenavigation.react.ReactView;
+import com.reactnativenavigation.react.events.ComponentType;
 import com.reactnativenavigation.viewcontrollers.TitleBarButtonController;
-import com.reactnativenavigation.views.element.Element;
 import com.reactnativenavigation.views.touch.OverlayTouchDelegate;
-
-import java.util.List;
 
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
@@ -22,10 +20,10 @@ import static com.reactnativenavigation.utils.CoordinatorLayoutUtils.matchParent
 @SuppressLint("ViewConstructor")
 public class ComponentLayout extends CoordinatorLayout implements ReactComponent, TitleBarButtonController.OnClickListener {
 
-    private IReactView reactView;
+    private ReactView reactView;
     private final OverlayTouchDelegate touchDelegate;
 
-    public ComponentLayout(Context context, IReactView reactView) {
+    public ComponentLayout(Context context, ReactView reactView) {
 		super(context);
 		this.reactView = reactView;
         addView(reactView.asView(), matchParentLP());
@@ -47,14 +45,12 @@ public class ComponentLayout extends CoordinatorLayout implements ReactComponent
         reactView.destroy();
     }
 
-	@Override
 	public void sendComponentStart() {
-		reactView.sendComponentStart();
+		reactView.sendComponentStart(ComponentType.Component);
 	}
 
-	@Override
 	public void sendComponentStop() {
-		reactView.sendComponentStop();
+		reactView.sendComponentStop(ComponentType.Component);
 	}
 
     public void applyOptions(Options options) {
@@ -83,11 +79,6 @@ public class ComponentLayout extends CoordinatorLayout implements ReactComponent
     @Override
     public boolean isRendered() {
         return reactView.isRendered();
-    }
-
-    @Override
-    public List<Element> getElements() {
-        return reactView.getElements();
     }
 
     @Override

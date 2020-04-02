@@ -1,23 +1,16 @@
 package com.reactnativenavigation.utils;
 
 import android.app.Activity;
-import androidx.appcompat.view.menu.ActionMenuItemView;
-import androidx.appcompat.widget.Toolbar;
 
 import com.reactnativenavigation.mocks.ImageLoaderMock;
-import com.reactnativenavigation.mocks.TopBarButtonCreatorMock;
+import com.reactnativenavigation.mocks.TitleBarButtonCreatorMock;
 import com.reactnativenavigation.parse.Component;
 import com.reactnativenavigation.parse.params.Button;
 import com.reactnativenavigation.parse.params.Text;
 import com.reactnativenavigation.viewcontrollers.TitleBarButtonController;
-import com.reactnativenavigation.viewcontrollers.button.NavigationIconResolver;
-import com.reactnativenavigation.views.titlebar.TitleBar;
+import com.reactnativenavigation.viewcontrollers.button.IconResolver;
 
 public class TitleBarHelper {
-    public static ActionMenuItemView getRightButton(Toolbar toolbar, int index) {
-        return (ActionMenuItemView) ViewUtils.findChildrenByClassRecursive(toolbar, ActionMenuItemView.class).get(toolbar.getMenu().size() - index - 1);
-    }
-
     public static Button textualButton(String text) {
         Button button = new Button();
         button.id = text + CompatUtils.generateViewId();
@@ -34,6 +27,13 @@ public class TitleBarHelper {
         return button;
     }
 
+    public static Component titleComponent(String componentId) {
+        Component component = new Component();
+        component.componentId = new Text(componentId);
+        component.name = new Text(componentId);
+        return component;
+    }
+
     public static Button iconButton(String id, String icon) {
         Button button = new Button();
         button.id = "someButton";
@@ -42,13 +42,12 @@ public class TitleBarHelper {
     }
 
 
-    public static TitleBarButtonController createButtonController(Activity activity, TitleBar titleBar, Button button) {
+    public static TitleBarButtonController createButtonController(Activity activity, Button button) {
         return new TitleBarButtonController(activity,
-                new NavigationIconResolver(activity, ImageLoaderMock.mock()),
-                ImageLoaderMock.mock(),
-                new ButtonPresenter(titleBar, button),
+                new IconResolver(activity, ImageLoaderMock.mock()),
+                new ButtonPresenter(button),
                 button,
-                new TopBarButtonCreatorMock(),
+                new TitleBarButtonCreatorMock(),
                 buttonId -> {}
         );
     }
