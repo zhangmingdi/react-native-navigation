@@ -232,7 +232,7 @@ class MyComponent extends Component {
   }
 
   componentWillUnmount() {
-    // Not mandatory
+    // Unregistering listeners bound to components isn't mandatory since RNN handles the unregistration for you
     if (this.navigationEventListener) {
       this.navigationEventListener.remove();
     }
