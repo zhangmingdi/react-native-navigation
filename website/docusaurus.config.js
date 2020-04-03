@@ -1,7 +1,7 @@
 module.exports = {
   title: 'React Native Navigation',
   tagline: '',
-  url: 'https://wix.github.io"',
+  url: 'https://wix.github.io',
   baseUrl: '/react-native-navigation/',
   favicon: 'img/favicon.ico',
   organizationName: 'wix', // Usually your GitHub org/user name.
