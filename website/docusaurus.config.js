@@ -29,9 +29,8 @@ module.exports = {
       ],
     },
     algolia: {
-      appId: '1SHXNOQYNQ',
-      apiKey: '185e6a838e4ddf712a214e740ebb2a0d',
-      indexName: 'react-native-navigation'
+      apiKey: '6d8c985d9db80241d117497afe2a0e8c',
+      indexName: 'wix_react-native-navigation'
     },
     sidebarCollapsible: false,
     footer: {
