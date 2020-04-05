@@ -89,7 +89,7 @@ Pop the top screen from the stack.
 | Name         | Required | Type                                | Description                                                           |
 | ------------ | -------- | ----------------------------------- | --------------------------------------------------------------------- |
 | componentId  | Yes      | string                              | The componentId of a screen pushed into the stack, or the stack id. |
-| mergeOptions | No       | [Options](options-root) | Options to be merged before popping the screen (optional).              |
+| mergeOptions | No       | [Options](options-root.mdx) | Options to be merged before popping the screen (optional).              |
 
 ```js
 Navigation.pop(this.props.componentId);
@@ -102,7 +102,7 @@ Pop all screens pushed into the stack.
 | Name         | Required | Type    | Description                                                           |
 | ------------ | -------- | ------- | --------------------------------------------------------------------- |
 | componentId  | Yes      | string  | The componentId of a screen pushed into the stack, or the stack id. |
-| mergeOptions | No       | [Options](options-root) | Options to be merged before popping the screen (optional).              |
+| mergeOptions | No       | [Options](options-root.mdx) | Options to be merged before popping the screen (optional).              |
 
 ```js
 Navigation.popToRoot(this.props.componentId);
@@ -115,7 +115,7 @@ Pop the stack to a given component.
 | Name         | Required | Type                  | Description                                              |
 | ------------ | -------- | --------------------- | -------------------------------------------------------- |
 | componentId  | Yes      | string                | The destination componentId                              |
-| mergeOptions | No       | [Options](options-root) | Options to be merged before popping the screen (optional). |
+| mergeOptions | No       | [Options](options-root.mdx) | Options to be merged before popping the screen (optional). |
 
 ```js
 Navigation.popTo(componentId);
@@ -128,7 +128,7 @@ Reset the stack to the given layout (accepts multiple children).
 | Name        | Required | Type                                                     | Description                                                           |
 | ----------- | -------- | -------------------------------------------------------- | --------------------------------------------------------------------- |
 | componentId | Yes      | string                                                   | The componentId of a screen pushed into the stack, or the stack id. |
-| layout      | Yes      | [layout](layout) or [layout](layout)[] | A single Component or array of components.                            |
+| layout      | Yes      | [layout](layout.mdx) or [layout](layout.mdx)[] | A single Component or array of components.                            |
 
 
 #### Example
