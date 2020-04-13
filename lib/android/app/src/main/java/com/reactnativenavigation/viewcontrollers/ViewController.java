@@ -339,6 +339,10 @@ public abstract class ViewController<T extends ViewGroup> implements ViewTreeObs
         );
     }
 
+    public void start() {
+
+    }
+
     void applyOnController(ViewController controller, Func1<ViewController> task) {
         if (controller != null) task.run(controller);
     }

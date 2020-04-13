@@ -1,6 +1,7 @@
 package com.reactnativenavigation.viewcontrollers.stack;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -41,7 +42,7 @@ import static com.reactnativenavigation.utils.CoordinatorLayoutUtils.matchParent
 import static com.reactnativenavigation.utils.CoordinatorLayoutUtils.updateBottomMargin;
 import static com.reactnativenavigation.utils.ObjectUtils.perform;
 
-public class StackController extends ParentController<StackLayout> {
+public class StackController extends ParentController<StackLayout> implements View.OnAttachStateChangeListener {
 
     private IdStack<ViewController> stack = new IdStack<>();
     private final NavigationAnimator animator;
@@ -52,6 +53,7 @@ public class StackController extends ParentController<StackLayout> {
 
     public StackController(Activity activity, List<ViewController> children, ChildControllersRegistry childRegistry, EventEmitter eventEmitter, TopBarController topBarController, NavigationAnimator animator, String id, Options initialOptions, BackButtonHelper backButtonHelper, StackPresenter stackPresenter, Presenter presenter) {
         super(activity, childRegistry, id, presenter, initialOptions);
+        Log.i("StackController", "ctor " + id);
         this.eventEmitter = eventEmitter;
         this.topBarController = topBarController;
         this.animator = animator;
@@ -63,6 +65,17 @@ public class StackController extends ParentController<StackLayout> {
             stack.push(child.getId(), child);
             if (size() > 1) backButtonHelper.addToPushedChild(child);
         }
+    }
+
+    @Override
+    public void onViewAttachedToWindow(View v) {
+        Log.d("StackController", "attached " + getId());
+        forEach(getChildControllers(), ViewController::start);
+    }
+
+    @Override
+    public void onViewDetachedFromWindow(View v) {
+
     }
 
     @Override
@@ -334,6 +347,12 @@ public class StackController extends ParentController<StackLayout> {
     }
 
     @Override
+    public void destroy() {
+        if (view != null) view.removeOnAttachStateChangeListener(this);
+        super.destroy();
+    }
+
+    @Override
     public boolean handleBack(CommandListener listener) {
         if (canPop()) {
             pop(Options.EMPTY, listener);
@@ -353,6 +372,7 @@ public class StackController extends ParentController<StackLayout> {
         StackLayout stackLayout = new StackLayout(getActivity(), topBarController, getId());
         presenter.bindView(topBarController);
         addInitialChild(stackLayout);
+        stackLayout.addOnAttachStateChangeListener(this);
         return stackLayout;
     }
 
