@@ -1,5 +1,5 @@
 ---
-id: docs-overlay
+id: overlay
 title: Overlay
 sidebar_label: Overlay
 ---
@@ -26,7 +26,7 @@ When showing views like Alert or Toast in an Overlay, you would want to configur
 
 The example below demonstrates how to create a simple alert dialog using an Overlay. Touch events outside the alert will be blocked and won't pass through to the content behind the alert since we're specifying `interceptTouchOutside: true` in the static options of the Alert.
 
-[screenshot](/img/alert_android.png)
+<img width="30%" src={useBaseUrl('/img/alert_android.png')} />
 
 ```jsx
 const React = require('react');
@@ -86,7 +86,7 @@ module.exports = Alert;
 
 The example below demonstrates how to show a Toast using an Overlay. A user can interact with the content behind the toast since we've declared `interceptTouchOutside: false` in the static options of the Alert.
 
-[screenshot](/img/toast_android.png)
+<img width="30%" src={useBaseUrl('/img/toast_android.png')} />
 
 ```jsx
 const React = require('react');

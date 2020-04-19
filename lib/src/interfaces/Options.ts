@@ -1012,6 +1012,14 @@ export interface AnimationOptions {
   dismissModal?: ViewAnimationOptions;
 }
 
+/**
+ * Configure Android's NavigationBar
+ */
+export interface NavigationBarOptions {
+  backgroundColor?: Color;
+  visible?: boolean;
+}
+
 export interface Options {
   /**
    * Configure the status bar
@@ -1087,6 +1095,12 @@ setRoot: {
 ```
    */
   animations?: AnimationOptions;
+
+  /**
+   * Configure Android's NavigationBar
+   */
+  navigationBar?: NavigationBarOptions;
+
   /**
    * Preview configuration for Peek and Pop
    * #### (iOS specific)
@@ -1114,8 +1128,4 @@ setRoot: {
    * @default false
    */
   blurOnUnmount?: boolean;
-  /**
-   * Props to pass to a component
-   */
-  passProps?: Record<string, any>;
 }
