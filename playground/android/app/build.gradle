@@ -12,7 +12,7 @@ apply from: "../../../node_modules/react-native/react.gradle"
 
 android {
     compileSdkVersion 28
-    ndkVersion "20.1.5948944"
+    ndkVersion ''
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -26,7 +26,7 @@ android {
         versionCode 1
         versionName "1.0"
         ndk {
-            abiFilters "armeabi-v7a", "x86"
+            abiFilters 'armeabi-v7a', 'x86', 'x86_64'
         }
 
         testBuildType System.getProperty('testBuildType', 'debug')
