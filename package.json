@@ -1,6 +1,6 @@
 {
   "name": "react-native-navigation",
-  "version": "6.4.0",
+  "version": "6.5.0",
   "description": "React Native Navigation - truly native navigation for iOS and Android",
   "license": "MIT",
   "nativePackage": true,
@@ -90,7 +90,8 @@
     "ts-node": "5.x.x",
     "tslint": "5.x.x",
     "typedoc": "0.x.x",
-    "typescript": "3.2.2"
+    "typescript": "3.2.2",
+    "identity-obj-proxy": "3.0.0"
   },
   "jest": {
     "preset": "react-native",

@@ -193,6 +193,26 @@ public class BottomTabsControllerTest extends BaseTest {
     }
 
     @Test
+    public void onSizeChanged_recreateItemsIfSizeHasChanged() {
+        int numberOfPreviousInvocations = 2;
+        bottomTabs.onSizeChanged(0, 0, 0, 0);
+        verify(bottomTabs, times(numberOfPreviousInvocations)).superCreateItems();
+
+        bottomTabs.onSizeChanged(100, 0, 0, 0);
+        verify(bottomTabs, times(numberOfPreviousInvocations)).superCreateItems();
+
+        bottomTabs.onSizeChanged(1080, 147, 0, 0);
+        verify(bottomTabs, times(numberOfPreviousInvocations + 1)).superCreateItems();
+
+        bottomTabs.onSizeChanged(1920, 147, 0, 0);
+        verify(bottomTabs, times(numberOfPreviousInvocations + 2)).superCreateItems();
+
+        when(bottomTabs.getItemsCount()).thenReturn(0);
+        bottomTabs.onSizeChanged(1080, 147, 0, 0);
+        verify(bottomTabs, times(numberOfPreviousInvocations + 2)).superCreateItems();
+    }
+
+    @Test
     public void mergeOptions_currentTabIndex() {
         uut.ensureViewIsCreated();
         assertThat(uut.getSelectedIndex()).isZero();
@@ -251,7 +271,7 @@ public class BottomTabsControllerTest extends BaseTest {
         child4 = createStack(pushedScreen);
 
         tabs = new ArrayList<>(Collections.singletonList(child4));
-        tabsAttacher = new BottomTabsAttacher(tabs, presenter);
+        tabsAttacher = new BottomTabsAttacher(tabs, presenter, Options.EMPTY);
 
         initialOptions.bottomTabsOptions.currentTabIndex = new Number(0);
         Options resolvedOptions = new Options();
@@ -401,7 +421,7 @@ public class BottomTabsControllerTest extends BaseTest {
         tabs = createTabs();
         presenter = spy(new BottomTabsPresenter(tabs, new Options()));
         bottomTabPresenter = spy(new BottomTabPresenter(activity, tabs, ImageLoaderMock.mock(), new Options()));
-        tabsAttacher = spy(new BottomTabsAttacher(tabs, presenter));
+        tabsAttacher = spy(new BottomTabsAttacher(tabs, presenter, Options.EMPTY));
         uut = createBottomTabs();
 
         uut.setParentController(Mockito.mock(ParentController.class));
