@@ -27,6 +27,7 @@ import com.reactnativenavigation.views.StackLayout;
 import com.reactnativenavigation.views.stack.StackBehaviour;
 import com.reactnativenavigation.views.topbar.TopBar;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -42,7 +43,7 @@ import static com.reactnativenavigation.utils.CoordinatorLayoutUtils.matchParent
 import static com.reactnativenavigation.utils.CoordinatorLayoutUtils.updateBottomMargin;
 import static com.reactnativenavigation.utils.ObjectUtils.perform;
 
-public class StackController extends ParentController<StackLayout> implements View.OnAttachStateChangeListener {
+public class StackController extends ParentController<StackLayout> {
 
     private IdStack<ViewController> stack = new IdStack<>();
     private final NavigationAnimator animator;
@@ -65,17 +66,6 @@ public class StackController extends ParentController<StackLayout> implements Vi
             stack.push(child.getId(), child);
             if (size() > 1) backButtonHelper.addToPushedChild(child);
         }
-    }
-
-    @Override
-    public void onViewAttachedToWindow(View v) {
-        Log.d("StackController", "attached " + getId());
-        forEach(getChildControllers(), ViewController::start);
-    }
-
-    @Override
-    public void onViewDetachedFromWindow(View v) {
-
     }
 
     @Override
@@ -227,6 +217,7 @@ public class StackController extends ParentController<StackLayout> implements Vi
                             backButtonHelper.addToPushedChild(children.get(i));
                         }
                     }
+                    startChildrenBellowTopChild();
                 }
                 listener.onSuccess(childId);
             }
@@ -347,12 +338,6 @@ public class StackController extends ParentController<StackLayout> implements Vi
     }
 
     @Override
-    public void destroy() {
-        if (view != null) view.removeOnAttachStateChangeListener(this);
-        super.destroy();
-    }
-
-    @Override
     public boolean handleBack(CommandListener listener) {
         if (canPop()) {
             pop(Options.EMPTY, listener);
@@ -372,7 +357,6 @@ public class StackController extends ParentController<StackLayout> implements Vi
         StackLayout stackLayout = new StackLayout(getActivity(), topBarController, getId());
         presenter.bindView(topBarController);
         addInitialChild(stackLayout);
-        stackLayout.addOnAttachStateChangeListener(this);
         return stackLayout;
     }
 
@@ -380,8 +364,16 @@ public class StackController extends ParentController<StackLayout> implements Vi
         if (isEmpty()) return;
         ViewGroup child = peek().getView();
         child.setId(CompatUtils.generateViewId());
+        peek().addOnAppearedListener(this::startChildrenBellowTopChild);
         presenter.applyInitialChildLayoutOptions(resolveCurrentOptions());
         stackLayout.addView(child, 0, matchParentWithBehaviour(new StackBehaviour(this)));
+    }
+
+    private void startChildrenBellowTopChild() {
+        ArrayList<ViewController> children = new ArrayList(getChildControllers());
+        for (int i = children.size() - 2; i >= 0; i--) {
+            children.get(i).start();
+        }
     }
 
     private void onNavigationButtonPressed(String buttonId) {
